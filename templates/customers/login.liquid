@@ -1,0 +1,30 @@
+<div class="customer-page container">
+  <div class="customer-form-box">
+    <h1 class="section-title">Entrar</h1>
+
+    {% form 'customer_login', class: 'customer-form' %}
+      {{ form.errors | default_errors }}
+
+      <div class="form-group">
+        <label for="CustomerEmail">Endereço de Email</label>
+        <input type="email" name="customer[email]" id="CustomerEmail" autocomplete="email" autofocus required placeholder="exemplo@email.com">
+      </div>
+
+      {% if form.password_needed %}
+        <div class="form-group">
+          <div class="form-group__header">
+            <label for="CustomerPassword">Palavra-passe</label>
+          </div>
+          <input type="password" name="customer[password]" id="CustomerPassword" autocomplete="current-password" required placeholder="A tua palavra-passe">
+        </div>
+      {% endif %}
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn--primary">Iniciar Sessão</button>
+        <p class="customer-form__meta">
+          Novo cliente? <a href="/account/register">Criar uma conta</a>
+        </p>
+      </div>
+    {% endform %}
+  </div>
+</div>

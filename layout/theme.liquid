@@ -21,22 +21,3 @@
     {{ content_for_footer }}
   </body>
 </html>
-<!doctype html>
-<html lang="pt">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>{{ page_title }} - Le Bordeu</title>
-    <link rel="stylesheet" href="{{ 'styles.css' | asset_url }}">
-    {{ content_for_header }}
-  </head>
-  <body class="theme-le-bordeu">
-    {% include 'header' %}
-
-    <main role="main">{{ content_for_layout }}</main>
-
-    {% include 'footer' %}
-    <script src="{{ 'theme.js' | asset_url }}" defer></script>
-    {{ content_for_footer }}
-  </body>
-</html>

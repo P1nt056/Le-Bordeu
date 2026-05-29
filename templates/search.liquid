@@ -1,0 +1,41 @@
+<div class="search-page container">
+  <h1 class="section-title">Pesquisa</h1>
+  
+  <div class="search-bar">
+    <form action="/search" method="get" role="search" class="search-form">
+      <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="Pesquise na nossa loja..." aria-label="Pesquise na nossa loja">
+      <button type="submit" class="btn btn--primary">Pesquisar</button>
+    </form>
+  </div>
+
+  {% if search.performed %}
+    <div class="search-results">
+      {% if search.results_count == 0 %}
+        <p class="search-no-results">Não foram encontrados resultados para "<em>{{ search.terms | escape }}</em>".</p>
+      {% else %}
+        <p class="search-results-count">Encontrados {{ search.results_count }} resultados para "<em>{{ search.terms | escape }}</em>":</p>
+        <div class="products-grid">
+          {% for item in search.results %}
+            {% if item.object_type == 'product' %}
+              <!-- Product Card -->
+              <div class="product-card">
+                <a href="{{ item.url }}">
+                  <div class="product-card__media">
+                    <img src="{{ item.featured_image | img_url: '800x' }}" alt="{{ item.title }}" loading="lazy">
+                  </div>
+                  <div class="product-card__info">
+                    <h3>{{ item.title }}</h3>
+                    <div class="price">
+                      <span class="price--normal">{{ item.price | money }}</span>
+                    </div>
+                  </div>
+                </a>
+                <a href="{{ item.url }}" class="btn btn--primary btn--buy" style="text-align: center; text-decoration: none;">Ver Produto</a>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+</div>

@@ -1,0 +1,36 @@
+<div class="customer-page container">
+  <div class="customer-form-box">
+    <h1 class="section-title">Criar Conta</h1>
+
+    {% form 'create_customer', class: 'customer-form' %}
+      {{ form.errors | default_errors }}
+
+      <div class="form-group">
+        <label for="FirstName">Primeiro Nome</label>
+        <input type="text" name="customer[first_name]" id="FirstName" autocomplete="given-name" placeholder="O teu nome">
+      </div>
+
+      <div class="form-group">
+        <label for="LastName">Último Nome</label>
+        <input type="text" name="customer[last_name]" id="LastName" autocomplete="family-name" placeholder="O teu apelido">
+      </div>
+
+      <div class="form-group">
+        <label for="CustomerEmail">Endereço de Email</label>
+        <input type="email" name="customer[email]" id="CustomerEmail" autocomplete="email" required placeholder="exemplo@email.com">
+      </div>
+
+      <div class="form-group">
+        <label for="CustomerPassword">Palavra-passe</label>
+        <input type="password" name="customer[password]" id="CustomerPassword" autocomplete="new-password" required placeholder="Palavra-passe segura">
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn--primary">Criar Conta</button>
+        <p class="customer-form__meta">
+          Já tem conta? <a href="/account/login">Iniciar sessão</a>
+        </p>
+      </div>
+    {% endform %}
+  </div>
+</div>

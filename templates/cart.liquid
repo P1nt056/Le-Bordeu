@@ -1,0 +1,57 @@
+<div class="cart-page container">
+  <h1 class="section-title">O Teu Carrinho</h1>
+
+  {% if cart.item_count == 0 %}
+    <div class="cart-empty">
+      <p>O seu carrinho está vazio de momento.</p>
+      <a href="/collections/all" class="btn btn--primary">Continuar a Comprar</a>
+    </div>
+  {% else %}
+    <form action="/cart" method="post" novalidate class="cart-form">
+      <div class="cart-items">
+        {% for item in cart.items %}
+          <div class="cart-item" data-key="{{ item.key }}">
+            <div class="cart-item__media">
+              <a href="{{ item.url }}">
+                <img src="{{ item.image | img_url: '240x' }}" alt="{{ item.title | escape }}" loading="lazy">
+              </a>
+            </div>
+            
+            <div class="cart-item__details">
+              <h3><a href="{{ item.url }}">{{ item.product.title }}</a></h3>
+              {% unless item.product.has_only_default_variant %}
+                <p class="cart-item__variant">{{ item.variant.title }}</p>
+              {% endunless %}
+              <p class="cart-item__price">{{ item.price | money }}</p>
+            </div>
+
+            <div class="cart-item__quantity">
+              <label for="updates_{{ item.key }}" class="visually-hidden">Quantidade</label>
+              <input type="number" name="updates[]" id="updates_{{ item.key }}" value="{{ item.quantity }}" min="0" aria-label="Quantidade">
+            </div>
+
+            <div class="cart-item__total">
+              <span class="cart-item__line-price">{{ item.line_price | money }}</span>
+              <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="cart-item__remove" aria-label="Remover item">✕</a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="cart-footer">
+        <div class="cart-totals">
+          <div class="cart-totals__row">
+            <span class="label">Subtotal:</span>
+            <span class="value">{{ cart.total_price | money }}</span>
+          </div>
+          <p class="cart-tax-note">Impostos e portes calculados na finalização da compra.</p>
+        </div>
+
+        <div class="cart-actions">
+          <button type="submit" name="checkout" class="btn btn--primary">Finalizar Compra</button>
+          <button type="submit" name="update" class="btn btn--secondary">Atualizar Carrinho</button>
+        </div>
+      </div>
+    </form>
+  {% endif %}
+</div>
