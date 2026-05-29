@@ -1,0 +1,22 @@
+<div class="gallery" data-product-id="{{ product.id }}">
+  <div class="gallery__main">
+    {% assign first = product.images.first %}
+    <div class="gallery__image" data-full="{{ first | img_url: '2048x' }}">
+      <img src="{{ first | img_url: '1024x' }}" alt="{{ product.title }}" loading="lazy">
+    </div>
+  </div>
+  {% if product.images.size > 1 %}
+  <div class="gallery__thumbnails">
+    {% for img in product.images %}
+      <button class="thumb" data-src="{{ img | img_url: '1024x' }}" data-full="{{ img | img_url: '2048x' }}" aria-label="Ver imagem {{ forloop.index }}">
+        <img src="{{ img | img_url: '160x' }}" alt="{{ product.title }}" loading="lazy">
+      </button>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <div class="lightbox" aria-hidden="true">
+    <button class="lightbox__close" aria-label="Fechar">✕</button>
+    <img class="lightbox__img" src="" alt="">
+  </div>
+</div>

@@ -1,0 +1,62 @@
+<section class="product-page container">
+  <div class="product-page__grid">
+    <div class="product-page__gallery">
+      {% include 'product-gallery' %}
+    </div>
+    <div class="product-page__details">
+      <h1 class="product-title">{{ product.title }}</h1>
+      <div class="product-prices">
+        {% if product.compare_at_price_max > product.price %}
+          <span class="price--old">{{ product.compare_at_price_max | money }}</span>
+          <span class="price--sale">{{ product.price | money }}</span>
+        {% else %}
+          <span class="price--normal">{{ product.price | money }}</span>
+        {% endif %}
+      </div>
+
+      <form method="post" action="/cart/add" id="add-to-cart-form">
+        <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+        {% if product.options.size > 1 %}
+          <div class="product-options">
+            {% for option in product.options_with_values %}
+              <label>{{ option.name }}</label>
+              <select name="options[{{ option.name }}]">
+                {% for value in option.values %}
+                  <option value="{{ value }}">{{ value }}</option>
+                {% endfor %}
+              </select>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        <div class="product-actions">
+          <button type="submit" class="btn btn--primary">Comprar Agora</button>
+          <button type="button" class="btn btn--secondary" id="add-to-cart">Adicionar ao Carrinho</button>
+        </div>
+      </form>
+
+      <div class="product-meta">
+        <h3>Informação</h3>
+        <div class="product-description">{{ product.description }}</div>
+        <h4>Materiais e Cuidados</h4>
+        <p>{{ product.metafields.care.instructions }}</p>
+      </div>
+
+      {% section 'size-guide' %}
+      <div class="trust-messages">
+        <span>Pagamento 100% seguro</span> • <span>Envio rápido</span> • <span>Trocas simples</span>
+      </div>
+    </div>
+  </div>
+
+  {% section 'related-products' %}
+</section>
+
+{% schema %}
+{
+  "name":"Product page",
+  "settings":[],
+  "blocks":[],
+  "presets":[{"name":"Product"}]
+}
+{% endschema %}

@@ -1,0 +1,24 @@
+<section class="related-products container">
+  <h3 class="section-title">Produtos recomendados</h3>
+  <div class="splide related-splide" aria-label="Produtos recomendados">
+    <div class="splide__track">
+      <ul class="splide__list">
+      {% for product in collections['frontpage'].products limit:6 %}
+        <li class="splide__slide">
+          <div class="carousel__item">
+            <a href="{{ product.url }}">
+              <img src="{{ product.featured_image | img_url: '400x' }}" alt="{{ product.title }}" loading="lazy">
+              <h4>{{ product.title }}</h4>
+              <div class="price">{{ product.price | money }}</div>
+            </a>
+          </div>
+        </li>
+      {% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{"name":"Related products","settings":[],"presets":[{"name":"Related"}]}
+{% endschema %}

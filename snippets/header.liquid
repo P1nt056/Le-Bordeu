@@ -1,7 +1,7 @@
 <header class="site-header">
   <div class="site-header__inner container">
     <div class="logo"><a href="/">Le Bordeu</a></div>
-    <nav class="main-nav">
+    <nav id="main-navigation" class="main-nav" role="navigation" aria-label="Menu principal">
       <ul>
         <li><a href="/">Início</a></li>
         <li><a href="/collections/new">Novidades</a></li>
@@ -13,11 +13,11 @@
       </ul>
     </nav>
     <div class="header-icons">
-      <a href="/search" class="icon icon--search" aria-label="Pesquisar"></a>
-      <a href="/account" class="icon icon--account" aria-label="Conta"></a>
-      <a href="/cart" class="icon icon--cart" aria-label="Carrinho"></a>
+      <a href="/search" class="icon icon--search" aria-label="Pesquisar" role="button"></a>
+      <a href="/account" class="icon icon--account" aria-label="Conta" role="button"></a>
+      <a href="/cart" class="icon icon--cart" aria-label="Carrinho" role="button"></a>
     </div>
-    <button class="mobile-menu-btn" aria-label="Abrir menu">☰</button>
+    <button class="mobile-menu-btn" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-navigation">☰</button>
   </div>
 </header>
 <header class="site-header">
