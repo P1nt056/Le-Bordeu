@@ -1,0 +1,76 @@
+:root{
+  --bg-black:#0b0b0b;
+  --bg-white:#ffffff;
+  --bordo:#6f0f17; /* vermelho bordô */
+  --gold:#c7a97e; /* dourado fosco */
+  --muted:#777;
+}
+*{box-sizing:border-box}
+body{font-family:Inter, Arial, sans-serif;color:var(--bg-black);background:var(--bg-white);margin:0}
+.container{max-width:1200px;margin:0 auto;padding:0 20px}
+
+/* Header */
+.site-header{position:fixed;top:0;left:0;right:0;z-index:50;background:transparent;transition:background .3s,box-shadow .3s;padding:18px 0}
+.site-header.solid{background:var(--bg-white);box-shadow:0 4px 18px rgba(0,0,0,.06)}
+.site-header .logo a{font-weight:700;font-size:20px;color:var(--bg-black);text-decoration:none}
+.main-nav ul{display:flex;gap:20px;list-style:none;margin:0;padding:0}
+.main-nav a{color:var(--bg-black);text-decoration:none;opacity:.9;transition:color .18s,transform .18s}
+.main-nav a:hover{transform:translateY(-2px);color:var(--bordo)}
+.header-icons{display:flex;gap:12px;align-items:center}
+.icon{width:28px;height:28px;display:inline-block;background:linear-gradient(#fff,#eee);border-radius:4px}
+
+/* Hero */
+.hero{position:relative;min-height:72vh;display:flex;align-items:center;color:var(--bg-white);overflow:hidden}
+.hero__media img{width:100%;height:100%;object-fit:cover;filter:brightness(.6);transform:scale(1.02);transition:transform .8s}
+.hero__content{position:absolute;left:50%;top:45%;transform:translate(-50%,-45%);text-align:center}
+.hero__title{font-size:42px;margin:0 0 12px}
+.hero__subtitle{margin:0 0 20px;color:rgba(255,255,255,.9)}
+.btn{display:inline-block;padding:12px 22px;border-radius:8px;text-decoration:none}
+.btn--primary{background:var(--bordo);color:#fff}
+.btn--secondary{border:1px solid var(--gold);color:var(--gold);background:transparent}
+.btn--ghost{background:transparent;border:1px solid rgba(255,255,255,.2);color:#fff;padding:8px 16px}
+
+/* Collections */
+.section-title{font-size:28px;margin:40px 0}
+.collections__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px}
+.collection-card{position:relative;overflow:hidden;border-radius:8px}
+.collection-card img{width:100%;height:320px;object-fit:cover;transition:transform .6s,filter .4s}
+.collection-card:hover img{transform:scale(1.06);filter:brightness(.7)}
+.collection-card__meta{position:absolute;left:16px;bottom:16px;color:#fff}
+.collection-card__meta h3{margin:0;font-size:18px}
+
+/* Products */
+.products-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.product-card{background:#fff;border-radius:6px;padding:12px;display:flex;flex-direction:column;align-items:stretch}
+.product-card__media{position:relative;overflow:hidden;border-radius:6px}
+.product-card__media img{width:100%;display:block;transition:opacity .3s}
+.product-card__media .hover-img{position:absolute;top:0;left:0;opacity:0}
+.product-card:hover .hover-img{opacity:1}
+.price{margin-top:8px}
+.price--old{text-decoration:line-through;color:var(--muted);margin-right:8px}
+.price--sale{color:var(--bordo);font-weight:600}
+.tag--sale{background:var(--bordo);color:#fff;padding:4px 8px;border-radius:4px;font-size:12px;margin-left:8px}
+.btn--buy{margin-top:10px}
+
+/* Editorial */
+.editorial{display:flex;gap:20px;align-items:center;padding:40px 0}
+.editorial__media img{width:100%;max-width:540px;border-radius:8px}
+
+/* Newsletter */
+.newsletter__box{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:28px;border-radius:8px;background:var(--bg-white);border:1px solid #f0f0f0}
+.newsletter__form input[type=email]{padding:12px;border:1px solid #ddd;border-radius:6px;margin-right:8px}
+
+/* Footer */
+.site-footer{background:var(--bg-black);color:#fff;padding:40px 0}
+.site-footer a{color:var(--gold)}
+
+/* Responsive */
+@media (max-width:768px){
+  .hero__title{font-size:26px}
+  .editorial{flex-direction:column}
+  .product-card{padding:8px}
+}
+
+/* Simple fade-in on scroll helper */
+.fade-in{opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .6s ease}
+.fade-in.in-view{opacity:1;transform:none}

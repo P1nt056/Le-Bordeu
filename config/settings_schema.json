@@ -1,0 +1,9 @@
+[
+  {
+    "name":"Colors",
+    "settings":[
+      {"type":"color","id":"color_bordo","label":"Vermelho bordô","default":"#6f0f17"},
+      {"type":"color","id":"color_gold","label":"Dourado fosco","default":"#c7a97e"}
+    ]
+  }
+]
