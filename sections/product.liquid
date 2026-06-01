@@ -16,11 +16,11 @@
 
       <form method="post" action="/cart/add" id="add-to-cart-form">
         <input type="hidden" name="id" value="{{ product.variants.first.id }}">
-        {% if product.options.size > 1 %}
+        {% if product.variants.size > 1 %}
           <div class="product-options">
             {% for option in product.options_with_values %}
               <label>{{ option.name }}</label>
-              <select name="options[{{ option.name }}]">
+              <select name="options[{{ option.name }}]" class="single-option-selector" data-index="option{{ forloop.index }}">
                 {% for value in option.values %}
                   <option value="{{ value }}">{{ value }}</option>
                 {% endfor %}
@@ -34,17 +34,38 @@
           <button type="button" class="btn btn--secondary" id="add-to-cart">Adicionar ao Carrinho</button>
         </div>
       </form>
+      
+      <script type="application/json" id="ProductJson-{{ product.id }}">
+        {{ product | json }}
+      </script>
 
-      <div class="product-meta">
-        <h3>Informação</h3>
-        <div class="product-description">{{ product.description }}</div>
-        <h4>Materiais e Cuidados</h4>
-        <p>{{ product.metafields.care.instructions }}</p>
-      </div>
+      <!-- DEBUG VARIANT STOCK LEVELS:
+      {% for v in product.variants %}
+        - {{ v.title }}: id={{ v.id }} | available={{ v.available }} | qty={{ v.inventory_quantity }} | option1={{ v.option1 }} | option2={{ v.option2 }}
+      {% endfor %}
+      -->
 
-      {% section 'size-guide' %}
       <div class="trust-messages">
         <span>Pagamento 100% seguro</span> • <span>Envio rápido</span> • <span>Trocas simples</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detailed Luxury Info Section below the fold -->
+  <div class="product-page__info-section">
+    <div class="product-page__info-grid">
+      <div class="product-page__info-main">
+        <h2 class="info-section-title">Descrição do Produto</h2>
+        <div class="product-description">{{ product.description }}</div>
+      </div>
+      <div class="product-page__info-sidebar">
+        {% if product.metafields.care.instructions != blank or product.metafields.care.instructions != nil %}
+          <div class="info-care-box">
+            <h3>Materiais & Cuidados</h3>
+            <p>{{ product.metafields.care.instructions }}</p>
+          </div>
+        {% endif %}
+        {% section 'size-guide' %}
       </div>
     </div>
   </div>

@@ -30,6 +30,12 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+button, input, select, textarea {
+  font-family: inherit;
+  color: inherit;
+}
+
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
@@ -977,39 +983,137 @@ h1, h2, h3, h4, h5, h6, .logo {
   padding: 16px;
 }
 
-.product-meta {
+/* Product Page Detailed Info Section Layout */
+.product-page__info-section {
+  margin-top: 60px;
+  padding-top: 60px;
   border-top: 1px solid var(--border-color);
-  padding-top: 35px;
 }
-.product-meta h3 {
-  font-size: 18px;
-  margin-bottom: 15px;
+
+.product-page__info-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 60px;
+  align-items: start;
+}
+
+@media (max-width: 991px) {
+  .product-page__info-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+.info-section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  color: var(--color-gold);
+  margin-bottom: 25px;
   letter-spacing: 0.05em;
+  position: relative;
+  display: inline-block;
 }
+
+.info-section-title::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 40px;
+  height: 2px;
+  background: var(--color-gold);
+}
+
 .product-description {
   font-size: 15px;
   color: var(--text-cream);
-  opacity: 0.85;
+  opacity: 0.9;
   line-height: 1.8;
   margin-bottom: 35px;
   font-weight: 300;
 }
-.product-meta h4 {
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: var(--color-gold);
-  margin-bottom: 10px;
-}
-.product-meta p {
-  font-size: 14px;
-  color: var(--text-muted);
-  line-height: 1.6;
-  margin-bottom: 25px;
+
+.product-description p {
+  margin-bottom: 20px;
 }
 
+.product-description img {
+  max-width: 100% !important;
+  width: auto !important;
+  max-height: 480px;
+  height: auto !important;
+  display: block;
+  margin: 25px auto;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+  transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
+}
+
+.product-description img:hover {
+  transform: scale(1.01);
+  box-shadow: 0 15px 45px rgba(197, 168, 128, 0.12);
+}
+
+.product-description table {
+  width: 100% !important;
+  margin: 25px 0 !important;
+  border-collapse: collapse !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+.product-description td, .product-description th {
+  padding: 12px 15px !important;
+  border: 1px solid var(--border-color) !important;
+  color: var(--text-cream) !important;
+  font-size: 13px !important;
+  background: transparent !important;
+}
+
+.product-description th {
+  color: var(--color-gold) !important;
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  background: var(--bg-dark-secondary) !important;
+}
+
+.product-description tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.02) !important;
+}
+
+/* Sidebar Boxes */
+.info-care-box {
+  background: var(--bg-dark-secondary);
+  border: 1px solid var(--border-color);
+  padding: 24px;
+  margin-bottom: 30px;
+  border-radius: 4px;
+  transition: border-color 0.3s ease;
+}
+
+.info-care-box:hover {
+  border-color: var(--color-gold);
+}
+
+.info-care-box h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  color: var(--color-gold);
+  margin-bottom: 12px;
+  letter-spacing: 0.05em;
+}
+
+.info-care-box p {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+
 .size-guide {
-  margin-top: 40px;
+  margin-top: 0;
   background: var(--bg-dark-secondary);
   border: 1px solid var(--border-color);
   padding: 24px;
@@ -1440,4 +1544,56 @@ a:focus, button:focus, input:focus, select:focus {
   color: var(--text-cream);
   opacity: 0.85;
   margin-bottom: 30px;
+}
+
+/* Collection Pages & Lists */
+.collection-page, .collections-list-page {
+  padding: 160px 0 100px;
+  min-height: 75vh;
+}
+.collection-count {
+  text-align: center;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-top: -30px;
+  margin-bottom: 50px;
+}
+.collection-empty {
+  text-align: center;
+  padding: 60px 0;
+}
+.collection-empty p {
+  font-size: 18px;
+  color: var(--text-cream);
+  opacity: 0.8;
+  margin-bottom: 30px;
+  letter-spacing: 0.05em;
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 60px;
+  font-size: 14px;
+  letter-spacing: 0.05em;
+}
+.pagination a, .pagination .current, .pagination .deco {
+  padding: 8px 16px;
+  border: 1px solid var(--border-color);
+  text-decoration: none;
+  color: var(--text-cream);
+  transition: var(--transition);
+}
+.pagination a:hover {
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+  background: rgba(197, 168, 128, 0.05);
+}
+.pagination .current {
+  background: var(--color-gold);
+  color: var(--bg-dark-primary);
+  border-color: var(--color-gold);
 }

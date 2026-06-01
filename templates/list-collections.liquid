@@ -1,0 +1,22 @@
+<div class="collections-list-page container">
+  <h1 class="section-title">As Nossas Coleções</h1>
+  
+  <div class="collections__grid">
+    {% for collection in collections %}
+      {% unless collection.handle == 'frontpage' %}
+        <a class="collection-card" href="{{ collection.url }}">
+          {% if collection.image %}
+            <img src="{{ collection.image | img_url: '800x' }}" alt="{{ collection.title }}" loading="lazy">
+          {% else %}
+            <!-- Fallback to first product image if collection doesn't have an image -->
+            <img src="{{ collection.products.first.featured_image | img_url: '800x' }}" alt="{{ collection.title }}" loading="lazy">
+          {% endif %}
+          <div class="collection-card__meta">
+            <h3>{{ collection.title }}</h3>
+            <span class="btn btn--ghost">Ver Coleção ({{ collection.products_count }} produtos)</span>
+          </div>
+        </a>
+      {% endunless %}
+    {% endfor %}
+  </div>
+</div>
