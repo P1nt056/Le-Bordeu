@@ -51,26 +51,39 @@
     </div>
   </div>
 
+
   <!-- Detailed Luxury Info Section below the fold -->
   <div class="product-page__info-section">
+    <div class="product-page__info-header">
+      <span class="product-page__eyebrow">Detalhes do Produto</span>
+      <h2 class="info-section-title">Descricao do Produto</h2>
+      <p>Construido para acompanhar o ritmo do dia a dia com presenca, conforto e acabamento premium.</p>
+    </div>
+
     <div class="product-page__info-grid">
       <div class="product-page__info-main">
-        <h2 class="info-section-title">Descrição do Produto</h2>
-        <div class="product-description">{{ product.description }}</div>
-      </div>
-      <div class="product-page__info-sidebar">
-        {% if product.metafields.care.instructions != blank or product.metafields.care.instructions != nil %}
-          <div class="info-care-box">
-            <h3>Materiais & Cuidados</h3>
-            <p>{{ product.metafields.care.instructions }}</p>
+
+        {% if product.description != blank %}
+          <div class="product-description-card product-description-card--standalone fade-in">
+            <div class="product-description-card__media">
+              {% if product.images[3] != blank %}
+                <img src="{{ product.images[3] | img_url: '1100x' }}" alt="{{ product.title | escape }} caracteristicas" loading="lazy">
+              {% elsif product.images[2] != blank %}
+                <img src="{{ product.images[2] | img_url: '1100x' }}" alt="{{ product.title | escape }} caracteristicas" loading="lazy">
+              {% elsif product.featured_image != blank %}
+                <img src="{{ product.featured_image | img_url: '1100x' }}" alt="{{ product.title | escape }} caracteristicas" loading="lazy">
+              {% endif %}
+            </div>
+            <div class="product-description-card__content">
+              <span class="product-story__kicker">Especificacoes</span>
+              <h3>Caracteristicas completas</h3>
+              <div class="product-description">{{ product.description }}</div>
+            </div>
           </div>
         {% endif %}
-        {% section 'size-guide' %}
       </div>
     </div>
   </div>
-
-  {% section 'related-products' %}
 </section>
 
 {% schema %}
