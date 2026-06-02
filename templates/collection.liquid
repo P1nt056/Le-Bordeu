@@ -9,36 +9,146 @@
       </div>
     {% else %}
       <p class="collection-count">{{ collection.all_products_count }} produtos encontrados</p>
-      
-      <div class="products-grid">
-        {% for product in collection.products %}
-          <!-- Product Card -->
-          <div class="product-card">
-            <a href="{{ product.url }}">
-              <div class="product-card__media">
-                {% if product.compare_at_price_max > product.price %}
-                  <span class="tag tag--sale">Promoção</span>
-                {% endif %}
-                <img src="{{ product.featured_image | img_url: '800x' }}" alt="{{ product.title }}" loading="lazy">
-                {% if product.images.size > 1 %}
-                  <img class="hover-img" src="{{ product.images[1] | img_url: '800x' }}" alt="{{ product.title }}" loading="lazy">
-                {% endif %}
+      <div class="collection-layout">
+        <aside class="collection-sidebar">
+          <div class="filters-header">
+            <h3 class="filters-title">Filtros</h3>
+            <button type="button" class="filters-clear" id="ClearFiltersBtn">Limpar filtros</button>
+          </div>
+          <form class="filter-form" id="CollectionFiltersForm">
+            <div class="filter-group">
+              <h4 class="filter-group-summary">Género</h4>
+              <div class="filter-group-display">
+                <ul class="filter-list">
+                  {% assign gender_options = "Homem, Mulher" | split: ", " %}
+                  {% for option in gender_options %}
+                    <li class="filter-list-item">
+                      <label class="filter-label">
+                        {% assign tag_handle = option | handleize %}
+                        <input type="checkbox" class="custom-tag-checkbox" data-group="genero" value="{{ tag_handle }}" {% if current_tags contains tag_handle or current_tags contains option %}checked{% endif %}>
+                        <span class="filter-text">{{ option }}</span>
+                      </label>
+                    </li>
+                  {% endfor %}
+                </ul>
               </div>
-              <div class="product-card__info">
-                <h3>{{ product.title }}</h3>
-                <div class="price">
-                  {% if product.compare_at_price_max > product.price %}
-                    <span class="price--old">{{ product.compare_at_price_max | money }}</span>
-                    <span class="price--sale">{{ product.price | money }}</span>
-                  {% else %}
-                    <span class="price--normal">{{ product.price | money }}</span>
-                  {% endif %}
+            </div>
+
+            <div class="filter-group">
+              <h4 class="filter-group-summary">Tipo</h4>
+              <div class="filter-group-display">
+                <ul class="filter-list">
+                  {% assign type_options = "T-shirts, Macacões, Vestidos, Relógios" | split: ", " %}
+                  {% for option in type_options %}
+                    <li class="filter-list-item">
+                      <label class="filter-label">
+                        {% assign tag_handle = option | handleize %}
+                        <input type="checkbox" class="custom-tag-checkbox" data-group="tipo" value="{{ tag_handle }}" {% if current_tags contains tag_handle or current_tags contains option %}checked{% endif %}>
+                        <span class="filter-text">{{ option }}</span>
+                      </label>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+            {%- for filter in collection.filters -%}
+              {%- if filter.param_name == 'filter.v.availability' -%}
+                {%- continue -%}
+              {%- endif -%}
+              <div class="filter-group">
+                <h4 class="filter-group-summary">{{ filter.label }}</h4>
+                <div class="filter-group-display">
+                  {%- case filter.type -%}
+                    {%- when 'boolean' or 'list' -%}
+                      <ul class="filter-list">
+                        {%- for filter_value in filter.values -%}
+                          <li class="filter-list-item">
+                            <label for="Filter-{{ filter.param_name }}-{{ forloop.index }}" class="filter-label{% if filter_value.count == 0 and filter_value.active == false %} filter-label--disabled{% endif %}">
+                              <input type="checkbox"
+                                name="{{ filter_value.param_name }}"
+                                value="{{ filter_value.value }}"
+                                id="Filter-{{ filter.param_name }}-{{ forloop.index }}"
+                                {% if filter_value.active -%}checked{%- endif %}
+                                {% if filter_value.count == 0 and filter_value.active == false -%}disabled{%- endif %}
+                              >
+                              <span class="filter-checkbox"></span>
+                              {{ filter_value.label }} ({{ filter_value.count }})
+                            </label>
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                    {%- when 'price_range' -%}
+                      <div class="filter-price">
+                        <div class="filter-price__field">
+                          <span class="filter-price__currency">{{ cart.currency.symbol }}</span>
+                          <input name="{{ filter.min_value.param_name }}"
+                            id="Filter-{{ filter.min_value.param_name }}"
+                            {% if filter.min_value.value -%}
+                              value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
+                            {%- endif %}
+                            type="number"
+                            placeholder="0"
+                            min="0"
+                            max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                          >
+                        </div>
+                        <span class="filter-price__separator">-</span>
+                        <div class="filter-price__field">
+                          <span class="filter-price__currency">{{ cart.currency.symbol }}</span>
+                          <input name="{{ filter.max_value.param_name }}"
+                            id="Filter-{{ filter.max_value.param_name }}"
+                            {% if filter.max_value.value -%}
+                              value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
+                            {%- endif %}
+                            type="number"
+                            placeholder="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                            min="0"
+                            max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                          >
+                        </div>
+                      </div>
+                  {%- endcase -%}
                 </div>
               </div>
-            </a>
-            <a href="{{ product.url }}" class="btn btn--primary btn--buy" style="text-align: center; text-decoration: none;">Ver Produto</a>
+            {%- endfor -%}
+            <noscript>
+              <button type="submit" class="btn btn--primary" style="margin-top: 15px; width: 100%;">Aplicar</button>
+            </noscript>
+          </form>
+        </aside>
+
+        <div class="collection-main">
+          <div class="products-grid">
+            {% for product in collection.products %}
+              <!-- Product Card -->
+              <div class="product-card">
+                <a href="{{ product.url }}">
+                  <div class="product-card__media">
+                    {% if product.compare_at_price_max > product.price %}
+                      <span class="tag tag--sale">Promoção</span>
+                    {% endif %}
+                    <img src="{{ product.featured_image | img_url: '800x' }}" alt="{{ product.title }}" loading="lazy">
+                    {% if product.images.size > 1 %}
+                      <img class="hover-img" src="{{ product.images[1] | img_url: '800x' }}" alt="{{ product.title }}" loading="lazy">
+                    {% endif %}
+                  </div>
+                  <div class="product-card__info">
+                    <h3>{{ product.title }}</h3>
+                    <div class="price">
+                      {% if product.compare_at_price_max > product.price %}
+                        <span class="price--old">{{ product.compare_at_price_max | money }}</span>
+                        <span class="price--sale">{{ product.price | money }}</span>
+                      {% else %}
+                        <span class="price--normal">{{ product.price | money }}</span>
+                      {% endif %}
+                    </div>
+                  </div>
+                </a>
+                <a href="{{ product.url }}" class="btn btn--primary btn--buy" style="text-align: center; text-decoration: none;">Ver Produto</a>
+              </div>
+            {% endfor %}
           </div>
-        {% endfor %}
+        </div>
       </div>
       
       {% if paginate.pages > 1 %}
