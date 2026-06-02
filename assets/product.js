@@ -76,7 +76,14 @@ document.addEventListener('DOMContentLoaded',()=>{
         .then(data => {
           addToCartBtn.innerText = 'Adicionado!';
           setTimeout(() => {
-            window.location.href = '/cart';
+            if (window.refreshCartDrawer && window.openCartDrawer) {
+              window.refreshCartDrawer();
+              window.openCartDrawer();
+              addToCartBtn.innerText = 'Adicionar ao Carrinho';
+              addToCartBtn.disabled = false;
+            } else {
+              window.location.href = '/cart';
+            }
           }, 400);
         })
         .catch(err => {

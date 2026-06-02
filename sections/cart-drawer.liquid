@@ -1,0 +1,56 @@
+<div class="cart-drawer-inner">
+  <div class="cart-drawer__header">
+    <h2 class="cart-drawer__title">O Teu Carrinho</h2>
+    <button type="button" class="cart-drawer__close" aria-label="Fechar Carrinho">✕</button>
+  </div>
+
+  <div class="cart-drawer__body">
+    {% if cart.item_count == 0 %}
+      <div class="cart-drawer__empty">
+        <p>O seu carrinho está vazio de momento.</p>
+        <button type="button" class="btn btn--primary cart-drawer__continue">Continuar a Comprar</button>
+      </div>
+    {% else %}
+      <div class="cart-drawer__items">
+        {% for item in cart.items %}
+          <div class="cart-drawer-item" data-key="{{ item.key }}">
+            <div class="cart-drawer-item__image">
+              <a href="{{ item.url }}">
+                <img src="{{ item.image | img_url: '120x' }}" alt="{{ item.title | escape }}" loading="lazy">
+              </a>
+            </div>
+            
+            <div class="cart-drawer-item__details">
+              <a href="{{ item.url }}" class="cart-drawer-item__title">{{ item.product.title }}</a>
+              {% unless item.product.has_only_default_variant %}
+                <p class="cart-drawer-item__variant">{{ item.variant.title }}</p>
+              {% endunless %}
+              <div class="cart-drawer-item__price">{{ item.price | money }}</div>
+
+              <div class="cart-drawer-item__actions">
+                <div class="cart-drawer-item__quantity">
+                  <button type="button" class="qty-btn minus" data-key="{{ item.key }}" data-qty="{{ item.quantity | minus: 1 }}">-</button>
+                  <input type="number" readonly value="{{ item.quantity }}">
+                  <button type="button" class="qty-btn plus" data-key="{{ item.key }}" data-qty="{{ item.quantity | plus: 1 }}">+</button>
+                </div>
+                <button type="button" class="cart-drawer-item__remove" data-key="{{ item.key }}">Remover</button>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+
+  {% if cart.item_count > 0 %}
+    <div class="cart-drawer__footer">
+      <div class="cart-drawer__subtotal">
+        <span>Subtotal</span>
+        <span>{{ cart.total_price | money }}</span>
+      </div>
+      <p class="cart-drawer__tax-note">Impostos e portes calculados na finalização da compra.</p>
+      <a href="/checkout" class="btn btn--primary cart-drawer__checkout">Finalizar Compra</a>
+      <a href="/cart" class="btn btn--secondary cart-drawer__view-cart">Ver Carrinho</a>
+    </div>
+  {% endif %}
+</div>
