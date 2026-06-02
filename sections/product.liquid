@@ -19,7 +19,12 @@
         {% if product.variants.size > 1 %}
           <div class="product-options">
             {% for option in product.options_with_values %}
-              <label>{{ option.name }}</label>
+              <div class="option-header" style="display: flex; justify-content: space-between; align-items: center;">
+                <label>{{ option.name }}</label>
+                {% if option.name == 'Size' or option.name == 'Tamanho' or option.name == 'size' %}
+                  <a href="#" class="size-guide-trigger" style="color: var(--color-gold); font-size: 0.85rem; text-decoration: underline;">Ver tabela de tamanhos</a>
+                {% endif %}
+              </div>
               <select name="options[{{ option.name }}]" class="single-option-selector" data-index="option{{ forloop.index }}">
                 {% for value in option.values %}
                   <option value="{{ value }}">{{ value }}</option>
@@ -37,6 +42,66 @@
       
       <script type="application/json" id="ProductJson-{{ product.id }}">
         {{ product | json }}
+      </script>
+
+      <div class="size-guide-modal" aria-hidden="true" style="display: none;">
+        <div class="size-guide-modal__overlay"></div>
+        <div class="size-guide-modal__content">
+          <button class="size-guide-modal__close" aria-label="Fechar">✕</button>
+          <div class="size-guide-modal__body">
+            <!-- Table will be injected here via JS -->
+          </div>
+        </div>
+      </div>
+
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const sizeTriggers = document.querySelectorAll('.size-guide-trigger');
+          const sizeModal = document.querySelector('.size-guide-modal');
+          
+          if (sizeTriggers.length > 0 && sizeModal) {
+            const modalBody = sizeModal.querySelector('.size-guide-modal__body');
+            const modalClose = sizeModal.querySelector('.size-guide-modal__close');
+            const modalOverlay = sizeModal.querySelector('.size-guide-modal__overlay');
+            
+            const closeSizeModal = (e) => {
+              if (e) e.preventDefault();
+              sizeModal.style.display = 'none';
+              sizeModal.setAttribute('aria-hidden', 'true');
+              document.body.style.overflow = '';
+            };
+
+            modalClose.addEventListener('click', closeSizeModal);
+            modalOverlay.addEventListener('click', closeSizeModal);
+            
+            document.addEventListener('keydown', (e) => {
+              if (e.key === 'Escape' && sizeModal.style.display !== 'none') closeSizeModal();
+            });
+
+            sizeTriggers.forEach(trigger => {
+              trigger.addEventListener('click', (e) => {
+                e.preventDefault();
+                console.log('Size guide trigger clicked');
+                
+                const descrTable = document.querySelector('.product-description table');
+                console.log('Table found:', descrTable);
+                
+                if (descrTable) {
+                  modalBody.innerHTML = '';
+                  const clonedTable = descrTable.cloneNode(true);
+                  modalBody.appendChild(clonedTable);
+                  
+                  sizeModal.style.display = 'flex';
+                  sizeModal.setAttribute('aria-hidden', 'false');
+                  document.body.style.overflow = 'hidden';
+                } else {
+                  const descBlock = document.querySelector('.product-description');
+                  if (descBlock) descBlock.scrollIntoView({ behavior: 'smooth' });
+                }
+              });
+            });
+          }
+        });
       </script>
 
       <!-- DEBUG VARIANT STOCK LEVELS:
