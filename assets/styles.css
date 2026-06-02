@@ -842,7 +842,7 @@ h1, h2, h3, h4, h5, h6, .logo {
 }
 .product-page__grid {
   display: grid;
-  grid-template-columns: 1.25fr 0.75fr;
+  grid-template-columns: 1fr 1fr;
   gap: 80px;
   align-items: start;
 }
@@ -850,41 +850,66 @@ h1, h2, h3, h4, h5, h6, .logo {
   .product-page__grid { grid-template-columns: 1fr; gap: 40px; }
 }
 
-.product-page__gallery .gallery__main {
-  cursor: zoom-in;
-  border: 1px solid var(--border-color);
-  overflow: hidden;
-  background-color: var(--bg-dark-secondary);
-}
-.gallery__main img {
+.product-page__gallery {
+  min-width: 0;
+  max-width: 400px;
+  margin: 0 auto;
   width: 100%;
+}
+.product-gallery-splide {
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-dark-secondary);
+  aspect-ratio: 3/4;
+}
+.product-gallery-splide .splide__arrow--prev {
+  left: -50px;
+}
+.product-gallery-splide .splide__arrow--next {
+  right: -50px;
+}
+@media (max-width: 991px) {
+  .product-gallery-splide .splide__arrow--prev { left: 10px; }
+  .product-gallery-splide .splide__arrow--next { right: 10px; }
+}
+.product-gallery-splide .splide__track,
+.product-gallery-splide .splide__list,
+.product-gallery-splide .splide__slide {
+  height: 100% !important;
+  width: 100% !important;
+}
+.gallery__image {
+  width: 100%;
+  height: 100%;
+}
+.gallery__image img {
+  width: 100%;
+  height: 100%;
   display: block;
   object-fit: cover;
-  max-height: 750px;
 }
-.gallery__thumbnails {
-  display: flex;
-  gap: 15px;
+.product-gallery-thumbnails {
   margin-top: 15px;
-  overflow-x: auto;
 }
-.gallery__thumbnails .thumb {
+.product-gallery-thumbnails .thumb {
   border: 1px solid var(--border-color);
   background: var(--bg-dark-tertiary);
   padding: 0;
   cursor: pointer;
-  width: 88px;
-  height: 88px;
-  flex-shrink: 0;
+  width: 100%;
+  height: 100%;
   transition: var(--transition);
 }
-.gallery__thumbnails .thumb:hover, .gallery__thumbnails .thumb.hover {
+.product-gallery-thumbnails .splide__slide.is-active .thumb {
   border-color: var(--color-gold);
 }
-.gallery__thumbnails img {
+.product-gallery-thumbnails .thumb:hover {
+  border-color: var(--color-gold-hover);
+}
+.product-gallery-thumbnails img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
 /* Lightbox zoom utility */

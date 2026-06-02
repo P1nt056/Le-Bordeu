@@ -126,3 +126,77 @@ document.addEventListener('DOMContentLoaded', function() {
   // Initial binding for inner elements
   bindCartDrawerInnerEvents();
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+  const mainGallery = document.querySelector('.product-gallery-splide');
+  const thumbGallery = document.querySelector('.product-gallery-thumbnails');
+
+  if (mainGallery) {
+    const mainSplide = new Splide(mainGallery, {
+      type: 'fade',
+      rewind: true,
+      pagination: false,
+      arrows: true,
+    });
+
+    if (thumbGallery) {
+      const thumbSplide = new Splide(thumbGallery, {
+        fixedWidth: 88,
+        fixedHeight: 88,
+        gap: 15,
+        rewind: true,
+        pagination: false,
+        isNavigation: true,
+        arrows: false,
+        focus: 'center',
+        breakpoints: {
+          600: {
+            fixedWidth: 60,
+            fixedHeight: 60,
+          }
+        }
+      });
+      mainSplide.sync(thumbSplide);
+      mainSplide.mount();
+      thumbSplide.mount();
+    } else {
+      mainSplide.mount();
+    }
+  }
+
+  // Lightbox Logic
+  const lightbox = document.querySelector('.lightbox');
+  const lightboxImg = document.querySelector('.lightbox__img');
+  const lightboxClose = document.querySelector('.lightbox__close');
+
+  if (lightbox && lightboxImg && lightboxClose) {
+    document.querySelectorAll('.product-gallery-splide .gallery__image img').forEach(img => {
+      img.style.cursor = 'zoom-in';
+      img.addEventListener('click', function() {
+        const fullSrc = this.getAttribute('data-full');
+        if (fullSrc) {
+          lightboxImg.src = fullSrc;
+          lightbox.setAttribute('aria-hidden', 'false');
+          lightbox.classList.add('open');
+          document.body.style.overflow = 'hidden';
+        }
+      });
+    });
+
+    const closeLightbox = () => {
+      lightbox.setAttribute('aria-hidden', 'true');
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+      setTimeout(() => { lightboxImg.src = ''; }, 300);
+    };
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+    
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
+    });
+  }
+});
