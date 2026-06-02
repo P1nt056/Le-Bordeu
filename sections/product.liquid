@@ -116,25 +116,130 @@
     </div>
   </div>
 
+
   <!-- Detailed Luxury Info Section below the fold -->
   <div class="product-page__info-section">
+    <div class="product-page__info-header">
+      <span class="product-page__eyebrow">Detalhes do Produto</span>
+      <h2 class="info-section-title">Descricao do Produto</h2>
+      <p>Construido para acompanhar o ritmo do dia a dia com presenca, conforto e acabamento premium.</p>
+    </div>
+
     <div class="product-page__info-grid">
       <div class="product-page__info-main">
-        <h2 class="info-section-title">Descrição do Produto</h2>
-        <div class="product-description">{{ product.description }}</div>
-      </div>
-      <div class="product-page__info-sidebar">
-        {% if product.metafields.care.instructions != blank or product.metafields.care.instructions != nil %}
-          <div class="info-care-box">
-            <h3>Materiais & Cuidados</h3>
-            <p>{{ product.metafields.care.instructions }}</p>
+
+        {% if product.description != blank %}
+          {% assign story_title_top = '' %}
+          {% assign story_text_top = '' %}
+          {% assign story_title_bottom = '' %}
+          {% assign story_text_bottom = '' %}
+          {% capture specs_html %}{% endcapture %}
+
+          {% assign description_parts = product.description | split: '</p>' %}
+          {% for part in description_parts %}
+            {% assign part_text = part | strip_html | strip %}
+            {% if part_text != blank %}
+              {% if part_text contains 'Título cima:' %}
+                {% assign story_title_top = part_text | split: 'Título cima:' | last | strip %}
+              {% elsif part_text contains 'Titulo cima:' %}
+                {% assign story_title_top = part_text | split: 'Titulo cima:' | last | strip %}
+              {% elsif part_text contains 'Título baixo:' %}
+                {% assign story_title_bottom = part_text | split: 'Título baixo:' | last | strip %}
+              {% elsif part_text contains 'Titulo baixo:' %}
+                {% assign story_title_bottom = part_text | split: 'Titulo baixo:' | last | strip %}
+              {% elsif part_text contains 'Texto cima:' %}
+                {% assign story_text_top = part_text | split: 'Texto cima:' | last | strip %}
+              {% elsif part_text contains 'Texto baixo:' %}
+                {% assign story_text_bottom = part_text | split: 'Texto baixo:' | last | strip %}
+              {% elsif part_text contains 'TextoCriado' %}
+                {% assign story_text_top = part_text | remove_first: 'Texto' | strip %}
+              {% elsif part_text contains 'Texto O' and story_title_bottom != blank %}
+                {% assign story_text_bottom = part_text | remove_first: 'Texto' | strip %}
+              {% elsif part_text contains 'Texto' and story_text_top == blank %}
+                {% assign story_text_top = part_text | remove_first: 'Texto' | strip %}
+              {% elsif part_text contains 'Texto' and story_text_bottom == blank %}
+                {% assign story_text_bottom = part_text | remove_first: 'Texto' | strip %}
+              {% else %}
+                {% capture specs_html %}{{ specs_html }}{{ part }}</p>{% endcapture %}
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+
+          {% assign has_story = false %}
+          {% if story_title_top != blank or story_text_top != blank or story_title_bottom != blank or story_text_bottom != blank %}
+            {% assign has_story = true %}
+          {% endif %}
+
+          {% if has_story %}
+            <div class="product-story">
+              <article class="product-story__row fade-in">
+                <div class="product-story__media">
+                  {% if product.images[1] != blank %}
+                    <img src="{{ product.images[1] | img_url: '1100x' }}" alt="{{ product.title | escape }} em detalhe" loading="lazy">
+                  {% elsif product.featured_image != blank %}
+                    <img src="{{ product.featured_image | img_url: '1100x' }}" alt="{{ product.title | escape }} em detalhe" loading="lazy">
+                  {% endif %}
+                </div>
+                <div class="product-story__content">
+                  <span class="product-story__kicker">Destaque</span>
+                  {% if story_title_top != blank %}
+                    <h3>{{ story_title_top }}</h3>
+                  {% endif %}
+                  {% if story_text_top != blank %}
+                    <p>{{ story_text_top }}</p>
+                  {% endif %}
+                </div>
+              </article>
+
+              <article class="product-story__row product-story__row--reverse fade-in">
+                <div class="product-story__media">
+                  {% if product.images[2] != blank %}
+                    <img src="{{ product.images[2] | img_url: '1100x' }}" alt="{{ product.title | escape }} em uso" loading="lazy">
+                  {% elsif product.featured_image != blank %}
+                    <img src="{{ product.featured_image | img_url: '1100x' }}" alt="{{ product.title | escape }} em uso" loading="lazy">
+                  {% endif %}
+                </div>
+                <div class="product-story__content">
+                  <span class="product-story__kicker">Detalhe</span>
+                  {% if story_title_bottom != blank %}
+                    <h3>{{ story_title_bottom }}</h3>
+                  {% endif %}
+                  {% if story_text_bottom != blank %}
+                    <p>{{ story_text_bottom }}</p>
+                  {% endif %}
+                </div>
+              </article>
+            </div>
+          {% endif %}
+
+          {% if specs_html != blank or has_story == false %}
+          <div class="product-description-card{% unless has_story %} product-description-card--standalone{% endunless %} fade-in">
+            <div class="product-description-card__media">
+              {% if product.images[3] != blank %}
+                <img src="{{ product.images[3] | img_url: '1100x' }}" alt="{{ product.title | escape }} caracteristicas" loading="lazy">
+              {% elsif product.images[2] != blank %}
+                <img src="{{ product.images[2] | img_url: '1100x' }}" alt="{{ product.title | escape }} caracteristicas" loading="lazy">
+              {% elsif product.featured_image != blank %}
+                <img src="{{ product.featured_image | img_url: '1100x' }}" alt="{{ product.title | escape }} caracteristicas" loading="lazy">
+              {% endif %}
+            </div>
+            <div class="product-description-card__content">
+              <span class="product-story__kicker">Especificacoes</span>
+              <h3>Caracteristicas completas</h3>
+              <div class="product-description">
+                {% if specs_html != blank %}
+                  {{ specs_html }}
+                {% else %}
+                  {{ product.description }}
+                {% endif %}
+              </div>
+            </div>
           </div>
+          {% endif %}
         {% endif %}
-        {% section 'size-guide' %}
       </div>
     </div>
   </div>
-
 </section>
 
 {% schema %}
