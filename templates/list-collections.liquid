@@ -1,22 +1,175 @@
 <div class="collections-list-page container">
-  <h1 class="section-title">As Nossas Coleções</h1>
+  <h1 class="section-title" id="collectionsTitle">As Nossas Coleções</h1>
   
-  <div class="collections__grid">
-    {% for collection in collections %}
-      {% unless collection.handle == 'frontpage' %}
-        <a class="collection-card" href="{{ collection.url }}">
-          {% if collection.image %}
-            <img src="{{ collection.image | img_url: '800x' }}" alt="{{ collection.title }}" loading="lazy">
-          {% else %}
-            <!-- Fallback to first product image if collection doesn't have an image -->
-            <img src="{{ collection.products.first.featured_image | img_url: '800x' }}" alt="{{ collection.title }}" loading="lazy">
-          {% endif %}
-          <div class="collection-card__meta">
-            <h3>{{ collection.title }}</h3>
-            <span class="btn btn--ghost">Ver Coleção ({{ collection.products_count }} produtos)</span>
-          </div>
-        </a>
-      {% endunless %}
-    {% endfor %}
+  <!-- Ecrã de Seleção Inicial de Género -->
+  <div class="collections-gender-selector" id="collectionsGenderSelector">
+    <div class="gender-card gender-card--men" id="selectMen">
+      <div class="gender-card__bg" style="background-image: url('https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?q=80&w=1200&auto=format&fit=crop');"></div>
+      <div class="gender-card__content">
+        <h2>Homem</h2>
+        <span class="btn btn--primary">Explorar Coleções</span>
+      </div>
+    </div>
+    <div class="gender-card gender-card--women" id="selectWomen">
+      <div class="gender-card__bg" style="background-image: url('https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?q=80&w=1200&auto=format&fit=crop');"></div>
+      <div class="gender-card__content">
+        <h2>Mulher</h2>
+        <span class="btn btn--primary">Explorar Coleções</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Conteúdo de Coleções Filtrado (Oculto Inicialmente) -->
+  <div class="collections-content hidden" id="collectionsContent">
+    <div class="collections-filter-nav">
+      <button class="btn btn--secondary btn--back" id="backToGenderSelector">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px; vertical-align: middle;"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Mudar Género
+      </button>
+      
+      <div class="gender-tabs">
+        <button class="gender-tab" data-gender="homem">Homem</button>
+        <button class="gender-tab" data-gender="mulher">Mulher</button>
+      </div>
+    </div>
+
+    <div class="collections__grid">
+      {% for collection in collections %}
+        {% unless collection.handle == 'frontpage' %}
+          {% assign has_homem = false %}
+          {% assign has_mulher = false %}
+          
+          {% for tag in collection.all_tags %}
+            {% assign tag_downcase = tag | downcase %}
+            {% if tag_downcase == 'homem' or tag_downcase == 'men' or tag_downcase == 'man' or tag_downcase == 'masculino' %}
+              {% assign has_homem = true %}
+            {% endif %}
+            {% if tag_downcase == 'mulher' or tag_downcase == 'women' or tag_downcase == 'woman' or tag_downcase == 'feminino' or tag_downcase == 'mulheres' %}
+              {% assign has_mulher = true %}
+            {% endif %}
+          {% endfor %}
+
+          <a class="collection-card" href="{{ collection.url }}" data-has-homem="{{ has_homem }}" data-has-mulher="{{ has_mulher }}">
+            {% if collection.image %}
+              <img src="{{ collection.image | img_url: '800x' }}" alt="{{ collection.title }}" loading="lazy">
+            {% else %}
+              <!-- Fallback to first product image if collection doesn't have an image -->
+              <img src="{{ collection.products.first.featured_image | img_url: '800x' }}" alt="{{ collection.title }}" loading="lazy">
+            {% endif %}
+            <div class="collection-card__meta">
+              <h3>{{ collection.title }}</h3>
+              <span class="btn btn--ghost">Ver Coleção ({{ collection.products_count }} produtos)</span>
+            </div>
+          </a>
+        {% endunless %}
+      {% endfor %}
+    </div>
+    
+    <div class="collections-empty-state hidden" id="collectionsEmptyState">
+      <p>Não foram encontradas coleções para a seleção atual.</p>
+    </div>
   </div>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const selector = document.getElementById('collectionsGenderSelector');
+    const content = document.getElementById('collectionsContent');
+    const btnMen = document.getElementById('selectMen');
+    const btnWomen = document.getElementById('selectWomen');
+    const btnBack = document.getElementById('backToGenderSelector');
+    const tabs = document.querySelectorAll('.gender-tab');
+    const cards = document.querySelectorAll('.collection-card');
+    const emptyState = document.getElementById('collectionsEmptyState');
+    const mainTitle = document.getElementById('collectionsTitle');
+    
+    function filterCollections(gender) {
+      let count = 0;
+      cards.forEach(card => {
+        const hasGender = card.getAttribute('data-has-' + gender) === 'true';
+        if (hasGender) {
+          card.classList.remove('hidden');
+          count++;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+      
+      if (count === 0) {
+        emptyState.classList.remove('hidden');
+      } else {
+        emptyState.classList.add('hidden');
+      }
+
+      // Atualizar o título dinamicamente para maior sofisticação
+      if (gender === 'homem') {
+        mainTitle.textContent = "Coleções de Homem";
+      } else if (gender === 'mulher') {
+        mainTitle.textContent = "Coleções de Mulher";
+      }
+
+      // Atualizar abas
+      tabs.forEach(tab => {
+        if (tab.getAttribute('data-gender') === gender) {
+          tab.classList.add('active');
+        } else {
+          tab.classList.remove('active');
+        }
+      });
+    }
+
+    function selectGender(gender) {
+      sessionStorage.setItem('preferred_gender', gender);
+      filterCollections(gender);
+      
+      selector.classList.add('fade-out');
+      setTimeout(() => {
+        selector.classList.add('hidden');
+        selector.classList.remove('fade-out');
+        
+        content.classList.remove('hidden');
+        content.classList.add('fade-in');
+        setTimeout(() => {
+          content.classList.remove('fade-in');
+        }, 500);
+      }, 500);
+    }
+
+    btnMen.addEventListener('click', () => selectGender('homem'));
+    btnWomen.addEventListener('click', () => selectGender('mulher'));
+
+    btnBack.addEventListener('click', function() {
+      sessionStorage.removeItem('preferred_gender');
+      mainTitle.textContent = "As Nossas Coleções";
+      
+      content.classList.add('fade-out');
+      setTimeout(() => {
+        content.classList.add('hidden');
+        content.classList.remove('fade-out');
+        
+        selector.classList.remove('hidden');
+        selector.classList.add('fade-in');
+        setTimeout(() => {
+          selector.classList.remove('fade-in');
+        }, 500);
+      }, 500);
+    });
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', function() {
+        const gender = this.getAttribute('data-gender');
+        sessionStorage.setItem('preferred_gender', gender);
+        filterCollections(gender);
+      });
+    });
+
+    // Validar se já existe preferência na sessão
+    const savedGender = sessionStorage.getItem('preferred_gender');
+    if (savedGender === 'homem' || savedGender === 'mulher') {
+      filterCollections(savedGender);
+      selector.classList.add('hidden');
+      content.classList.remove('hidden');
+    }
+  });
+</script>
+

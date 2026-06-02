@@ -1597,3 +1597,180 @@ a:focus, button:focus, input:focus, select:focus {
   color: var(--bg-dark-primary);
   border-color: var(--color-gold);
 }
+
+/* Gender Selection Screen & Filter Styling */
+.collections-gender-selector {
+  display: flex;
+  gap: 30px;
+  width: 100%;
+  min-height: 550px;
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+@media (max-width: 768px) {
+  .collections-gender-selector {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+.gender-card {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  min-height: 500px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-dark-secondary);
+  transition: var(--transition);
+  cursor: pointer;
+}
+.gender-card__bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 1.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease;
+  filter: brightness(0.4) contrast(1.05) grayscale(0.15);
+}
+.gender-card:hover .gender-card__bg {
+  transform: scale(1.05);
+  filter: brightness(0.65) contrast(1.05) grayscale(0);
+}
+.gender-card:hover {
+  border-color: var(--color-gold);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+  transform: translateY(-5px);
+}
+
+.gender-card__content {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  text-align: center;
+  background: radial-gradient(circle at center, rgba(8, 8, 8, 0.1) 0%, rgba(8, 8, 8, 0.7) 100%);
+}
+.gender-card__content h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 48px;
+  font-weight: 300;
+  color: #ffffff;
+  margin-bottom: 24px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+}
+.gender-card__content .btn {
+  opacity: 0;
+  transform: translateY(15px);
+  transition: var(--transition);
+}
+.gender-card:hover .btn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Collections Filter Navigation Bar */
+.collections-filter-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 50px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 25px;
+}
+@media (max-width: 768px) {
+  .collections-filter-nav {
+    flex-direction: column;
+    gap: 20px;
+    align-items: stretch;
+    text-align: center;
+  }
+  .collections-filter-nav .btn--back {
+    align-self: center;
+  }
+}
+
+.btn--back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  font-size: 11px;
+}
+
+.gender-tabs {
+  display: inline-flex;
+  gap: 5px;
+  background: var(--bg-dark-tertiary);
+  padding: 4px;
+  border: 1px solid var(--border-color);
+}
+.gender-tab {
+  background: transparent;
+  border: 0;
+  padding: 10px 24px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.gender-tab:hover {
+  color: var(--color-gold);
+}
+.gender-tab.active {
+  background: var(--color-gold);
+  color: var(--bg-dark-primary);
+  font-weight: 600;
+}
+
+/* Empty state styling */
+.collections-empty-state {
+  text-align: center;
+  padding: 80px 0;
+  font-size: 16px;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+/* Animation utilities */
+.hidden {
+  display: none !important;
+}
+
+.fade-out {
+  animation: collectionsFadeOut 0.4s forwards cubic-bezier(0.16, 1, 0.3, 1);
+}
+.fade-in {
+  animation: collectionsFadeIn 0.4s forwards cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes collectionsFadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+@keyframes collectionsFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
