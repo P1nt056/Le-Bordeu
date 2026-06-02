@@ -1,36 +1,52 @@
-<div class="customer-page container">
-  <div class="customer-form-box">
-    <h1 class="section-title">Criar Conta</h1>
+<div class="customer-page customer-page--auth container">
+  <div class="customer-auth customer-auth--register">
+    <div class="customer-auth__form">
+      <p class="customer-auth__eyebrow">Nova conta</p>
+      <h1 class="section-title">Criar Conta</h1>
+      <p class="customer-auth__intro">Cria uma conta para acompanhar encomendas e guardar os teus dados de compra.</p>
 
-    {% form 'create_customer', class: 'customer-form' %}
-      {{ form.errors | default_errors }}
+      {% form 'create_customer', class: 'customer-form' %}
+        {{ form.errors | default_errors }}
 
-      <div class="form-group">
-        <label for="FirstName">Primeiro Nome</label>
-        <input type="text" name="customer[first_name]" id="FirstName" autocomplete="given-name" placeholder="O teu nome">
-      </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="FirstName">Primeiro nome</label>
+            <input type="text" name="customer[first_name]" id="FirstName" autocomplete="given-name" placeholder="O teu nome">
+          </div>
 
-      <div class="form-group">
-        <label for="LastName">Último Nome</label>
-        <input type="text" name="customer[last_name]" id="LastName" autocomplete="family-name" placeholder="O teu apelido">
-      </div>
+          <div class="form-group">
+            <label for="LastName">Último nome</label>
+            <input type="text" name="customer[last_name]" id="LastName" autocomplete="family-name" placeholder="O teu apelido">
+          </div>
+        </div>
 
-      <div class="form-group">
-        <label for="CustomerEmail">Endereço de Email</label>
-        <input type="email" name="customer[email]" id="CustomerEmail" autocomplete="email" required placeholder="exemplo@email.com">
-      </div>
+        <div class="form-group">
+          <label for="CustomerEmail">Endereço de email</label>
+          <input type="email" name="customer[email]" id="CustomerEmail" autocomplete="email" required placeholder="exemplo@email.com">
+        </div>
 
-      <div class="form-group">
-        <label for="CustomerPassword">Palavra-passe</label>
-        <input type="password" name="customer[password]" id="CustomerPassword" autocomplete="new-password" required placeholder="Palavra-passe segura">
-      </div>
+        <div class="form-group">
+          <label for="CustomerPassword">Palavra-passe</label>
+          <input type="password" name="customer[password]" id="CustomerPassword" autocomplete="new-password" required placeholder="Palavra-passe segura">
+        </div>
 
-      <div class="form-actions">
-        <button type="submit" class="btn btn--primary">Criar Conta</button>
-        <p class="customer-form__meta">
-          Já tem conta? <a href="/account/login">Iniciar sessão</a>
-        </p>
-      </div>
-    {% endform %}
+        <div class="form-actions">
+          <button type="submit" class="btn btn--primary">Criar conta</button>
+          <p class="customer-form__meta">
+            Já tens conta? <a href="/account/login">Iniciar sessão</a>
+          </p>
+        </div>
+      {% endform %}
+    </div>
+
+    <aside class="customer-auth__aside" aria-label="Benefícios da conta">
+      <span class="customer-auth__mark">LB</span>
+      <h2>Detalhes guardados com discrição.</h2>
+      <ul>
+        <li>Moradas acessíveis em futuras compras.</li>
+        <li>Histórico de encomendas organizado.</li>
+        <li>Entrada rápida sempre que voltares.</li>
+      </ul>
+    </aside>
   </div>
 </div>

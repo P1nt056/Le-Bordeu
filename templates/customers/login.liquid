@@ -1,30 +1,58 @@
-<div class="customer-page container">
-  <div class="customer-form-box">
-    <h1 class="section-title">Entrar</h1>
+<div class="customer-page customer-page--auth container">
+  <div class="customer-auth">
+    <div class="customer-auth__form">
+      <p class="customer-auth__eyebrow">Área de cliente</p>
+      <h1 class="section-title">Entrar</h1>
+      <p class="customer-auth__intro">Acede à tua conta para consultar encomendas, dados de envio e detalhes guardados.</p>
 
-    {% form 'customer_login', class: 'customer-form' %}
-      {{ form.errors | default_errors }}
+      {% form 'customer_login', class: 'customer-form' %}
+        {{ form.errors | default_errors }}
 
-      <div class="form-group">
-        <label for="CustomerEmail">Endereço de Email</label>
-        <input type="email" name="customer[email]" id="CustomerEmail" autocomplete="email" autofocus required placeholder="exemplo@email.com">
-      </div>
-
-      {% if form.password_needed %}
         <div class="form-group">
-          <div class="form-group__header">
-            <label for="CustomerPassword">Palavra-passe</label>
-          </div>
-          <input type="password" name="customer[password]" id="CustomerPassword" autocomplete="current-password" required placeholder="A tua palavra-passe">
+          <label for="CustomerEmail">Endereço de email</label>
+          <input type="email" name="customer[email]" id="CustomerEmail" autocomplete="email" autofocus required placeholder="exemplo@email.com">
         </div>
-      {% endif %}
 
-      <div class="form-actions">
-        <button type="submit" class="btn btn--primary">Iniciar Sessão</button>
-        <p class="customer-form__meta">
-          Novo cliente? <a href="/account/register">Criar uma conta</a>
-        </p>
+        {% if form.password_needed %}
+          <div class="form-group">
+            <div class="form-group__header">
+              <label for="CustomerPassword">Palavra-passe</label>
+              <a href="#recover" class="form-link">Recuperar</a>
+            </div>
+            <input type="password" name="customer[password]" id="CustomerPassword" autocomplete="current-password" required placeholder="A tua palavra-passe">
+          </div>
+        {% endif %}
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn--primary">Iniciar sessão</button>
+          <p class="customer-form__meta">
+            Novo cliente? <a href="/account/register">Criar uma conta</a>
+          </p>
+        </div>
+      {% endform %}
+
+      <div id="recover" class="recover-panel">
+        <h2>Recuperar palavra-passe</h2>
+        <p>Enviamos um email com instruções para criares uma nova palavra-passe.</p>
+        {% form 'recover_customer_password', class: 'customer-form customer-form--compact' %}
+          {{ form.errors | default_errors }}
+          <div class="form-group">
+            <label for="RecoverEmail">Endereço de email</label>
+            <input type="email" name="email" id="RecoverEmail" autocomplete="email" required placeholder="exemplo@email.com">
+          </div>
+          <button type="submit" class="btn btn--secondary">Enviar instruções</button>
+        {% endform %}
       </div>
-    {% endform %}
+    </div>
+
+    <aside class="customer-auth__aside" aria-label="Benefícios da conta">
+      <span class="customer-auth__mark">LB</span>
+      <h2>Uma conta, uma experiência mais simples.</h2>
+      <ul>
+        <li>Consulta o estado das tuas encomendas.</li>
+        <li>Guarda moradas para compras mais rápidas.</li>
+        <li>Acompanha os teus dados de cliente num só lugar.</li>
+      </ul>
+    </aside>
   </div>
 </div>
