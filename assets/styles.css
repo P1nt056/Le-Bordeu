@@ -199,19 +199,44 @@ h6,
 
 .header-icons .icon--account,
 .header-icons .icon--cart {
-  width: 38px;
-  height: 38px;
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 50%;
-  border: 1px solid var(--border-color);
-  background: rgba(255, 255, 255, 0.02);
+  transition: all 0.3s ease;
+}
+
+.header-icons .icon--cart {
+  position: relative;
+}
+
+.cart-count-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background-color: var(--color-gold);
+  color: var(--text-cream) !important;
+  font-size: 9px;
+  font-weight: bold;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  border: 1px solid var(--bg-dark-primary);
+}
+
+.cart-count-badge.hidden {
+  display: none !important;
 }
 
 .header-icons .icon--account:hover,
 .header-icons .icon--cart:hover {
   border-color: var(--color-gold);
-  background: rgba(197, 168, 128, 0.08);
-  box-shadow: 0 0 15px rgba(197, 168, 128, 0.15);
   transform: translateY(-2px);
+  background: rgba(197, 168, 128, 0.05);
 }
 
 .header-icons .icon svg {
