@@ -4,7 +4,13 @@
     <nav id="main-navigation" class="main-nav" role="navigation" aria-label="Menu principal">
       <ul>
         <li><a href="/">Início</a></li>
-        <li><a href="/collections/new">Novidades</a></li>
+        <li>
+          {% if collections['new'] != blank %}
+            <a href="/collections/new">Novidades</a>
+          {% else %}
+            <a href="/collections/all?sort_by=created-descending">Novidades</a>
+          {% endif %}
+        </li>
         <li><a href="/collections">Coleções</a></li>
         <li><a href="/collections/sale">Promoções</a></li>
       </ul>

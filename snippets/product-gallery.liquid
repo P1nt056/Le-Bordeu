@@ -2,9 +2,9 @@
   <div class="splide__track">
     <ul class="splide__list">
       {% for img in product.images %}
-        <li class="splide__slide">
+        <li class="splide__slide" data-image-id="{{ img.id }}">
           <div class="gallery__image">
-            <img src="{{ img | img_url: '1024x' }}" data-full="{{ img | img_url: '2048x' }}" alt="{{ product.title | escape }}" loading="lazy">
+            <img src="{{ img | img_url: '1024x' }}" data-full="{{ img | img_url: '2048x' }}" data-image-id="{{ img.id }}" alt="{{ product.title | escape }}" loading="lazy">
           </div>
         </li>
       {% endfor %}
@@ -17,9 +17,9 @@
   <div class="splide__track">
     <ul class="splide__list">
       {% for img in product.images %}
-        <li class="splide__slide">
+        <li class="splide__slide" data-image-id="{{ img.id }}">
           <div class="thumb">
-            <img src="{{ img | img_url: '160x' }}" alt="{{ product.title | escape }}" loading="lazy">
+            <img src="{{ img | img_url: '160x' }}" data-image-id="{{ img.id }}" alt="{{ product.title | escape }}" loading="lazy">
           </div>
         </li>
       {% endfor %}

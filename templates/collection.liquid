@@ -1,16 +1,41 @@
 <div class="collection-page container">
-  <h1 class="section-title">{{ collection.title }}</h1>
+  {% assign is_new_arrivals = false %}
+  {% if collection.handle == 'new' %}
+    {% assign is_new_arrivals = true %}
+  {% elsif collection.handle == 'all' and request.params.sort_by == 'created-descending' %}
+    {% assign is_new_arrivals = true %}
+  {% elsif collection.handle == 'all' and collection.sort_by == 'created-descending' %}
+    {% assign is_new_arrivals = true %}
+  {% endif %}
+  {% assign products_per_page = 12 %}
+  {% if is_new_arrivals %}
+    {% assign products_per_page = 10 %}
+  {% endif %}
 
-  {% paginate collection.products by 12 %}
+  <h1 class="section-title">
+    {% if is_new_arrivals %}
+      Novidades
+    {% else %}
+      {{ collection.title }}
+    {% endif %}
+  </h1>
+
+  {% paginate collection.products by products_per_page %}
     {% if collection.products.size == 0 %}
       <div class="collection-empty">
         <p>Esta coleção não contém produtos de momento.</p>
         <a href="/" class="btn btn--primary">Voltar ao Início</a>
       </div>
     {% else %}
-      <p class="collection-count">{{ collection.all_products_count }} produtos encontrados</p>
+      <p class="collection-count">
+        {% if is_new_arrivals %}
+          Os 10 produtos mais recentes da loja
+        {% else %}
+          {{ collection.all_products_count }} produtos encontrados
+        {% endif %}
+      </p>
 
-      {% if collection.handle == 'all' %}
+      {% if collection.handle == 'all' and is_new_arrivals == false %}
         <div class="collection-layout">
           <aside class="collection-sidebar">
             <div class="filters-header">
@@ -149,12 +174,12 @@
         {% endfor %}
       </div>
 
-      {% if collection.handle == 'all' %}
+      {% if collection.handle == 'all' and is_new_arrivals == false %}
           </div>
         </div>
       {% endif %}
 
-      {% if paginate.pages > 1 %}
+      {% if paginate.pages > 1 and is_new_arrivals == false %}
         <div class="pagination">
           {{ paginate | default_pagination }}
         </div>

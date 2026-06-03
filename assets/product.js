@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded',()=>{
   // Initialize Splide carousels if available
   if(window.Splide){
-    document.querySelectorAll('.splide').forEach((el)=>{
+    document.querySelectorAll('.splide:not(.product-gallery-splide):not(.product-gallery-thumbnails)').forEach((el)=>{
       new Splide(el, {
         perPage: 4,
         gap: '16px',
@@ -118,12 +118,62 @@ document.addEventListener('DOMContentLoaded',()=>{
       const optionSelectors = form.querySelectorAll('.single-option-selector');
       const variantIdInput = form.querySelector('input[name="id"]');
 
-      function updateVariant() {
-        // Get selected options
+      function getVariantImageId(variant) {
+        if (!variant) return null;
+
+        if (variant.featured_image && variant.featured_image.id) {
+          return variant.featured_image.id;
+        }
+
+        if (variant.featured_media && variant.featured_media.id) {
+          return variant.featured_media.id;
+        }
+
+        if (variant.image && variant.image.id) {
+          return variant.image.id;
+        }
+
+        return null;
+      }
+
+      function getSelectedOptions() {
         const selectedOptions = {};
         optionSelectors.forEach(select => {
           selectedOptions[select.dataset.index] = select.value;
         });
+        return selectedOptions;
+      }
+
+      function findBestVariantForImage(imageId) {
+        const targetImageId = String(imageId);
+        const selectedOptions = getSelectedOptions();
+
+        return product.variants
+          .filter(variant => String(getVariantImageId(variant)) === targetImageId)
+          .sort((a, b) => {
+            const aScore = Object.keys(selectedOptions).filter(optionKey => a[optionKey] === selectedOptions[optionKey]).length;
+            const bScore = Object.keys(selectedOptions).filter(optionKey => b[optionKey] === selectedOptions[optionKey]).length;
+
+            if (aScore !== bScore) return bScore - aScore;
+            if (a.available !== b.available) return a.available ? -1 : 1;
+            return 0;
+          })[0];
+      }
+
+      function selectVariantOptions(variant) {
+        optionSelectors.forEach(select => {
+          const optionValue = variant[select.dataset.index];
+
+          if (optionValue) {
+            select.value = optionValue;
+          }
+        });
+      }
+
+      function updateVariant(options = {}) {
+        const syncGallery = options.syncGallery !== false;
+        // Get selected options
+        const selectedOptions = getSelectedOptions();
 
         // Find matching variant
         const matchedVariant = product.variants.find(variant => {
@@ -139,6 +189,10 @@ document.addEventListener('DOMContentLoaded',()=>{
           console.log("[Le Bordeu Debug] Variant Available Status:", matchedVariant.available);
           // Update hidden input ID
           variantIdInput.value = matchedVariant.id;
+
+          if (syncGallery && window.LeBordeuProductGallery) {
+            window.LeBordeuProductGallery.goToImageId(getVariantImageId(matchedVariant));
+          }
 
           // Check if variant is available
           if (matchedVariant.available) {
@@ -174,6 +228,15 @@ document.addEventListener('DOMContentLoaded',()=>{
       // Add listeners
       optionSelectors.forEach(select => {
         select.addEventListener('change', updateVariant);
+      });
+
+      window.addEventListener('leBordeu:galleryImageChange', (event) => {
+        const matchedVariant = findBestVariantForImage(event.detail && event.detail.imageId);
+
+        if (matchedVariant) {
+          selectVariantOptions(matchedVariant);
+          updateVariant({ syncGallery: false });
+        }
       });
 
       // Initialize status on load

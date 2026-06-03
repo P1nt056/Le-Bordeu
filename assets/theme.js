@@ -132,6 +132,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const thumbGallery = document.querySelector('.product-gallery-thumbnails');
 
   if (mainGallery) {
+    let isProgrammaticMove = false;
     const mainSplide = new Splide(mainGallery, {
       type: 'fade',
       rewind: true,
@@ -162,6 +163,39 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
       mainSplide.mount();
     }
+
+    mainSplide.on('moved', function (newIndex) {
+      if (isProgrammaticMove) {
+        isProgrammaticMove = false;
+        return;
+      }
+
+      const slide = mainGallery.querySelectorAll('.splide__slide')[newIndex];
+      const imageId = slide && slide.dataset.imageId;
+
+      if (imageId) {
+        window.dispatchEvent(new CustomEvent('leBordeu:galleryImageChange', {
+          detail: { imageId }
+        }));
+      }
+    });
+
+    window.LeBordeuProductGallery = {
+      goToImageId(imageId) {
+        if (!imageId) return false;
+
+        const targetId = String(imageId);
+        const slides = Array.from(mainGallery.querySelectorAll('.splide__slide'));
+        const slideIndex = slides.findIndex(slide => slide.dataset.imageId === targetId);
+
+        if (slideIndex === -1) return false;
+        if (slideIndex === mainSplide.index) return true;
+
+        isProgrammaticMove = true;
+        mainSplide.go(slideIndex);
+        return true;
+      }
+    };
   }
 
   // Lightbox Logic

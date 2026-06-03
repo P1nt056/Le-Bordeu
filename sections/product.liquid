@@ -1,4 +1,5 @@
 <section class="product-page container">
+  {% assign current_variant = product.selected_or_first_available_variant %}
   <div class="product-page__grid">
     <div class="product-page__gallery">
       {% include 'product-gallery' %}
@@ -15,10 +16,11 @@
       </div>
 
       <form method="post" action="/cart/add" id="add-to-cart-form">
-        <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+        <input type="hidden" name="id" value="{{ current_variant.id }}">
         {% if product.variants.size > 1 %}
           <div class="product-options">
             {% for option in product.options_with_values %}
+              {% assign selected_option_value = current_variant.options[forloop.index0] %}
               <div class="option-header" style="display: flex; justify-content: space-between; align-items: center;">
                 <label>{{ option.name }}</label>
                 {% if option.name == 'Size' or option.name == 'Tamanho' or option.name == 'size' %}
@@ -27,7 +29,7 @@
               </div>
               <select name="options[{{ option.name }}]" class="single-option-selector" data-index="option{{ forloop.index }}">
                 {% for value in option.values %}
-                  <option value="{{ value }}">{{ value }}</option>
+                  <option value="{{ value }}" {% if selected_option_value == value %}selected{% endif %}>{{ value }}</option>
                 {% endfor %}
               </select>
             {% endfor %}
