@@ -14,10 +14,10 @@
     <main role="main">{{ content_for_layout }}</main>
 
     {% include 'footer' %}
-    <script src="{{ 'theme.js' | asset_url }}" defer></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.3/dist/css/splide.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.3/dist/js/splide.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js" defer></script>
+    <script src="{{ 'theme.js' | asset_url }}" defer></script>
     <script src="{{ 'product.js' | asset_url }}" defer></script>
     {{ content_for_footer }}
     <div id="cart-drawer-overlay" class="cart-drawer-overlay"></div>

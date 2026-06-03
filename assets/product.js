@@ -1,19 +1,53 @@
 document.addEventListener('DOMContentLoaded',()=>{
+  const relatedCarouselOptions = {
+    perPage: 4,
+    gap: '16px',
+    breakpoints: { 1200: { perPage:3 }, 900: { perPage:2 }, 480: { perPage:1 } },
+    pagination:false,
+    arrows:true,
+    lazyLoad: 'nearby',
+    keyboard: 'global',
+    accessibility: true
+  };
+
+  function mountCarousel(el) {
+    if (window.Splide && el && !el.classList.contains('is-initialized')) {
+      new Splide(el, relatedCarouselOptions).mount();
+    }
+  }
+
+  function loadProductRecommendations() {
+    const related = document.querySelector('[data-related-products]');
+    if (!related || !related.dataset.productId) return;
+
+    const section = related.closest('.related-products');
+    if (!section) return;
+
+    const url = `/recommendations/products?section_id=related-products&product_id=${related.dataset.productId}&limit=${related.dataset.limit || 6}`;
+
+    fetch(url)
+      .then(response => response.text())
+      .then(html => {
+        const doc = new DOMParser().parseFromString(html, 'text/html');
+        const newSection = doc.querySelector('.related-products');
+        const newCarousel = newSection && newSection.querySelector('[data-related-products]');
+
+        if (newSection && newCarousel && newCarousel.querySelector('.splide__slide')) {
+          section.replaceWith(newSection);
+          mountCarousel(newCarousel);
+        }
+      })
+      .catch(error => console.error('Erro a carregar recomendações:', error));
+  }
+
   // Initialize Splide carousels if available
   if(window.Splide){
     document.querySelectorAll('.splide:not(.product-gallery-splide):not(.product-gallery-thumbnails)').forEach((el)=>{
-      new Splide(el, {
-        perPage: 4,
-        gap: '16px',
-        breakpoints: { 1200: { perPage:3 }, 900: { perPage:2 }, 480: { perPage:1 } },
-        pagination:false,
-        arrows:true,
-        lazyLoad: 'nearby',
-        keyboard: 'global',
-        accessibility: true
-      }).mount();
+      mountCarousel(el);
     });
   }
+
+  loadProductRecommendations();
 
   // Initialize medium-zoom for gallery main images
   if(window.mediumZoom){
@@ -118,6 +152,10 @@ document.addEventListener('DOMContentLoaded',()=>{
       const optionSelectors = form.querySelectorAll('.single-option-selector');
       const variantIdInput = form.querySelector('input[name="id"]');
 
+      if (window.LeBordeuProductGallery) {
+        window.LeBordeuProductGallery.configureVariantTerms(product.variants);
+      }
+
       function getVariantImageId(variant) {
         if (!variant) return null;
 
@@ -191,6 +229,7 @@ document.addEventListener('DOMContentLoaded',()=>{
           variantIdInput.value = matchedVariant.id;
 
           if (syncGallery && window.LeBordeuProductGallery) {
+            window.LeBordeuProductGallery.filterByVariant(matchedVariant);
             window.LeBordeuProductGallery.goToImageId(getVariantImageId(matchedVariant));
           }
 

@@ -133,56 +133,171 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (mainGallery) {
     let isProgrammaticMove = false;
-    const mainSplide = new Splide(mainGallery, {
-      type: 'fade',
-      rewind: true,
-      pagination: false,
-      arrows: true,
-    });
+    let mainSplide = null;
+    let thumbSplide = null;
+    let variantTerms = [];
+    let variantImageIds = [];
+    let selectedVariantImageId = null;
+    const productTitleTerms = normalizeGalleryText(mainGallery.dataset.productTitle).split(' ').filter(Boolean);
 
-    if (thumbGallery) {
-      const thumbSplide = new Splide(thumbGallery, {
-        fixedWidth: 88,
-        fixedHeight: 88,
-        gap: 15,
-        rewind: true,
-        pagination: false,
-        isNavigation: true,
-        arrows: false,
-        focus: 'center',
-        breakpoints: {
-          600: {
-            fixedWidth: 60,
-            fixedHeight: 60,
-          }
-        }
-      });
-      mainSplide.sync(thumbSplide);
-      mainSplide.mount();
-      thumbSplide.mount();
-    } else {
-      mainSplide.mount();
+    const mainList = mainGallery.querySelector('.splide__list');
+    const thumbList = thumbGallery && thumbGallery.querySelector('.splide__list');
+    const allMainSlides = mainList ? Array.from(mainList.children).map(slide => slide.cloneNode(true)) : [];
+    const allThumbSlides = thumbList ? Array.from(thumbList.children).map(slide => slide.cloneNode(true)) : [];
+
+    function normalizeGalleryText(value) {
+      return String(value || '')
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]+/g, ' ')
+        .trim();
     }
 
-    mainSplide.on('moved', function (newIndex) {
-      if (isProgrammaticMove) {
-        isProgrammaticMove = false;
-        return;
+    function slideMatchesVariant(slide, selectedTerms) {
+      const alt = normalizeGalleryText(slide.dataset.imageAlt);
+      const imageId = slide.dataset.imageId;
+
+      if (imageId && variantImageIds.includes(String(imageId))) {
+        return String(imageId) === selectedVariantImageId;
       }
 
-      const slide = mainGallery.querySelectorAll('.splide__slide')[newIndex];
-      const imageId = slide && slide.dataset.imageId;
+      if (!alt) return true;
 
-      if (imageId) {
-        window.dispatchEvent(new CustomEvent('leBordeu:galleryImageChange', {
-          detail: { imageId }
-        }));
+      const matchesSelectedVariant = selectedTerms.some(term => term && alt.includes(term));
+      if (matchesSelectedVariant) return true;
+
+      const isVariantSpecific = variantTerms.some(term => term && alt.includes(term));
+      return !isVariantSpecific;
+    }
+
+    function getVariantImageId(variant) {
+      if (!variant) return null;
+
+      if (variant.featured_image && variant.featured_image.id) return variant.featured_image.id;
+      if (variant.featured_media && variant.featured_media.id) return variant.featured_media.id;
+      if (variant.image && variant.image.id) return variant.image.id;
+
+      return null;
+    }
+
+    function getVariantTerms(variant) {
+      const terms = [];
+
+      ['title', 'option1', 'option2', 'option3'].forEach(key => {
+        const term = normalizeGalleryText(variant[key]);
+        if (!term || term === 'default title') return;
+
+        terms.push(term);
+        term.split(' ').forEach(word => {
+          if (word.length >= 3 && !productTitleTerms.includes(word)) {
+            terms.push(word);
+          }
+        });
+      });
+
+      return Array.from(new Set(terms));
+    }
+
+    function mountGallery() {
+      mainSplide = new Splide(mainGallery, {
+        type: 'fade',
+        rewind: true,
+        pagination: false,
+        arrows: true,
+      });
+
+      if (thumbGallery) {
+        thumbSplide = new Splide(thumbGallery, {
+          fixedWidth: 88,
+          fixedHeight: 88,
+          gap: 15,
+          rewind: true,
+          pagination: false,
+          isNavigation: true,
+          arrows: false,
+          focus: 'center',
+          breakpoints: {
+            600: {
+              fixedWidth: 60,
+              fixedHeight: 60,
+            }
+          }
+        });
+        mainSplide.sync(thumbSplide);
+        mainSplide.mount();
+        thumbSplide.mount();
+      } else {
+        mainSplide.mount();
       }
-    });
+
+      mainSplide.on('moved', function (newIndex) {
+        if (isProgrammaticMove) {
+          isProgrammaticMove = false;
+          return;
+        }
+
+        const slide = mainGallery.querySelectorAll('.splide__slide')[newIndex];
+        const imageId = slide && slide.dataset.imageId;
+
+        if (imageId) {
+          window.dispatchEvent(new CustomEvent('leBordeu:galleryImageChange', {
+            detail: { imageId }
+          }));
+        }
+      });
+    }
+
+    function renderSlides(selectedTerms = []) {
+      if (!mainList) return;
+
+      const filteredMainSlides = allMainSlides.filter(slide => slideMatchesVariant(slide, selectedTerms));
+      const filteredThumbSlides = allThumbSlides.filter(slide => slideMatchesVariant(slide, selectedTerms));
+      const nextMainSlides = filteredMainSlides.length ? filteredMainSlides : allMainSlides;
+      const nextThumbSlides = filteredThumbSlides.length ? filteredThumbSlides : allThumbSlides;
+
+      if (mainSplide) mainSplide.destroy(true);
+      if (thumbSplide) thumbSplide.destroy(true);
+
+      mainList.innerHTML = '';
+      nextMainSlides.forEach(slide => mainList.appendChild(slide.cloneNode(true)));
+
+      if (thumbList) {
+        thumbList.innerHTML = '';
+        nextThumbSlides.forEach(slide => thumbList.appendChild(slide.cloneNode(true)));
+      }
+
+      mountGallery();
+    }
+
+    renderSlides();
 
     window.LeBordeuProductGallery = {
+      configureVariantTerms(variants) {
+        const terms = [];
+
+        variants.forEach(variant => {
+          terms.push(...getVariantTerms(variant));
+
+          const imageId = getVariantImageId(variant);
+          if (imageId) variantImageIds.push(String(imageId));
+        });
+
+        variantTerms = Array.from(new Set(terms)).sort((a, b) => b.length - a.length);
+        variantImageIds = Array.from(new Set(variantImageIds));
+      },
+      filterByVariant(variant) {
+        if (!variant) return;
+
+        const imageId = getVariantImageId(variant);
+        selectedVariantImageId = imageId ? String(imageId) : null;
+
+        const selectedTerms = getVariantTerms(variant).sort((a, b) => b.length - a.length);
+
+        renderSlides(selectedTerms);
+      },
       goToImageId(imageId) {
-        if (!imageId) return false;
+        if (!imageId || !mainSplide) return false;
 
         const targetId = String(imageId);
         const slides = Array.from(mainGallery.querySelectorAll('.splide__slide'));
@@ -204,17 +319,21 @@ document.addEventListener('DOMContentLoaded', function () {
   const lightboxClose = document.querySelector('.lightbox__close');
 
   if (lightbox && lightboxImg && lightboxClose) {
+    mainGallery && mainGallery.addEventListener('click', function (event) {
+      const clickedImage = event.target.closest('.product-gallery-splide .gallery__image img');
+      if (!clickedImage) return;
+
+      const fullSrc = clickedImage.getAttribute('data-full');
+      if (fullSrc) {
+        lightboxImg.src = fullSrc;
+        lightbox.setAttribute('aria-hidden', 'false');
+        lightbox.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+    });
+
     document.querySelectorAll('.product-gallery-splide .gallery__image img').forEach(img => {
       img.style.cursor = 'zoom-in';
-      img.addEventListener('click', function () {
-        const fullSrc = this.getAttribute('data-full');
-        if (fullSrc) {
-          lightboxImg.src = fullSrc;
-          lightbox.setAttribute('aria-hidden', 'false');
-          lightbox.classList.add('open');
-          document.body.style.overflow = 'hidden';
-        }
-      });
     });
 
     const closeLightbox = () => {

@@ -15,6 +15,12 @@
         {% endif %}
       </div>
 
+      <div class="trust-messages" aria-label="Vantagens da loja">
+        <span><span class="trust-messages__icon" aria-hidden="true">✓</span>Pagamento 100% seguro</span>
+        <span><span class="trust-messages__icon" aria-hidden="true">↗</span>Envio rápido</span>
+        <span><span class="trust-messages__icon" aria-hidden="true">↺</span>Trocas simples</span>
+      </div>
+
       <form method="post" action="/cart/add" id="add-to-cart-form">
         <input type="hidden" name="id" value="{{ current_variant.id }}">
         {% if product.variants.size > 1 %}
@@ -112,9 +118,6 @@
       {% endfor %}
       -->
 
-      <div class="trust-messages">
-        <span>Pagamento 100% seguro</span> • <span>Envio rápido</span> • <span>Trocas simples</span>
-      </div>
     </div>
   </div>
 
