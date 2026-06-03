@@ -36,6 +36,7 @@
       },
       "product": {
         "type": "product",
+        "custom_css": [],
         "settings": {}
       },
       "related-products": {
