@@ -7,14 +7,17 @@
   {% elsif collection.handle == 'all' and collection.sort_by == 'created-descending' %}
     {% assign is_new_arrivals = true %}
   {% endif %}
-  {% assign products_per_page = 12 %}
-  {% if is_new_arrivals %}
-    {% assign products_per_page = 10 %}
+  {% assign is_sale = false %}
+  {% if collection.handle == 'promocoes' %}
+    {% assign is_sale = true %}
   {% endif %}
+  {% assign products_per_page = 12 %}
 
   <h1 class="section-title">
     {% if is_new_arrivals %}
       Novidades
+    {% elsif is_sale %}
+      Promoções Especiais
     {% else %}
       {{ collection.title }}
     {% endif %}
@@ -29,7 +32,7 @@
     {% else %}
       <p class="collection-count">
         {% if is_new_arrivals %}
-          Os 10 produtos mais recentes da loja
+          Os 12 produtos mais recentes da loja
         {% else %}
           {{ collection.all_products_count }} produtos encontrados
         {% endif %}

@@ -97,6 +97,25 @@
                 if (descrTable) {
                   modalBody.innerHTML = '';
                   const clonedTable = descrTable.cloneNode(true);
+                  
+                  // Strip all inline styles and classes to force uniform styling
+                  clonedTable.removeAttribute('style');
+                  clonedTable.removeAttribute('class');
+                  clonedTable.removeAttribute('bgcolor');
+                  clonedTable.removeAttribute('border');
+                  
+                  clonedTable.querySelectorAll('*').forEach(el => {
+                    el.removeAttribute('style');
+                    el.removeAttribute('class');
+                    el.removeAttribute('bgcolor');
+                    el.removeAttribute('border');
+                    el.removeAttribute('color');
+                    if (el.tagName === 'FONT') {
+                      el.removeAttribute('face');
+                      el.removeAttribute('size');
+                    }
+                  });
+                  
                   modalBody.appendChild(clonedTable);
                   
                   sizeModal.style.display = 'flex';

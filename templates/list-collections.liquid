@@ -119,7 +119,6 @@
     }
 
     function selectGender(gender) {
-      sessionStorage.setItem('preferred_gender', gender);
       filterCollections(gender);
       
       selector.classList.add('fade-out');
@@ -139,7 +138,6 @@
     btnWomen.addEventListener('click', () => selectGender('mulher'));
 
     btnBack.addEventListener('click', function() {
-      sessionStorage.removeItem('preferred_gender');
       mainTitle.textContent = "As Nossas Coleções";
       
       content.classList.add('fade-out');
@@ -158,18 +156,9 @@
     tabs.forEach(tab => {
       tab.addEventListener('click', function() {
         const gender = this.getAttribute('data-gender');
-        sessionStorage.setItem('preferred_gender', gender);
         filterCollections(gender);
       });
     });
-
-    // Validar se já existe preferência na sessão
-    const savedGender = sessionStorage.getItem('preferred_gender');
-    if (savedGender === 'homem' || savedGender === 'mulher') {
-      filterCollections(savedGender);
-      selector.classList.add('hidden');
-      content.classList.remove('hidden');
-    }
   });
 </script>
 
