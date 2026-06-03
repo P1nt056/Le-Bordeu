@@ -34,7 +34,7 @@
         {% if is_new_arrivals %}
           Os 12 produtos mais recentes da loja
         {% else %}
-          {{ collection.all_products_count }} produtos encontrados
+          {{ collection.products_count }} produtos encontrados
         {% endif %}
       </p>
 
@@ -46,8 +46,8 @@
               <button type="button" class="filters-clear" id="ClearFiltersBtn">Limpar filtros</button>
             </div>
             <form class="filter-form" id="CollectionFiltersForm">
-              <div class="filter-group">
-                <h4 class="filter-group-summary">Género</h4>
+              <details class="filter-group">
+                <summary class="filter-group-summary">Género<span class="icon-accordion"></span></summary>
                 <div class="filter-group-display">
                   <ul class="filter-list">
                     {% assign gender_options = "Homem, Mulher" | split: ", " %}
@@ -62,13 +62,13 @@
                     {% endfor %}
                   </ul>
                 </div>
-              </div>
+              </details>
 
-              <div class="filter-group">
-                <h4 class="filter-group-summary">Tipo</h4>
+              <details class="filter-group">
+                <summary class="filter-group-summary">Tipo<span class="icon-accordion"></span></summary>
                 <div class="filter-group-display">
                   <ul class="filter-list">
-                    {% assign type_options = "T-shirts, Macacões, Vestidos, Relógios" | split: ", " %}
+                    {% assign type_options = "T-shirts, Macacões, Vestidos, Relógios, Bijuteria, Calçado, Calças, Malas, Top's" | split: ", " %}
                     {% for option in type_options %}
                       <li class="filter-list-item">
                         <label class="filter-label">
@@ -80,14 +80,50 @@
                     {% endfor %}
                   </ul>
                 </div>
-              </div>
+              </details>
+
+              <details class="filter-group" id="subtipo-bijuteria" style="display: none;">
+                <summary class="filter-group-summary">Categoria (Bijuteria)<span class="icon-accordion"></span></summary>
+                <div class="filter-group-display">
+                  <ul class="filter-list filter-list--scrollable">
+                    {% assign sub_bijuteria = "Colares, Brincos, Pulseiras, Anéis" | split: ", " %}
+                    {% for option in sub_bijuteria %}
+                      <li class="filter-list-item">
+                        <label class="filter-label">
+                          {% assign tag_handle = option | handleize %}
+                          <input type="checkbox" class="custom-tag-checkbox" data-group="subtipo" value="{{ tag_handle }}" {% if current_tags contains tag_handle or current_tags contains option %}checked{% endif %}>
+                          <span class="filter-text">{{ option }}</span>
+                        </label>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </details>
+
+              <details class="filter-group" id="subtipo-calcado" style="display: none;">
+                <summary class="filter-group-summary">Categoria (Calçado)<span class="icon-accordion"></span></summary>
+                <div class="filter-group-display">
+                  <ul class="filter-list filter-list--scrollable">
+                    {% assign sub_calcado = "Botas, Sapatos de tacão" | split: ", " %}
+                    {% for option in sub_calcado %}
+                      <li class="filter-list-item">
+                        <label class="filter-label">
+                          {% assign tag_handle = option | handleize %}
+                          <input type="checkbox" class="custom-tag-checkbox" data-group="subtipo" value="{{ tag_handle }}" {% if current_tags contains tag_handle or current_tags contains option %}checked{% endif %}>
+                          <span class="filter-text">{{ option }}</span>
+                        </label>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </details>
 
               {%- for filter in collection.filters -%}
                 {%- if filter.param_name == 'filter.v.availability' -%}
                   {%- continue -%}
                 {%- endif -%}
-                <div class="filter-group">
-                  <h4 class="filter-group-summary">{{ filter.label }}</h4>
+                <details class="filter-group">
+                  <summary class="filter-group-summary">{{ filter.label }}<span class="icon-accordion"></span></summary>
                   <div class="filter-group-display">
                     {%- case filter.type -%}
                       {%- when 'boolean' or 'list' -%}
@@ -140,7 +176,7 @@
                         </div>
                     {%- endcase -%}
                   </div>
-                </div>
+                </details>
               {%- endfor -%}
             </form>
           </aside>

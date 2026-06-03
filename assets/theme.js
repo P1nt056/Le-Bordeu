@@ -451,6 +451,19 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
 
+    const initSubfilters = () => {
+      const checkedTags = Array.from(filterForm.querySelectorAll('.custom-tag-checkbox:checked')).map(cb => cb.value);
+      const subBijuteria = document.getElementById('subtipo-bijuteria');
+      if (subBijuteria && checkedTags.includes('bijuteria')) {
+        subBijuteria.style.display = 'block';
+      }
+      const subCalcado = document.getElementById('subtipo-calcado');
+      if (subCalcado && (checkedTags.includes('calcado') || checkedTags.includes('calçado'))) {
+        subCalcado.style.display = 'block';
+      }
+    };
+    initSubfilters();
+
     filterForm.addEventListener('change', function (e) {
       if (e.target.type !== 'submit') {
         
@@ -462,6 +475,28 @@ document.addEventListener('DOMContentLoaded', function () {
             others.forEach(cb => {
               if (cb !== e.target) cb.checked = false;
             });
+          }
+        }
+        
+        const checkedTags = Array.from(filterForm.querySelectorAll('.custom-tag-checkbox:checked')).map(cb => cb.value);
+        
+        const subBijuteria = document.getElementById('subtipo-bijuteria');
+        if (subBijuteria) {
+          if (checkedTags.includes('bijuteria')) {
+            subBijuteria.style.display = 'block';
+          } else {
+            subBijuteria.style.display = 'none';
+            subBijuteria.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+          }
+        }
+
+        const subCalcado = document.getElementById('subtipo-calcado');
+        if (subCalcado) {
+          if (checkedTags.includes('calcado') || checkedTags.includes('calçado')) {
+            subCalcado.style.display = 'block';
+          } else {
+            subCalcado.style.display = 'none';
+            subCalcado.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
           }
         }
         
