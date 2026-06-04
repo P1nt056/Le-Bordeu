@@ -16,9 +16,9 @@
       </div>
 
       <div class="trust-messages" aria-label="Vantagens da loja">
-        <span><span class="trust-messages__icon" aria-hidden="true">✓</span>Pagamento 100% seguro</span>
-        <span><span class="trust-messages__icon" aria-hidden="true">↗</span>Envio rápido</span>
-        <span><span class="trust-messages__icon" aria-hidden="true">↺</span>Trocas simples</span>
+        <span data-i18n="prod_secure"><span class="trust-messages__icon" aria-hidden="true">✓</span>Pagamento 100% seguro</span>
+        <span data-i18n="prod_fast"><span class="trust-messages__icon" aria-hidden="true">↗</span>Envio rápido</span>
+        <span data-i18n="prod_returns"><span class="trust-messages__icon" aria-hidden="true">↺</span>Trocas simples</span>
       </div>
 
       <form method="post" action="/cart/add" id="add-to-cart-form">
@@ -28,9 +28,9 @@
             {% for option in product.options_with_values %}
               {% assign selected_option_value = current_variant.options[forloop.index0] %}
               <div class="option-header" style="display: flex; justify-content: space-between; align-items: center;">
-                <label>{{ option.name }}</label>
+                <label data-i18n="opt_{{ option.name | handleize }}">{{ option.name }}</label>
                 {% if option.name == 'Size' or option.name == 'Tamanho' or option.name == 'size' %}
-                  <a href="#" class="size-guide-trigger" style="color: var(--color-gold); font-size: 0.85rem; text-decoration: underline;">Ver tabela de tamanhos</a>
+                  <a href="#" class="size-guide-trigger" style="color: var(--color-gold); font-size: 0.85rem; text-decoration: underline;" data-i18n="prod_size">Ver tabela de tamanhos</a>
                 {% endif %}
               </div>
               <select name="options[{{ option.name }}]" class="single-option-selector" data-index="option{{ forloop.index }}">
@@ -43,8 +43,8 @@
         {% endif %}
 
         <div class="product-actions">
-          <button type="submit" class="btn btn--primary">Comprar Agora</button>
-          <button type="button" class="btn btn--secondary" id="add-to-cart">Adicionar ao Carrinho</button>
+          <button type="submit" class="btn btn--primary" data-i18n="prod_buy">Comprar Agora</button>
+          <button type="button" class="btn btn--secondary" id="add-to-cart" data-i18n="prod_add">Adicionar ao Carrinho</button>
         </div>
       </form>
       
@@ -91,7 +91,7 @@
                 e.preventDefault();
                 console.log('Size guide trigger clicked');
                 
-                const descrTable = document.querySelector('.product-description table');
+                const descrTable = document.querySelector('.product-description table, .product-description-card__content table');
                 console.log('Table found:', descrTable);
                 
                 if (descrTable) {
@@ -144,9 +144,9 @@
   <!-- Detailed Luxury Info Section below the fold -->
   <div class="product-page__info-section">
     <div class="product-page__info-header">
-      <span class="product-page__eyebrow">Detalhes do Produto</span>
-      <h2 class="info-section-title">Descricao do Produto</h2>
-      <p>Construido para acompanhar o ritmo do dia a dia com presenca, conforto e acabamento premium.</p>
+      <span class="product-page__eyebrow" data-i18n="prod_details_eye">Detalhes do Produto</span>
+      <h2 class="info-section-title" data-i18n="prod_details_title">Descricao do Produto</h2>
+      <p data-i18n="prod_details_sub">Construido para acompanhar o ritmo do dia a dia com presenca, conforto e acabamento premium.</p>
     </div>
 
     <div class="product-page__info-grid">
@@ -205,7 +205,7 @@
                   {% endif %}
                 </div>
                 <div class="product-story__content">
-                  <span class="product-story__kicker">Destaque</span>
+                  <span class="product-story__kicker" data-i18n="prod_details_feat">Destaque</span>
                   {% if story_title_top != blank %}
                     <h3>{{ story_title_top }}</h3>
                   {% endif %}
@@ -224,7 +224,7 @@
                   {% endif %}
                 </div>
                 <div class="product-story__content">
-                  <span class="product-story__kicker">Detalhe</span>
+                  <span class="product-story__kicker" data-i18n="prod_details_det">Detalhe</span>
                   {% if story_title_bottom != blank %}
                     <h3>{{ story_title_bottom }}</h3>
                   {% endif %}
@@ -248,8 +248,8 @@
               {% endif %}
             </div>
             <div class="product-description-card__content">
-              <span class="product-story__kicker">Especificacoes</span>
-              <h3>Caracteristicas completas</h3>
+              <span class="product-story__kicker" data-i18n="prod_details_spec">Especificacoes</span>
+              <h3 data-i18n="prod_details_full">Caracteristicas completas</h3>
               <div class="product-description">
                 {% if specs_html != blank %}
                   {{ specs_html }}

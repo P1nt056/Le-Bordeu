@@ -1880,11 +1880,9 @@ h6,
   box-shadow: 0 15px 45px rgba(197, 168, 128, 0.12);
 }
 
-.product-description table {
-  width: 100% !important;
-  margin: 25px 0 !important;
-  border-collapse: collapse !important;
-  border: 1px solid var(--border-color) !important;
+.product-description table,
+.product-description-card__content > table {
+  display: none !important;
 }
 
 .product-description td,

@@ -1,5 +1,5 @@
 <section class="featured-products container" aria-label="Produtos em destaque">
-  <h2 class="section-title">Em Destaque</h2>
+  <h2 class="section-title" data-i18n="feat_title">Em Destaque</h2>
   <div class="splide featured-splide" aria-label="Produtos em destaque">
     <div class="splide__track">
       <ul class="splide__list">
@@ -19,14 +19,14 @@
                     {% if product.compare_at_price_max > product.price %}
                       <span class="price--old">{{ product.compare_at_price_max | money }}</span>
                       <span class="price--sale">{{ product.price | money }}</span>
-                      <span class="tag tag--sale">Promoção</span>
+                      <span class="tag tag--sale" data-i18n="prod_promo">Promoção</span>
                     {% else %}
                       <span class="price--normal">{{ product.price | money }}</span>
                     {% endif %}
                   </div>
                 </div>
               </a>
-              <button class="btn btn--primary btn--buy">Comprar</button>
+              <button class="btn btn--primary btn--buy" data-i18n="feat_buy">Comprar</button>
             </div>
           </li>
         {% endfor %}

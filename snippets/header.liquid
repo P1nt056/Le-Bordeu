@@ -3,20 +3,21 @@
     <div class="logo"><a href="/">Le Bordeu</a></div>
     <nav id="main-navigation" class="main-nav" role="navigation" aria-label="Menu principal">
       <ul>
-        <li><a href="/">Início</a></li>
+        <li><a href="/" data-i18n="nav_home">Início</a></li>
         <li>
           {% if collections['new'] != blank %}
-            <a href="/collections/new">Novidades</a>
+            <a href="/collections/new" data-i18n="nav_new">Novidades</a>
           {% else %}
-            <a href="/collections/all?sort_by=created-descending">Novidades</a>
+            <a href="/collections/all?sort_by=created-descending" data-i18n="nav_new">Novidades</a>
           {% endif %}
         </li>
-        <li><a href="/collections">Coleções</a></li>
-        <li><a href="/collections/all">Ver Tudo</a></li>
-        <li><a href="/collections/promocoes">Promoções</a></li>
+        <li><a href="/collections" data-i18n="nav_collections">Coleções</a></li>
+        <li><a href="/collections/all" data-i18n="nav_all">Ver Tudo</a></li>
+        <li><a href="/collections/promocoes" data-i18n="nav_sale">Promoções</a></li>
       </ul>
     </nav>
     <div class="header-icons">
+      <button id="lang-toggle-btn" class="lang-toggle" aria-label="Toggle Language" style="background:none; border:none; color:var(--text-cream); cursor:pointer; font-size:14px; margin-right: 15px;">🇵🇹 PT</button>
       <a href="/search" class="icon icon--search" aria-label="Pesquisar" role="button">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
       </a>

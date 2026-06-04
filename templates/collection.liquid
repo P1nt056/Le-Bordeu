@@ -15,26 +15,26 @@
 
   <h1 class="section-title">
     {% if is_new_arrivals %}
-      Novidades
+      <span data-i18n="col_new">Novidades</span>
     {% elsif is_sale %}
-      Promoções Especiais
+      <span data-i18n="col_sale">Promoções Especiais</span>
     {% else %}
-      {{ collection.title }}
+      <span data-i18n="col_title_{{ collection.title | handleize }}">{{ collection.title }}</span>
     {% endif %}
   </h1>
 
   {% paginate collection.products by products_per_page %}
     {% if collection.products.size == 0 %}
       <div class="collection-empty">
-        <p>Esta coleção não contém produtos de momento.</p>
-        <a href="/" class="btn btn--primary">Voltar ao Início</a>
+        <p data-i18n="col_empty">Esta coleção não contém produtos de momento.</p>
+        <a href="/" class="btn btn--primary" data-i18n="col_home">Voltar ao Início</a>
       </div>
     {% else %}
       <p class="collection-count">
         {% if is_new_arrivals %}
-          Os 12 produtos mais recentes da loja
+          <span data-i18n="col_latest">Os 12 produtos mais recentes da loja</span>
         {% else %}
-          {{ collection.products_count }} produtos encontrados
+          <span data-i18n-count="{{ collection.products_count }}" data-i18n="col_found">{{ collection.products_count }} produtos encontrados</span>
         {% endif %}
       </p>
 
@@ -42,12 +42,12 @@
         <div class="collection-layout">
           <aside class="collection-sidebar">
             <div class="filters-header">
-              <h3 class="filters-title">Filtros</h3>
-              <button type="button" class="filters-clear" id="ClearFiltersBtn">Limpar filtros</button>
+              <h3 class="filters-title" data-i18n="col_filters">Filtros</h3>
+              <button type="button" class="filters-clear" id="ClearFiltersBtn" data-i18n="col_clear">Limpar filtros</button>
             </div>
             <form class="filter-form" id="CollectionFiltersForm">
               <details class="filter-group">
-                <summary class="filter-group-summary">Género<span class="icon-accordion"></span></summary>
+                <summary class="filter-group-summary" data-i18n="col_gender">Género<span class="icon-accordion"></span></summary>
                 <div class="filter-group-display">
                   <ul class="filter-list">
                     {% assign gender_options = "Homem, Mulher" | split: ", " %}
@@ -56,7 +56,7 @@
                         <label class="filter-label">
                           {% assign tag_handle = option | handleize %}
                           <input type="checkbox" class="custom-tag-checkbox" data-group="genero" value="{{ tag_handle }}" {% if current_tags contains tag_handle or current_tags contains option %}checked{% endif %}>
-                          <span class="filter-text">{{ option }}</span>
+                          <span class="filter-text" data-i18n="flt_{{ option }}">{{ option }}</span>
                         </label>
                       </li>
                     {% endfor %}
@@ -65,7 +65,7 @@
               </details>
 
               <details class="filter-group">
-                <summary class="filter-group-summary">Tipo<span class="icon-accordion"></span></summary>
+                <summary class="filter-group-summary" data-i18n="col_type">Tipo<span class="icon-accordion"></span></summary>
                 <div class="filter-group-display">
                   <ul class="filter-list">
                     {% assign type_options = "T-shirts, Macacões, Vestidos, Relógios, Bijuteria, Calçado, Calças, Malas, Top's" | split: ", " %}
@@ -74,7 +74,7 @@
                         <label class="filter-label">
                           {% assign tag_handle = option | handleize %}
                           <input type="checkbox" class="custom-tag-checkbox" data-group="tipo" value="{{ tag_handle }}" {% if current_tags contains tag_handle or current_tags contains option %}checked{% endif %}>
-                          <span class="filter-text">{{ option }}</span>
+                          <span class="filter-text" data-i18n="flt_{{ option }}">{{ option }}</span>
                         </label>
                       </li>
                     {% endfor %}
@@ -83,7 +83,7 @@
               </details>
 
               <details class="filter-group" id="subtipo-bijuteria" style="display: none;">
-                <summary class="filter-group-summary">Categoria (Bijuteria)<span class="icon-accordion"></span></summary>
+                <summary class="filter-group-summary" data-i18n="col_cat_jewelry">Categoria (Bijuteria)<span class="icon-accordion"></span></summary>
                 <div class="filter-group-display">
                   <ul class="filter-list filter-list--scrollable">
                     {% assign sub_bijuteria = "Colares, Brincos, Pulseiras, Anéis" | split: ", " %}
@@ -92,7 +92,7 @@
                         <label class="filter-label">
                           {% assign tag_handle = option | handleize %}
                           <input type="checkbox" class="custom-tag-checkbox" data-group="subtipo" value="{{ tag_handle }}" {% if current_tags contains tag_handle or current_tags contains option %}checked{% endif %}>
-                          <span class="filter-text">{{ option }}</span>
+                          <span class="filter-text" data-i18n="flt_{{ option }}">{{ option }}</span>
                         </label>
                       </li>
                     {% endfor %}
@@ -101,7 +101,7 @@
               </details>
 
               <details class="filter-group" id="subtipo-calcado" style="display: none;">
-                <summary class="filter-group-summary">Categoria (Calçado)<span class="icon-accordion"></span></summary>
+                <summary class="filter-group-summary" data-i18n="col_cat_shoes">Categoria (Calçado)<span class="icon-accordion"></span></summary>
                 <div class="filter-group-display">
                   <ul class="filter-list filter-list--scrollable">
                     {% assign sub_calcado = "Botas, Sapatos de tacão" | split: ", " %}
@@ -123,7 +123,7 @@
                   {%- continue -%}
                 {%- endif -%}
                 <details class="filter-group">
-                  <summary class="filter-group-summary">{{ filter.label }}<span class="icon-accordion"></span></summary>
+                  <summary class="filter-group-summary" data-i18n="flt_{{ filter.label | handleize }}">{{ filter.label }}<span class="icon-accordion"></span></summary>
                   <div class="filter-group-display">
                     {%- case filter.type -%}
                       {%- when 'boolean' or 'list' -%}
@@ -189,7 +189,7 @@
             <a href="{{ product.url }}">
               <div class="product-card__media">
                 {% if product.compare_at_price_max > product.price %}
-                  <span class="tag tag--sale">Promoção</span>
+                  <span class="tag tag--sale" data-i18n="prod_promo">Promoção</span>
                 {% endif %}
                 <img src="{{ product.featured_image | img_url: '800x' }}" alt="{{ product.title }}" loading="lazy">
                 {% if product.images.size > 1 %}
@@ -208,7 +208,7 @@
                 </div>
               </div>
             </a>
-            <a href="{{ product.url }}" class="btn btn--primary btn--buy" style="text-align: center; text-decoration: none;">Ver Produto</a>
+            <a href="{{ product.url }}" class="btn btn--primary btn--buy" style="text-align: center; text-decoration: none;" data-i18n="prod_view">Ver Produto</a>
           </div>
         {% endfor %}
       </div>
@@ -220,7 +220,7 @@
 
       {% if paginate.pages > 1 and is_new_arrivals == false %}
         <div class="pagination">
-          {{ paginate | default_pagination }}
+          {{ paginate | default_pagination: previous: '« Anterior', next: 'Próximo »' | replace: '« Anterior', '<span data-i18n="pagi_prev">« Anterior</span>' | replace: 'Próximo »', '<span data-i18n="pagi_next">Próximo »</span>' }}
         </div>
       {% endif %}
     {% endif %}

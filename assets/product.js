@@ -35,6 +35,9 @@ document.addEventListener('DOMContentLoaded',()=>{
         if (newSection && newCarousel && newCarousel.querySelector('.splide__slide')) {
           section.replaceWith(newSection);
           mountCarousel(newCarousel);
+          if (typeof applyTranslations === 'function') {
+            applyTranslations();
+          }
         }
       })
       .catch(error => console.error('Erro a carregar recomendações:', error));
@@ -113,7 +116,7 @@ document.addEventListener('DOMContentLoaded',()=>{
             if (window.refreshCartDrawer && window.openCartDrawer) {
               window.refreshCartDrawer();
               window.openCartDrawer();
-              addToCartBtn.innerText = 'Adicionar ao Carrinho';
+              addToCartBtn.innerText = typeof TRANSLATIONS !== 'undefined' ? TRANSLATIONS['prod_add'][currentLang] : 'Adicionar ao Carrinho';
               addToCartBtn.disabled = false;
             } else {
               window.location.href = '/cart';
@@ -236,30 +239,30 @@ document.addEventListener('DOMContentLoaded',()=>{
           // Check if variant is available
           if (matchedVariant.available) {
             buyNowBtn.disabled = false;
-            buyNowBtn.innerText = 'Comprar Agora';
+            buyNowBtn.innerText = typeof TRANSLATIONS !== 'undefined' ? TRANSLATIONS['prod_buy'][currentLang] : 'Comprar Agora';
             
             if (addToCartBtn) {
               addToCartBtn.disabled = false;
-              addToCartBtn.innerText = 'Adicionar ao Carrinho';
+              addToCartBtn.innerText = typeof TRANSLATIONS !== 'undefined' ? TRANSLATIONS['prod_add'][currentLang] : 'Adicionar ao Carrinho';
             }
           } else {
             buyNowBtn.disabled = true;
-            buyNowBtn.innerText = 'Esgotado';
+            buyNowBtn.innerText = typeof TRANSLATIONS !== 'undefined' ? TRANSLATIONS['prod_sold_out'][currentLang] : 'Esgotado';
             
             if (addToCartBtn) {
               addToCartBtn.disabled = true;
-              addToCartBtn.innerText = 'Esgotado';
+              addToCartBtn.innerText = typeof TRANSLATIONS !== 'undefined' ? TRANSLATIONS['prod_sold_out'][currentLang] : 'Esgotado';
             }
           }
         } else {
           console.log("[Le Bordeu Debug] No variant matches these options.");
           // Combination not found
           buyNowBtn.disabled = true;
-          buyNowBtn.innerText = 'Indisponível';
+          buyNowBtn.innerText = typeof TRANSLATIONS !== 'undefined' ? TRANSLATIONS['prod_unavailable'][currentLang] : 'Indisponível';
           
           if (addToCartBtn) {
             addToCartBtn.disabled = true;
-            addToCartBtn.innerText = 'Indisponível';
+            addToCartBtn.innerText = typeof TRANSLATIONS !== 'undefined' ? TRANSLATIONS['prod_unavailable'][currentLang] : 'Indisponível';
           }
         }
       }

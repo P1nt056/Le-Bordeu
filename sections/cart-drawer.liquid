@@ -1,14 +1,14 @@
 <div class="cart-drawer-inner">
   <div class="cart-drawer__header">
-    <h2 class="cart-drawer__title">O Teu Carrinho</h2>
-    <button type="button" class="cart-drawer__close" aria-label="Fechar Carrinho">✕</button>
+    <h2 class="cart-drawer__title" data-i18n="cart_title">O Teu Carrinho</h2>
+    <button type="button" class="cart-drawer__close" aria-label="Fechar Carrinho" data-i18n-aria="cart_close">✕</button>
   </div>
 
   <div class="cart-drawer__body">
     {% if cart.item_count == 0 %}
       <div class="cart-drawer__empty">
-        <p>O seu carrinho está vazio de momento.</p>
-        <button type="button" class="btn btn--primary cart-drawer__continue">Continuar a Comprar</button>
+        <p data-i18n="cart_empty">O seu carrinho está vazio de momento.</p>
+        <button type="button" class="btn btn--primary cart-drawer__continue" data-i18n="cart_continue">Continuar a Comprar</button>
       </div>
     {% else %}
       <div class="cart-drawer__items">
@@ -33,7 +33,7 @@
                   <input type="number" readonly value="{{ item.quantity }}">
                   <button type="button" class="qty-btn plus" data-key="{{ item.key }}" data-qty="{{ item.quantity | plus: 1 }}">+</button>
                 </div>
-                <button type="button" class="cart-drawer-item__remove" data-key="{{ item.key }}">Remover</button>
+                <button type="button" class="cart-drawer-item__remove" data-key="{{ item.key }}" data-i18n="cart_remove">Remover</button>
               </div>
             </div>
           </div>
@@ -45,12 +45,12 @@
   {% if cart.item_count > 0 %}
     <div class="cart-drawer__footer">
       <div class="cart-drawer__subtotal">
-        <span>Subtotal</span>
+        <span data-i18n="cart_subtotal">Subtotal</span>
         <span>{{ cart.total_price | money }}</span>
       </div>
-      <p class="cart-drawer__tax-note">Impostos e portes calculados na finalização da compra.</p>
-      <a href="/checkout" class="btn btn--primary cart-drawer__checkout">Finalizar Compra</a>
-      <a href="/cart" class="btn btn--secondary cart-drawer__view-cart">Ver Carrinho</a>
+      <p class="cart-drawer__tax-note" data-i18n="cart_tax">Impostos e portes calculados na finalização da compra.</p>
+      <a href="/checkout" class="btn btn--primary cart-drawer__checkout" data-i18n="cart_checkout">Finalizar Compra</a>
+      <a href="/cart" class="btn btn--secondary cart-drawer__view-cart" data-i18n="cart_view">Ver Carrinho</a>
     </div>
   {% endif %}
 </div>

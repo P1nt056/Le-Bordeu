@@ -1,20 +1,20 @@
 <div class="collections-list-page container">
-  <h1 class="section-title" id="collectionsTitle">As Nossas Coleções</h1>
+  <h1 class="section-title" id="collectionsTitle" data-i18n="list_title">As Nossas Coleções</h1>
   
   <!-- Ecrã de Seleção Inicial de Género -->
   <div class="collections-gender-selector" id="collectionsGenderSelector">
     <div class="gender-card gender-card--men" id="selectMen">
       <div class="gender-card__bg" style="background-image: url('https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?q=80&w=1200&auto=format&fit=crop');"></div>
       <div class="gender-card__content">
-        <h2>Homem</h2>
-        <span class="btn btn--primary">Explorar Coleções</span>
+        <h2 data-i18n="flt_Homem">Homem</h2>
+        <span class="btn btn--primary" data-i18n="list_explore">Explorar Coleções</span>
       </div>
     </div>
     <div class="gender-card gender-card--women" id="selectWomen">
       <div class="gender-card__bg" style="background-image: url('https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?q=80&w=1200&auto=format&fit=crop');"></div>
       <div class="gender-card__content">
-        <h2>Mulher</h2>
-        <span class="btn btn--primary">Explorar Coleções</span>
+        <h2 data-i18n="flt_Mulher">Mulher</h2>
+        <span class="btn btn--primary" data-i18n="list_explore">Explorar Coleções</span>
       </div>
     </div>
   </div>
@@ -24,12 +24,12 @@
     <div class="collections-filter-nav">
       <button class="btn btn--secondary btn--back" id="backToGenderSelector">
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px; vertical-align: middle;"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-        Mudar Género
+        <span data-i18n="list_change">Mudar Género</span>
       </button>
       
       <div class="gender-tabs">
-        <button class="gender-tab" data-gender="homem">Homem</button>
-        <button class="gender-tab" data-gender="mulher">Mulher</button>
+        <button class="gender-tab" data-gender="homem" data-i18n="flt_Homem">Homem</button>
+        <button class="gender-tab" data-gender="mulher" data-i18n="flt_Mulher">Mulher</button>
       </div>
     </div>
 
@@ -58,7 +58,7 @@
             {% endif %}
             <div class="collection-card__meta">
               <h3>{{ collection.title }}</h3>
-              <span class="btn btn--ghost">Ver Coleção ({{ collection.products_count }} produtos)</span>
+              <span class="btn btn--ghost" data-i18n-count="{{ collection.products_count }}" data-i18n="list_view">Ver Coleção ({{ collection.products_count }} produtos)</span>
             </div>
           </a>
         {% endunless %}
@@ -66,7 +66,7 @@
     </div>
     
     <div class="collections-empty-state hidden" id="collectionsEmptyState">
-      <p>Não foram encontradas coleções para a seleção atual.</p>
+      <p data-i18n="list_empty">Não foram encontradas coleções para a seleção atual.</p>
     </div>
   </div>
 </div>
@@ -103,10 +103,11 @@
 
       // Atualizar o título dinamicamente para maior sofisticação
       if (gender === 'homem') {
-        mainTitle.textContent = "Coleções de Homem";
+        mainTitle.setAttribute('data-i18n', 'list_title_men');
       } else if (gender === 'mulher') {
-        mainTitle.textContent = "Coleções de Mulher";
+        mainTitle.setAttribute('data-i18n', 'list_title_women');
       }
+      if (typeof applyTranslations === 'function') applyTranslations();
 
       // Atualizar abas
       tabs.forEach(tab => {
@@ -138,7 +139,8 @@
     btnWomen.addEventListener('click', () => selectGender('mulher'));
 
     btnBack.addEventListener('click', function() {
-      mainTitle.textContent = "As Nossas Coleções";
+      mainTitle.setAttribute('data-i18n', 'list_title');
+      if (typeof applyTranslations === 'function') applyTranslations();
       
       content.classList.add('fade-out');
       setTimeout(() => {

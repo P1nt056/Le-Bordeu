@@ -1,10 +1,10 @@
 <div class="cart-page container">
-  <h1 class="section-title">O Teu Carrinho</h1>
+  <h1 class="section-title" data-i18n="cart_title">O Teu Carrinho</h1>
 
   {% if cart.item_count == 0 %}
     <div class="cart-empty">
-      <p>O seu carrinho está vazio de momento.</p>
-      <a href="/collections/all" class="btn btn--primary">Continuar a Comprar</a>
+      <p data-i18n="cart_empty">O seu carrinho está vazio de momento.</p>
+      <a href="/collections/all" class="btn btn--primary" data-i18n="cart_continue">Continuar a Comprar</a>
     </div>
   {% else %}
     <form action="/cart" method="post" novalidate class="cart-form">
@@ -41,15 +41,15 @@
       <div class="cart-footer">
         <div class="cart-totals">
           <div class="cart-totals__row">
-            <span class="label">Subtotal:</span>
+            <span class="label" data-i18n="cart_subtotal">Subtotal:</span>
             <span class="value">{{ cart.total_price | money }}</span>
           </div>
-          <p class="cart-tax-note">Impostos e portes calculados na finalização da compra.</p>
+          <p class="cart-tax-note" data-i18n="cart_tax">Impostos e portes calculados na finalização da compra.</p>
         </div>
 
         <div class="cart-actions">
-          <button type="submit" name="checkout" class="btn btn--primary">Finalizar Compra</button>
-          <button type="submit" name="update" class="btn btn--secondary">Atualizar Carrinho</button>
+          <button type="submit" name="checkout" class="btn btn--primary" data-i18n="cart_checkout">Finalizar Compra</button>
+          <button type="submit" name="update" class="btn btn--secondary" data-i18n="cart_update">Atualizar Carrinho</button>
         </div>
       </div>
     </form>

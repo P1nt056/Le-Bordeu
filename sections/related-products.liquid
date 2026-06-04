@@ -1,5 +1,5 @@
 <section class="related-products container">
-  <h3 class="section-title">Produtos recomendados</h3>
+  <h3 class="section-title" data-i18n="prod_recommended">Produtos recomendados</h3>
   {% assign recommended_products = recommendations.products %}
   {% if recommended_products.size == 0 %}
     {% assign recommended_products = collections['frontpage'].products %}
@@ -14,7 +14,7 @@
             <a href="{{ related_product.url }}">
               <div class="product-card__media">
                 {% if related_product.compare_at_price_max > related_product.price %}
-                  <span class="tag tag--sale">Promoção</span>
+                  <span class="tag tag--sale" data-i18n="prod_promo">Promoção</span>
                 {% endif %}
                 <img src="{{ related_product.featured_image | img_url: '800x' }}" alt="{{ related_product.title | escape }}" loading="lazy">
                 {% if related_product.images.size > 1 %}
@@ -33,7 +33,7 @@
                 </div>
               </div>
             </a>
-            <a href="{{ related_product.url }}" class="btn btn--primary btn--buy">Ver Produto</a>
+            <a href="{{ related_product.url }}" class="btn btn--primary btn--buy" data-i18n="prod_view">Ver Produto</a>
           </div>
         </li>
         {% endunless %}
