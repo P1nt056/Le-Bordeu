@@ -735,7 +735,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'it': 'it'
       };
       const countryCode = flags[lang] || 'pt';
-      return `<img src="https://flagcdn.com/w20/${countryCode}.png" width="16" height="12" style="vertical-align: text-bottom; margin-right: 4px; border-radius: 2px; display: inline-block;" alt="${lang}">`;
+      return `<img src="https://flagcdn.com/w20/${countryCode}.png" width="16" height="12" style="vertical-align: middle; margin-right: 4px; border-radius: 2px; display: inline-block; position: relative; top: -2px;" alt="${lang}">`;
     };
 
     const renderReviews = (allReviews) => {
@@ -878,5 +878,196 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     loadReviews();
+  }
+});
+
+// ==========================================
+// Product Reviews System
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+  const productReviewsWrapper = document.getElementById('productReviews');
+  if (productReviewsWrapper) {
+    const productId = productReviewsWrapper.getAttribute('data-product-id');
+    const pReviewsList = document.getElementById('productReviewsList');
+    const pReviewForm = document.getElementById('productReviewForm');
+    const pPagination = document.getElementById('productReviewsPagination');
+    
+    let pCurrentPage = 1;
+    const pReviewsPerPage = 4;
+
+    const getFlagForLang = (lang) => {
+      const flags = {
+        'pt': 'pt',
+        'en': 'gb',
+        'es': 'es',
+        'fr': 'fr',
+        'de': 'de',
+        'it': 'it'
+      };
+      const countryCode = flags[lang] || 'pt';
+      return `<img src="https://flagcdn.com/w20/${countryCode}.png" width="16" height="12" style="vertical-align: middle; margin-right: 4px; border-radius: 2px; display: inline-block; position: relative; top: -2px;" alt="${lang}">`;
+    };
+
+    const renderPReviews = (allReviews) => {
+      pReviewsList.innerHTML = '';
+      
+      const totalPages = Math.ceil(allReviews.length / pReviewsPerPage);
+      const startIndex = (pCurrentPage - 1) * pReviewsPerPage;
+      const pageReviews = allReviews.slice(startIndex, startIndex + pReviewsPerPage);
+
+      if (allReviews.length === 0) {
+        pReviewsList.innerHTML = '<p style="color: var(--text-muted); grid-column: 1 / -1; margin-bottom: 20px;">Ainda não existem avaliações para este produto. Seja o primeiro a avaliar!</p>';
+        if(pPagination) pPagination.innerHTML = '';
+        return;
+      }
+
+      pageReviews.forEach(review => {
+        const starsHtml = '★'.repeat(review.stars) + '☆'.repeat(5 - review.stars);
+        
+        let dateObj = new Date(review.date);
+        if (isNaN(dateObj.getTime())) {
+          dateObj = new Date();
+        }
+        const dateStr = dateObj.toLocaleDateString('pt-PT');
+        const flag = getFlagForLang(review.lang || 'pt');
+        
+        pReviewsList.innerHTML += `
+          <div class="editorial-review-card" onclick="this.classList.toggle('expanded')" title="Clica para expandir">
+            <div class="editorial-review-card__header">
+              <span class="editorial-review-card__author">${flag} ${review.name}</span>
+              <span class="editorial-review-card__date">${dateStr}</span>
+            </div>
+            <div class="editorial-review-card__stars">${starsHtml}</div>
+            <p class="editorial-review-card__comment">${review.comment}</p>
+          </div>
+        `;
+      });
+
+      if (totalPages > 1 && pPagination) {
+        let paginationHtml = '';
+        
+        if (pCurrentPage > 1) {
+          paginationHtml += `<button class="p-page-btn" data-page="${pCurrentPage - 1}" aria-label="Página anterior" style="background: none; border: 1px solid var(--border-color); color: var(--text-cream); padding: 5px 12px; margin: 0 5px; cursor: pointer;">←</button>`;
+        }
+        if (pCurrentPage < totalPages) {
+          paginationHtml += `<button class="p-page-btn" data-page="${pCurrentPage + 1}" aria-label="Próxima página" style="background: none; border: 1px solid var(--border-color); color: var(--text-cream); padding: 5px 12px; margin: 0 5px; cursor: pointer;">→</button>`;
+        }
+        
+        pPagination.innerHTML = paginationHtml;
+        
+        pPagination.querySelectorAll('.p-page-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            pCurrentPage = parseInt(e.target.getAttribute('data-page'));
+            renderPReviews(allReviews);
+          });
+        });
+      } else if (pPagination) {
+        pPagination.innerHTML = '';
+      }
+    };
+
+    const loadProductReviews = async () => {
+      try {
+        const snapshot = await db.collection("reviews").get();
+        const reviews = [];
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          if(data.productId === productId) {
+             reviews.push(data);
+          }
+        });
+        
+        // Ordear manualmente por data para evitar erro de Index do Firebase
+        reviews.sort((a, b) => new Date(b.date) - new Date(a.date));
+        
+        if (reviews.length > 0) {
+          let totalStars = 0;
+          reviews.forEach(r => totalStars += r.stars);
+          const avg = (totalStars / reviews.length).toFixed(1);
+          
+          const pAvgWidget = document.getElementById('productAverageRatingWidget');
+          const pAvgValue = document.getElementById('productAverageRatingValue');
+          const pAvgCount = document.getElementById('productAverageRatingCount');
+          
+          if (pAvgWidget && pAvgValue && pAvgCount) {
+            pAvgValue.textContent = avg;
+            pAvgCount.textContent = `(${reviews.length} opiniões)`;
+            pAvgWidget.style.display = 'flex';
+          }
+        } else {
+           const pAvgWidget = document.getElementById('productAverageRatingWidget');
+           if (pAvgWidget) pAvgWidget.style.display = 'none';
+        }
+        
+        renderPReviews(reviews);
+      } catch (error) {
+        console.error('Erro ao carregar reviews do produto:', error);
+      }
+    };
+
+    loadProductReviews();
+
+    if (pReviewForm) {
+      pReviewForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const submitBtn = pReviewForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'A enviar...';
+        submitBtn.disabled = true;
+
+        const newReview = {
+          productId: productId,
+          name: document.getElementById('productReviewName').value,
+          stars: parseInt(document.getElementById('productReviewStars').value),
+          comment: document.getElementById('productReviewComment').value,
+          date: new Date().toISOString(),
+          lang: localStorage.getItem('site_lang') || 'pt'
+        };
+
+        try {
+          await db.collection("reviews").add(newReview);
+          pReviewForm.reset();
+          document.getElementById('productReviewFormWrapper').style.display = 'none';
+          
+          const leaveBtn = document.querySelector('#productReviews .editorial-reviews__actions button');
+          if(leaveBtn) leaveBtn.style.display = 'inline-block';
+
+          alert('Avaliação enviada com sucesso! Obrigado.');
+          
+          pCurrentPage = 1;
+          loadProductReviews();
+        } catch (error) {
+          console.error('Erro ao enviar review:', error);
+          alert('Ocorreu um erro ao enviar. Tente novamente mais tarde.');
+        } finally {
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+        }
+      });
+    }
+
+    // Star Rating Widget Logic for Product
+    const pStarWidget = document.getElementById('productStarRatingWidget');
+    const pStarInput = document.getElementById('productReviewStars');
+    if (pStarWidget && pStarInput) {
+      const pStars = pStarWidget.querySelectorAll('span');
+      pStars.forEach(star => {
+        star.addEventListener('click', () => {
+          const rating = parseInt(star.getAttribute('data-value'));
+          pStarInput.value = rating;
+          
+          pStars.forEach(s => {
+            if (parseInt(s.getAttribute('data-value')) <= rating) {
+              s.classList.add('active');
+              s.innerHTML = '★';
+            } else {
+              s.classList.remove('active');
+              s.innerHTML = '☆';
+            }
+          });
+        });
+      });
+    }
   }
 });

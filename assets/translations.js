@@ -746,8 +746,8 @@ function toggleLanguage() {
   // Update toggle button text
   const toggleBtn = document.getElementById('lang-toggle-btn');
   if (toggleBtn) {
-    const ptFlag = '<img src="https://flagcdn.com/w20/pt.png" width="16" height="12" style="vertical-align: text-bottom; margin-right: 4px; border-radius: 2px; display: inline-block;" alt="PT">';
-    const enFlag = '<img src="https://flagcdn.com/w20/gb.png" width="16" height="12" style="vertical-align: text-bottom; margin-right: 4px; border-radius: 2px; display: inline-block;" alt="EN">';
+    const ptFlag = '<img src="https://flagcdn.com/w20/pt.png" width="16" height="12" style="vertical-align: middle; margin-right: 4px; border-radius: 2px; display: inline-block; position: relative; top: -2px;" alt="PT">';
+    const enFlag = '<img src="https://flagcdn.com/w20/gb.png" width="16" height="12" style="vertical-align: middle; margin-right: 4px; border-radius: 2px; display: inline-block; position: relative; top: -2px;" alt="EN">';
     toggleBtn.innerHTML = currentLang === 'pt' ? ptFlag + ' PT' : enFlag + ' EN';
   }
 
@@ -758,8 +758,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Set initial button state
   const toggleBtn = document.getElementById('lang-toggle-btn');
   if (toggleBtn) {
-    const ptFlag = '<img src="https://flagcdn.com/w20/pt.png" width="16" height="12" style="vertical-align: text-bottom; margin-right: 4px; border-radius: 2px; display: inline-block;" alt="PT">';
-    const enFlag = '<img src="https://flagcdn.com/w20/gb.png" width="16" height="12" style="vertical-align: text-bottom; margin-right: 4px; border-radius: 2px; display: inline-block;" alt="EN">';
+    const ptFlag = '<img src="https://flagcdn.com/w20/pt.png" width="16" height="12" style="vertical-align: middle; margin-right: 4px; border-radius: 2px; display: inline-block; position: relative; top: -2px;" alt="PT">';
+    const enFlag = '<img src="https://flagcdn.com/w20/gb.png" width="16" height="12" style="vertical-align: middle; margin-right: 4px; border-radius: 2px; display: inline-block; position: relative; top: -2px;" alt="EN">';
     toggleBtn.innerHTML = currentLang === 'pt' ? ptFlag + ' PT' : enFlag + ' EN';
     toggleBtn.addEventListener('click', toggleLanguage);
   }
