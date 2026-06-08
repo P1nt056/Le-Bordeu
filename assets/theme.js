@@ -727,14 +727,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const getFlagForLang = (lang) => {
       const flags = {
-        'pt': '🇵🇹',
-        'en': '🇬🇧',
-        'es': '🇪🇸',
-        'fr': '🇫🇷',
-        'de': '🇩🇪',
-        'it': '🇮🇹'
+        'pt': 'pt',
+        'en': 'gb',
+        'es': 'es',
+        'fr': 'fr',
+        'de': 'de',
+        'it': 'it'
       };
-      return flags[lang] || '🏳️';
+      const countryCode = flags[lang] || 'pt';
+      return `<img src="https://flagcdn.com/w20/${countryCode}.png" width="16" height="12" style="vertical-align: text-bottom; margin-right: 4px; border-radius: 2px; display: inline-block;" alt="${lang}">`;
     };
 
     const renderReviews = (allReviews) => {
