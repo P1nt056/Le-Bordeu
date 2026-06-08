@@ -1,6 +1,15 @@
 <script>
   if (window.location.pathname === '/collections/new') {
     window.location.replace('/collections/all?sort_by=created-descending');
+  } else if (
+    window.location.pathname === '/pages/shipping-returns' ||
+    window.location.pathname === '/pages/shipping_returns'
+  ) {
+    window.location.replace('/policies/refund-policy');
+  } else if (window.location.pathname === '/pages/privacy-policy') {
+    window.location.replace('/policies/privacy-policy');
+  } else if (window.location.pathname === '/pages/terms-of-service') {
+    window.location.replace('/policies/terms-of-service');
   }
 </script>
 
