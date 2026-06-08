@@ -60,6 +60,13 @@
           <span data-i18n="cart_subtotal">Subtotal</span>
           <span>{{ cart.total_price | money }}</span>
         </div>
+        {% assign free_shipping_threshold = 8999 %}
+        {% if cart.total_price >= free_shipping_threshold %}
+          <p class="cart-free-shipping cart-free-shipping--drawer">Envio gratuito aplicado nesta encomenda.</p>
+        {% else %}
+          {% assign amount_to_free_shipping = free_shipping_threshold | minus: cart.total_price %}
+          <p class="cart-free-shipping cart-free-shipping--drawer">Faltam {{ amount_to_free_shipping | money }} para teres envio gratuito.</p>
+        {% endif %}
         <p class="cart-drawer__tax-note" data-i18n="cart_tax">Impostos e portes calculados na finalização da compra.</p>
         <a href="/checkout" class="btn btn--primary cart-drawer__checkout" data-i18n="cart_checkout">Finalizar Compra</a>
         <a href="/cart" class="btn btn--secondary cart-drawer__view-cart" data-i18n="cart_view">Ver Carrinho</a>
