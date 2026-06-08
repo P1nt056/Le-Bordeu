@@ -9,7 +9,14 @@
       <blockquote style="font-family: 'Playfair Display', serif; font-style: italic; font-size: 20px; color: var(--color-gold); border-left: 2px solid var(--color-gold); padding-left: 20px; margin: 30px 0; line-height: 1.4;">
         <span data-i18n="edit_quote">"A elegância não é sobre chamar a atenção, mas sim sobre ser lembrado."</span>
       </blockquote>
-      <a href="/pages/about" class="btn btn--secondary" data-i18n="edit_btn">Descobrir a Marca</a>
+      <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap;">
+        <a href="/pages/about" class="btn btn--secondary" data-i18n="edit_btn">Descobrir a Marca</a>
+        <div id="averageRatingWidget" style="display: none; align-items: center; gap: 5px; color: var(--color-gold); font-size: 18px; font-weight: bold; cursor: pointer;" title="Ver opiniões" onclick="document.getElementById('editorialReviews').scrollIntoView({behavior: 'smooth'})">
+          <span id="averageRatingValue"></span>
+          <span style="font-size: 22px; margin-bottom: 3px;">★</span>
+          <span style="font-size: 12px; font-weight: normal; color: var(--text-muted); margin-left: 5px;" id="averageRatingCount"></span>
+        </div>
+      </div>
     </div>
 
     <div class="editorial-reviews" id="editorialReviews">
@@ -27,14 +34,15 @@
         <form id="reviewForm" class="editorial-reviews__form">
           <input type="hidden" id="reviewName" value="{{ customer.name }}">
           <p style="color: #fff; font-size: 14px; margin-bottom: 0px; opacity: 0.8;">A avaliar publicamente como: <strong>{{ customer.name }}</strong></p>
-          <div class="editorial-reviews__stars-input">
-            <select id="reviewStars" required>
-              <option value="5">★★★★★ (5 Estrelas)</option>
-              <option value="4">★★★★☆ (4 Estrelas)</option>
-              <option value="3">★★★☆☆ (3 Estrelas)</option>
-              <option value="2">★★☆☆☆ (2 Estrelas)</option>
-              <option value="1">★☆☆☆☆ (1 Estrela)</option>
-            </select>
+          <div class="editorial-reviews__stars-input" style="margin: 15px 0;">
+            <input type="hidden" id="reviewStars" value="5">
+            <div class="star-rating-widget" id="starRatingWidget">
+              <span data-value="1" class="active">★</span>
+              <span data-value="2" class="active">★</span>
+              <span data-value="3" class="active">★</span>
+              <span data-value="4" class="active">★</span>
+              <span data-value="5" class="active">★</span>
+            </div>
           </div>
           <textarea id="reviewComment" placeholder="A sua opinião..." required rows="3"></textarea>
           <button type="submit" class="btn btn--secondary btn--small" style="width: 100%;">Enviar Review</button>

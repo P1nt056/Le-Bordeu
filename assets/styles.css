@@ -4566,3 +4566,22 @@ details[open] .icon-accordion::after {
     margin-bottom: 34px;
   }
 }
+
+/* Star Rating Widget */
+.star-rating-widget {
+  display: inline-flex;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 24px;
+  color: rgba(255,255,255,0.2);
+  user-select: none;
+}
+.star-rating-widget span {
+  transition: all 0.2s ease;
+}
+.star-rating-widget span.active {
+  color: var(--color-gold);
+}
+.star-rating-widget span:hover {
+  transform: scale(1.2);
+}
