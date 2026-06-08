@@ -33,6 +33,7 @@
       <div class="editorial-reviews__form-container" id="reviewFormContainer" style="display: none;">
         <form id="reviewForm" class="editorial-reviews__form">
           <input type="hidden" id="reviewName" value="{{ customer.name }}">
+          <input type="hidden" id="reviewCustomerId" value="{{ customer.id }}">
           <p style="color: #fff; font-size: 14px; margin-bottom: 0px; opacity: 0.8;"><span data-i18n="rev_rating_as">A avaliar publicamente como:</span> <strong>{{ customer.name }}</strong></p>
           <div class="editorial-reviews__stars-input" style="margin: 15px 0;">
             <input type="hidden" id="reviewStars" value="5">

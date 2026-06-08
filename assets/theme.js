@@ -755,10 +755,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const dateStr = dateObj.toLocaleDateString('pt-PT');
         const flag = getFlagForLang(review.lang || 'pt');
         
+        const currentCustomerId = document.getElementById('reviewCustomerId')?.value || document.getElementById('productReviewCustomerId')?.value || '';
+        
+        let deleteBtnHtml = '';
+        if (currentCustomerId && review.customerId === currentCustomerId) {
+          deleteBtnHtml = `<button onclick="deleteReview('${review.id}')" style="background:none; border:none; color:var(--color-gold); cursor:pointer; font-size: 16px; margin-left: 10px;" title="Apagar Review">&#128465;</button>`;
+        }
+
         reviewsList.innerHTML += `
           <div class="editorial-review-card" onclick="this.classList.toggle('expanded')" title="Clica para expandir">
             <div class="editorial-review-card__header">
-              <span class="editorial-review-card__author">${flag} ${review.name}</span>
+              <span class="editorial-review-card__author">${flag} ${review.name}${deleteBtnHtml}</span>
               <span class="editorial-review-card__date">${dateStr}</span>
             </div>
             <div class="editorial-review-card__stars">${starsHtml}</div>
@@ -805,7 +812,9 @@ document.addEventListener('DOMContentLoaded', () => {
       try {
         const snapshot = await db.collection("reviews").orderBy("date", "desc").get();
         const reviews = [];
-        snapshot.forEach(doc => reviews.push(doc.data()));
+        snapshot.forEach(doc => {
+          reviews.push({ id: doc.id, ...doc.data() });
+        });
         
         const updateAvgWidget = (revs) => {
           if (revs.length > 0) {
@@ -858,6 +867,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const newReview = {
           name: document.getElementById('reviewName').value,
+          customerId: document.getElementById('reviewCustomerId')?.value || '',
           stars: parseInt(document.getElementById('reviewStars').value),
           comment: document.getElementById('reviewComment').value,
           date: new Date().toISOString(),
@@ -938,10 +948,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const dateStr = dateObj.toLocaleDateString('pt-PT');
         const flag = getFlagForLang(review.lang || 'pt');
         
+        const currentCustomerId = document.getElementById('reviewCustomerId')?.value || document.getElementById('productReviewCustomerId')?.value || '';
+        
+        let deleteBtnHtml = '';
+        if (currentCustomerId && review.customerId === currentCustomerId) {
+          deleteBtnHtml = `<button onclick="deleteReview('${review.id}')" style="background:none; border:none; color:var(--color-gold); cursor:pointer; font-size: 16px; margin-left: 10px;" title="Apagar Review">&#128465;</button>`;
+        }
+
         pReviewsList.innerHTML += `
           <div class="editorial-review-card" onclick="this.classList.toggle('expanded')" title="Clica para expandir">
             <div class="editorial-review-card__header">
-              <span class="editorial-review-card__author">${flag} ${review.name}</span>
+              <span class="editorial-review-card__author">${flag} ${review.name}${deleteBtnHtml}</span>
               <span class="editorial-review-card__date">${dateStr}</span>
             </div>
             <div class="editorial-review-card__stars">${starsHtml}</div>
@@ -980,7 +997,7 @@ document.addEventListener('DOMContentLoaded', () => {
         snapshot.forEach(doc => {
           const data = doc.data();
           if(data.productId === productId) {
-             reviews.push(data);
+             reviews.push({ id: doc.id, ...data });
           }
         });
         
@@ -1031,6 +1048,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const newReview = {
           productId: productId,
           name: document.getElementById('productReviewName').value,
+          customerId: document.getElementById('productReviewCustomerId')?.value || '',
           stars: parseInt(document.getElementById('productReviewStars').value),
           comment: document.getElementById('productReviewComment').value,
           date: new Date().toISOString(),
