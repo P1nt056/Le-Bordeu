@@ -14,6 +14,7 @@ const TRANSLATIONS = {
 
   // Collection
   "col_title_produtos": { pt: "Produtos", en: "Products" },
+  "col_title_products": { pt: "Produtos", en: "Products" },
   "col_new": { pt: "Novidades", en: "New Arrivals" },
   "col_sale": { pt: "Promoções Especiais", en: "Special Sale" },
   "col_empty": { pt: "Esta coleção não contém produtos de momento.", en: "This collection contains no products at the moment." },
@@ -26,7 +27,7 @@ const TRANSLATIONS = {
   "col_type": { pt: "Tipo", en: "Type" },
   "col_cat_jewelry": { pt: "Categoria (Bijuteria)", en: "Category (Jewelry)" },
   "col_cat_shoes": { pt: "Categoria (Calçado)", en: "Category (Footwear)" },
-  
+
   // Products
   "prod_view": { pt: "Ver Produto", en: "View Product" },
   "prod_add": { pt: "Adicionar ao Carrinho", en: "Add to Cart" },
@@ -48,7 +49,7 @@ const TRANSLATIONS = {
   "opt_cor": { pt: "COR", en: "COLOR" },
   "opt_tamanho": { pt: "TAMANHO", en: "SIZE" },
   "prod_recommended": { pt: "Produtos recomendados", en: "Recommended Products" },
-  
+
   // Custom Filters Labels
   "flt_Homem": { pt: "Homem", en: "Men" },
   "flt_Mulher": { pt: "Mulher", en: "Women" },
@@ -112,7 +113,10 @@ const TRANSLATIONS = {
   "cart_tax": { pt: "Impostos e portes calculados na finalização da compra.", en: "Taxes and shipping calculated at checkout." },
   "cart_checkout": { pt: "Finalizar Compra", en: "Checkout" },
   "cart_view": { pt: "Ver Carrinho", en: "View Cart" },
-  "cart_update": { pt: "Atualizar Carrinho", en: "Update Cart" }
+  "cart_add": { pt: "Adicionar", en: "Add" },
+  "cart_view_prod": { pt: "Ver Produto", en: "View Product" },
+  "cart_update": { pt: "Atualizar Carrinho", en: "Update Cart" },
+  "cart_recommendations_title": { pt: "Produtos Sugeridos", en: "Suggested Products" }
 };
 
 const DYNAMIC_TRANSLATIONS = {
@@ -137,7 +141,7 @@ const DYNAMIC_TRANSLATIONS = {
   "Navy": { pt: "Azul Marinho", en: "Navy" },
   "Burgundy": { pt: "Bordô", en: "Burgundy" },
   "Beige": { pt: "Bege", en: "Beige" },
-  
+
   // Size Guide Headers
   "SIZE": { pt: "TAMANHO", en: "SIZE" },
   "Size": { pt: "Tamanho", en: "Size" },
@@ -241,7 +245,7 @@ const DYNAMIC_TRANSLATIONS = {
   "Popular Element:": { pt: "Elemento popular:", en: "Popular Element:" },
   "Popular Element Category:": { pt: "Categoria de elemento popular:", en: "Popular Element Category:" },
   "Ear Stud Material:": { pt: "Material do brinco:", en: "Ear Stud Material:" },
-  
+
   // Specific values in descriptions
   "Polyester": { pt: "Poliéster", en: "Polyester" },
   "Polyester Fiber": { pt: "Fibra de poliéster", en: "Polyester Fiber" },
@@ -666,26 +670,27 @@ function applyTranslations() {
     ...document.querySelectorAll('.size-guide-modal__body th'),
     document.querySelector('.product-description'),
     document.querySelector('.product-description-card__content > table'),
-    ...document.querySelectorAll('.product-story__content')
+    ...document.querySelectorAll('.product-story__content'),
+    ...document.querySelectorAll('.cart-drawer-item__variant')
   ].filter(Boolean);
 
   dynamicEls.forEach(el => {
     if (!el.hasAttribute('data-original-html')) {
       el.setAttribute('data-original-html', el.innerHTML);
     }
-    
+
     let html = el.getAttribute('data-original-html');
-    
+
     // Sort keys by length descending to prevent partial match replacement (e.g. "Light Green" before "Green")
     const sortedKeys = Object.keys(DYNAMIC_TRANSLATIONS).sort((a, b) => b.length - a.length);
-    
+
     sortedKeys.forEach(originalKey => {
       const translatedVal = DYNAMIC_TRANSLATIONS[originalKey][currentLang];
       if (translatedVal && translatedVal !== originalKey) {
-          html = html.split(originalKey).join(translatedVal);
+        html = html.split(originalKey).join(translatedVal);
       }
     });
-    
+
     // Only update if changed to avoid unnecessary DOM thrashing
     if (el.innerHTML !== html) {
       el.innerHTML = html;
@@ -696,19 +701,19 @@ function applyTranslations() {
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
     if (TRANSLATIONS[key] && TRANSLATIONS[key][currentLang]) {
-      
+
       // If the translation itself contains HTML, just use innerHTML
       if (TRANSLATIONS[key][currentLang].includes('<')) {
-         el.innerHTML = TRANSLATIONS[key][currentLang];
+        el.innerHTML = TRANSLATIONS[key][currentLang];
       } else {
-         // Check if the original element had an SVG or span we need to preserve
-         // But only if the translation string does NOT have it.
-         if (el.innerHTML.includes('<svg')) {
-           const icon = el.innerHTML.match(/<svg[^>]*>.*?<\/svg>/g);
-           el.innerHTML = TRANSLATIONS[key][currentLang] + (icon ? icon.join('') : '');
-         } else {
-           el.textContent = TRANSLATIONS[key][currentLang];
-         }
+        // Check if the original element had an SVG or span we need to preserve
+        // But only if the translation string does NOT have it.
+        if (el.innerHTML.includes('<svg')) {
+          const icon = el.innerHTML.match(/<svg[^>]*>.*?<\/svg>/g);
+          el.innerHTML = TRANSLATIONS[key][currentLang] + (icon ? icon.join('') : '');
+        } else {
+          el.textContent = TRANSLATIONS[key][currentLang];
+        }
       }
     }
   });
@@ -727,9 +732,9 @@ function applyTranslations() {
     const num = countEl.getAttribute('data-i18n-count');
     const key = countEl.getAttribute('data-i18n');
     if (key === 'col_found') {
-       countEl.textContent = num + TRANSLATIONS['col_found'][currentLang];
+      countEl.textContent = num + TRANSLATIONS['col_found'][currentLang];
     } else if (key === 'list_view') {
-       countEl.textContent = TRANSLATIONS['list_view_prefix'][currentLang] + num + TRANSLATIONS['list_view'][currentLang];
+      countEl.textContent = TRANSLATIONS['list_view_prefix'][currentLang] + num + TRANSLATIONS['list_view'][currentLang];
     }
   });
 }
@@ -737,13 +742,13 @@ function applyTranslations() {
 function toggleLanguage() {
   currentLang = currentLang === 'pt' ? 'en' : 'pt';
   localStorage.setItem('site_lang', currentLang);
-  
+
   // Update toggle button text
   const toggleBtn = document.getElementById('lang-toggle-btn');
   if (toggleBtn) {
     toggleBtn.innerHTML = currentLang === 'pt' ? '🇵🇹 PT' : '🇬🇧 EN';
   }
-  
+
   applyTranslations();
 }
 
@@ -754,6 +759,6 @@ document.addEventListener('DOMContentLoaded', () => {
     toggleBtn.innerHTML = currentLang === 'pt' ? '🇵🇹 PT' : '🇬🇧 EN';
     toggleBtn.addEventListener('click', toggleLanguage);
   }
-  
+
   applyTranslations();
 });

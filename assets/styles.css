@@ -725,7 +725,7 @@ h6,
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
   gap: 80px;
-  align-items: center;
+  align-items: flex-start;
 }
 
 @media (max-width: 991px) {
@@ -780,6 +780,145 @@ h6,
   line-height: 1.8;
   margin-bottom: 35px;
   font-weight: 300;
+}
+
+/* Reviews Section */
+.editorial-reviews {
+  margin-top: 50px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.editorial-reviews__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.editorial-reviews__header h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  color: var(--color-gold);
+  margin: 0;
+}
+
+.editorial-reviews__form-container {
+  background: rgba(255,255,255,0.03);
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.editorial-reviews__form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.editorial-reviews__form input,
+.editorial-reviews__form select,
+.editorial-reviews__form textarea {
+  width: 100%;
+  padding: 10px;
+  background: var(--bg-dark);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: var(--text-color);
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.editorial-reviews__list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .editorial-reviews__list {
+    grid-template-columns: 1fr;
+  }
+}
+
+.editorial-review-card {
+  padding: 20px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.editorial-review-card:hover {
+  background: rgba(255,255,255,0.05);
+  transform: translateY(-2px);
+}
+
+.editorial-review-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.editorial-review-card__author {
+  font-weight: 600;
+  color: #fff;
+}
+
+.editorial-review-card__date {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.editorial-review-card__stars {
+  color: var(--color-gold);
+  margin-bottom: 10px;
+  letter-spacing: 2px;
+}
+
+.editorial-review-card__comment {
+  font-size: 14px;
+  color: var(--text-cream);
+  line-height: 1.6;
+  opacity: 0.9;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.editorial-review-card.expanded .editorial-review-card__comment {
+  display: block;
+  -webkit-line-clamp: unset;
+}
+
+.editorial-reviews__pagination {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.editorial-reviews__page-btn {
+  background: transparent;
+  border: 1px solid var(--color-gold);
+  color: var(--color-gold);
+  padding: 5px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+
+.editorial-reviews__page-btn.active,
+.editorial-reviews__page-btn:hover {
+  background: var(--color-gold);
+  color: #000;
 }
 
 /* Newsletter */
@@ -1881,7 +2020,7 @@ h6,
 }
 
 .product-description table,
-.product-description-card__content > table {
+.product-description-card__content>table {
   display: none !important;
 }
 
@@ -3423,6 +3562,132 @@ select:focus {
   color: #ff4d5a;
 }
 
+.cart-drawer__recommendations {
+  padding: 1.5rem;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-dark);
+}
+
+.cart-drawer__recommendations-title {
+  font-size: 1.2rem;
+  font-family: var(--font-heading);
+  color: var(--text-color);
+  margin: 0 0 1rem 0;
+}
+
+.cart-drawer__recommendations-list {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 0.5rem;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.cart-drawer__recommendations-list::-webkit-scrollbar {
+  display: none;
+}
+
+.cart-recommendation-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  width: 110px;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+}
+
+.cart-recommendation-item__image {
+  flex-shrink: 0;
+  width: 110px;
+  height: 140px;
+  display: block;
+}
+
+.cart-recommendation-item__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.cart-recommendation-item__details {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
+}
+
+.cart-recommendation-item__title {
+  font-size: 0.85rem;
+  color: var(--text-color);
+  text-decoration: none;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 2.4em;
+}
+
+.cart-recommendation-item__title:hover {
+  text-decoration: underline;
+}
+
+.cart-recommendation-item__price {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.cart-recommendation-item__form {
+  margin-top: 0.2rem;
+  width: 100%;
+}
+
+.cart-recommendation-item__variant-select {
+  width: 100%;
+  padding: 0.3rem;
+  margin-bottom: 0.3rem;
+  font-size: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: var(--bg-dark);
+  color: var(--text-color);
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+.cart-recommendation-item__variant-select:focus {
+  outline: 1px solid var(--primary-color);
+}
+
+.cart-recommendation-item__add {
+  display: block;
+  width: 100%;
+  background: transparent;
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  padding: 0.4rem 0;
+  font-size: 0.75rem;
+  cursor: pointer;
+  border-radius: 4px;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.cart-recommendation-item__add:hover {
+  background: var(--primary-color);
+  color: var(--bg-dark);
+  border-color: var(--primary-color);
+}
+
 .cart-drawer__footer {
   padding: 1.5rem;
   border-top: 1px solid var(--border-color);
@@ -3535,10 +3800,12 @@ select:focus {
 .collection-sidebar::-webkit-scrollbar {
   width: 3px;
 }
+
 .collection-sidebar::-webkit-scrollbar-track {
   background: rgba(255, 255, 255, 0.05);
   border-radius: 4px;
 }
+
 .collection-sidebar::-webkit-scrollbar-thumb {
   background: var(--color-gold);
   border-radius: 4px;

@@ -39,18 +39,31 @@
           </div>
         {% endfor %}
       </div>
+
+      {% assign main_color = '' %}
+      {% for option in cart.items.first.options_with_values %}
+        {% assign downcased_name = option.name | downcase %}
+        {% if downcased_name contains 'color' or downcased_name contains 'cor' %}
+          {% assign main_color = option.value %}
+        {% endif %}
+      {% endfor %}
+
+      <div class="cart-drawer__recommendations" data-product-id="{{ cart.items.first.product_id }}" data-color="{{ main_color | escape }}" data-type="{{ cart.items.first.product.type | escape }}" data-tags="{{ cart.items.first.product.tags | join: ',' | escape }}">
+        <h3 class="cart-drawer__recommendations-title" data-i18n="cart_recommendations_title">Produtos Sugeridos</h3>
+        <div class="cart-drawer__recommendations-list">
+          <!-- Recommended items will be injected here via JS -->
+        </div>
+      </div>
+
+      <div class="cart-drawer__footer">
+        <div class="cart-drawer__subtotal">
+          <span data-i18n="cart_subtotal">Subtotal</span>
+          <span>{{ cart.total_price | money }}</span>
+        </div>
+        <p class="cart-drawer__tax-note" data-i18n="cart_tax">Impostos e portes calculados na finalização da compra.</p>
+        <a href="/checkout" class="btn btn--primary cart-drawer__checkout" data-i18n="cart_checkout">Finalizar Compra</a>
+        <a href="/cart" class="btn btn--secondary cart-drawer__view-cart" data-i18n="cart_view">Ver Carrinho</a>
+      </div>
     {% endif %}
   </div>
-
-  {% if cart.item_count > 0 %}
-    <div class="cart-drawer__footer">
-      <div class="cart-drawer__subtotal">
-        <span data-i18n="cart_subtotal">Subtotal</span>
-        <span>{{ cart.total_price | money }}</span>
-      </div>
-      <p class="cart-drawer__tax-note" data-i18n="cart_tax">Impostos e portes calculados na finalização da compra.</p>
-      <a href="/checkout" class="btn btn--primary cart-drawer__checkout" data-i18n="cart_checkout">Finalizar Compra</a>
-      <a href="/cart" class="btn btn--secondary cart-drawer__view-cart" data-i18n="cart_view">Ver Carrinho</a>
-    </div>
-  {% endif %}
 </div>

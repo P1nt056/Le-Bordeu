@@ -3,12 +3,53 @@
     <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=1000&auto=format&fit=crop" alt="Moda Le Bordeu" loading="lazy">
   </div>
   <div class="editorial__content">
-    <h2 data-i18n="edit_title">Moda pensada para momentos especiais e para o <em>dia a dia</em>.</h2>
-    <p data-i18n="edit_sub">Peças escolhidas meticulosamente para destacar a tua elegância natural. Luxo nos detalhes, conforto na essência.</p>
-    <blockquote style="font-family: 'Playfair Display', serif; font-style: italic; font-size: 20px; color: var(--color-gold); border-left: 2px solid var(--color-gold); padding-left: 20px; margin: 30px 0; line-height: 1.4;">
-      <span data-i18n="edit_quote">"A elegância não é sobre chamar a atenção, mas sim sobre ser lembrado."</span>
-    </blockquote>
-    <a href="/pages/about" class="btn btn--secondary" data-i18n="edit_btn">Descobrir a Marca</a>
+    <div class="editorial__text-wrapper">
+      <h2 data-i18n="edit_title">Moda pensada para momentos especiais e para o <em>dia a dia</em>.</h2>
+      <p data-i18n="edit_sub">Peças escolhidas meticulosamente para destacar a tua elegância natural. Luxo nos detalhes, conforto na essência.</p>
+      <blockquote style="font-family: 'Playfair Display', serif; font-style: italic; font-size: 20px; color: var(--color-gold); border-left: 2px solid var(--color-gold); padding-left: 20px; margin: 30px 0; line-height: 1.4;">
+        <span data-i18n="edit_quote">"A elegância não é sobre chamar a atenção, mas sim sobre ser lembrado."</span>
+      </blockquote>
+      <a href="/pages/about" class="btn btn--secondary" data-i18n="edit_btn">Descobrir a Marca</a>
+    </div>
+
+    <div class="editorial-reviews" id="editorialReviews">
+      <div class="editorial-reviews__header">
+        <h3>O que dizem os nossos clientes</h3>
+        {% if customer %}
+          <button type="button" class="btn btn--primary btn--small" id="btnWriteReview">Escrever Review</button>
+        {% else %}
+          <a href="/account/login" class="btn btn--secondary btn--small">Iniciar Sessão para Avaliar</a>
+        {% endif %}
+      </div>
+
+      {% if customer %}
+      <div class="editorial-reviews__form-container" id="reviewFormContainer" style="display: none;">
+        <form id="reviewForm" class="editorial-reviews__form">
+          <input type="hidden" id="reviewName" value="{{ customer.name }}">
+          <p style="color: #fff; font-size: 14px; margin-bottom: 0px; opacity: 0.8;">A avaliar publicamente como: <strong>{{ customer.name }}</strong></p>
+          <div class="editorial-reviews__stars-input">
+            <select id="reviewStars" required>
+              <option value="5">★★★★★ (5 Estrelas)</option>
+              <option value="4">★★★★☆ (4 Estrelas)</option>
+              <option value="3">★★★☆☆ (3 Estrelas)</option>
+              <option value="2">★★☆☆☆ (2 Estrelas)</option>
+              <option value="1">★☆☆☆☆ (1 Estrela)</option>
+            </select>
+          </div>
+          <textarea id="reviewComment" placeholder="A sua opinião..." required rows="3"></textarea>
+          <button type="submit" class="btn btn--secondary btn--small" style="width: 100%;">Enviar Review</button>
+        </form>
+      </div>
+      {% endif %}
+
+      <div class="editorial-reviews__list" id="reviewsList">
+        <!-- Reviews injected via JS -->
+      </div>
+
+      <div class="editorial-reviews__pagination" id="reviewsPagination">
+        <!-- Pagination injected via JS -->
+      </div>
+    </div>
   </div>
 </section>
 

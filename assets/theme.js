@@ -49,6 +49,9 @@ document.addEventListener('DOMContentLoaded', function () {
   window.openCartDrawer = function () {
     document.body.classList.add('cart-drawer-open');
     overlay.classList.add('active');
+    if (typeof loadCartRecommendations === 'function') {
+      loadCartRecommendations();
+    }
   };
 
   window.closeCartDrawer = function () {
@@ -67,6 +70,9 @@ document.addEventListener('DOMContentLoaded', function () {
         if (newDrawer && oldDrawer) {
           oldDrawer.innerHTML = newDrawer.innerHTML;
           bindCartDrawerInnerEvents();
+          if (typeof loadCartRecommendations === 'function') {
+            loadCartRecommendations();
+          }
         }
       });
 
@@ -98,6 +104,116 @@ document.addEventListener('DOMContentLoaded', function () {
         refreshCartDrawer();
       })
       .catch(err => console.error(err));
+  }
+
+  function loadCartRecommendations() {
+    const container = document.querySelector('.cart-drawer__recommendations');
+    if (!container) return;
+
+    const productId = container.dataset.productId;
+    const colorRaw = container.dataset.color || '';
+    const prodType = (container.dataset.type || '').toLowerCase();
+    const prodTags = (container.dataset.tags || '').toLowerCase();
+    if (!productId) return;
+
+    let cleanColor = colorRaw.split('/')[0].split('-')[0].trim();
+    
+    let typeQuery = '';
+    const matchType = prodType + " " + prodTags;
+    if (matchType.includes('vestido') || matchType.includes('dress')) {
+      typeQuery = 'product_type:Calçado OR product_type:Malas OR product_type:Bijuteria OR product_type:Sapatos OR product_type:Relógios';
+    } else if (matchType.includes('shirt') || matchType.includes('top') || matchType.includes('camisa') || matchType.includes('casaco')) {
+      typeQuery = 'product_type:Calças OR product_type:Calções OR product_type:Calçado OR product_type:Sapatos';
+    } else if (matchType.includes('calça') || matchType.includes('jeans') || matchType.includes('bottom') || matchType.includes('short')) {
+      typeQuery = 'product_type:T-Shirts OR product_type:Camisas OR product_type:Calçado OR product_type:Sapatos';
+    } else if (matchType.includes('sapatos') || matchType.includes('calçado') || matchType.includes('shoes')) {
+      typeQuery = 'product_type:Malas OR product_type:Bijuteria OR product_type:Acessórios';
+    } else if (matchType.includes('bijuteria') || matchType.includes('relógios') || matchType.includes('jewelry')) {
+      typeQuery = 'product_type:Vestidos OR product_type:T-Shirts';
+    }
+
+    // Pipeline de pesquisas:
+    // 1. Cor + Tipo
+    // 2. Só Tipo
+    // 3. Padrão do Shopify
+    let currentStep = parseInt(container.dataset.step || '1', 10);
+    
+    let fetchUrl = `/recommendations/products.json?product_id=${productId}&limit=6`;
+    
+    if (currentStep === 1 && cleanColor !== '' && typeQuery !== '') {
+      fetchUrl = `/search/suggest.json?q=${encodeURIComponent(cleanColor + ' (' + typeQuery + ')')}&resources[type]=product&resources[limit]=6`;
+    } else if (currentStep <= 2 && typeQuery !== '') {
+      currentStep = 2;
+      fetchUrl = `/search/suggest.json?q=${encodeURIComponent(typeQuery)}&resources[type]=product&resources[limit]=6`;
+    } else {
+      currentStep = 3;
+    }
+
+    container.dataset.step = currentStep;
+
+    fetch(fetchUrl)
+      .then(res => {
+        if (!res.ok) throw new Error('Network error');
+        return res.json();
+      })
+      .then(data => {
+        let products = [];
+        if (data.products) {
+          products = data.products;
+        } else if (data.resources && data.resources.results && data.resources.results.products) {
+          products = data.resources.results.products;
+          products = products.slice(0, 6);
+        }
+
+        const currentContainer = document.querySelector('.cart-drawer__recommendations');
+        if (!currentContainer || currentContainer.dataset.productId !== productId) return;
+
+        if (products.length > 0) {
+          const list = currentContainer.querySelector('.cart-drawer__recommendations-list');
+          if (list) {
+            let html = '';
+            products.forEach(product => {
+              const image = (product.featured_image && typeof product.featured_image === 'object') ? product.featured_image.url : (product.featured_image || product.image || '');
+              const priceVal = product.price !== undefined ? (typeof product.price === 'string' ? parseFloat(product.price.replace(/[^0-9.]/g,'')) : product.price / 100) : 0;
+              const priceStr = new Intl.NumberFormat('pt-PT', { style: 'currency', currency: 'EUR' }).format(priceVal);
+              
+              const actionHtml = `<a href="${product.url}" class="cart-recommendation-item__add" data-i18n="cart_view_prod">Ver Produto</a>`;
+
+              html += `
+                <div class="cart-recommendation-item">
+                  <a href="${product.url}" class="cart-recommendation-item__image">
+                    <img src="${image}" alt="${product.title}">
+                  </a>
+                  <div class="cart-recommendation-item__details">
+                    <a href="${product.url}" class="cart-recommendation-item__title">${product.title}</a>
+                    <div class="cart-recommendation-item__price">${priceStr}</div>
+                    ${actionHtml}
+                  </div>
+                </div>
+              `;
+            });
+
+            list.innerHTML = html;
+
+            if (typeof applyTranslations === 'function') {
+              applyTranslations();
+            }
+          }
+        } else {
+          // Fallback para o próximo passo
+          if (currentStep < 3) {
+            currentContainer.dataset.step = currentStep + 1;
+            loadCartRecommendations();
+          } else {
+            currentContainer.style.display = 'none';
+          }
+        }
+      })
+      .catch(err => {
+        console.error('Erro ao carregar:', err);
+        const currentContainer = document.querySelector('.cart-drawer__recommendations');
+        if (currentContainer) currentContainer.style.display = 'none';
+      });
   }
 
   function bindCartDrawerInnerEvents() {
@@ -376,40 +492,40 @@ document.addEventListener('DOMContentLoaded', function () {
     const applyFilters = () => {
       // Get selected custom tags
       const checkedTags = Array.from(filterForm.querySelectorAll('.custom-tag-checkbox:checked')).map(cb => cb.value);
-      
+
       // Determine base collection handle
       let pathParts = window.location.pathname.split('/').filter(Boolean);
       let collectionIndex = pathParts.indexOf('collections');
       let collectionHandle = pathParts[collectionIndex + 1] || 'all';
-      
+
       let newPath = `/collections/${collectionHandle}`;
       if (checkedTags.length > 0) {
         newPath += '/' + checkedTags.join('+');
       }
-      
+
       // Build query string for price inputs
       const urlParams = new URLSearchParams();
       const minPrice = filterForm.querySelector('input[name*="price.gte"]');
       const maxPrice = filterForm.querySelector('input[name*="price.lte"]');
-      
+
       if (minPrice && minPrice.value) urlParams.set(minPrice.name, minPrice.value);
       if (maxPrice && maxPrice.value) urlParams.set(maxPrice.name, maxPrice.value);
-      
+
       const queryString = urlParams.toString();
       const finalUrl = newPath + (queryString ? '?' + queryString : '');
-      
+
       const grid = document.querySelector('.products-grid');
       const count = document.querySelector('.collection-count');
       const main = document.querySelector('.collection-main');
-      
+
       if (grid) grid.style.opacity = '0.5';
-      
+
       fetch(finalUrl)
         .then(response => response.text())
         .then(html => {
           const parser = new DOMParser();
           const doc = parser.parseFromString(html, 'text/html');
-          
+
           const newGrid = doc.querySelector('.products-grid');
           if (newGrid && grid) {
             grid.innerHTML = newGrid.innerHTML;
@@ -418,13 +534,13 @@ document.addEventListener('DOMContentLoaded', function () {
             grid.innerHTML = '<div class="collection-empty" style="grid-column: 1/-1; text-align: center; padding: 40px;"><p>Nenhum produto encontrado com estes filtros.</p></div>';
             grid.style.opacity = '1';
           }
-          
+
           const newCount = doc.querySelector('.collection-count');
           if (newCount && count) count.innerHTML = newCount.innerHTML;
-          
+
           const newPagination = doc.querySelector('.pagination');
           let currentPagination = document.querySelector('.pagination');
-          
+
           if (currentPagination && newPagination) {
             currentPagination.innerHTML = newPagination.innerHTML;
           } else if (currentPagination && !newPagination) {
@@ -432,8 +548,8 @@ document.addEventListener('DOMContentLoaded', function () {
           } else if (!currentPagination && newPagination) {
             main.appendChild(newPagination);
           }
-          
-          window.history.pushState({path: finalUrl}, '', finalUrl);
+
+          window.history.pushState({ path: finalUrl }, '', finalUrl);
         })
         .catch(err => {
           console.error('Erro a carregar filtros:', err);
@@ -466,7 +582,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     filterForm.addEventListener('change', function (e) {
       if (e.target.type !== 'submit') {
-        
+
         // Enforce single selection within group
         if (e.target.classList.contains('custom-tag-checkbox') && e.target.checked) {
           const group = e.target.getAttribute('data-group');
@@ -477,9 +593,9 @@ document.addEventListener('DOMContentLoaded', function () {
             });
           }
         }
-        
+
         const checkedTags = Array.from(filterForm.querySelectorAll('.custom-tag-checkbox:checked')).map(cb => cb.value);
-        
+
         const subBijuteria = document.getElementById('subtipo-bijuteria');
         if (subBijuteria) {
           if (checkedTags.includes('bijuteria')) {
@@ -499,33 +615,195 @@ document.addEventListener('DOMContentLoaded', function () {
             subCalcado.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
           }
         }
-        
+
         clearTimeout(window.filterTimeout);
         window.filterTimeout = setTimeout(applyFilters, 50);
       }
     });
-    
+
     filterForm.addEventListener('submit', function (e) {
       e.preventDefault();
       applyFilters();
     });
-    
+
     // Clear filters button
     const clearFiltersBtn = document.getElementById('ClearFiltersBtn');
     if (clearFiltersBtn) {
-      clearFiltersBtn.addEventListener('click', function() {
+      clearFiltersBtn.addEventListener('click', function () {
         // Uncheck all custom tags
         const customTags = filterForm.querySelectorAll('.custom-tag-checkbox');
         customTags.forEach(cb => cb.checked = false);
-        
+
         // Clear price inputs
         const minPrice = filterForm.querySelector('input[name*="price.gte"]');
         const maxPrice = filterForm.querySelector('input[name*="price.lte"]');
         if (minPrice) minPrice.value = '';
         if (maxPrice) maxPrice.value = '';
-        
+
         applyFilters();
       });
     }
+  }
+});
+
+// ==========================================
+// 5. Editorial Reviews System (Firebase)
+// ==========================================
+const firebaseConfig = {
+  apiKey: "AIzaSyCe3T-anXZ2zqSqmASZ22TYqyR3gfWzv0c",
+  authDomain: "le-bordeu.firebaseapp.com",
+  projectId: "le-bordeu",
+  storageBucket: "le-bordeu.firebasestorage.app",
+  messagingSenderId: "1062479355014",
+  appId: "1:1062479355014:web:80ab1e25e4682721ac8507",
+  measurementId: "G-QHT3E9D4RE"
+};
+
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+const db = firebase.firestore();
+
+document.addEventListener('DOMContentLoaded', () => {
+  const reviewsContainer = document.getElementById('editorialReviews');
+  if (reviewsContainer) {
+    const btnWriteReview = document.getElementById('btnWriteReview');
+    const reviewFormContainer = document.getElementById('reviewFormContainer');
+    const reviewForm = document.getElementById('reviewForm');
+    const reviewsList = document.getElementById('reviewsList');
+
+    if (btnWriteReview && reviewFormContainer) {
+      btnWriteReview.addEventListener('click', () => {
+        if (reviewFormContainer.style.display === 'none') {
+          reviewFormContainer.style.display = 'block';
+          btnWriteReview.textContent = 'Cancelar';
+        } else {
+          reviewFormContainer.style.display = 'none';
+          btnWriteReview.textContent = 'Escrever Review';
+        }
+      });
+    }
+
+    let currentPage = 1;
+    const reviewsPerPage = 4;
+
+    const renderReviews = (allReviews) => {
+      reviewsList.innerHTML = '';
+      
+      const totalPages = Math.ceil(allReviews.length / reviewsPerPage);
+      const startIndex = (currentPage - 1) * reviewsPerPage;
+      const pageReviews = allReviews.slice(startIndex, startIndex + reviewsPerPage);
+
+      pageReviews.forEach(review => {
+        const starsHtml = '★'.repeat(review.stars) + '☆'.repeat(5 - review.stars);
+        
+        let dateObj = new Date(review.date);
+        if (isNaN(dateObj.getTime())) {
+          dateObj = new Date(); // Fallback se a data estiver inválida/antiga
+        }
+        const dateStr = dateObj.toLocaleDateString('pt-PT');
+        
+        reviewsList.innerHTML += `
+          <div class="editorial-review-card" onclick="this.classList.toggle('expanded')" title="Clica para expandir">
+            <div class="editorial-review-card__header">
+              <span class="editorial-review-card__author">${review.name}</span>
+              <span class="editorial-review-card__date">${dateStr}</span>
+            </div>
+            <div class="editorial-review-card__stars">${starsHtml}</div>
+            <p class="editorial-review-card__comment">${review.comment}</p>
+          </div>
+        `;
+      });
+
+      // Pagination
+      const paginationContainer = document.getElementById('reviewsPagination');
+      if (paginationContainer) {
+        paginationContainer.innerHTML = '';
+        if (totalPages > 1) {
+          
+          const prevBtn = document.createElement('button');
+          prevBtn.className = `editorial-reviews__page-btn`;
+          prevBtn.innerHTML = '&#8592;'; // Seta para a esquerda
+          if (currentPage === 1) prevBtn.style.opacity = '0.3';
+          prevBtn.addEventListener('click', () => {
+            if(currentPage > 1) {
+              currentPage--;
+              renderReviews(allReviews);
+            }
+          });
+          paginationContainer.appendChild(prevBtn);
+
+          const nextBtn = document.createElement('button');
+          nextBtn.className = `editorial-reviews__page-btn`;
+          nextBtn.innerHTML = '&#8594;'; // Seta para a direita
+          if (currentPage === totalPages) nextBtn.style.opacity = '0.3';
+          nextBtn.addEventListener('click', () => {
+            if(currentPage < totalPages) {
+              currentPage++;
+              renderReviews(allReviews);
+            }
+          });
+          paginationContainer.appendChild(nextBtn);
+          
+        }
+      }
+    };
+
+    const loadReviews = async () => {
+      try {
+        const snapshot = await db.collection("reviews").orderBy("date", "desc").get();
+        const reviews = [];
+        snapshot.forEach(doc => reviews.push(doc.data()));
+        
+        // Se a base de dados estiver vazia (primeira vez), colocamos umas de teste
+        if (reviews.length === 0) {
+           const initialReviews = [
+             { name: "Maria Sousa", stars: 5, comment: "A qualidade da roupa é divinal. Encomendei um vestido para um casamento e assentou que nem uma luva!", date: "2023-10-12T10:00:00Z" },
+             { name: "Carla Oliveira", stars: 5, comment: "O atendimento ao cliente é espetacular. Tive uma dúvida com o tamanho e ajudaram-me super rápido. Recomendo 100%.", date: "2023-11-05T12:00:00Z" },
+             { name: "Joana Fernandes", stars: 4, comment: "Peças lindas e muito elegantes. A única razão para não dar 5 estrelas foi o tempo de entrega que demorou mais um dia, mas a culpa foi da transportadora.", date: "2023-12-20T15:00:00Z" }
+           ];
+           for (const r of initialReviews) {
+             await db.collection("reviews").add(r);
+           }
+           renderReviews(initialReviews);
+        } else {
+           renderReviews(reviews);
+        }
+      } catch (error) {
+        console.error('Erro ao carregar reviews do Firebase:', error);
+        reviewsList.innerHTML = '<p style="color:var(--text-muted); font-size:14px;">Não foi possível carregar as opiniões de momento.</p>';
+      }
+    };
+
+    if (reviewForm) {
+      reviewForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const newReview = {
+          name: document.getElementById('reviewName').value,
+          stars: parseInt(document.getElementById('reviewStars').value),
+          comment: document.getElementById('reviewComment').value,
+          date: new Date().toISOString()
+        };
+
+        try {
+          // Enviar para o Firebase
+          await db.collection("reviews").add(newReview);
+          
+          // Reset form
+          reviewForm.reset();
+          reviewFormContainer.style.display = 'none';
+          btnWriteReview.textContent = 'Escrever Review';
+
+          // Reload
+          loadReviews();
+        } catch(error) {
+          console.error('Erro ao submeter review:', error);
+          alert("Ocorreu um erro ao enviar a review. Verifica as regras de segurança do Firebase.");
+        }
+      });
+    }
+
+    loadReviews();
   }
 });
