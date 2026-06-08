@@ -46,8 +46,8 @@ const TRANSLATIONS = {
   "prod_details_det": { pt: "Detalhe", en: "Detail" },
   "prod_details_spec": { pt: "Especificações", en: "Specifications" },
   "prod_details_full": { pt: "Características completas", en: "Full features" },
-  "opt_cor": { pt: "COR", en: "COLOR" },
-  "opt_tamanho": { pt: "TAMANHO", en: "SIZE" },
+  "opt_color": { pt: "COR", en: "COLOR" },
+  "opt_size": { pt: "TAMANHO", en: "SIZE" },
   "prod_recommended": { pt: "Produtos recomendados", en: "Recommended Products" },
 
   // Custom Filters Labels
@@ -98,6 +98,19 @@ const TRANSLATIONS = {
   "edit_sub": { pt: "Peças escolhidas meticulosamente para destacar a tua elegância natural. Luxo nos detalhes, conforto na essência.", en: "Meticulously chosen pieces to highlight your natural elegance. Luxury in details, comfort in essence." },
   "edit_quote": { pt: "\"A elegância não é sobre chamar a atenção, mas sim sobre ser lembrado.\"", en: "\"Elegance isn't about standing out, but about being remembered.\"" },
   "edit_btn": { pt: "Descobrir a Marca", en: "Discover the Brand" },
+
+  "rev_product": { pt: "Avaliações do Produto", en: "Product Reviews" },
+  "rev_leave": { pt: "Deixar uma Avaliação", en: "Leave a Review" },
+  "rev_login": { pt: "Iniciar Sessão para Avaliar", en: "Login to Review" },
+  "rev_rating_as": { pt: "A avaliar publicamente como:", en: "Reviewing publicly as:" },
+  "rev_placeholder": { pt: "A sua opinião sobre este artigo...", en: "Your opinion about this item..." },
+  "rev_submit": { pt: "Enviar Avaliação", en: "Submit Review" },
+  "rev_empty": { pt: "Ainda não existem avaliações para este produto. Seja o primeiro a avaliar!", en: "There are no reviews for this product yet. Be the first to review!" },
+  "rev_opinions": { pt: "opiniões", en: "reviews" },
+  "rev_home_title": { pt: "O que dizem os nossos clientes", en: "What our customers say" },
+  "rev_home_write": { pt: "Escrever Review", en: "Write Review" },
+  "rev_home_placeholder": { pt: "A sua opinião...", en: "Your opinion..." },
+  "rev_home_submit": { pt: "Enviar Review", en: "Submit Review" },
 
   // Newsletter
   "news_title": { pt: "Recebe novidades, promoções exclusivas e lançamentos <em>Le Bordeu</em>.", en: "Get news, exclusive promotions, and <em>Le Bordeu</em> launches." },

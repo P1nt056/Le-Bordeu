@@ -812,14 +812,19 @@ document.addEventListener('DOMContentLoaded', () => {
             let totalStars = 0;
             revs.forEach(r => totalStars += r.stars);
             const avg = (totalStars / revs.length).toFixed(1);
+            const roundedAvg = Math.round(avg);
             
             const avgWidget = document.getElementById('averageRatingWidget');
+            const avgStars = document.getElementById('averageRatingStars');
             const avgValue = document.getElementById('averageRatingValue');
             const avgCount = document.getElementById('averageRatingCount');
             
-            if (avgWidget && avgValue && avgCount) {
+            if (avgWidget && avgValue && avgCount && avgStars) {
+              const currentLang = localStorage.getItem('site_lang') || 'pt';
+              const opinsText = currentLang === 'en' ? TRANSLATIONS['rev_opinions'].en : TRANSLATIONS['rev_opinions'].pt;
+              avgStars.innerHTML = '★'.repeat(roundedAvg) + '☆'.repeat(5 - roundedAvg);
               avgValue.textContent = avg;
-              avgCount.textContent = `(${revs.length} opiniões)`;
+              avgCount.innerHTML = `(${revs.length} <span data-i18n="rev_opinions">${opinsText}</span>)`;
               avgWidget.style.display = 'flex';
             }
           }
@@ -916,7 +921,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const pageReviews = allReviews.slice(startIndex, startIndex + pReviewsPerPage);
 
       if (allReviews.length === 0) {
-        pReviewsList.innerHTML = '<p style="color: var(--text-muted); grid-column: 1 / -1; margin-bottom: 20px;">Ainda não existem avaliações para este produto. Seja o primeiro a avaliar!</p>';
+        const currentLang = localStorage.getItem('site_lang') || 'pt';
+        const emptyText = currentLang === 'en' ? TRANSLATIONS['rev_empty'].en : TRANSLATIONS['rev_empty'].pt;
+        pReviewsList.innerHTML = `<p style="color: var(--text-muted); grid-column: 1 / -1; margin-bottom: 20px;">${emptyText}</p>`;
         if(pPagination) pPagination.innerHTML = '';
         return;
       }
@@ -984,14 +991,19 @@ document.addEventListener('DOMContentLoaded', () => {
           let totalStars = 0;
           reviews.forEach(r => totalStars += r.stars);
           const avg = (totalStars / reviews.length).toFixed(1);
+          const roundedAvg = Math.round(avg);
           
           const pAvgWidget = document.getElementById('productAverageRatingWidget');
+          const pAvgStars = document.getElementById('productAverageRatingStars');
           const pAvgValue = document.getElementById('productAverageRatingValue');
           const pAvgCount = document.getElementById('productAverageRatingCount');
           
-          if (pAvgWidget && pAvgValue && pAvgCount) {
+          if (pAvgWidget && pAvgValue && pAvgCount && pAvgStars) {
+            const currentLang = localStorage.getItem('site_lang') || 'pt';
+            const opinsText = currentLang === 'en' ? TRANSLATIONS['rev_opinions'].en : TRANSLATIONS['rev_opinions'].pt;
+            pAvgStars.innerHTML = '★'.repeat(roundedAvg) + '☆'.repeat(5 - roundedAvg);
             pAvgValue.textContent = avg;
-            pAvgCount.textContent = `(${reviews.length} opiniões)`;
+            pAvgCount.innerHTML = `(${reviews.length} <span data-i18n="rev_opinions">${opinsText}</span>)`;
             pAvgWidget.style.display = 'flex';
           }
         } else {
