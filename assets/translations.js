@@ -112,6 +112,61 @@ const TRANSLATIONS = {
   "rev_home_placeholder": { pt: "A sua opinião...", en: "Your opinion..." },
   "rev_home_submit": { pt: "Enviar Review", en: "Submit Review" },
 
+  // About Page
+  "about_eyebrow_1": { pt: "Sobre nós", en: "About Us" },
+  "about_title_1": { pt: "A essência Le Bordeu", en: "The Le Bordeu essence" },
+  "about_lead_1": { pt: "Mais do que moda, a Le Bordeu é uma seleção de peças pensadas para dar presença, elegância e confiança ao teu dia a dia.", en: "More than fashion, Le Bordeu is a selection of pieces designed to give presence, elegance, and confidence to your everyday life." },
+  "about_p_1": { pt: "Escolhemos cada produto com atenção ao detalhe, ao conforto e ao impacto visual. A nossa ideia é simples: facilitar a descoberta de peças bonitas, versáteis e com acabamento cuidado.", en: "We choose each product with attention to detail, comfort, and visual impact. Our idea is simple: to facilitate the discovery of beautiful, versatile pieces with careful finishing." },
+  "about_btn_collections": { pt: "Ver coleções", en: "View Collections" },
+  "about_btn_products": { pt: "Ver produtos", en: "View Products" },
+  "about_val_1_title": { pt: "Curadoria", en: "Curation" },
+  "about_val_1_desc": { pt: "Selecionamos produtos com estilo, equilíbrio e potencial para acompanhar diferentes momentos.", en: "We select products with style, balance, and potential to accompany different moments." },
+  "about_val_2_title": { pt: "Detalhe", en: "Detail" },
+  "about_val_2_desc": { pt: "Valorizamos acabamentos, silhuetas e pequenos pormenores que tornam uma peça memorável.", en: "We value finishes, silhouettes, and small details that make a piece memorable." },
+  "about_val_3_title": { pt: "Confiança", en: "Confidence" },
+  "about_val_3_desc": { pt: "Criamos uma experiência clara, com pagamento seguro, envio rápido e trocas simples.", en: "We create a clear experience, with secure payment, fast shipping, and easy returns." },
+  "about_eyebrow_2": { pt: "A nossa promessa", en: "Our promise" },
+  "about_title_2": { pt: "Elegância sem complicar.", en: "Elegance without complication." },
+  "about_p_2": { pt: "Queremos que cada compra seja simples e bem pensada, desde o momento em que escolhes o produto até ao momento em que ele chega a tua casa.", en: "We want every purchase to be simple and well thought out, from the moment you choose the product until the moment it arrives at your home." },
+  "about_p_3": { pt: "A Le Bordeu foi criada para quem procura uma presença cuidada sem excesso: peças fáceis de usar, bonitas de ver e escolhidas com critério.", en: "Le Bordeu was created for those looking for a careful presence without excess: easy-to-wear pieces, beautiful to look at, and chosen carefully." },
+  "about_eyebrow_3": { pt: "Como escolhemos", en: "How we choose" },
+  "about_title_3": { pt: "O detalhe vem antes da montra.", en: "Detail comes before the showcase." },
+  "about_proc_1_title": { pt: "Estilo que se adapta", en: "Style that adapts" },
+  "about_proc_1_desc": { pt: "Procuramos peças que funcionem em diferentes momentos, do dia a dia a ocasiões em que queres uma presença mais marcante.", en: "We look for pieces that work in different moments, from everyday life to occasions where you want a more striking presence." },
+  "about_proc_2_title": { pt: "Acabamento cuidado", en: "Careful finishing" },
+  "about_proc_2_desc": { pt: "Damos atenção à forma, aos materiais, aos pormenores visuais e à sensação geral de cada produto.", en: "We pay attention to the shape, materials, visual details, and the overall feel of each product." },
+  "about_proc_3_title": { pt: "Compra sem complicações", en: "Hassle-free purchase" },
+  "about_proc_3_desc": { pt: "Queremos que escolher, comprar e receber seja simples, claro e seguro do primeiro clique até à entrega.", en: "We want choosing, buying, and receiving to be simple, clear, and secure from the first click to delivery." },
+  "about_eyebrow_4": { pt: "O que podes esperar", en: "What you can expect" },
+  "about_title_4": { pt: "Uma experiência pensada para te deixar tranquilo.", en: "An experience designed to give you peace of mind." },
+  "about_exp_1": { pt: "Pagamento 100% seguro", en: "100% secure payment" },
+  "about_exp_2": { pt: "Envio rápido e acompanhamento da encomenda", en: "Fast shipping and order tracking" },
+  "about_exp_3": { pt: "Trocas simples quando algo não fica como esperavas", en: "Easy returns when something isn't as expected" },
+  "about_exp_4": { pt: "Produtos escolhidos para combinar elegância e uso real", en: "Products chosen to combine elegance and real use" },
+  "about_exp_note": { pt: "Acreditamos que uma boa loja não termina na imagem bonita. Tem de ser clara, funcional e confiável em todos os passos.", en: "We believe a good store doesn't end with a beautiful image. It has to be clear, functional, and reliable at every step." },
+  "about_title_5": { pt: "Descobre peças escolhidas para elevar o teu estilo.", en: "Discover pieces chosen to elevate your style." },
+  "about_btn_explore": { pt: "Explorar produtos", en: "Explore products" },
+
+  // Footer
+  "ftr_slogan": { pt: "Estilo com presença. Luxo nos detalhes.", en: "Style with presence. Luxury in details." },
+  "ftr_about": { pt: "Sobre Nós", en: "About Us" },
+  "ftr_contact": { pt: "Contacto", en: "Contact" },
+  "ftr_shipping": { pt: "Envios e Devoluções", en: "Shipping & Returns" },
+  "ftr_privacy": { pt: "Privacidade", en: "Privacy Policy" },
+  "ftr_terms": { pt: "Termos e Condições", en: "Terms of Service" },
+  "ftr_contact_lbl": { pt: "Contacto: ", en: "Contact: " },
+  "ftr_payments": { pt: "Métodos de pagamento", en: "Payment methods" },
+
+  // Contact
+  "contact_eyebrow": { pt: "Contacto", en: "Contact" },
+  "contact_title": { pt: "Fala connosco", en: "Talk to us" },
+  "contact_desc": { pt: "Estamos disponíveis para ajudar com encomendas, tamanhos, envios, devoluções e qualquer dúvida sobre a Le Bordeu.", en: "We are available to help with orders, sizes, shipping, returns, and any questions about Le Bordeu." },
+  "contact_email_title": { pt: "Email", en: "Email" },
+  "contact_email_desc_1": { pt: "Envia-nos uma mensagem para ", en: "Send us a message to " },
+  "contact_email_desc_2": { pt: ". Para pedidos sobre encomendas, inclui o número da encomenda para conseguirmos ajudar mais depressa.", en: ". For order inquiries, include your order number so we can help faster." },
+  "contact_return_title": { pt: "Pedidos de devolução ou troca", en: "Return or exchange requests" },
+  "contact_return_desc": { pt: "Antes de enviares qualquer artigo de volta, contacta-nos para confirmarmos se o pedido cumpre as condições e para te indicarmos os próximos passos.", en: "Before sending any item back, contact us to confirm if the request meets the conditions and to provide you with the next steps." },
+
   // Newsletter
   "news_title": { pt: "Recebe novidades, promoções exclusivas e lançamentos <em>Le Bordeu</em>.", en: "Get news, exclusive promotions, and <em>Le Bordeu</em> launches." },
   "news_ph": { pt: "O teu email", en: "Your email" },
@@ -750,6 +805,263 @@ function applyTranslations() {
       countEl.textContent = TRANSLATIONS['list_view_prefix'][currentLang] + num + TRANSLATIONS['list_view'][currentLang];
     }
   });
+
+  // Shopify Policies Custom Translation Override
+  if (window.location.pathname.includes('/policies/')) {
+    const titleEl = document.querySelector('.shopify-policy__title h1');
+    const bodyEl = document.querySelector('.shopify-policy__body .rte') || document.querySelector('.shopify-policy__body');
+    
+    if (titleEl && bodyEl) {
+      if (!titleEl.hasAttribute('data-original-text')) {
+        titleEl.setAttribute('data-original-text', titleEl.textContent);
+      }
+      if (!bodyEl.hasAttribute('data-original-html')) {
+        bodyEl.setAttribute('data-original-html', bodyEl.innerHTML);
+      }
+      
+      if (currentLang === 'pt') {
+        if (window.location.pathname.includes('refund-policy')) {
+          titleEl.textContent = 'Política de Devolução';
+          bodyEl.innerHTML = `
+            <p>Temos uma política de devolução de 30 dias, o que significa que tens 30 dias após receberes o teu artigo para solicitar uma devolução.</p>
+            
+            <p>Para seres elegível para uma devolução, o teu artigo deve estar nas mesmas condições em que o recebeste, sem ser usado ou vestido, com as etiquetas e na embalagem original. Também precisarás do recibo ou comprovativo de compra.</p>
+            
+            <p>Para iniciar uma devolução, podes contactar-nos através de <a href="mailto:pintoreis06@gmail.com">pintoreis06@gmail.com</a>. Tem em atenção que as devoluções terão de ser enviadas para a seguinte morada: [INSERIR MORADA DE DEVOLUÇÃO]</p>
+            
+            <p>Se a tua devolução for aceite, enviaremos uma etiqueta de envio de devolução, bem como instruções sobre como e para onde enviar a tua encomenda. Artigos devolvidos sem um pedido prévio de devolução não serão aceites.</p>
+            
+            <p>Podes sempre contactar-nos para qualquer dúvida sobre devoluções em <a href="mailto:pintoreis06@gmail.com">pintoreis06@gmail.com</a>.</p>
+            
+            <h2>Danos e problemas</h2>
+            <p>Por favor, inspeciona a tua encomenda no momento da receção e contacta-nos imediatamente se o artigo estiver defeituoso, danificado ou se receberes o artigo errado, para que possamos avaliar o problema e corrigi-lo.</p>
+            
+            <h2>Exceções / artigos não devolvíveis</h2>
+            <p>Certos tipos de artigos não podem ser devolvidos, como bens perecíveis (como alimentos, flores ou plantas), produtos personalizados (como encomendas especiais ou itens personalizados) e bens de cuidados pessoais (como produtos de beleza). Também não aceitamos devoluções de materiais perigosos, líquidos inflamáveis ou gases. Por favor, entra em contacto se tiveres dúvidas ou preocupações sobre o teu artigo específico.</p>
+            
+            <p>Infelizmente, não podemos aceitar devoluções de artigos em saldo ou cartões-presente.</p>
+            
+            <h2>Trocas</h2>
+            <p>A forma mais rápida de garantir que recebes o que desejas é devolver o artigo que tens e, assim que a devolução for aceite, fazer uma compra separada para o novo artigo.</p>
+            
+            <h2>Período de reflexão de 7 dias da União Europeia</h2>
+            <p>Sem prejuízo do disposto acima, se a mercadoria for enviada para a União Europeia, tens o direito de cancelar ou devolver a tua encomenda no prazo de 7 dias, por qualquer motivo e sem justificação. Como acima, o teu artigo deve estar nas mesmas condições em que o recebeste, sem ser usado ou vestido, com etiquetas e na sua embalagem original. Também precisarás do recibo ou comprovativo de compra.</p>
+            
+            <h2>Reembolsos</h2>
+            <p>Iremos notificar-te assim que recebermos e inspecionarmos a tua devolução, e informaremos se o reembolso foi aprovado ou não. Se for aprovado, serás reembolsado automaticamente no teu método de pagamento original no prazo de 10 dias úteis. Lembra-te de que pode demorar algum tempo para que o teu banco ou a empresa do cartão de crédito processe e transfira o reembolso também.</p>
+            
+            <p>Se já se passaram mais de 15 dias úteis desde que aprovámos a tua devolução, por favor, contacta-nos através de <a href="mailto:pintoreis06@gmail.com">pintoreis06@gmail.com</a>.</p>
+          `;
+        } else if (window.location.pathname.includes('privacy-policy')) {
+          titleEl.textContent = 'Política de Privacidade';
+          bodyEl.innerHTML = `
+            <p><strong>Última atualização: 30 de Maio de 2026</strong></p>
+            
+            <p>A Le Bordeu opera esta loja e site, incluindo todas as informações, conteúdos, funcionalidades, ferramentas, produtos e serviços relacionados, de forma a fornecer a si, o cliente, uma experiência de compra curada (os "Serviços"). A Le Bordeu é desenvolvida pela Shopify, que nos permite fornecer-lhe os Serviços. Esta Política de Privacidade descreve como recolhemos, utilizamos e divulgamos as suas informações pessoais quando visita, utiliza ou faz uma compra ou outra transação utilizando os Serviços ou comunica connosco de outra forma. Se houver um conflito entre os nossos Termos de Serviço e esta Política de Privacidade, esta Política de Privacidade prevalece no que diz respeito à recolha, processamento e divulgação das suas informações pessoais.</p>
+            
+            <p>Por favor, leia esta Política de Privacidade cuidadosamente. Ao utilizar e aceder a qualquer um dos Serviços, reconhece que leu esta Política de Privacidade e compreende a recolha, utilização e divulgação das suas informações, conforme descrito nesta Política de Privacidade.</p>
+            
+            <h2>Informações Pessoais que Recolhemos ou Processamos</h2>
+            <p>Quando utilizamos o termo "informações pessoais", referimo-nos a informações que identificam ou podem ser razoavelmente associadas a si ou a outra pessoa. As informações pessoais não incluem informações recolhidas anonimamente ou que foram desidentificadas, de modo a não poderem identificá-lo ou serem razoavelmente associadas a si. Podemos recolher ou processar as seguintes categorias de informações pessoais, incluindo deduções retiradas destas informações pessoais, dependendo da forma como interage com os Serviços, onde vive, e conforme permitido ou exigido pela lei aplicável:</p>
+            <ul>
+              <li><strong>Detalhes de contacto</strong> incluindo o seu nome, morada, morada de faturação, morada de envio, número de telefone e endereço de email.</li>
+              <li><strong>Informações financeiras</strong> incluindo cartão de crédito, cartão de débito e números de conta financeira, informações do cartão de pagamento, informações da conta financeira, detalhes da transação, forma de pagamento, confirmação de pagamento e outros detalhes de pagamento.</li>
+              <li><strong>Informações da conta</strong> incluindo o seu nome de utilizador, palavra-passe, perguntas de segurança, preferências e definições.</li>
+              <li><strong>Informações de transação</strong> incluindo os artigos que vê, coloca no carrinho, adiciona à lista de desejos ou compra, devolve, troca ou cancela, e as suas transações anteriores.</li>
+              <li><strong>Comunicações connosco</strong> incluindo as informações que inclui nas comunicações connosco, por exemplo, ao enviar uma questão de apoio ao cliente.</li>
+              <li><strong>Informações do dispositivo</strong> incluindo informações sobre o seu dispositivo, navegador ou ligação de rede, o seu endereço IP e outros identificadores únicos.</li>
+              <li><strong>Informações de utilização</strong> incluindo informações relativas à sua interação com os Serviços, incluindo como e quando interage ou navega nos Serviços.</li>
+            </ul>
+            
+            <h2>Fontes de Informações Pessoais</h2>
+            <p>Podemos recolher informações pessoais das seguintes fontes:</p>
+            <ul>
+              <li><strong>Diretamente de si</strong> incluindo quando cria uma conta, visita ou utiliza os Serviços, comunica connosco, ou de outra forma nos fornece as suas informações pessoais;</li>
+              <li><strong>Automaticamente através dos Serviços</strong> incluindo a partir do seu dispositivo quando utiliza os nossos produtos ou serviços ou visita os nossos sites, e através da utilização de cookies e tecnologias semelhantes;</li>
+              <li><strong>Dos nossos prestadores de serviços</strong> incluindo quando os contratamos para ativar determinada tecnologia e quando eles recolhem ou processam as suas informações pessoais em nosso nome;</li>
+              <li><strong>De nossos parceiros ou terceiros.</strong></li>
+            </ul>
+            
+            <h2>Como Utilizamos as Suas Informações Pessoais</h2>
+            <p>Dependendo da forma como interage connosco ou de quais Serviços utiliza, podemos utilizar informações pessoais para os seguintes fins:</p>
+            <ul>
+              <li><strong>Fornecer, Adaptar e Melhorar os Serviços.</strong> Utilizamos as suas informações pessoais para lhe fornecer os Serviços, incluindo para cumprir o nosso contrato consigo, processar os seus pagamentos, satisfazer as suas encomendas, lembrar as suas preferências e artigos em que está interessado, enviar-lhe notificações relacionadas com a sua conta, processar compras, devoluções, trocas ou outras transações, criar, manter e gerir a sua conta, organizar envios, facilitar quaisquer devoluções e trocas, permitir que publique avaliações e criar uma experiência de compra personalizada.</li>
+              <li><strong>Marketing e Publicidade.</strong> Utilizamos as suas informações pessoais para fins de marketing e promocionais, como o envio de comunicações de marketing por email, e para lhe mostrar anúncios online de produtos ou serviços nos Serviços ou noutros sites, com base em artigos que comprou anteriormente ou adicionou ao seu carrinho e outras atividades nos Serviços.</li>
+              <li><strong>Segurança e Prevenção de Fraudes.</strong> Utilizamos as suas informações pessoais para autenticar a sua conta, fornecer uma experiência segura, detetar, investigar ou tomar medidas em relação a possíveis atividades fraudulentas ou maliciosas. Recomendamos que não partilhe o seu nome de utilizador, palavra-passe ou outros detalhes de acesso com mais ninguém.</li>
+              <li><strong>Comunicar Consigo.</strong> Utilizamos as suas informações pessoais para lhe fornecer apoio ao cliente, responder-lhe, fornecer-lhe serviços eficazes e manter a nossa relação comercial consigo.</li>
+              <li><strong>Razões Legais.</strong> Utilizamos as suas informações pessoais para cumprir a lei aplicável ou responder a processos legais válidos, e para aplicar ou investigar potenciais violações dos nossos termos ou políticas.</li>
+            </ul>
+            
+            <h2>Como Divulgamos as Informações Pessoais</h2>
+            <p>Em certas circunstâncias, podemos divulgar as suas informações pessoais a terceiros para fins legítimos. Tais circunstâncias podem incluir:</p>
+            <ul>
+              <li>Com a Shopify, fornecedores e outros terceiros que prestam serviços em nosso nome (por exemplo, gestão de TI, processamento de pagamentos, análise de dados, apoio ao cliente, armazenamento na cloud, envio).</li>
+              <li>Com parceiros comerciais e de marketing para fornecer serviços de marketing e anunciar para si.</li>
+              <li>Quando indica, solicita ou consente a nossa divulgação de determinadas informações a terceiros, como para lhe enviar produtos.</li>
+              <li>Com os nossos afiliados ou dentro do nosso grupo corporativo.</li>
+              <li>No âmbito de uma transação comercial, como uma fusão, para cumprir quaisquer obrigações legais, aplicar os termos de serviço, e proteger os nossos direitos.</li>
+            </ul>
+            
+            <h2>Relação com a Shopify</h2>
+            <p>Os Serviços são alojados pela Shopify, que recolhe e processa informações pessoais sobre o seu acesso e utilização dos Serviços, a fim de fornecer e melhorar os Serviços para si. Para saber mais sobre como a Shopify utiliza as suas informações pessoais, pode visitar a Política de Privacidade do Consumidor da Shopify.</p>
+            
+            <h2>Sites e Links de Terceiros</h2>
+            <p>Os Serviços podem fornecer links para sites ou plataformas online operadas por terceiros. Se seguir links para sites não controlados por nós, deve rever as suas políticas de privacidade. Não garantimos e não somos responsáveis pela privacidade ou segurança desses sites.</p>
+            
+            <h2>Dados de Crianças</h2>
+            <p>Os Serviços não se destinam a ser utilizados por crianças e não recolhemos intencionalmente informações pessoais sobre crianças com idade inferior à da maioridade na sua jurisdição.</p>
+            
+            <h2>Segurança e Retenção das Suas Informações</h2>
+            <p>Nenhuma medida de segurança é perfeita ou impenetrável. Recomendamos que não utilize canais não seguros para nos comunicar informações sensíveis. O tempo que retemos as suas informações pessoais depende de diferentes fatores, como manter a sua conta, fornecer Serviços ou cumprir obrigações legais.</p>
+            
+            <h2>Os Seus Direitos e Escolhas</h2>
+            <p>Dependendo de onde vive, poderá ter o direito de aceder, eliminar, corrigir ou portar as suas informações pessoais, bem como gerir preferências de comunicação ou restringir/retirar o consentimento para o processamento. Não o discriminaremos por exercer qualquer um destes direitos. Podemos ter de verificar a sua identidade antes de processarmos os seus pedidos.</p>
+            
+            <h2>Reclamações e Transferências Internacionais</h2>
+            <p>Se tiver reclamações, contacte-nos através dos detalhes abaixo. Pode também ter o direito de apresentar a sua reclamação à autoridade local de proteção de dados. Tenha em atenção que podemos transferir, armazenar e processar as suas informações pessoais fora do país onde reside, através de mecanismos de transferência reconhecidos.</p>
+            
+            <h2>Alterações a Esta Política de Privacidade</h2>
+            <p>Podemos atualizar esta Política de Privacidade periodicamente para refletir alterações às nossas práticas. Publicaremos a Política revista neste site e atualizaremos a data de "Última atualização".</p>
+            
+            <h2>Contacto</h2>
+            <p>Caso tenha alguma dúvida sobre as nossas práticas de privacidade ou sobre esta Política de Privacidade, envie um email para <a href="mailto:pintoreis06@gmail.com">pintoreis06@gmail.com</a> ou contacte-nos em Largo Nossa Sra. Do Bom Despacho 8, Recarei, PT-13, 4585-608, PT.</p>
+          `;
+        } else if (window.location.pathname.includes('terms-of-service')) {
+          titleEl.textContent = 'Termos de Serviço';
+          bodyEl.innerHTML = `
+            <p>Estes Termos e Condições regulam o acesso e utilização da loja online Le Bordeu, bem como a compra de produtos através do nosso website.</p>
+            <p>Ao navegar na loja ou realizar uma compra, confirmas que leste, compreendeste e aceitas estes termos.</p>
+            
+            <h2>1. Identificação e contacto</h2>
+            <p>A Le Bordeu comercializa artigos de moda e acessórios através da sua loja online.</p>
+            <p>Para qualquer questão relacionada com encomendas, produtos, pagamentos, envios, devoluções ou estes termos, podes contactar-nos através do email: <a href="mailto:contact@lebordeu.com">contact@lebordeu.com</a></p>
+            
+            <h2>2. Produtos e informação apresentada</h2>
+            <p>Fazemos o possível para apresentar descrições, imagens, tamanhos, cores, materiais, disponibilidade e preços de forma clara e correta.</p>
+            <p>Podem existir pequenas diferenças entre as imagens apresentadas e o produto recebido, nomeadamente devido à iluminação, configurações do ecrã ou produção do artigo.</p>
+            <p>A disponibilidade dos produtos pode alterar-se sem aviso prévio. Caso um produto comprado deixe de estar disponível, entraremos em contacto para propor uma alternativa, troca, cancelamento ou reembolso.</p>
+            
+            <h2>3. Preços e pagamentos</h2>
+            <p>Os preços apresentados na loja estão indicados na moeda exibida no checkout.</p>
+            <p>Custos de envio, quando aplicáveis, são apresentados antes da confirmação da encomenda.</p>
+            <p>A encomenda apenas é processada após confirmação do pagamento.</p>
+            <p>Reservamo-nos o direito de corrigir erros evidentes de preço, descrição, disponibilidade ou informação técnica antes do envio da encomenda.</p>
+            <p>Os pagamentos são processados por fornecedores de pagamento seguros. A Le Bordeu não armazena dados completos de cartão bancário.</p>
+            
+            <h2>4. Encomendas</h2>
+            <p>Ao finalizar uma compra, confirmas que os dados fornecidos são verdadeiros, completos e atualizados.</p>
+            <p>Não nos responsabilizamos por atrasos ou falhas de entrega causados por dados incorretos ou incompletos fornecidos pelo cliente.</p>
+            <p>Depois da confirmação da encomenda, receberás informação por email.</p>
+            <p>Podemos cancelar uma encomenda quando exista impossibilidade de fornecimento, suspeita de fraude, erro evidente ou incumprimento destes termos.</p>
+            
+            <h2>5. Envios e entrega</h2>
+            <p>As encomendas são enviadas para a morada indicada no checkout.</p>
+            <p>Os prazos de entrega dependem do destino, disponibilidade do produto, transportadora e eventuais fatores externos.</p>
+            <p>Quando a informação de acompanhamento estiver disponível, poderá ser enviada por email.</p>
+            
+            <h2>6. Direito de livre resolução</h2>
+            <p>Em compras à distância, o consumidor pode exercer o direito de livre resolução no prazo legal de 14 dias a contar da receção da encomenda, sem necessidade de indicar motivo, salvo exceções legalmente previstas.</p>
+            <p>Para exercer este direito, contacta-nos através de <a href="mailto:contact@lebordeu.com">contact@lebordeu.com</a> com o número da encomenda e identificação do artigo.</p>
+            <p>O artigo deve ser devolvido em bom estado, sem uso indevido, com etiquetas e embalagem original sempre que aplicável.</p>
+            <p>Salvo quando a devolução resulte de erro nosso, produto incorreto ou dano imputável à Le Bordeu, os custos diretos de devolução são da responsabilidade do cliente.</p>
+            
+            <h2>7. Trocas, devoluções e reembolsos</h2>
+            <p>Após receção e verificação do artigo devolvido, o reembolso será processado através do meio de pagamento utilizado na compra, salvo acordo em contrário.</p>
+            <p>Podemos recusar devoluções de artigos com sinais de utilização indevida, lavagem, danos, falta de etiquetas, falta de embalagem original quando relevante ou incumprimento das instruções comunicadas ao cliente.</p>
+            
+            <h2>8. Garantia e conformidade</h2>
+            <p>Os produtos vendidos ao consumidor beneficiam dos direitos legais aplicáveis em matéria de garantia e conformidade.</p>
+            <p>Caso recebas um artigo danificado, incorreto ou com defeito, contacta-nos o mais rapidamente possível com o número da encomenda, descrição da situação e fotografias.</p>
+            <p>A garantia legal não cobre danos resultantes de uso indevido, desgaste normal, acidente, lavagem incorreta, alterações feitas pelo cliente ou incumprimento das instruções de cuidado do produto.</p>
+            
+            <h2>9. Uso da loja</h2>
+            <p>Não podes usar a loja para fins ilegais, fraudulentos, abusivos ou que prejudiquem a segurança, funcionamento, reputação ou experiência de outros utilizadores.</p>
+            <p>Reservamo-nos o direito de limitar ou cancelar encomendas quando exista suspeita de fraude, utilização abusiva, dados falsos ou violação destes termos.</p>
+            
+            <h2>10. Propriedade intelectual</h2>
+            <p>A marca, design, textos, fotografias, imagens, estrutura da loja e demais conteúdos pertencem à Le Bordeu ou aos respetivos titulares.</p>
+            <p>Estes conteúdos não podem ser copiados, reproduzidos, distribuídos ou usados para fins comerciais sem autorização prévia.</p>
+            
+            <h2>11. Dados pessoais</h2>
+            <p>O tratamento de dados pessoais é descrito na nossa Política de Privacidade.</p>
+            <p>Ao usar a loja, reconheces que os teus dados podem ser tratados para processar encomendas, prestar apoio ao cliente, cumprir obrigações legais e melhorar a experiência de compra.</p>
+            
+            <h2>12. Alterações aos termos</h2>
+            <p>Podemos atualizar estes Termos e Condições sempre que necessário, nomeadamente por alterações legais, operacionais ou comerciais.</p>
+          `;
+        }
+      } else {
+        titleEl.textContent = titleEl.getAttribute('data-original-text');
+        
+        // Ensure English translation for terms of service since original is in Portuguese
+        if (window.location.pathname.includes('terms-of-service')) {
+          bodyEl.innerHTML = `
+            <p>These Terms and Conditions govern the access and use of the Le Bordeu online store, as well as the purchase of products through our website.</p>
+            <p>By browsing the store or making a purchase, you confirm that you have read, understood and accept these terms.</p>
+            
+            <h2>1. Identification and contact</h2>
+            <p>Le Bordeu sells fashion items and accessories through its online store.</p>
+            <p>For any questions related to orders, products, payments, shipping, returns or these terms, you can contact us via email: <a href="mailto:contact@lebordeu.com">contact@lebordeu.com</a></p>
+            
+            <h2>2. Products and information presented</h2>
+            <p>We do our best to present descriptions, images, sizes, colors, materials, availability and prices clearly and accurately.</p>
+            <p>There may be slight differences between the images shown and the product received, namely due to lighting, screen settings or production of the item.</p>
+            <p>Product availability may change without prior notice. If a purchased product becomes unavailable, we will contact you to propose an alternative, exchange, cancellation or refund.</p>
+            
+            <h2>3. Prices and payments</h2>
+            <p>The prices shown in the store are indicated in the currency displayed at checkout.</p>
+            <p>Shipping costs, when applicable, are displayed before order confirmation.</p>
+            <p>The order is only processed after payment confirmation.</p>
+            <p>We reserve the right to correct obvious errors in price, description, availability or technical information before shipping the order.</p>
+            <p>Payments are processed by secure payment providers. Le Bordeu does not store complete bank card data.</p>
+            
+            <h2>4. Orders</h2>
+            <p>When completing a purchase, you confirm that the data provided is true, complete and updated.</p>
+            <p>We are not responsible for delays or delivery failures caused by incorrect or incomplete data provided by the customer.</p>
+            <p>After order confirmation, you will receive information by email.</p>
+            <p>We may cancel an order when there is impossibility of supply, suspicion of fraud, obvious error or breach of these terms.</p>
+            
+            <h2>5. Shipping and delivery</h2>
+            <p>Orders are shipped to the address indicated at checkout.</p>
+            <p>Delivery times depend on the destination, product availability, carrier and possible external factors.</p>
+            <p>When tracking information is available, it may be sent by email.</p>
+            
+            <h2>6. Right of free resolution</h2>
+            <p>In distance purchases, the consumer may exercise the right of free resolution within the legal period of 14 days from the receipt of the order, without needing to state a reason, except for legally provided exceptions.</p>
+            <p>To exercise this right, contact us at <a href="mailto:contact@lebordeu.com">contact@lebordeu.com</a> with the order number and identification of the item.</p>
+            <p>The item must be returned in good condition, without undue use, with tags and original packaging whenever applicable.</p>
+            <p>Unless the return results from our error, incorrect product or damage attributable to Le Bordeu, the direct costs of return are the customer's responsibility.</p>
+            
+            <h2>7. Exchanges, returns and refunds</h2>
+            <p>After receiving and verifying the returned item, the refund will be processed through the payment method used in the purchase, unless otherwise agreed.</p>
+            <p>We may refuse returns of items with signs of undue use, washing, damage, missing tags, missing original packaging when relevant or failure to comply with the instructions communicated to the customer.</p>
+            
+            <h2>8. Warranty and compliance</h2>
+            <p>Products sold to the consumer benefit from the legal rights applicable in terms of warranty and compliance.</p>
+            <p>If you receive a damaged, incorrect or defective item, contact us as soon as possible with the order number, description of the situation and photographs.</p>
+            <p>The legal warranty does not cover damages resulting from undue use, normal wear, accident, incorrect washing, alterations made by the customer or failure to comply with the product's care instructions.</p>
+            
+            <h2>9. Use of the store</h2>
+            <p>You may not use the store for illegal, fraudulent, abusive purposes or that harm the security, operation, reputation or experience of other users.</p>
+            <p>We reserve the right to limit or cancel orders when there is suspicion of fraud, abusive use, false data or violation of these terms.</p>
+            
+            <h2>10. Intellectual property</h2>
+            <p>The brand, design, texts, photographs, images, store structure and other contents belong to Le Bordeu or their respective owners.</p>
+            <p>These contents may not be copied, reproduced, distributed or used for commercial purposes without prior authorization.</p>
+            
+            <h2>11. Personal data</h2>
+            <p>The processing of personal data is described in our Privacy Policy.</p>
+            <p>By using the store, you acknowledge that your data may be processed to process orders, provide customer support, fulfill legal obligations and improve the shopping experience.</p>
+            
+            <h2>12. Changes to the terms</h2>
+            <p>We may update these Terms and Conditions whenever necessary, namely due to legal, operational or commercial changes.</p>
+          `;
+        } else {
+          bodyEl.innerHTML = bodyEl.getAttribute('data-original-html');
+        }
+      }
+    }
+  }
 }
 
 function toggleLanguage() {

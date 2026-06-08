@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!productId) return;
 
     let cleanColor = colorRaw.split('/')[0].split('-')[0].trim();
-    
+
     let typeQuery = '';
     const matchType = prodType + " " + prodTags;
     if (matchType.includes('vestido') || matchType.includes('dress')) {
@@ -137,9 +137,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // 2. Só Tipo
     // 3. Padrão do Shopify
     let currentStep = parseInt(container.dataset.step || '1', 10);
-    
+
     let fetchUrl = `/recommendations/products.json?product_id=${productId}&limit=6`;
-    
+
     if (currentStep === 1 && cleanColor !== '' && typeQuery !== '') {
       fetchUrl = `/search/suggest.json?q=${encodeURIComponent(cleanColor + ' (' + typeQuery + ')')}&resources[type]=product&resources[limit]=6`;
     } else if (currentStep <= 2 && typeQuery !== '') {
@@ -174,9 +174,9 @@ document.addEventListener('DOMContentLoaded', function () {
             let html = '';
             products.forEach(product => {
               const image = (product.featured_image && typeof product.featured_image === 'object') ? product.featured_image.url : (product.featured_image || product.image || '');
-              const priceVal = product.price !== undefined ? (typeof product.price === 'string' ? parseFloat(product.price.replace(/[^0-9.]/g,'')) : product.price / 100) : 0;
+              const priceVal = product.price !== undefined ? (typeof product.price === 'string' ? parseFloat(product.price.replace(/[^0-9.]/g, '')) : product.price / 100) : 0;
               const priceStr = new Intl.NumberFormat('pt-PT', { style: 'currency', currency: 'EUR' }).format(priceVal);
-              
+
               const actionHtml = `<a href="${product.url}" class="cart-recommendation-item__add" data-i18n="cart_view_prod">Ver Produto</a>`;
 
               html += `
@@ -669,7 +669,7 @@ document.addEventListener('DOMContentLoaded', function () {
       star.addEventListener('click', () => {
         const rating = parseInt(star.getAttribute('data-value'));
         starInput.value = rating;
-        
+
         stars.forEach(s => {
           if (parseInt(s.getAttribute('data-value')) <= rating) {
             s.classList.add('active');
@@ -740,23 +740,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const renderReviews = (allReviews) => {
       reviewsList.innerHTML = '';
-      
+
       const totalPages = Math.ceil(allReviews.length / reviewsPerPage);
       const startIndex = (currentPage - 1) * reviewsPerPage;
       const pageReviews = allReviews.slice(startIndex, startIndex + reviewsPerPage);
 
       pageReviews.forEach(review => {
         const starsHtml = '★'.repeat(review.stars) + '☆'.repeat(5 - review.stars);
-        
+
         let dateObj = new Date(review.date);
         if (isNaN(dateObj.getTime())) {
           dateObj = new Date(); // Fallback se a data estiver inválida/antiga
         }
         const dateStr = dateObj.toLocaleDateString('pt-PT');
         const flag = getFlagForLang(review.lang || 'pt');
-        
+
         const currentCustomerId = document.getElementById('reviewCustomerId')?.value || document.getElementById('productReviewCustomerId')?.value || '';
-        
+
         let deleteBtnHtml = '';
         if (currentCustomerId && review.customerId === currentCustomerId) {
           deleteBtnHtml = `<button onclick="deleteReview('${review.id}')" style="background:none; border:none; color:var(--color-gold); cursor:pointer; font-size: 16px; margin-left: 10px;" title="Apagar Review">&#128465;</button>`;
@@ -779,13 +779,13 @@ document.addEventListener('DOMContentLoaded', () => {
       if (paginationContainer) {
         paginationContainer.innerHTML = '';
         if (totalPages > 1) {
-          
+
           const prevBtn = document.createElement('button');
           prevBtn.className = `editorial-reviews__page-btn`;
           prevBtn.innerHTML = '&#8592;'; // Seta para a esquerda
           if (currentPage === 1) prevBtn.style.opacity = '0.3';
           prevBtn.addEventListener('click', () => {
-            if(currentPage > 1) {
+            if (currentPage > 1) {
               currentPage--;
               renderReviews(allReviews);
             }
@@ -797,13 +797,13 @@ document.addEventListener('DOMContentLoaded', () => {
           nextBtn.innerHTML = '&#8594;'; // Seta para a direita
           if (currentPage === totalPages) nextBtn.style.opacity = '0.3';
           nextBtn.addEventListener('click', () => {
-            if(currentPage < totalPages) {
+            if (currentPage < totalPages) {
               currentPage++;
               renderReviews(allReviews);
             }
           });
           paginationContainer.appendChild(nextBtn);
-          
+
         }
       }
     };
@@ -815,19 +815,19 @@ document.addEventListener('DOMContentLoaded', () => {
         snapshot.forEach(doc => {
           reviews.push({ id: doc.id, ...doc.data() });
         });
-        
+
         const updateAvgWidget = (revs) => {
           if (revs.length > 0) {
             let totalStars = 0;
             revs.forEach(r => totalStars += r.stars);
             const avg = (totalStars / revs.length).toFixed(1);
             const roundedAvg = Math.round(avg);
-            
+
             const avgWidget = document.getElementById('averageRatingWidget');
             const avgStars = document.getElementById('averageRatingStars');
             const avgValue = document.getElementById('averageRatingValue');
             const avgCount = document.getElementById('averageRatingCount');
-            
+
             if (avgWidget && avgValue && avgCount && avgStars) {
               const currentLang = localStorage.getItem('site_lang') || 'pt';
               const opinsText = currentLang === 'en' ? TRANSLATIONS['rev_opinions'].en : TRANSLATIONS['rev_opinions'].pt;
@@ -838,22 +838,22 @@ document.addEventListener('DOMContentLoaded', () => {
             }
           }
         };
-        
+
         // Se a base de dados estiver vazia (primeira vez), colocamos umas de teste
         if (reviews.length === 0) {
-           const initialReviews = [
-             { name: "Maria Sousa", stars: 5, comment: "A qualidade da roupa é divinal. Encomendei um vestido para um casamento e assentou que nem uma luva!", date: "2023-10-12T10:00:00Z" },
-             { name: "Carla Oliveira", stars: 5, comment: "O atendimento ao cliente é espetacular. Tive uma dúvida com o tamanho e ajudaram-me super rápido. Recomendo 100%.", date: "2023-11-05T12:00:00Z" },
-             { name: "Joana Fernandes", stars: 4, comment: "Peças lindas e muito elegantes. A única razão para não dar 5 estrelas foi o tempo de entrega que demorou mais um dia, mas a culpa foi da transportadora.", date: "2023-12-20T15:00:00Z" }
-           ];
-           for (const r of initialReviews) {
-             await db.collection("reviews").add(r);
-           }
-           renderReviews(initialReviews);
-           updateAvgWidget(initialReviews);
+          const initialReviews = [
+            { name: "Maria Sousa", stars: 5, comment: "A qualidade da roupa é divinal. Encomendei um vestido para um casamento e assentou que nem uma luva!", date: "2023-10-12T10:00:00Z" },
+            { name: "Carla Oliveira", stars: 5, comment: "O atendimento ao cliente é espetacular. Tive uma dúvida com o tamanho e ajudaram-me super rápido. Recomendo 100%.", date: "2023-11-05T12:00:00Z" },
+            { name: "Joana Fernandes", stars: 4, comment: "Peças lindas e muito elegantes. A única razão para não dar 5 estrelas foi o tempo de entrega que demorou mais um dia, mas a culpa foi da transportadora.", date: "2023-12-20T15:00:00Z" }
+          ];
+          for (const r of initialReviews) {
+            await db.collection("reviews").add(r);
+          }
+          renderReviews(initialReviews);
+          updateAvgWidget(initialReviews);
         } else {
-           renderReviews(reviews);
-           updateAvgWidget(reviews);
+          renderReviews(reviews);
+          updateAvgWidget(reviews);
         }
       } catch (error) {
         console.error('Erro ao carregar reviews do Firebase:', error);
@@ -864,7 +864,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (reviewForm) {
       reviewForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
+
         const newReview = {
           name: document.getElementById('reviewName').value,
           customerId: document.getElementById('reviewCustomerId')?.value || '',
@@ -877,7 +877,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
           // Enviar para o Firebase
           await db.collection("reviews").add(newReview);
-          
+
           // Reset form
           reviewForm.reset();
           reviewFormContainer.style.display = 'none';
@@ -885,7 +885,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
           // Reload
           loadReviews();
-        } catch(error) {
+        } catch (error) {
           console.error('Erro ao submeter review:', error);
           alert("Ocorreu um erro ao enviar a review. Verifica as regras de segurança do Firebase.");
         }
@@ -906,7 +906,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const pReviewsList = document.getElementById('productReviewsList');
     const pReviewForm = document.getElementById('productReviewForm');
     const pPagination = document.getElementById('productReviewsPagination');
-    
+
     let pCurrentPage = 1;
     const pReviewsPerPage = 4;
 
@@ -925,7 +925,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const renderPReviews = (allReviews) => {
       pReviewsList.innerHTML = '';
-      
+
       const totalPages = Math.ceil(allReviews.length / pReviewsPerPage);
       const startIndex = (pCurrentPage - 1) * pReviewsPerPage;
       const pageReviews = allReviews.slice(startIndex, startIndex + pReviewsPerPage);
@@ -934,22 +934,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const currentLang = localStorage.getItem('site_lang') || 'pt';
         const emptyText = currentLang === 'en' ? TRANSLATIONS['rev_empty'].en : TRANSLATIONS['rev_empty'].pt;
         pReviewsList.innerHTML = `<p style="color: var(--text-muted); grid-column: 1 / -1; margin-bottom: 20px;">${emptyText}</p>`;
-        if(pPagination) pPagination.innerHTML = '';
+        if (pPagination) pPagination.innerHTML = '';
         return;
       }
 
       pageReviews.forEach(review => {
         const starsHtml = '★'.repeat(review.stars) + '☆'.repeat(5 - review.stars);
-        
+
         let dateObj = new Date(review.date);
         if (isNaN(dateObj.getTime())) {
           dateObj = new Date();
         }
         const dateStr = dateObj.toLocaleDateString('pt-PT');
         const flag = getFlagForLang(review.lang || 'pt');
-        
+
         const currentCustomerId = document.getElementById('reviewCustomerId')?.value || document.getElementById('productReviewCustomerId')?.value || '';
-        
+
         let deleteBtnHtml = '';
         if (currentCustomerId && review.customerId === currentCustomerId) {
           deleteBtnHtml = `<button onclick="deleteReview('${review.id}')" style="background:none; border:none; color:var(--color-gold); cursor:pointer; font-size: 16px; margin-left: 10px;" title="Apagar Review">&#128465;</button>`;
@@ -969,16 +969,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (totalPages > 1 && pPagination) {
         let paginationHtml = '';
-        
+
         if (pCurrentPage > 1) {
           paginationHtml += `<button class="p-page-btn" data-page="${pCurrentPage - 1}" aria-label="Página anterior" style="background: none; border: 1px solid var(--border-color); color: var(--text-cream); padding: 5px 12px; margin: 0 5px; cursor: pointer;">←</button>`;
         }
         if (pCurrentPage < totalPages) {
           paginationHtml += `<button class="p-page-btn" data-page="${pCurrentPage + 1}" aria-label="Próxima página" style="background: none; border: 1px solid var(--border-color); color: var(--text-cream); padding: 5px 12px; margin: 0 5px; cursor: pointer;">→</button>`;
         }
-        
+
         pPagination.innerHTML = paginationHtml;
-        
+
         pPagination.querySelectorAll('.p-page-btn').forEach(btn => {
           btn.addEventListener('click', (e) => {
             pCurrentPage = parseInt(e.target.getAttribute('data-page'));
@@ -996,25 +996,25 @@ document.addEventListener('DOMContentLoaded', () => {
         const reviews = [];
         snapshot.forEach(doc => {
           const data = doc.data();
-          if(data.productId === productId) {
-             reviews.push({ id: doc.id, ...data });
+          if (data.productId === productId) {
+            reviews.push({ id: doc.id, ...data });
           }
         });
-        
+
         // Ordear manualmente por data para evitar erro de Index do Firebase
         reviews.sort((a, b) => new Date(b.date) - new Date(a.date));
-        
+
         if (reviews.length > 0) {
           let totalStars = 0;
           reviews.forEach(r => totalStars += r.stars);
           const avg = (totalStars / reviews.length).toFixed(1);
           const roundedAvg = Math.round(avg);
-          
+
           const pAvgWidget = document.getElementById('productAverageRatingWidget');
           const pAvgStars = document.getElementById('productAverageRatingStars');
           const pAvgValue = document.getElementById('productAverageRatingValue');
           const pAvgCount = document.getElementById('productAverageRatingCount');
-          
+
           if (pAvgWidget && pAvgValue && pAvgCount && pAvgStars) {
             const currentLang = localStorage.getItem('site_lang') || 'pt';
             const opinsText = currentLang === 'en' ? TRANSLATIONS['rev_opinions'].en : TRANSLATIONS['rev_opinions'].pt;
@@ -1024,10 +1024,10 @@ document.addEventListener('DOMContentLoaded', () => {
             pAvgWidget.style.display = 'flex';
           }
         } else {
-           const pAvgWidget = document.getElementById('productAverageRatingWidget');
-           if (pAvgWidget) pAvgWidget.style.display = 'none';
+          const pAvgWidget = document.getElementById('productAverageRatingWidget');
+          if (pAvgWidget) pAvgWidget.style.display = 'none';
         }
-        
+
         renderPReviews(reviews);
       } catch (error) {
         console.error('Erro ao carregar reviews do produto:', error);
@@ -1039,7 +1039,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (pReviewForm) {
       pReviewForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
+
         const submitBtn = pReviewForm.querySelector('button[type="submit"]');
         const originalText = submitBtn.textContent;
         submitBtn.textContent = 'A enviar...';
@@ -1059,12 +1059,12 @@ document.addEventListener('DOMContentLoaded', () => {
           await db.collection("reviews").add(newReview);
           pReviewForm.reset();
           document.getElementById('productReviewFormWrapper').style.display = 'none';
-          
+
           const leaveBtn = document.querySelector('#productReviews .editorial-reviews__actions button');
-          if(leaveBtn) leaveBtn.style.display = 'inline-block';
+          if (leaveBtn) leaveBtn.style.display = 'inline-block';
 
           alert('Avaliação enviada com sucesso! Obrigado.');
-          
+
           pCurrentPage = 1;
           loadProductReviews();
         } catch (error) {
@@ -1086,7 +1086,7 @@ document.addEventListener('DOMContentLoaded', () => {
         star.addEventListener('click', () => {
           const rating = parseInt(star.getAttribute('data-value'));
           pStarInput.value = rating;
-          
+
           pStars.forEach(s => {
             if (parseInt(s.getAttribute('data-value')) <= rating) {
               s.classList.add('active');
