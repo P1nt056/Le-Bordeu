@@ -659,6 +659,29 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
   }
+
+  // Star Rating Widget Logic
+  const starWidget = document.getElementById('starRatingWidget');
+  const starInput = document.getElementById('reviewStars');
+  if (starWidget && starInput) {
+    const stars = starWidget.querySelectorAll('span');
+    stars.forEach(star => {
+      star.addEventListener('click', () => {
+        const rating = parseInt(star.getAttribute('data-value'));
+        starInput.value = rating;
+        
+        stars.forEach(s => {
+          if (parseInt(s.getAttribute('data-value')) <= rating) {
+            s.classList.add('active');
+            s.innerHTML = '★';
+          } else {
+            s.classList.remove('active');
+            s.innerHTML = '☆';
+          }
+        });
+      });
+    });
+  }
 });
 
 // ==========================================
@@ -702,6 +725,18 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentPage = 1;
     const reviewsPerPage = 4;
 
+    const getFlagForLang = (lang) => {
+      const flags = {
+        'pt': '🇵🇹',
+        'en': '🇬🇧',
+        'es': '🇪🇸',
+        'fr': '🇫🇷',
+        'de': '🇩🇪',
+        'it': '🇮🇹'
+      };
+      return flags[lang] || '🏳️';
+    };
+
     const renderReviews = (allReviews) => {
       reviewsList.innerHTML = '';
       
@@ -717,11 +752,12 @@ document.addEventListener('DOMContentLoaded', () => {
           dateObj = new Date(); // Fallback se a data estiver inválida/antiga
         }
         const dateStr = dateObj.toLocaleDateString('pt-PT');
+        const flag = getFlagForLang(review.lang || 'pt');
         
         reviewsList.innerHTML += `
           <div class="editorial-review-card" onclick="this.classList.toggle('expanded')" title="Clica para expandir">
             <div class="editorial-review-card__header">
-              <span class="editorial-review-card__author">${review.name}</span>
+              <span class="editorial-review-card__author">${flag} ${review.name}</span>
               <span class="editorial-review-card__date">${dateStr}</span>
             </div>
             <div class="editorial-review-card__stars">${starsHtml}</div>
@@ -770,6 +806,24 @@ document.addEventListener('DOMContentLoaded', () => {
         const reviews = [];
         snapshot.forEach(doc => reviews.push(doc.data()));
         
+        const updateAvgWidget = (revs) => {
+          if (revs.length > 0) {
+            let totalStars = 0;
+            revs.forEach(r => totalStars += r.stars);
+            const avg = (totalStars / revs.length).toFixed(1);
+            
+            const avgWidget = document.getElementById('averageRatingWidget');
+            const avgValue = document.getElementById('averageRatingValue');
+            const avgCount = document.getElementById('averageRatingCount');
+            
+            if (avgWidget && avgValue && avgCount) {
+              avgValue.textContent = avg;
+              avgCount.textContent = `(${revs.length} opiniões)`;
+              avgWidget.style.display = 'flex';
+            }
+          }
+        };
+        
         // Se a base de dados estiver vazia (primeira vez), colocamos umas de teste
         if (reviews.length === 0) {
            const initialReviews = [
@@ -781,8 +835,10 @@ document.addEventListener('DOMContentLoaded', () => {
              await db.collection("reviews").add(r);
            }
            renderReviews(initialReviews);
+           updateAvgWidget(initialReviews);
         } else {
            renderReviews(reviews);
+           updateAvgWidget(reviews);
         }
       } catch (error) {
         console.error('Erro ao carregar reviews do Firebase:', error);
@@ -798,7 +854,8 @@ document.addEventListener('DOMContentLoaded', () => {
           name: document.getElementById('reviewName').value,
           stars: parseInt(document.getElementById('reviewStars').value),
           comment: document.getElementById('reviewComment').value,
-          date: new Date().toISOString()
+          date: new Date().toISOString(),
+          lang: localStorage.getItem('site_lang') || 'pt'
         };
 
         try {
