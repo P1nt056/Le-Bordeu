@@ -21,9 +21,29 @@
       <a href="/search" class="icon icon--search" aria-label="Pesquisar" role="button">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
       </a>
-      <a href="/account" class="icon icon--account" aria-label="Conta" role="button">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-      </a>
+      {% if customer %}
+        <div class="account-dropdown-container">
+          <button class="account-toggle-btn" aria-label="Conta" aria-haspopup="true">
+            <span class="account-initial">{{ customer.first_name | slice: 0 | upcase }}</span>
+            <span class="account-name">{{ customer.first_name }}</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="account-dropdown-menu">
+            <div class="account-dropdown-header">
+              <p>Olá, <strong>{{ customer.first_name }}</strong></p>
+              <span>{{ customer.email }}</span>
+            </div>
+            <hr>
+            <a href="/account">O meu perfil</a>
+            <a href="/account?view=orders">As minhas encomendas</a>
+            <a href="/account/logout">Terminar Sessão</a>
+          </div>
+        </div>
+      {% else %}
+        <a href="/account" class="icon icon--account" aria-label="Conta" role="button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        </a>
+      {% endif %}
       <a href="/cart" class="icon icon--cart" aria-label="Carrinho" role="button" id="cart-icon">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
         <span class="cart-count-badge {% if cart.item_count == 0 %}hidden{% endif %}">{{ cart.item_count }}</span>

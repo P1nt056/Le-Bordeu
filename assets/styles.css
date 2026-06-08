@@ -212,22 +212,15 @@ h6,
 
 .cart-count-badge {
   position: absolute;
-  top: -4px;
-  right: -4px;
+  top: -6px;
+  right: -8px;
   background-color: var(--color-gold);
-  color: var(--text-cream) !important;
-  font-size: 9px;
+  color: #000;
+  font-size: 10px;
   font-weight: bold;
-  min-width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 4px;
-  border: 1px solid var(--bg-dark-primary);
+  padding: 2px 6px;
+  border-radius: 10px;
 }
-
 .cart-count-badge.hidden {
   display: none !important;
 }
@@ -4367,4 +4360,103 @@ details[open] .icon-accordion::after {
   .about-simple__actions {
     flex-direction: column;
   }
+}
+
+/* Account Dropdown */
+.account-dropdown-container {
+  position: relative;
+  display: inline-block;
+}
+
+.account-toggle-btn {
+  background: none;
+  border: none;
+  color: var(--text-cream);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  padding: 0;
+  margin-right: 15px;
+}
+
+.account-initial {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background-color: var(--color-gold);
+  color: #000;
+  border-radius: 50%;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.account-name {
+  display: none;
+}
+@media (min-width: 768px) {
+  .account-name {
+    display: inline-block;
+  }
+}
+
+.account-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 15px;
+  background: #111;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 6px;
+  padding: 10px 0;
+  min-width: 220px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  z-index: 100;
+}
+
+.account-dropdown-container:hover .account-dropdown-menu,
+.account-dropdown-menu.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.account-dropdown-header {
+  padding: 10px 20px;
+  color: var(--text-cream);
+}
+.account-dropdown-header p {
+  margin: 0;
+  font-size: 14px;
+}
+.account-dropdown-header span {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.account-dropdown-menu hr {
+  border-color: rgba(255,255,255,0.1);
+  margin: 5px 0;
+}
+
+.account-dropdown-menu a {
+  display: block;
+  padding: 10px 20px;
+  color: var(--text-cream);
+  text-decoration: none;
+  font-size: 14px;
+  transition: background 0.3s;
+}
+
+.account-dropdown-menu a:hover {
+  background: rgba(255,255,255,0.05);
+  color: var(--color-gold);
 }

@@ -644,6 +644,21 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }
   }
+
+  // Account Dropdown Toggle
+  const accountToggleBtn = document.querySelector('.account-toggle-btn');
+  const accountDropdownMenu = document.querySelector('.account-dropdown-menu');
+  if (accountToggleBtn && accountDropdownMenu) {
+    accountToggleBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      accountDropdownMenu.classList.toggle('show');
+    });
+    document.addEventListener('click', (e) => {
+      if (!accountDropdownMenu.contains(e.target)) {
+        accountDropdownMenu.classList.remove('show');
+      }
+    });
+  }
 });
 
 // ==========================================
