@@ -1,9 +1,19 @@
 <div class="product-gallery-splide splide" data-product-id="{{ product.id }}" data-product-title="{{ product.title | escape }}">
   <div class="splide__track">
     <ul class="splide__list">
+      {% assign current_variant_media_ids = '' %}
       {% for img in product.images %}
         {% assign image_alt = img.alt | default: product.title %}
-        <li class="splide__slide" data-image-id="{{ img.id }}" data-image-alt="{{ image_alt | escape }}">
+        {% assign image_variant_media_ids = '' %}
+        {% for variant in product.variants %}
+          {% if variant.featured_image != blank and variant.featured_image.id == img.id %}
+            {% capture image_variant_media_ids %}{{ image_variant_media_ids }}{{ variant.id }},{% endcapture %}
+          {% endif %}
+        {% endfor %}
+        {% if image_variant_media_ids != '' %}
+          {% assign current_variant_media_ids = image_variant_media_ids %}
+        {% endif %}
+        <li class="splide__slide" data-image-id="{{ img.id }}" data-image-alt="{{ image_alt | escape }}" data-variant-ids="{{ current_variant_media_ids | escape }}">
           <div class="gallery__image">
             <img src="{{ img | img_url: '1024x' }}" data-full="{{ img | img_url: '2048x' }}" data-image-id="{{ img.id }}" alt="{{ image_alt | escape }}" loading="lazy">
           </div>
@@ -17,9 +27,19 @@
 <div class="product-gallery-thumbnails splide" data-product-id="{{ product.id }}">
   <div class="splide__track">
     <ul class="splide__list">
+      {% assign current_variant_media_ids = '' %}
       {% for img in product.images %}
         {% assign image_alt = img.alt | default: product.title %}
-        <li class="splide__slide" data-image-id="{{ img.id }}" data-image-alt="{{ image_alt | escape }}">
+        {% assign image_variant_media_ids = '' %}
+        {% for variant in product.variants %}
+          {% if variant.featured_image != blank and variant.featured_image.id == img.id %}
+            {% capture image_variant_media_ids %}{{ image_variant_media_ids }}{{ variant.id }},{% endcapture %}
+          {% endif %}
+        {% endfor %}
+        {% if image_variant_media_ids != '' %}
+          {% assign current_variant_media_ids = image_variant_media_ids %}
+        {% endif %}
+        <li class="splide__slide" data-image-id="{{ img.id }}" data-image-alt="{{ image_alt | escape }}" data-variant-ids="{{ current_variant_media_ids | escape }}">
           <div class="thumb">
             <img src="{{ img | img_url: '160x' }}" data-image-id="{{ img.id }}" alt="{{ image_alt | escape }}" loading="lazy">
           </div>

@@ -269,6 +269,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let thumbSplide = null;
     let variantTerms = [];
     let variantImageIds = [];
+    let selectedVariantId = null;
     let selectedVariantImageId = null;
     const productTitleTerms = normalizeGalleryText(mainGallery.dataset.productTitle).split(' ').filter(Boolean);
 
@@ -289,6 +290,14 @@ document.addEventListener('DOMContentLoaded', function () {
     function slideMatchesVariant(slide, selectedTerms) {
       const alt = normalizeGalleryText(slide.dataset.imageAlt);
       const imageId = slide.dataset.imageId;
+      const variantIds = String(slide.dataset.variantIds || '')
+        .split(',')
+        .map(id => id.trim())
+        .filter(Boolean);
+
+      if (variantIds.length && selectedVariantId) {
+        return variantIds.includes(String(selectedVariantId));
+      }
 
       if (imageId && variantImageIds.includes(String(imageId))) {
         return String(imageId) === selectedVariantImageId;
@@ -421,6 +430,7 @@ document.addEventListener('DOMContentLoaded', function () {
       filterByVariant(variant) {
         if (!variant) return;
 
+        selectedVariantId = variant.id ? String(variant.id) : null;
         const imageId = getVariantImageId(variant);
         selectedVariantImageId = imageId ? String(imageId) : null;
 
