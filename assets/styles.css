@@ -3212,8 +3212,27 @@ select:focus {
 
 @media (max-width: 768px) {
   .collections-gender-selector {
-    flex-direction: column;
-    gap: 20px;
+    flex-direction: row;
+    gap: 12px;
+    min-height: 400px;
+  }
+  .gender-card {
+    min-height: 400px;
+  }
+  .gender-card__content {
+    padding: 15px;
+  }
+  .gender-card__content h2 {
+    font-size: 26px;
+    letter-spacing: 0.05em;
+    margin-bottom: 15px;
+    word-break: break-word;
+  }
+  .gender-card__content .btn {
+    font-size: 11px;
+    padding: 10px 15px;
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
