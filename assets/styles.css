@@ -1148,9 +1148,25 @@ h6,
   color: var(--color-gold);
 }
 
+.mobile-menu-close-btn {
+  display: none;
+}
+
 @media (max-width: 900px) {
   .mobile-menu-btn {
     display: block;
+  }
+
+  .mobile-menu-close-btn {
+    display: block;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: var(--text-cream);
+    font-size: 24px;
+    cursor: pointer;
   }
 
   .main-nav {

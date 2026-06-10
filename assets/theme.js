@@ -36,6 +36,16 @@ document.addEventListener('DOMContentLoaded', function () {
     // initialize
     setMenuState(false);
     mbBtn.addEventListener('click', () => { setMenuState(document.body.classList.contains('mobile-menu-open')) });
+    
+    // Listen to the close button inside the menu
+    const mbCloseBtn = document.querySelector('.mobile-menu-close-btn');
+    if (mbCloseBtn) {
+      mbCloseBtn.addEventListener('click', () => {
+        document.body.classList.remove('mobile-menu-open');
+        setMenuState(false);
+      });
+    }
+
     // when closed by outside click
     document.addEventListener('click', (e) => { if (!mainNav.contains(e.target) && !mbBtn.contains(e.target)) setMenuState(false) });
     // when link clicked
