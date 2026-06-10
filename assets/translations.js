@@ -8,7 +8,7 @@ const TRANSLATIONS = {
 
   // Hero
   "hero_title": { pt: "Elegância que se veste. <br>Estilo que se <em>sente</em>.", en: "Elegance to wear. <br>Style to <em>feel</em>." },
-  "hero_sub": { pt: "Descobre peças selecionadas para quem valoriza presença, conforto e sofisticação.", en: "Discover curated pieces for those who value presence, comfort, and sophistication." },
+  "hero_sub": { pt: "Descobre peças selecionadas para quem valoriza presença, conforto e sofisticação em cada detalhe.", en: "Discover curated pieces for those who value presence, comfort, and sophistication in every detail." },
   "hero_btn1": { pt: "Ver Tudo", en: "View All" },
   "hero_btn2": { pt: "Ver Coleções", en: "View Collections" },
 
@@ -57,6 +57,7 @@ const TRANSLATIONS = {
   "flt_Macacões": { pt: "Macacões", en: "Jumpsuits" },
   "flt_Vestidos": { pt: "Vestidos", en: "Dresses" },
   "flt_Relógios": { pt: "Relógios", en: "Watches" },
+  "flt_Relogios": { pt: "Relógios", en: "Watches" },
   "flt_Bijuteria": { pt: "Bijuteria", en: "Jewelry" },
   "flt_Calçado": { pt: "Calçado", en: "Footwear" },
   "flt_Calças": { pt: "Calças", en: "Pants" },
@@ -83,19 +84,25 @@ const TRANSLATIONS = {
   "list_empty": { pt: "Não foram encontradas coleções para a seleção atual.", en: "No collections found for the current selection." },
 
   // Collection List
-  "cols_title": { pt: "Coleções", en: "Collections" },
+  "cols_title": { pt: "Explora o Essencial", en: "Explore the Essentials" },
   "cols_new": { pt: "Nova Coleção", en: "New Collection" },
   "cols_explore": { pt: "Explorar", en: "Explore" },
   "cols_coats": { pt: "Casacos", en: "Coats" },
   "cols_accs": { pt: "Acessórios", en: "Accessories" },
+  "cols_watches_desc": { pt: "Detalhes que marcam presença.", en: "Details that make a presence." },
+  "cols_dresses_desc": { pt: "Elegância para cada ocasião.", en: "Elegance for every occasion." },
+  "cols_accs_desc": { pt: "O toque final do visual.", en: "The final touch for the look." },
+  "cols_coats_desc": { pt: "Sofisticação em todas as estações.", en: "Sophistication in every season." },
 
   // Featured
   "feat_title": { pt: "Em Destaque", en: "Featured" },
+  "feat_watches_title": { pt: "Relógios em Destaque", en: "Featured Watches" },
+  "feat_dresses_title": { pt: "Vestidos Selecionados", en: "Selected Dresses" },
   "feat_buy": { pt: "Comprar", en: "Buy" },
 
   // Editorial
   "edit_title": { pt: "Moda pensada para momentos especiais e para o <em>dia a dia</em>.", en: "Fashion designed for special moments and <em>everyday wear</em>." },
-  "edit_sub": { pt: "Peças escolhidas meticulosamente para destacar a tua elegância natural. Luxo nos detalhes, conforto na essência.", en: "Meticulously chosen pieces to highlight your natural elegance. Luxury in details, comfort in essence." },
+  "edit_sub": { pt: "Peças escolhidas com cuidado para destacar a tua presença em qualquer ocasião. Luxo nos detalhes, conforto na essência.", en: "Carefully chosen pieces to highlight your presence on any occasion. Luxury in details, comfort in essence." },
   "edit_quote": { pt: "\"A elegância não é sobre chamar a atenção, mas sim sobre ser lembrado.\"", en: "\"Elegance isn't about standing out, but about being remembered.\"" },
   "edit_btn": { pt: "Descobrir a Marca", en: "Discover the Brand" },
 
@@ -111,6 +118,12 @@ const TRANSLATIONS = {
   "rev_home_write": { pt: "Escrever Review", en: "Write Review" },
   "rev_home_placeholder": { pt: "A sua opinião...", en: "Your opinion..." },
   "rev_home_submit": { pt: "Enviar Review", en: "Submit Review" },
+  "trust_ship_title": { pt: "Envios seguros", en: "Secure shipping" },
+  "trust_ship_text": { pt: "Entrega rápida e acompanhamento da encomenda.", en: "Fast delivery with order tracking." },
+  "trust_pay_title": { pt: "Pagamentos protegidos", en: "Protected payments" },
+  "trust_pay_text": { pt: "Compra com segurança em todos os métodos disponíveis.", en: "Shop securely with every available payment method." },
+  "trust_support_title": { pt: "Apoio ao cliente", en: "Customer support" },
+  "trust_support_text": { pt: "Estamos disponíveis para ajudar antes e depois da compra.", en: "We are available to help before and after purchase." },
 
   // About Page
   "about_eyebrow_1": { pt: "Sobre nós", en: "About Us" },

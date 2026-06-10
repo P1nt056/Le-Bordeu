@@ -1,38 +1,99 @@
 <section class="featured-products container" aria-label="Produtos em destaque">
-  <h2 class="section-title" data-i18n="feat_title">Em Destaque</h2>
-  <div class="splide featured-splide" aria-label="Produtos em destaque">
-    <div class="splide__track">
-      <ul class="splide__list">
-        {% for product in collections['frontpage'].products limit:8 %}
-          <li class="splide__slide">
-            <div class="product-card">
-              <a href="{{ product.url }}">
-                <div class="product-card__media">
-                   <img src="{{ product.featured_image | img_url: '800x' }}" alt="{{ product.title }}" loading="lazy">
-                   {% if product.images.size > 1 %}
-                     <img class="hover-img" src="{{ product.images[1] | img_url: '800x' }}" alt="{{ product.title }}" loading="lazy">
-                   {% endif %}
-                </div>
-                <div class="product-card__info">
-                  <h3>{{ product.title }}</h3>
-                  <div class="price">
-                    {% if product.compare_at_price_max > product.price %}
-                      <span class="price--old">{{ product.compare_at_price_max | money }}</span>
-                      <span class="price--sale">{{ product.price | money }}</span>
-                      <span class="tag tag--sale" data-i18n="prod_promo">Promoção</span>
-                    {% else %}
-                      <span class="price--normal">{{ product.price | money }}</span>
-                    {% endif %}
-                  </div>
-                </div>
-              </a>
-              <button class="btn btn--primary btn--buy" data-i18n="feat_buy">Comprar</button>
+  {% assign watches_collection = collections['relogios'] %}
+  {% assign dresses_collection = collections['vestidos'] %}
+
+  {% if watches_collection.products_count > 0 %}
+    <h2 class="section-title" data-i18n="feat_watches_title">Rel&oacute;gios em Destaque</h2>
+    <div class="featured-products__grid">
+      {% for product in watches_collection.products limit:4 %}
+        <div class="product-card">
+          <a href="{{ product.url }}">
+            <div class="product-card__media">
+              <img src="{{ product.featured_image | img_url: '800x' }}" alt="{{ product.title }}" loading="lazy">
+              {% if product.images.size > 1 %}
+                <img class="hover-img" src="{{ product.images[1] | img_url: '800x' }}" alt="{{ product.title }}" loading="lazy">
+              {% endif %}
             </div>
-          </li>
-        {% endfor %}
-      </ul>
+            <div class="product-card__info">
+              <h3>{{ product.title }}</h3>
+              <div class="price">
+                {% if product.compare_at_price_max > product.price %}
+                  <span class="price--old">{{ product.compare_at_price_max | money }}</span>
+                  <span class="price--sale">{{ product.price | money }}</span>
+                  <span class="tag tag--sale" data-i18n="prod_promo">Promo&ccedil;&atilde;o</span>
+                {% else %}
+                  <span class="price--normal">{{ product.price | money }}</span>
+                {% endif %}
+              </div>
+            </div>
+          </a>
+          <button class="btn btn--primary btn--buy" data-i18n="feat_buy">Comprar</button>
+        </div>
+      {% endfor %}
     </div>
-  </div>
+  {% endif %}
+
+  {% if dresses_collection.products_count > 0 %}
+    <h2 class="section-title featured-products__section-title" data-i18n="feat_dresses_title">Vestidos Selecionados</h2>
+    <div class="featured-products__grid">
+      {% for product in dresses_collection.products limit:4 %}
+        <div class="product-card">
+          <a href="{{ product.url }}">
+            <div class="product-card__media">
+              <img src="{{ product.featured_image | img_url: '800x' }}" alt="{{ product.title }}" loading="lazy">
+              {% if product.images.size > 1 %}
+                <img class="hover-img" src="{{ product.images[1] | img_url: '800x' }}" alt="{{ product.title }}" loading="lazy">
+              {% endif %}
+            </div>
+            <div class="product-card__info">
+              <h3>{{ product.title }}</h3>
+              <div class="price">
+                {% if product.compare_at_price_max > product.price %}
+                  <span class="price--old">{{ product.compare_at_price_max | money }}</span>
+                  <span class="price--sale">{{ product.price | money }}</span>
+                  <span class="tag tag--sale" data-i18n="prod_promo">Promo&ccedil;&atilde;o</span>
+                {% else %}
+                  <span class="price--normal">{{ product.price | money }}</span>
+                {% endif %}
+              </div>
+            </div>
+          </a>
+          <button class="btn btn--primary btn--buy" data-i18n="feat_buy">Comprar</button>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% if watches_collection.products_count == 0 and dresses_collection.products_count == 0 %}
+    <h2 class="section-title" data-i18n="feat_title">Em Destaque</h2>
+    <div class="featured-products__grid">
+      {% for product in collections['frontpage'].products limit:4 %}
+        <div class="product-card">
+          <a href="{{ product.url }}">
+            <div class="product-card__media">
+              <img src="{{ product.featured_image | img_url: '800x' }}" alt="{{ product.title }}" loading="lazy">
+              {% if product.images.size > 1 %}
+                <img class="hover-img" src="{{ product.images[1] | img_url: '800x' }}" alt="{{ product.title }}" loading="lazy">
+              {% endif %}
+            </div>
+            <div class="product-card__info">
+              <h3>{{ product.title }}</h3>
+              <div class="price">
+                {% if product.compare_at_price_max > product.price %}
+                  <span class="price--old">{{ product.compare_at_price_max | money }}</span>
+                  <span class="price--sale">{{ product.price | money }}</span>
+                  <span class="tag tag--sale" data-i18n="prod_promo">Promo&ccedil;&atilde;o</span>
+                {% else %}
+                  <span class="price--normal">{{ product.price | money }}</span>
+                {% endif %}
+              </div>
+            </div>
+          </a>
+          <button class="btn btn--primary btn--buy" data-i18n="feat_buy">Comprar</button>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
 </section>
 
 {% schema %}

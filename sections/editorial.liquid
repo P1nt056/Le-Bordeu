@@ -1,17 +1,17 @@
 <section class="editorial container" aria-label="Editorial">
   <div class="editorial__media">
-    <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=1000&auto=format&fit=crop" alt="Moda Le Bordeu" loading="lazy">
+    <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=1000&auto=format&fit=crop" alt="Moda Le Bordeu" loading="lazy">
   </div>
   <div class="editorial__content">
     <div class="editorial__text-wrapper">
       <h2 data-i18n="edit_title">Moda pensada para momentos especiais e para o <em>dia a dia</em>.</h2>
-      <p data-i18n="edit_sub">Peças escolhidas meticulosamente para destacar a tua elegância natural. Luxo nos detalhes, conforto na essência.</p>
+      <p data-i18n="edit_sub">Pe&ccedil;as escolhidas com cuidado para destacar a tua presen&ccedil;a em qualquer ocasi&atilde;o. Luxo nos detalhes, conforto na ess&ecirc;ncia.</p>
       <blockquote style="font-family: 'Playfair Display', serif; font-style: italic; font-size: 20px; color: var(--color-gold); border-left: 2px solid var(--color-gold); padding-left: 20px; margin: 30px 0; line-height: 1.4;">
-        <span data-i18n="edit_quote">"A elegância não é sobre chamar a atenção, mas sim sobre ser lembrado."</span>
+        <span data-i18n="edit_quote">"A eleg&acirc;ncia n&atilde;o &eacute; sobre chamar a aten&ccedil;&atilde;o, mas sobre ser lembrado."</span>
       </blockquote>
       <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap;">
         <a href="/pages/about" class="btn btn--secondary" data-i18n="edit_btn">Descobrir a Marca</a>
-        <div id="averageRatingWidget" style="display: none; align-items: center; gap: 5px; color: var(--color-gold); font-size: 18px; font-weight: bold; cursor: pointer;" title="Ver opiniões" onclick="document.getElementById('editorialReviews').scrollIntoView({behavior: 'smooth'})">
+        <div id="averageRatingWidget" style="display: none; align-items: center; gap: 5px; color: var(--color-gold); font-size: 18px; font-weight: bold; cursor: pointer;" title="Ver opini&otilde;es" onclick="document.getElementById('editorialReviews').scrollIntoView({behavior: 'smooth'})">
           <span id="averageRatingStars" style="font-size: 22px; letter-spacing: 2px;"></span>
           <span id="averageRatingValue" style="margin-left: 5px;"></span>
           <span style="font-size: 12px; font-weight: normal; color: var(--text-muted); margin-left: 5px;" id="averageRatingCount"></span>
@@ -25,7 +25,7 @@
         {% if customer %}
           <button type="button" class="btn btn--primary btn--small" id="btnWriteReview" data-i18n="rev_home_write">Escrever Review</button>
         {% else %}
-          <a href="/account/login" class="btn btn--secondary btn--small" data-i18n="rev_login">Iniciar Sessão para Avaliar</a>
+          <a href="/account/login" class="btn btn--secondary btn--small" data-i18n="rev_login">Iniciar Sess&atilde;o para Avaliar</a>
         {% endif %}
       </div>
 
@@ -38,14 +38,14 @@
           <div class="editorial-reviews__stars-input" style="margin: 15px 0;">
             <input type="hidden" id="reviewStars" value="5">
             <div class="star-rating-widget" id="starRatingWidget">
-              <span data-value="1" class="active">★</span>
-              <span data-value="2" class="active">★</span>
-              <span data-value="3" class="active">★</span>
-              <span data-value="4" class="active">★</span>
-              <span data-value="5" class="active">★</span>
+              <span data-value="1" class="active">&#9733;</span>
+              <span data-value="2" class="active">&#9733;</span>
+              <span data-value="3" class="active">&#9733;</span>
+              <span data-value="4" class="active">&#9733;</span>
+              <span data-value="5" class="active">&#9733;</span>
             </div>
           </div>
-          <textarea id="reviewComment" placeholder="A sua opinião..." required rows="3" data-i18n-placeholder="rev_home_placeholder"></textarea>
+          <textarea id="reviewComment" placeholder="A sua opini&atilde;o..." required rows="3" data-i18n-placeholder="rev_home_placeholder"></textarea>
           <button type="submit" class="btn btn--secondary btn--small" style="width: 100%;" data-i18n="rev_home_submit">Enviar Review</button>
         </form>
       </div>

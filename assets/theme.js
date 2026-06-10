@@ -743,7 +743,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     let currentPage = 1;
-    const reviewsPerPage = 4;
+    const reviewsPerPage = 3;
 
     const getFlagForLang = (lang) => {
       const flags = {
@@ -862,9 +862,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Se a base de dados estiver vazia (primeira vez), colocamos umas de teste
         if (reviews.length === 0) {
           const initialReviews = [
-            { name: "Maria Sousa", stars: 5, comment: "A qualidade da roupa é divinal. Encomendei um vestido para um casamento e assentou que nem uma luva!", date: "2023-10-12T10:00:00Z" },
-            { name: "Carla Oliveira", stars: 5, comment: "O atendimento ao cliente é espetacular. Tive uma dúvida com o tamanho e ajudaram-me super rápido. Recomendo 100%.", date: "2023-11-05T12:00:00Z" },
-            { name: "Joana Fernandes", stars: 4, comment: "Peças lindas e muito elegantes. A única razão para não dar 5 estrelas foi o tempo de entrega que demorou mais um dia, mas a culpa foi da transportadora.", date: "2023-12-20T15:00:00Z" }
+            { name: "Mariana Costa", stars: 5, comment: "A qualidade surpreendeu-me. O vestido chegou bem embalado e ficou elegante sem perder conforto.", date: "2023-10-12T10:00:00Z" },
+            { name: "Joao Ferreira", stars: 5, comment: "Comprei um relogio para oferecer e a apresentacao transmitiu muito bom gosto. Voltarei a comprar.", date: "2023-11-05T12:00:00Z" },
+            { name: "Catarina Alves", stars: 5, comment: "Pecas bonitas, atendimento atento e uma experiencia de compra simples. Gostei muito do cuidado nos detalhes.", date: "2023-12-20T15:00:00Z" }
           ];
           for (const r of initialReviews) {
             await db.collection("reviews").add(r);

@@ -1,0 +1,46 @@
+╭─ success ────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│  Preview your theme (t)                                                      │
+│    • [1]                                                                     │
+│                                                                              │
+│  Next steps                                                                  │
+│    • Share your theme preview (p) [2]                                        │
+│      https://cp0wif-ww.myshopify.com/?preview_theme_id=195740598646          │
+│    • Customize your theme at the theme editor (e) [3]                        │
+│    • Preview your gift cards (g) [4]                                         │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+[1] http://127.0.0.1:9292
+[2] https://cp0wif-ww.myshopify.com/?preview_theme_id=195740598646
+[3] https://cp0wif-ww.myshopify.com/admin/themes/195740598646/editor?hr=9292
+[4] http://127.0.0.1:9292/gift_cards/[store_id]/preview
+
+• 16:48:33 Request »    GET 200 / 
+• 16:49:26 Request »    GET 200 / 
+• 16:49:26 Request »   POST 200 /shopify_pay/accelerated_checkout 
+• 16:49:32 Request »    GET 200 /collections/relogios 
+• 16:49:32 Request »    GET 200 /collections/vestidos 
+• 16:49:37 Request »    GET 404 /collections/acessorios 
+• 16:49:38 Request »    GET 404 /collections/casacos 
+• 16:49:38 Request »    GET 200 /products/clothing-swiss-dot-print-strap-dress-for-women-summer-casual-fit-bodyc... 
+• 16:49:48 Request »    GET 200 /pages/about 
+• 16:49:54 Request »    GET 200 / 
+• 16:49:55 Request »    GET 404 /collections/acessorios 
+• 16:50:24 Request »    GET 200 /collections/all?sort_by=created-descending 
+• 16:50:42 Request »    GET 200 /products/womens-fashion-autumn-winter-sexy-slim-fit-solid-color-drawstring-asym... 
+• 16:50:42 Request »    GET 200 /products/mens-quartz-watch 
+• 16:50:43 Request »    GET 200 /collections/vestidos 
+• 16:51:02 Request »    GET 200 /products/womens-fashion-autumn-winter-sexy-slim-fit-solid-color-drawstring-asym... 
+• 16:54:11 Request »    GET 200 / 
+• 16:54:12 Request »    GET 200 /collections/vestidos 
+• 16:54:13 Request »    GET 200 /products/mens-quartz-watch 
+• 16:58:10 Request »    GET 200 / 
+• 16:58:10 Request »    GET 200 / 
+• 16:58:10 Request »    GET 200 / 
+• 16:58:11  Synced » update sections/editorial.liquid
+• 16:58:11  Synced » update sections/collections.liquid
+• 16:58:11  Synced » update assets/translations.js
+• 16:58:11  Synced » update assets/styles.css
+• 16:58:19 Request »    GET 200 / 
+• 16:58:30 Request »    GET 200 / 
+• 16:58:31 Request »    GET 200 /collections/relogios 
