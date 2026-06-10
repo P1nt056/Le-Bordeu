@@ -67,3 +67,24 @@
 • 17:09:44 Request »    GET 200 /collections/promocoes 
 • 17:09:46 Request »    GET 200 /products/curren-gold-watch-women-watches-ladies-creative-steel-womens-bracelet-... 
 • 17:09:51 Request »    GET 200 /collections/all/relogios 
+• 17:13:39  Synced » update sections/trust-strip.liquid
+• 17:13:40  Synced » update assets/styles.css
+• 17:13:47 Request »    GET 200 / 
+• 17:13:56 Request »    GET 200 / 
+• 17:13:58 Request »    GET 200 /products/mens-quartz-watch 
+• 17:14:17 Request »    GET 404 /collections/acessorios 
+• 17:15:27 Request »    GET 200 / 
+• 17:15:28  Synced » update sections/trust-strip.liquid
+• 17:15:28  Synced » update assets/styles.css
+• 17:15:35 Request »    GET 200 / 
+• 17:15:42 Request »    GET 200 /policies/refund-policy 
+• 17:15:46 Request »    GET 200 /policies/terms-of-service 
+• 17:18:52 Request »    GET 200 / 
+• 17:18:52 Request »    GET 200 / 
+• 17:18:52  Synced » update snippets/footer.liquid
+• 17:18:52 Request »   POST 200 /shopify_pay/accelerated_checkout 
+• 17:18:53  Synced » update assets/translations.js
+• 17:18:53  Synced » update assets/styles.css
+• 17:19:00 Request »    GET 200 / 
+• 17:19:14 Request »    GET 200 / 
+• 17:19:24 Request »    GET 200 / 

@@ -981,25 +981,25 @@ h6,
 
 /* Newsletter */
 .newsletter {
-  padding: 110px 0 80px;
+  padding: 100px 0 34px;
   background-color: var(--bg-dark-secondary);
 }
 
 .newsletter__box {
-  background: linear-gradient(135deg, var(--bg-dark-tertiary) 0%, #080808 100%);
+  background: linear-gradient(135deg, rgba(20, 20, 20, 0.92) 0%, rgba(7, 7, 7, 0.96) 100%);
   border: 1px solid var(--border-color);
-  padding: 80px 40px;
+  padding: 62px 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  max-width: 900px;
+  max-width: 820px;
   margin: 0 auto;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.32);
 }
 
 .newsletter__box h3 {
-  font-size: 26px;
+  font-size: 24px;
   font-weight: 400;
   margin-bottom: 30px;
   letter-spacing: 0.04em;
@@ -1016,13 +1016,13 @@ h6,
 .newsletter__form {
   display: flex;
   width: 100%;
-  max-width: 500px;
-  gap: 10px;
+  max-width: 520px;
+  gap: 12px;
 }
 
 .newsletter__form input[type=email] {
   flex-grow: 1;
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(255, 255, 255, 0.035);
   border: 1px solid var(--border-color);
   padding: 15px 20px;
   color: #fff;
@@ -1048,47 +1048,81 @@ h6,
   }
 
   .newsletter__box {
-    padding: 50px 20px;
+    padding: 44px 22px;
   }
 }
 
 /* Trust Strip */
 .trust-strip {
-  padding: 80px 0 120px;
+  padding: 34px 0 120px;
   background-color: var(--bg-dark-secondary);
 }
 
 .trust-strip__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  border: 1px solid var(--border-color);
-  background: var(--border-color);
+  gap: 18px;
+  border: 0;
+  background: transparent;
 }
 
 .trust-strip__item {
-  min-height: 170px;
-  padding: 38px 30px;
-  background: linear-gradient(135deg, var(--bg-dark-tertiary) 0%, #080808 100%);
+  min-height: 190px;
+  padding: 34px 28px 32px;
+  background: linear-gradient(145deg, rgba(20, 20, 20, 0.94) 0%, rgba(6, 6, 6, 0.98) 100%);
+  border: 1px solid rgba(197, 168, 128, 0.22);
   text-align: center;
+  transition: var(--transition);
+}
+
+.trust-strip__item:hover {
+  border-color: rgba(197, 168, 128, 0.48);
+  transform: translateY(-3px);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.34);
+}
+
+.trust-strip__icon {
+  width: 42px;
+  height: 42px;
+  margin: 0 auto 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid rgba(197, 168, 128, 0.46);
+  background: rgba(197, 168, 128, 0.08);
+  color: var(--color-gold);
+  font-size: 18px;
+  line-height: 1;
+}
+
+.trust-strip__icon svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .trust-strip__item h3 {
-  margin-bottom: 12px;
+  margin-bottom: 14px;
   color: var(--color-gold);
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 .trust-strip__item p {
-  max-width: 260px;
+  max-width: 250px;
   margin: 0 auto;
   color: var(--text-cream);
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1.7;
-  opacity: 0.78;
+  opacity: 0.82;
 }
 
 @media (max-width: 991px) {
@@ -1232,6 +1266,28 @@ h6,
   color: var(--text-muted);
   font-size: 12px;
   letter-spacing: 0.05em;
+}
+
+.footer__payment-method {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border: 1px solid rgba(197, 168, 128, 0.28);
+  color: var(--text-cream);
+  letter-spacing: 0.04em;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.footer__payment-method svg {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  fill: none;
+  stroke: var(--color-gold);
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 @media (max-width: 600px) {

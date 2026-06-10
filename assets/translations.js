@@ -169,6 +169,7 @@ const TRANSLATIONS = {
   "ftr_terms": { pt: "Termos e Condições", en: "Terms of Service" },
   "ftr_contact_lbl": { pt: "Contacto: ", en: "Contact: " },
   "ftr_payments": { pt: "Métodos de pagamento", en: "Payment methods" },
+  "ftr_payment_card": { pt: "Cartão de crédito ou débito", en: "Credit or debit card" },
 
   // Contact
   "contact_eyebrow": { pt: "Contacto", en: "Contact" },
