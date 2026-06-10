@@ -4747,3 +4747,12 @@ details[open] .icon-accordion::after {
     display: none !important;
   }
 }
+
+@media (max-width: 600px) {
+  .search-form {
+    flex-direction: column;
+  }
+  .search-form .btn {
+    width: 100%;
+  }
+}

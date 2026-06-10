@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const setMenuState = (open) => {
       mbBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
       mainNav.setAttribute('aria-hidden', open ? 'false' : 'true');
+      mbBtn.innerHTML = open ? '&#x2715;' : '&#x2630;';
     }
     // initialize
     setMenuState(false);
