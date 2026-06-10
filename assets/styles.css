@@ -419,7 +419,7 @@ h6,
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 767px) {
   .hero__media::before {
     background-position: center top;
     filter: blur(12px) brightness(0.52) saturate(0.9);
@@ -436,9 +436,9 @@ h6,
   }
 
   .hero__title {
-    font-size: 36px;
-    line-height: 1.1;
-    margin-bottom: 16px;
+    font-size: 28px !important;
+    line-height: 1.2;
+    margin-bottom: 12px;
   }
 
   .hero__subtitle {
