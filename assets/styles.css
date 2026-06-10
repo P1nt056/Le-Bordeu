@@ -435,6 +435,20 @@ h6,
     transform: scale(1);
   }
 
+  .hero__title {
+    font-size: 36px;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+
+  .hero__subtitle {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    margin-bottom: 30px;
+    padding: 0 10px;
+    line-height: 1.6;
+  }
+
   .hero__actions {
     flex-direction: column;
     gap: 12px;
