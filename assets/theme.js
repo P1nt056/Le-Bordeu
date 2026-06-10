@@ -80,15 +80,14 @@ document.addEventListener('DOMContentLoaded', function () {
     fetch('/cart.js')
       .then(res => res.json())
       .then(cart => {
-        const badge = document.querySelector('.cart-count-badge');
-        if (badge) {
+        document.querySelectorAll('.cart-count-badge').forEach(badge => {
           badge.textContent = cart.item_count;
           if (cart.item_count > 0) {
             badge.classList.remove('hidden');
           } else {
             badge.classList.add('hidden');
           }
-        }
+        });
       })
       .catch(err => console.error('Erro ao atualizar badge:', err));
   };
