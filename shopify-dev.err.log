@@ -1,0 +1,35 @@
+╭─ success ────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│  Preview your theme (t)                                                      │
+│    • [1]                                                                     │
+│                                                                              │
+│  Next steps                                                                  │
+│    • Share your theme preview (p) [2]                                        │
+│      https://cp0wif-ww.myshopify.com/?preview_theme_id=195740598646          │
+│    • Customize your theme at the theme editor (e) [3]                        │
+│    • Preview your gift cards (g) [4]                                         │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+[1] http://127.0.0.1:9292
+[2] https://cp0wif-ww.myshopify.com/?preview_theme_id=195740598646
+[3] https://cp0wif-ww.myshopify.com/admin/themes/195740598646/editor?hr=9292
+[4] http://127.0.0.1:9292/gift_cards/[store_id]/preview
+
+• 18:03:25 Request »    GET 200 / 
+• 18:03:26 Request »    GET 200 / 
+• 18:03:26 Request »   POST 200 /shopify_pay/accelerated_checkout 
+• 18:03:27 Request »   POST 200 /shopify_pay/accelerated_checkout 
+• 18:03:29 Request »    GET 200 /collections 
+• 18:03:29 Request »   POST 200 /api/event/collect 
+• 18:03:31 Request »    GET 200 /collections/bijuteria-h 
+• 18:03:31 Request »    GET 200 /collections/relogios 
+• 18:03:32 Request »   POST 200 /api/event/collect 
+• 18:03:32 Request »   POST 200 /api/event/collect 
+• 18:03:32 Request »   POST 200 /api/event/collect 
+• 18:03:32 Request »    GET 200 /products/mens-quartz-watch 
+• 18:03:32 Request »    GET 200 /products/swiss-brand-waterproof-luminous-mens-watch-ultra-thin-quartz-watch 
+• 18:03:35 Request »   POST 200 /api/event/collect 
+• 18:04:25 Request »   POST 200 /api/event/collect 
+• 18:04:29 Request »   POST 200 /api/event/collect 
+• 18:04:41 Request »   POST 200 /api/event/collect 
+• 18:05:23 Request »   POST 200 /api/event/collect 
