@@ -237,7 +237,7 @@ document.addEventListener('DOMContentLoaded',()=>{
             
             // Scroll to gallery on mobile when variant is manually selected
             if (options instanceof Event && window.innerWidth < 900) {
-              const galleryElement = document.querySelector('.product-gallery');
+              const galleryElement = document.querySelector('.product-page__gallery');
               if (galleryElement) {
                 const headerOffset = 80; // approximate sticky header height
                 const elementPosition = galleryElement.getBoundingClientRect().top;
