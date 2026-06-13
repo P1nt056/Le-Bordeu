@@ -4104,10 +4104,21 @@ select:focus {
   opacity: 1;
 }
 
-.mobile-filters-trigger {
+.mobile-filters-bar {
   display: none;
-  width: 100%;
+  gap: 10px;
   margin-bottom: 24px;
+}
+
+.mobile-filters-trigger {
+  flex: 1;
+}
+
+.mobile-filters-clear {
+  flex: 1;
+  background: transparent;
+  border-color: var(--border-color);
+  color: var(--text-light);
 }
 
 .filters-header-actions {
@@ -4137,8 +4148,8 @@ select:focus {
     grid-template-columns: 1fr;
   }
   
-  .mobile-filters-trigger {
-    display: block;
+  .mobile-filters-bar {
+    display: flex;
   }
 
   .collection-sidebar {

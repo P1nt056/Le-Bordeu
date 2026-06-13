@@ -587,6 +587,23 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
 
+    const updateClearFiltersButtonVisibility = () => {
+      const mobileClearBtn = document.getElementById('MobileFiltersClearBtn');
+      if (!mobileClearBtn) return;
+      
+      const checkedTags = Array.from(filterForm.querySelectorAll('.custom-tag-checkbox:checked'));
+      const minPrice = filterForm.querySelector('input[name*="price.gte"]');
+      const maxPrice = filterForm.querySelector('input[name*="price.lte"]');
+      
+      const hasFilters = checkedTags.length > 0 || (minPrice && minPrice.value) || (maxPrice && maxPrice.value);
+      
+      if (hasFilters) {
+        mobileClearBtn.style.display = 'block';
+      } else {
+        mobileClearBtn.style.display = 'none';
+      }
+    };
+
     const initSubfilters = () => {
       const checkedTags = Array.from(filterForm.querySelectorAll('.custom-tag-checkbox:checked')).map(cb => cb.value);
       const subBijuteria = document.getElementById('subtipo-bijuteria');
@@ -597,6 +614,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (subCalcado && (checkedTags.includes('calcado') || checkedTags.includes('calçado'))) {
         subCalcado.style.display = 'block';
       }
+      updateClearFiltersButtonVisibility();
     };
     initSubfilters();
 
@@ -635,6 +653,8 @@ document.addEventListener('DOMContentLoaded', function () {
             subCalcado.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
           }
         }
+        
+        updateClearFiltersButtonVisibility();
 
         clearTimeout(window.filterTimeout);
         window.filterTimeout = setTimeout(applyFilters, 50);
@@ -660,8 +680,16 @@ document.addEventListener('DOMContentLoaded', function () {
         if (minPrice) minPrice.value = '';
         if (maxPrice) maxPrice.value = '';
 
+        updateClearFiltersButtonVisibility();
         applyFilters();
-      });
+      };
+      
+      clearFiltersBtn.addEventListener('click', clearAllFilters);
+      
+      const mobileClearBtn = document.getElementById('MobileFiltersClearBtn');
+      if (mobileClearBtn) {
+        mobileClearBtn.addEventListener('click', clearAllFilters);
+      }
     }
 
     // Mobile Filters Modal Logic

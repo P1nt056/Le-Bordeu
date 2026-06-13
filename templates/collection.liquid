@@ -39,7 +39,10 @@
       </p>
 
       {% if collection.handle == 'all' and is_new_arrivals == false %}
-        <button type="button" class="btn btn--secondary mobile-filters-trigger" id="MobileFiltersTrigger" data-i18n="col_filters_btn">Filtrar Produtos</button>
+        <div class="mobile-filters-bar">
+          <button type="button" class="btn btn--secondary mobile-filters-trigger" id="MobileFiltersTrigger" data-i18n="col_filters_btn">Filtrar Produtos</button>
+          <button type="button" class="btn btn--secondary mobile-filters-clear" id="MobileFiltersClearBtn" style="display: none;" data-i18n="col_clear">Limpar Tudo</button>
+        </div>
         <div class="collection-layout">
           <aside class="collection-sidebar" id="CollectionSidebar">
             <div class="filters-header">
