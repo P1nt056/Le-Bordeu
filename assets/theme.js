@@ -669,7 +669,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Clear filters button
     const clearFiltersBtn = document.getElementById('ClearFiltersBtn');
     if (clearFiltersBtn) {
-      clearFiltersBtn.addEventListener('click', function () {
+      const clearAllFilters = function () {
         // Uncheck all custom tags
         const customTags = filterForm.querySelectorAll('.custom-tag-checkbox');
         customTags.forEach(cb => cb.checked = false);
