@@ -524,7 +524,8 @@ h6,
   }
 
   .trust-strip__grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
   }
 
   .product-card__info {
@@ -1183,7 +1184,34 @@ h6,
   }
   
   .trust-strip__grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+  }
+
+  .trust-strip__item {
+    padding: 10px 5px;
+  }
+
+  .trust-strip__icon {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 10px;
+  }
+
+  .trust-strip__icon svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .trust-strip__item h3 {
+    font-size: 9px;
+    margin-bottom: 5px;
+    letter-spacing: 0;
+  }
+
+  .trust-strip__item p {
+    font-size: 9px;
+    line-height: 1.2;
   }
 }
 
