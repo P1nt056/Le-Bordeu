@@ -3132,6 +3132,7 @@ select:focus {
   margin-top: 60px;
   font-size: 14px;
   letter-spacing: 0.05em;
+  flex-wrap: wrap;
 }
 
 .pagination a,
@@ -3142,6 +3143,7 @@ select:focus {
   text-decoration: none;
   color: var(--text-cream);
   transition: var(--transition);
+  white-space: nowrap;
 }
 
 .pagination a:hover {
