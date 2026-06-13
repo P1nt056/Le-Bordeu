@@ -234,6 +234,21 @@ document.addEventListener('DOMContentLoaded',()=>{
           if (syncGallery && window.LeBordeuProductGallery) {
             window.LeBordeuProductGallery.filterByVariant(matchedVariant);
             window.LeBordeuProductGallery.goToImageId(getVariantImageId(matchedVariant));
+            
+            // Scroll to gallery on mobile when variant is manually selected
+            if (options instanceof Event && window.innerWidth < 900) {
+              const galleryElement = document.querySelector('.product-gallery');
+              if (galleryElement) {
+                const headerOffset = 80; // approximate sticky header height
+                const elementPosition = galleryElement.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                
+                window.scrollTo({
+                  top: offsetPosition,
+                  behavior: 'smooth'
+                });
+              }
+            }
           }
 
           // Check if variant is available
