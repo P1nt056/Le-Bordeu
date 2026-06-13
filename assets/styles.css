@@ -2431,6 +2431,15 @@ h6,
 @media (max-width: 560px) {
   .trust-messages {
     grid-template-columns: 1fr;
+    width: max-content;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .trust-messages>span {
+    justify-content: flex-start;
+    padding-left: 25px;
+    padding-right: 25px;
+    text-align: left;
   }
 }
 
