@@ -39,11 +39,15 @@
       </p>
 
       {% if collection.handle == 'all' and is_new_arrivals == false %}
+        <button type="button" class="btn btn--secondary mobile-filters-trigger" id="MobileFiltersTrigger" data-i18n="col_filters_btn">Filtrar Produtos</button>
         <div class="collection-layout">
-          <aside class="collection-sidebar">
+          <aside class="collection-sidebar" id="CollectionSidebar">
             <div class="filters-header">
               <h3 class="filters-title" data-i18n="col_filters">Filtros</h3>
-              <button type="button" class="filters-clear" id="ClearFiltersBtn" data-i18n="col_clear">Limpar filtros</button>
+              <div class="filters-header-actions">
+                <button type="button" class="filters-clear" id="ClearFiltersBtn" data-i18n="col_clear">Limpar filtros</button>
+                <button type="button" class="mobile-filters-close" id="MobileFiltersClose" aria-label="Fechar">&times;</button>
+              </div>
             </div>
             <form class="filter-form" id="CollectionFiltersForm">
               <details class="filter-group">
@@ -179,6 +183,7 @@
                 </details>
               {%- endfor -%}
             </form>
+            <button type="button" class="btn btn--primary mobile-filters-apply" id="MobileFiltersApply" data-i18n="col_apply">Aplicar Filtros</button>
           </aside>
           <div class="collection-main">
       {% endif %}

@@ -663,6 +663,34 @@ document.addEventListener('DOMContentLoaded', function () {
         applyFilters();
       });
     }
+
+    // Mobile Filters Modal Logic
+    const mobileFiltersTrigger = document.getElementById('MobileFiltersTrigger');
+    const mobileFiltersClose = document.getElementById('MobileFiltersClose');
+    const mobileFiltersApply = document.getElementById('MobileFiltersApply');
+    const collectionSidebar = document.getElementById('CollectionSidebar');
+
+    if (mobileFiltersTrigger && collectionSidebar) {
+      const openFilters = () => {
+        collectionSidebar.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+      };
+
+      const closeFilters = () => {
+        collectionSidebar.classList.remove('is-open');
+        document.body.style.overflow = '';
+      };
+
+      mobileFiltersTrigger.addEventListener('click', openFilters);
+      
+      if (mobileFiltersClose) {
+        mobileFiltersClose.addEventListener('click', closeFilters);
+      }
+      
+      if (mobileFiltersApply) {
+        mobileFiltersApply.addEventListener('click', closeFilters);
+      }
+    }
   }
 
   // Account Dropdown Toggle
