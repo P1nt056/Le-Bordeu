@@ -518,9 +518,32 @@ h6,
     font-size: 11px;
   }
 
-  .featured-products__grid,
+  .featured-products__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
   .trust-strip__grid {
     grid-template-columns: 1fr;
+  }
+
+  .product-card__info {
+    padding: 15px 10px 10px;
+  }
+
+  .product-card__info h3,
+  .product-card__info h4 {
+    font-size: 13px;
+    margin-bottom: 5px;
+  }
+
+  .price {
+    font-size: 12px;
+  }
+
+  .product-card .btn {
+    font-size: 11px;
+    padding: 10px;
   }
 }
 
