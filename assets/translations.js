@@ -1832,22 +1832,41 @@ function applyTranslations() {
       el.setAttribute('data-original-html', el.innerHTML);
     }
 
-    let html = el.getAttribute('data-original-html');
+    // Reset to original HTML before applying new translations
+    el.innerHTML = el.getAttribute('data-original-html');
 
-    // Sort keys by length descending to prevent partial match replacement (e.g. "Light Green" before "Green")
+    // Create a TreeWalker to only visit text nodes
+    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+    const textNodes = [];
+    let node;
+    while (node = walker.nextNode()) {
+      // Ignore empty or whitespace-only nodes
+      if (node.nodeValue.trim() !== '') {
+        textNodes.push(node);
+      }
+    }
+
+    // Sort keys by length descending to prevent partial match replacement
     const sortedKeys = Object.keys(DYNAMIC_TRANSLATIONS).sort((a, b) => b.length - a.length);
 
-    sortedKeys.forEach(originalKey => {
-      const translatedVal = DYNAMIC_TRANSLATIONS[originalKey][currentLang];
-      if (translatedVal && translatedVal !== originalKey) {
-        html = html.split(originalKey).join(translatedVal);
+    textNodes.forEach(textNode => {
+      let text = textNode.nodeValue;
+      let changed = false;
+      
+      sortedKeys.forEach(originalKey => {
+        const translatedVal = DYNAMIC_TRANSLATIONS[originalKey][currentLang];
+        if (translatedVal && translatedVal !== originalKey) {
+          if (text.includes(originalKey)) {
+            text = text.split(originalKey).join(translatedVal);
+            changed = true;
+          }
+        }
+      });
+      
+      if (changed) {
+        textNode.nodeValue = text;
       }
     });
-
-    // Only update if changed to avoid unnecessary DOM thrashing
-    if (el.innerHTML !== html) {
-      el.innerHTML = html;
-    }
   });
 
   // Then apply Static Translations
