@@ -497,11 +497,25 @@ h6,
 
 @media (max-width: 600px) {
   .collections__grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
   }
 
   .collection-card {
-    height: 280px;
+    height: 180px;
+  }
+
+  .collection-card__meta {
+    padding: 15px 10px;
+  }
+
+  .collection-card__meta h3 {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+
+  .collection-card__meta p {
+    font-size: 11px;
   }
 
   .featured-products__grid,
