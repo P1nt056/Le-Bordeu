@@ -1178,11 +1178,10 @@ h6,
 }
 
 @media (max-width: 600px) {
-  .collection-card {
-    height: 280px;
+  .featured-products__grid {
+    grid-template-columns: repeat(2, 1fr);
   }
-
-  .featured-products__grid,
+  
   .trust-strip__grid {
     grid-template-columns: 1fr;
   }
