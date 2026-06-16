@@ -1925,36 +1925,48 @@ function applyTranslations() {
       
       if (currentLang === 'pt') {
         if (window.location.pathname.includes('refund-policy')) {
-          titleEl.textContent = 'Política de Devolução';
+          titleEl.textContent = 'Política de Reembolso e Devolução';
           bodyEl.innerHTML = `
-            <p>Temos uma política de devolução de 30 dias, o que significa que tens 30 dias após receberes o teu artigo para solicitar uma devolução.</p>
-            
-            <p>Para seres elegível para uma devolução, o teu artigo deve estar nas mesmas condições em que o recebeste, sem ser usado ou vestido, com as etiquetas e na embalagem original. Também precisarás do recibo ou comprovativo de compra.</p>
-            
-            <p>Para iniciar uma devolução, podes contactar-nos através de <a href="mailto:pintoreis06@gmail.com">pintoreis06@gmail.com</a>. Tem em atenção que as devoluções terão de ser enviadas para a seguinte morada: [INSERIR MORADA DE DEVOLUÇÃO]</p>
-            
-            <p>Se a tua devolução for aceite, enviaremos uma etiqueta de envio de devolução, bem como instruções sobre como e para onde enviar a tua encomenda. Artigos devolvidos sem um pedido prévio de devolução não serão aceites.</p>
-            
-            <p>Podes sempre contactar-nos para qualquer dúvida sobre devoluções em <a href="mailto:pintoreis06@gmail.com">pintoreis06@gmail.com</a>.</p>
-            
-            <h2>Danos e problemas</h2>
-            <p>Por favor, inspeciona a tua encomenda no momento da receção e contacta-nos imediatamente se o artigo estiver defeituoso, danificado ou se receberes o artigo errado, para que possamos avaliar o problema e corrigi-lo.</p>
-            
-            <h2>Exceções / artigos não devolvíveis</h2>
-            <p>Certos tipos de artigos não podem ser devolvidos, como bens perecíveis (como alimentos, flores ou plantas), produtos personalizados (como encomendas especiais ou itens personalizados) e bens de cuidados pessoais (como produtos de beleza). Também não aceitamos devoluções de materiais perigosos, líquidos inflamáveis ou gases. Por favor, entra em contacto se tiveres dúvidas ou preocupações sobre o teu artigo específico.</p>
-            
-            <p>Infelizmente, não podemos aceitar devoluções de artigos em saldo ou cartões-presente.</p>
-            
-            <h2>Trocas</h2>
-            <p>A forma mais rápida de garantir que recebes o que desejas é devolver o artigo que tens e, assim que a devolução for aceite, fazer uma compra separada para o novo artigo.</p>
-            
-            <h2>Período de reflexão de 7 dias da União Europeia</h2>
-            <p>Sem prejuízo do disposto acima, se a mercadoria for enviada para a União Europeia, tens o direito de cancelar ou devolver a tua encomenda no prazo de 7 dias, por qualquer motivo e sem justificação. Como acima, o teu artigo deve estar nas mesmas condições em que o recebeste, sem ser usado ou vestido, com etiquetas e na sua embalagem original. Também precisarás do recibo ou comprovativo de compra.</p>
-            
-            <h2>Reembolsos</h2>
-            <p>Iremos notificar-te assim que recebermos e inspecionarmos a tua devolução, e informaremos se o reembolso foi aprovado ou não. Se for aprovado, serás reembolsado automaticamente no teu método de pagamento original no prazo de 10 dias úteis. Lembra-te de que pode demorar algum tempo para que o teu banco ou a empresa do cartão de crédito processe e transfira o reembolso também.</p>
-            
-            <p>Se já se passaram mais de 15 dias úteis desde que aprovámos a tua devolução, por favor, contacta-nos através de <a href="mailto:pintoreis06@gmail.com">pintoreis06@gmail.com</a>.</p>
+            <p>Na Le Bordeu, queremos garantir que cada cliente tenha uma experiência de compra segura, simples e transparente. Caso exista algum problema com a tua encomenda, produto ou entrega, iremos analisar o caso e procurar a melhor solução possível.</p>
+
+            <p>Os pedidos de reembolso são analisados num prazo aproximado de <strong>24 a 48 horas úteis</strong> após recebermos todas as informações necessárias.</p>
+
+            <h2>1. O que deves enviar para pedir um reembolso</h2>
+            <p>Para que possamos analisar corretamente o teu pedido, poderemos solicitar:</p>
+
+            <p><strong>A. Fotografias ou vídeos do produto danificado ou incorreto</strong><br>As imagens devem mostrar claramente o problema apresentado.</p>
+
+            <p><strong>B. Comprovativo da reclamação ou contacto</strong><br>Poderá ser necessário enviar capturas de ecrã da conversa por e-mail, chat, PayPal ou outro meio de contacto, incluindo nome, data e conteúdo da reclamação.</p>
+
+            <p><strong>C. Número de seguimento da devolução, se aplicável</strong><br>Caso seja necessário devolver o artigo, deverás enviar o número de rastreamento como prova de envio.</p>
+
+            <h2>2. Quando aceitamos reembolsos ou devoluções</h2>
+            <p>Poderemos aceitar pedidos de reembolso, troca ou devolução quando:</p>
+            <ul>
+              <li>O artigo recebido estiver danificado ou defeituoso;</li>
+              <li>O artigo recebido for diferente do produto comprado;</li>
+              <li>Existir um erro de envio ou processamento da encomenda;</li>
+              <li>A transportadora confirmar extravio ou problema grave na entrega;</li>
+              <li>O pedido cumprir as condições comunicadas pela nossa equipa de apoio.</li>
+            </ul>
+
+            <h2>3. Condições dos artigos devolvidos</h2>
+            <p>Quando for necessário devolver um artigo, este deve estar sem uso, sem lavagem, sem odores, sem marcas de utilização, com etiquetas e, sempre que possível, na embalagem original.</p>
+            <p>Podemos recusar devoluções de artigos que não cumpram estas condições ou que sejam enviados sem contacto prévio com a nossa equipa.</p>
+
+            <h2>4. Custos de devolução</h2>
+            <p>Salvo quando o problema resulte de erro nosso, artigo incorreto ou artigo danificado, os custos de envio da devolução são da responsabilidade do cliente.</p>
+            <p>Quando a devolução for aprovada, enviaremos as instruções necessárias para o envio.</p>
+
+            <h2>5. Reembolsos</h2>
+            <p>Depois de recebermos e analisarmos todas as informações necessárias, iremos comunicar se o reembolso foi aprovado ou recusado.</p>
+            <p>Se aprovado, o reembolso será processado através do método de pagamento original. O prazo de receção pode variar conforme o banco, entidade emissora do cartão, PayPal ou outro prestador de pagamento.</p>
+
+            <h2>6. Artigos não elegíveis</h2>
+            <p>Não aceitamos devoluções ou reembolsos de artigos com sinais de uso, lavagem, danos causados pelo cliente, falta de etiquetas, falta de embalagem original quando relevante, ou pedidos enviados fora das condições comunicadas.</p>
+
+            <h2>7. Contacto</h2>
+            <p>Para qualquer pedido relacionado com reembolsos, devoluções ou trocas, contacta-nos através de <a href="mailto:pintoreis06@gmail.com">pintoreis06@gmail.com</a>.</p>
           `;
         } else if (window.location.pathname.includes('privacy-policy')) {
           titleEl.textContent = 'Política de Privacidade';
