@@ -20,6 +20,8 @@ const TRANSLATIONS = {
   "col_empty": { pt: "Esta coleção não contém produtos de momento.", en: "This collection contains no products at the moment." },
   "col_home": { pt: "Voltar ao Início", en: "Return to Home" },
   "col_latest": { pt: "Os 12 produtos mais recentes da loja", en: "The 12 latest products" },
+  "col_back_men": { pt: "Voltar \u00e0s cole\u00e7\u00f5es de Homem", en: "Back to Men's Collections" },
+  "col_back_women": { pt: "Voltar \u00e0s cole\u00e7\u00f5es de Mulher", en: "Back to Women's Collections" },
   "col_found": { pt: " produtos encontrados", en: " products found" },
   "col_filters": { pt: "Filtros", en: "Filters" },
   "col_clear": { pt: "Limpar filtros", en: "Clear filters" },

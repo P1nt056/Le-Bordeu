@@ -630,7 +630,7 @@ h6,
 /* Products Card / Featured Splide */
 .featured-products {
   padding: 110px 0;
-  background-color: var(--bg-dark-secondary);
+  background-color: var(--bg-dark-primary);
 }
 
 .featured-products__grid {
@@ -1028,11 +1028,11 @@ h6,
 /* Newsletter */
 .newsletter {
   padding: 100px 0 34px;
-  background-color: var(--bg-dark-secondary);
+  background-color: var(--bg-dark-primary);
 }
 
 .newsletter__box {
-  background: linear-gradient(135deg, rgba(20, 20, 20, 0.92) 0%, rgba(7, 7, 7, 0.96) 100%);
+  background: var(--bg-dark-primary);
   border: 1px solid var(--border-color);
   padding: 62px 40px;
   display: flex;
@@ -1101,7 +1101,7 @@ h6,
 /* Trust Strip */
 .trust-strip {
   padding: 34px 0 120px;
-  background-color: var(--bg-dark-secondary);
+  background-color: var(--bg-dark-primary);
 }
 
 .trust-strip__grid {
@@ -1115,7 +1115,7 @@ h6,
 .trust-strip__item {
   min-height: 190px;
   padding: 34px 28px 32px;
-  background: linear-gradient(145deg, rgba(20, 20, 20, 0.94) 0%, rgba(6, 6, 6, 0.98) 100%);
+  background: var(--bg-dark-primary);
   border: 1px solid rgba(197, 168, 128, 0.22);
   text-align: center;
   transition: var(--transition);
@@ -3109,6 +3109,20 @@ select:focus {
   color: var(--text-muted);
   margin-top: -30px;
   margin-bottom: 50px;
+}
+
+.collection-back-nav {
+  display: flex;
+  justify-content: center;
+  margin: -22px 0 46px;
+}
+
+.collection-back-nav__link {
+  text-decoration: none;
+}
+
+.collection-back-nav__link svg {
+  flex-shrink: 0;
 }
 
 .collection-empty {

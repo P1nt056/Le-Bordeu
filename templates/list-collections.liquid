@@ -49,7 +49,7 @@
             {% endif %}
           {% endfor %}
 
-          <a class="collection-card" href="{{ collection.url }}" data-has-homem="{{ has_homem }}" data-has-mulher="{{ has_mulher }}">
+          <a class="collection-card" href="{{ collection.url }}" data-base-href="{{ collection.url }}" data-has-homem="{{ has_homem }}" data-has-mulher="{{ has_mulher }}">
             {% if collection.image %}
               <img src="{{ collection.image | img_url: '800x' }}" alt="{{ collection.title }}" loading="lazy">
             {% else %}
@@ -82,9 +82,18 @@
     const cards = document.querySelectorAll('.collection-card');
     const emptyState = document.getElementById('collectionsEmptyState');
     const mainTitle = document.getElementById('collectionsTitle');
+
+    function updateCollectionLinks(gender) {
+      cards.forEach(card => {
+        const baseHref = card.getAttribute('data-base-href') || card.getAttribute('href').split('?')[0];
+        card.setAttribute('data-base-href', baseHref);
+        card.setAttribute('href', baseHref + '?gender=' + encodeURIComponent(gender));
+      });
+    }
     
     function filterCollections(gender) {
       let count = 0;
+      updateCollectionLinks(gender);
       cards.forEach(card => {
         const hasGender = card.getAttribute('data-has-' + gender) === 'true';
         if (hasGender) {
@@ -119,8 +128,14 @@
       });
     }
 
-    function selectGender(gender) {
+    function selectGender(gender, instant) {
       filterCollections(gender);
+
+      if (instant) {
+        selector.classList.add('hidden');
+        content.classList.remove('hidden');
+        return;
+      }
       
       selector.classList.add('fade-out');
       setTimeout(() => {
@@ -161,6 +176,11 @@
         filterCollections(gender);
       });
     });
+
+    const initialGender = new URLSearchParams(window.location.search).get('gender');
+    if (initialGender === 'homem' || initialGender === 'mulher') {
+      selectGender(initialGender, true);
+    }
   });
 </script>
 
