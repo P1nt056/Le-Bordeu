@@ -1341,7 +1341,8 @@ h6,
   border-top: 1px solid var(--border-color);
   padding-top: 40px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 30px;
   align-items: center;
   color: var(--text-muted);
   font-size: 12px;

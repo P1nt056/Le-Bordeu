@@ -172,6 +172,7 @@ const TRANSLATIONS = {
   "ftr_contact_lbl": { pt: "Contacto: ", en: "Contact: " },
   "ftr_payments": { pt: "Métodos de pagamento", en: "Payment methods" },
   "ftr_payment_card": { pt: "Cartão de crédito ou débito", en: "Credit or debit card" },
+  "ftr_payment_mb": { pt: "Multibanco", en: "ATM Reference" },
 
   // Contact
   "contact_eyebrow": { pt: "Contacto", en: "Contact" },
