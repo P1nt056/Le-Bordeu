@@ -9,7 +9,7 @@ const TRANSLATIONS = {
   // Hero
   "hero_title": { pt: "Elegância que se veste. <br>Estilo que se <em>sente</em>.", en: "Elegance to wear. <br>Style to <em>feel</em>." },
   "hero_sub": { pt: "Descobre peças selecionadas para quem valoriza presença, conforto e sofisticação em cada detalhe.", en: "Discover curated pieces for those who value presence, comfort, and sophistication in every detail." },
-  "hero_btn1": { pt: "Ver Tudo", en: "View All" },
+  "hero_btn1": { pt: "Descobrir a Coleção", en: "Discover the Collection" },
   "hero_btn2": { pt: "Ver Coleções", en: "View Collections" },
 
   // Collection
@@ -117,7 +117,7 @@ const TRANSLATIONS = {
   "rev_empty": { pt: "Ainda não existem avaliações para este produto. Seja o primeiro a avaliar!", en: "There are no reviews for this product yet. Be the first to review!" },
   "rev_opinions": { pt: "opiniões", en: "reviews" },
   "rev_home_title": { pt: "O que dizem os nossos clientes", en: "What our customers say" },
-  "rev_home_write": { pt: "Escrever Review", en: "Write Review" },
+  "rev_home_write": { pt: "Escrever Avaliação", en: "Write Review" },
   "rev_home_placeholder": { pt: "A sua opinião...", en: "Your opinion..." },
   "rev_home_submit": { pt: "Enviar Review", en: "Submit Review" },
   "trust_ship_title": { pt: "Envios seguros", en: "Secure shipping" },
@@ -185,6 +185,7 @@ const TRANSLATIONS = {
 
   // Newsletter
   "news_title": { pt: "Recebe novidades, promoções exclusivas e lançamentos <em>Le Bordeu</em>.", en: "Get news, exclusive promotions, and <em>Le Bordeu</em> launches." },
+  "news_incentive": { pt: "Subscreve e recebe 10% de desconto na tua primeira compra.", en: "Subscribe and get 10% off your first purchase." },
   "news_ph": { pt: "O teu email", en: "Your email" },
   "news_btn": { pt: "Subscrever", en: "Subscribe" },
 
