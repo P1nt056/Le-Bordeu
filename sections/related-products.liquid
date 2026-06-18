@@ -4,12 +4,9 @@
   {% if recommended_products.size == 0 %}
     {% assign recommended_products = collections['frontpage'].products %}
   {% endif %}
-  <div class="splide related-splide" aria-label="Produtos recomendados" data-related-products data-product-id="{{ product.id }}" data-limit="6">
-    <div class="splide__track">
-      <ul class="splide__list">
-      {% for related_product in recommended_products limit:6 %}
+  <div class="related-products__grid" data-related-products data-product-id="{{ product.id }}" data-limit="4">
+      {% for related_product in recommended_products limit:4 %}
         {% unless related_product.id == product.id %}
-        <li class="splide__slide">
           <div class="product-card">
             <a href="{{ related_product.url }}">
               <div class="product-card__media">
@@ -35,11 +32,8 @@
             </a>
             <a href="{{ related_product.url }}" class="btn btn--primary btn--buy" data-i18n="prod_view">Ver Produto</a>
           </div>
-        </li>
         {% endunless %}
       {% endfor %}
-      </ul>
-    </div>
   </div>
 </section>
 

@@ -151,7 +151,6 @@
     <div class="product-page__info-header">
       <span class="product-page__eyebrow" data-i18n="prod_details_eye">Detalhes do Produto</span>
       <h2 class="info-section-title" data-i18n="prod_details_title">Descricao do Produto</h2>
-      <p data-i18n="prod_details_sub">Construido para acompanhar o ritmo do dia a dia com presenca, conforto e acabamento premium.</p>
     </div>
 
     <div class="product-page__info-grid">
@@ -194,75 +193,21 @@
             {% endif %}
           {% endfor %}
 
-          {% assign has_story = false %}
-          {% if story_title_top != blank or story_text_top != blank or story_title_bottom != blank or story_text_bottom != blank %}
-            {% assign has_story = true %}
-          {% endif %}
-
-          {% if has_story %}
-            <div class="product-story">
-              <article class="product-story__row fade-in">
-                <div class="product-story__media">
-                  {% if product.images[1] != blank %}
-                    <img src="{{ product.images[1] | img_url: '1100x' }}" alt="{{ product.title | escape }} em detalhe" loading="lazy">
-                  {% elsif product.featured_image != blank %}
-                    <img src="{{ product.featured_image | img_url: '1100x' }}" alt="{{ product.title | escape }} em detalhe" loading="lazy">
-                  {% endif %}
-                </div>
-                <div class="product-story__content">
-                  <span class="product-story__kicker" data-i18n="prod_details_feat">Destaque</span>
-                  {% if story_title_top != blank %}
-                    <h3>{{ story_title_top }}</h3>
-                  {% endif %}
-                  {% if story_text_top != blank %}
-                    <p>{{ story_text_top }}</p>
-                  {% endif %}
-                </div>
-              </article>
-
-              <article class="product-story__row product-story__row--reverse fade-in">
-                <div class="product-story__media">
-                  {% if product.images[2] != blank %}
-                    <img src="{{ product.images[2] | img_url: '1100x' }}" alt="{{ product.title | escape }} em uso" loading="lazy">
-                  {% elsif product.featured_image != blank %}
-                    <img src="{{ product.featured_image | img_url: '1100x' }}" alt="{{ product.title | escape }} em uso" loading="lazy">
-                  {% endif %}
-                </div>
-                <div class="product-story__content">
-                  <span class="product-story__kicker" data-i18n="prod_details_det">Detalhe</span>
-                  {% if story_title_bottom != blank %}
-                    <h3>{{ story_title_bottom }}</h3>
-                  {% endif %}
-                  {% if story_text_bottom != blank %}
-                    <p>{{ story_text_bottom }}</p>
-                  {% endif %}
-                </div>
-              </article>
-            </div>
-          {% endif %}
-
-          {% if specs_html != blank or has_story == false %}
-          <div class="product-description-card{% unless has_story %} product-description-card--standalone{% endunless %} fade-in">
-            <div class="product-description-card__media">
-              {% if product.images[3] != blank %}
-                <img src="{{ product.images[3] | img_url: '1100x' }}" alt="{{ product.title | escape }} caracteristicas" loading="lazy">
-              {% elsif product.images[2] != blank %}
-                <img src="{{ product.images[2] | img_url: '1100x' }}" alt="{{ product.title | escape }} caracteristicas" loading="lazy">
-              {% elsif product.featured_image != blank %}
-                <img src="{{ product.featured_image | img_url: '1100x' }}" alt="{{ product.title | escape }} caracteristicas" loading="lazy">
-              {% endif %}
-            </div>
-            <div class="product-description-card__content">
-              <span class="product-story__kicker" data-i18n="prod_details_spec">Especificacoes</span>
-              <h3 data-i18n="prod_details_full">Caracteristicas completas</h3>
-              <div class="product-description">
+          {% if specs_html != blank or product.description != blank %}
+          <div class="product-description-card fade-in">
+            <details class="product-accordion">
+              <summary class="product-accordion__title">
+                <span data-i18n="prod_details_spec">Especificações e Detalhes</span>
+                <span class="product-accordion__icon">+</span>
+              </summary>
+              <div class="product-accordion__content product-description">
                 {% if specs_html != blank %}
                   {{ specs_html }}
                 {% else %}
                   {{ product.description }}
                 {% endif %}
               </div>
-            </div>
+            </details>
           </div>
           {% endif %}
         {% endif %}
@@ -306,8 +251,11 @@
         </form>
       </div>
 
-      <div class="editorial-reviews__list" id="productReviewsList" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;">
+      <div class="editorial-reviews__list" id="productReviewsList" style="display: none; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;">
         <!-- Product Reviews injected via JS -->
+      </div>
+      <div style="text-align: center; margin-top: 20px;" id="showReviewsBtnContainer">
+        <button id="btnShowAllReviews" class="btn btn--secondary" onclick="document.getElementById('productReviewsList').style.display = 'grid'; this.parentElement.style.display = 'none';">Ver todas as avaliações</button>
       </div>
 
       <div class="editorial-reviews__pagination" id="productReviewsPagination" style="margin-top: 30px; text-align: center;">
@@ -316,6 +264,33 @@
     </div>
   </div>
 </section>
+
+<div class="sticky-buy-button-mobile" id="stickyBuyButton" style="display: none;">
+  <button type="button" class="btn btn--primary" style="width: 100%;" onclick="document.getElementById('add-to-cart-form').scrollIntoView({behavior: 'smooth'})" data-i18n="prod_buy">Comprar Agora</button>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const originalBtn = document.querySelector('.product-actions');
+    const stickyBtn = document.getElementById('stickyBuyButton');
+    
+    if (originalBtn && stickyBtn && window.innerWidth <= 767) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach(entry => {
+            if (!entry.isIntersecting && entry.boundingClientRect.top < 0) {
+              stickyBtn.style.display = 'flex';
+            } else {
+              stickyBtn.style.display = 'none';
+            }
+          });
+        },
+        { threshold: 0 }
+      );
+      observer.observe(originalBtn);
+    }
+  });
+</script>
 
 {% schema %}
 {
