@@ -453,7 +453,7 @@ const DYNAMIC_TRANSLATIONS = {
   "30M depth waterproof": { pt: "Resistência até 30M", en: "30M depth waterproof" },
   "Chronograph Function": { pt: "Função Cronógrafo", en: "Chronograph Function" },
   "Butterfly Double Push Button": { pt: "Botão Duplo Borboleta", en: "Butterfly Double Push Button" },
-  "Personalized Design": { pt: "Acabamento: Escovado Premium", en: "Premium Brushed Finish" },
+  "Personalized Design": { pt: "Design Personalizado", en: "Personalized Design" },
   "Mineral reinforced glass mirror": { pt: "Vidro mineral reforçado", en: "Mineral reinforced glass mirror" },
   "11MM": { pt: "11mm", en: "11MM" },
   "DETALHE": { pt: "DETALHE", en: "DETAIL" },
@@ -859,7 +859,7 @@ const DYNAMIC_TRANSLATIONS = {
   "Color: Yellow, Black, Khaki": { pt: "Cor: Amarelo, Preto, Cáqui", en: "Color: Yellow, Black, Khaki" },
   "Case Thickness (mm) ：11": { pt: "Espessura da caixa (mm): 11", en: "Case Thickness (mm) ：11" },
   "Color: Gold Color，White Gold": { pt: "Cor: Ouro, Ouro Branco", en: "Color: Gold Color，White Gold" },
-  "SKMEI Shockproof Mens Watches 2 Time Chrono Personality Digital Sport Mens Wristwatch Waterproof Watch relogio masculino 1742": { pt: "Skmei relógios masculinos à prova de choque 2 tempos crono personalidade digital esporte masculino relógio de pulso à prova d' água relógio masculino 1742", en: "SKMEI Shockproof Mens Watches 2 Time Chrono Personality Digital Sport Mens Wristwatch Waterproof Watch relógio masculino 1742" },
+  "SKMEI Shockproof Mens Watches 2 Time Chrono Personality Digital Sport Mens Wristwatch Waterproof Watch relogio masculino 1742": { pt: "Skmei relógios masculinos à prova de choque 2 tempos crono personalidade digital esporte masculino relógio de pulso à prova d' água relogio masculino 1742", en: "SKMEI Shockproof Mens Watches 2 Time Chrono Personality Digital Sport Mens Wristwatch Waterproof Watch relogio masculino 1742" },
   "16-18": { pt: "16-18", en: "16-18" },
   "[Mirror material]: glass mirror": { pt: "[Material do espelho]: espelho de vidro", en: "[Mirror material]: glass mirror" },
   "Main Downstream Platforms: Independent Site, LAZADA, Others": { pt: "Principais plataformas downstream: Site Independente, LAZADA, Outros", en: "Main Downstream Platforms: Independent Site, LAZADA, Others" },
@@ -1727,7 +1727,7 @@ const DYNAMIC_TRANSLATIONS = {
   "Relógio Swiss Luminous com elegância moderna.": { pt: "Relógio Swiss Luminous com elegância moderna.", en: "Swiss Luminous watch with modern elegance." },
   "Style：Minimalist": { pt: "Estilo: minimalista", en: "Style：Minimalist" },
   "Total Length: 23cm": { pt: "Comprimento total: 23cm", en: "Total Length: 23cm" },
-  "Element: Personalized Design": { pt: "Acabamento: Escovado Premium", en: "Finish: Premium Brushed" },
+  "Element: Personalized Design": { pt: "Elemento: Design Personalizado", en: "Element: Personalized Design" },
   "Skirt length: Short skirt": { pt: "Comprimento da saia: saia curta", en: "Skirt length: Short skirt" },
   "185": { pt: "185", en: "185" },
   "Um toque premium no teu dia a dia.": { pt: "Um toque premium no teu dia a dia.", en: "A premium touch in your everyday life." },
@@ -1855,7 +1855,7 @@ function applyTranslations() {
     textNodes.forEach(textNode => {
       let text = textNode.nodeValue;
       let changed = false;
-      
+
       sortedKeys.forEach(originalKey => {
         const translatedVal = DYNAMIC_TRANSLATIONS[originalKey][currentLang];
         if (translatedVal && translatedVal !== originalKey) {
@@ -1865,7 +1865,7 @@ function applyTranslations() {
           }
         }
       });
-      
+
       if (changed) {
         textNode.nodeValue = text;
       }
@@ -1917,7 +1917,7 @@ function applyTranslations() {
   if (window.location.pathname.includes('/policies/')) {
     const titleEl = document.querySelector('.shopify-policy__title h1');
     const bodyEl = document.querySelector('.shopify-policy__body .rte') || document.querySelector('.shopify-policy__body');
-    
+
     if (titleEl && bodyEl) {
       if (!titleEl.hasAttribute('data-original-text')) {
         titleEl.setAttribute('data-original-text', titleEl.textContent);
@@ -1925,7 +1925,7 @@ function applyTranslations() {
       if (!bodyEl.hasAttribute('data-original-html')) {
         bodyEl.setAttribute('data-original-html', bodyEl.innerHTML);
       }
-      
+
       if (currentLang === 'pt') {
         if (window.location.pathname.includes('refund-policy')) {
           titleEl.textContent = 'Política de Reembolso e Devolução';
@@ -2111,7 +2111,7 @@ function applyTranslations() {
         }
       } else {
         titleEl.textContent = titleEl.getAttribute('data-original-text');
-        
+
         // Ensure English translation for terms of service since original is in Portuguese
         if (window.location.pathname.includes('terms-of-service')) {
           bodyEl.innerHTML = `
