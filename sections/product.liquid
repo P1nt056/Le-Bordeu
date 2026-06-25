@@ -163,10 +163,24 @@
           {% assign story_title_bottom = '' %}
           {% assign story_text_bottom = '' %}
           {% capture specs_html %}{% endcapture %}
+          {% capture specs_tables_html %}{% endcapture %}
+          {% assign description_body = product.description %}
 
-          {% assign description_parts = product.description | split: '</p>' %}
+          {% assign table_chunks = product.description | split: '<table' %}
+          {% if table_chunks.size > 1 %}
+            {% capture description_body %}{{ table_chunks[0] }}{% endcapture %}
+            {% for table_chunk in table_chunks offset: 1 %}
+              {% assign table_parts = table_chunk | split: '</table>' %}
+              {% capture specs_tables_html %}{{ specs_tables_html }}<table{{ table_parts[0] }}</table>{% endcapture %}
+              {% if table_parts[1] != blank %}
+                {% capture description_body %}{{ description_body }}{{ table_parts[1] }}{% endcapture %}
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+
+          {% assign description_parts = description_body | split: '</p>' %}
           {% for part in description_parts %}
-            {% assign part_text = part | strip_html | strip %}
+            {% assign part_text = part | strip_html | replace: '&nbsp;', '' | replace: '&#160;', '' | strip %}
             {% if part_text != blank %}
               {% if part_text contains 'Título cima:' %}
                 {% assign story_title_top = part_text | split: 'Título cima:' | last | strip %}
@@ -260,6 +274,11 @@
                   {{ specs_html }}
                 {% else %}
                   {{ product.description }}
+                {% endif %}
+                {% if specs_tables_html != blank %}
+                  <div class="product-description__tables" aria-hidden="true">
+                    {{ specs_tables_html }}
+                  </div>
                 {% endif %}
               </div>
             </div>

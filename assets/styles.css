@@ -2069,6 +2069,11 @@ h6,
   display: none !important;
 }
 
+.product-description-card .product-description__tables,
+.product-description-card .product-description p:has(table) {
+  display: none !important;
+}
+
 .product-description-card .product-description p {
   position: relative;
   display: flex;
