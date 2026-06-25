@@ -32,17 +32,26 @@
           <div class="product-options">
             {% for option in product.options_with_values %}
               {% assign selected_option_value = current_variant.options[forloop.index0] %}
-              <div class="option-header" style="display: flex; justify-content: space-between; align-items: center;">
-                <label data-i18n="opt_{{ option.name | handleize }}">{{ option.name }}</label>
-                {% if option.name == 'Size' or option.name == 'Tamanho' or option.name == 'size' %}
-                  <a href="#" class="size-guide-trigger" style="color: var(--color-gold); font-size: 0.85rem; text-decoration: underline;" data-i18n="prod_size">Ver tabela de tamanhos</a>
+              {% assign option_name_downcase = option.name | downcase %}
+              {% assign hide_single_color_option = false %}
+              {% if option.values.size == 1 %}
+                {% if option_name_downcase contains 'cor' or option_name_downcase contains 'color' or option_name_downcase contains 'colour' %}
+                  {% assign hide_single_color_option = true %}
                 {% endif %}
+              {% endif %}
+              <div class="product-option{% if hide_single_color_option %} product-option--hidden{% endif %}">
+                <div class="option-header" style="display: flex; justify-content: space-between; align-items: center;">
+                  <label data-i18n="opt_{{ option.name | handleize }}">{{ option.name }}</label>
+                  {% if option.name == 'Size' or option.name == 'Tamanho' or option.name == 'size' %}
+                    <a href="#" class="size-guide-trigger" style="color: var(--color-gold); font-size: 0.85rem; text-decoration: underline;" data-i18n="prod_size">Ver tabela de tamanhos</a>
+                  {% endif %}
+                </div>
+                <select name="options[{{ option.name }}]" class="single-option-selector" data-index="option{{ forloop.index }}">
+                  {% for value in option.values %}
+                    <option value="{{ value }}" {% if selected_option_value == value %}selected{% endif %}>{{ value }}</option>
+                  {% endfor %}
+                </select>
               </div>
-              <select name="options[{{ option.name }}]" class="single-option-selector" data-index="option{{ forloop.index }}">
-                {% for value in option.values %}
-                  <option value="{{ value }}" {% if selected_option_value == value %}selected{% endif %}>{{ value }}</option>
-                {% endfor %}
-              </select>
             {% endfor %}
           </div>
         {% endif %}
