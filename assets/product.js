@@ -154,6 +154,19 @@ document.addEventListener('DOMContentLoaded',()=>{
       const product = JSON.parse(productJsonEl.textContent);
       const optionSelectors = form.querySelectorAll('.single-option-selector');
       const variantIdInput = form.querySelector('input[name="id"]');
+      const sizeOnlyVariants = (() => {
+        const options = Array.isArray(product.options) ? product.options : [];
+        const sizeOptionIndex = options.findIndex(option => /size|tamanho/i.test(String(option)));
+
+        if (sizeOptionIndex === -1 || product.variants.length < 2) return false;
+
+        const referenceVariant = product.variants[0];
+        return product.variants.every(variant =>
+          options.every((_, index) =>
+            index === sizeOptionIndex || variant[`option${index + 1}`] === referenceVariant[`option${index + 1}`]
+          )
+        );
+      })();
 
       if (window.LeBordeuProductGallery) {
         window.LeBordeuProductGallery.configureVariantTerms(product.variants);
@@ -232,7 +245,7 @@ document.addEventListener('DOMContentLoaded',()=>{
           variantIdInput.value = matchedVariant.id;
 
           if (syncGallery && window.LeBordeuProductGallery) {
-            window.LeBordeuProductGallery.filterByVariant(matchedVariant);
+            window.LeBordeuProductGallery.filterByVariant(matchedVariant, sizeOnlyVariants);
             window.LeBordeuProductGallery.goToImageId(getVariantImageId(matchedVariant));
             
             // Scroll to gallery on mobile when variant is manually selected

@@ -399,11 +399,11 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }
 
-    function renderSlides(selectedTerms = []) {
+    function renderSlides(selectedTerms = [], showAllImages = false) {
       if (!mainList) return;
 
-      const filteredMainSlides = allMainSlides.filter(slide => slideMatchesVariant(slide, selectedTerms));
-      const filteredThumbSlides = allThumbSlides.filter(slide => slideMatchesVariant(slide, selectedTerms));
+      const filteredMainSlides = showAllImages ? allMainSlides : allMainSlides.filter(slide => slideMatchesVariant(slide, selectedTerms));
+      const filteredThumbSlides = showAllImages ? allThumbSlides : allThumbSlides.filter(slide => slideMatchesVariant(slide, selectedTerms));
       const nextMainSlides = filteredMainSlides.length ? filteredMainSlides : allMainSlides;
       const nextThumbSlides = filteredThumbSlides.length ? filteredThumbSlides : allThumbSlides;
 
@@ -437,7 +437,7 @@ document.addEventListener('DOMContentLoaded', function () {
         variantTerms = Array.from(new Set(terms)).sort((a, b) => b.length - a.length);
         variantImageIds = Array.from(new Set(variantImageIds));
       },
-      filterByVariant(variant) {
+      filterByVariant(variant, showAllImages = false) {
         if (!variant) return;
 
         selectedVariantId = variant.id ? String(variant.id) : null;
@@ -446,7 +446,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const selectedTerms = getVariantTerms(variant).sort((a, b) => b.length - a.length);
 
-        renderSlides(selectedTerms);
+        renderSlides(selectedTerms, showAllImages);
       },
       goToImageId(imageId) {
         if (!imageId || !mainSplide) return false;
