@@ -36,6 +36,48 @@
     <div class="collections__grid">
       {% for collection in collections %}
         {% unless collection.handle == 'frontpage' %}
+          {% assign collection_prefix = collection.title | slice: 0, 1 | downcase %}
+          {% assign collection_second_char = collection.title | slice: 1, 1 %}
+          {% assign collection_title_after_prefix = collection.title | slice: 1, 1000 | strip %}
+          {% assign collection_prefix_separator = collection_title_after_prefix | slice: 0, 1 %}
+          {% assign collection_title_size = collection.title | size %}
+          {% assign collection_suffix_index = collection_title_size | minus: 1 %}
+          {% assign collection_suffix_separator_index = collection_title_size | minus: 2 %}
+          {% assign collection_suffix = collection.title | slice: collection_suffix_index, 1 | downcase %}
+          {% assign collection_suffix_separator = collection.title | slice: collection_suffix_separator_index, 1 %}
+          {% assign collection_has_gender_suffix = false %}
+          {% if collection_suffix == 'm' or collection_suffix == 'f' %}
+            {% if collection_suffix_separator == ' ' or collection_suffix_separator == '-' or collection_suffix_separator == '_' or collection_suffix_separator == ':' or collection_suffix_separator == '|' %}
+              {% assign collection_has_gender_suffix = true %}
+            {% endif %}
+          {% endif %}
+          {% assign collection_display_title = collection.title %}
+          {% assign collection_prefix_gender = '' %}
+          {% if collection_has_gender_suffix %}
+            {% assign collection_display_title = collection.title | slice: 0, collection_suffix_separator_index | strip %}
+            {% if collection_suffix == 'm' %}
+              {% assign collection_prefix_gender = 'homem' %}
+            {% else %}
+              {% assign collection_prefix_gender = 'mulher' %}
+            {% endif %}
+          {% elsif collection_prefix == 'm' or collection_prefix == 'f' %}
+            {% if collection_prefix_separator == '-' or collection_prefix_separator == '_' or collection_prefix_separator == ':' or collection_prefix_separator == '|' %}
+              {% assign collection_display_title = collection_title_after_prefix | slice: 1, 1000 | strip %}
+              {% if collection_prefix == 'm' %}
+                {% assign collection_prefix_gender = 'homem' %}
+              {% else %}
+                {% assign collection_prefix_gender = 'mulher' %}
+              {% endif %}
+            {% elsif collection_second_char == ' ' %}
+              {% assign collection_display_title = collection_title_after_prefix %}
+              {% if collection_prefix == 'm' %}
+                {% assign collection_prefix_gender = 'homem' %}
+              {% else %}
+                {% assign collection_prefix_gender = 'mulher' %}
+              {% endif %}
+            {% endif %}
+          {% endif %}
+
           {% assign has_homem = false %}
           {% assign has_mulher = false %}
           
@@ -49,15 +91,23 @@
             {% endif %}
           {% endfor %}
 
+          {% if collection_prefix_gender == 'homem' %}
+            {% assign has_homem = true %}
+            {% assign has_mulher = false %}
+          {% elsif collection_prefix_gender == 'mulher' %}
+            {% assign has_homem = false %}
+            {% assign has_mulher = true %}
+          {% endif %}
+
           <a class="collection-card" href="{{ collection.url }}" data-base-href="{{ collection.url }}" data-has-homem="{{ has_homem }}" data-has-mulher="{{ has_mulher }}">
             {% if collection.image %}
-              <img src="{{ collection.image | img_url: '800x' }}" alt="{{ collection.title }}" loading="lazy">
+              <img src="{{ collection.image | img_url: '800x' }}" alt="{{ collection_display_title }}" loading="lazy">
             {% else %}
               <!-- Fallback to first product image if collection doesn't have an image -->
-              <img src="{{ collection.products.first.featured_image | img_url: '800x' }}" alt="{{ collection.title }}" loading="lazy">
+              <img src="{{ collection.products.first.featured_image | img_url: '800x' }}" alt="{{ collection_display_title }}" loading="lazy">
             {% endif %}
             <div class="collection-card__meta">
-              <h3>{{ collection.title }}</h3>
+              <h3>{{ collection_display_title }}</h3>
               <span class="btn btn--ghost" data-i18n-count="{{ collection.products_count }}" data-i18n="list_view">Ver Coleção ({{ collection.products_count }} produtos)</span>
             </div>
           </a>
@@ -183,4 +233,3 @@
     }
   });
 </script>
-

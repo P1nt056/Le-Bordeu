@@ -12,6 +12,47 @@
     {% assign is_sale = true %}
   {% endif %}
   {% assign products_per_page = 12 %}
+  {% assign collection_prefix = collection.title | slice: 0, 1 | downcase %}
+  {% assign collection_second_char = collection.title | slice: 1, 1 %}
+  {% assign collection_title_after_prefix = collection.title | slice: 1, 1000 | strip %}
+  {% assign collection_prefix_separator = collection_title_after_prefix | slice: 0, 1 %}
+  {% assign collection_title_size = collection.title | size %}
+  {% assign collection_suffix_index = collection_title_size | minus: 1 %}
+  {% assign collection_suffix_separator_index = collection_title_size | minus: 2 %}
+  {% assign collection_suffix = collection.title | slice: collection_suffix_index, 1 | downcase %}
+  {% assign collection_suffix_separator = collection.title | slice: collection_suffix_separator_index, 1 %}
+  {% assign collection_has_gender_suffix = false %}
+  {% if collection_suffix == 'm' or collection_suffix == 'f' %}
+    {% if collection_suffix_separator == ' ' or collection_suffix_separator == '-' or collection_suffix_separator == '_' or collection_suffix_separator == ':' or collection_suffix_separator == '|' %}
+      {% assign collection_has_gender_suffix = true %}
+    {% endif %}
+  {% endif %}
+  {% assign collection_display_title = collection.title %}
+  {% assign collection_prefix_gender = '' %}
+  {% if collection_has_gender_suffix %}
+    {% assign collection_display_title = collection.title | slice: 0, collection_suffix_separator_index | strip %}
+    {% if collection_suffix == 'm' %}
+      {% assign collection_prefix_gender = 'homem' %}
+    {% else %}
+      {% assign collection_prefix_gender = 'mulher' %}
+    {% endif %}
+  {% elsif collection_prefix == 'm' or collection_prefix == 'f' %}
+    {% if collection_prefix_separator == '-' or collection_prefix_separator == '_' or collection_prefix_separator == ':' or collection_prefix_separator == '|' %}
+      {% assign collection_display_title = collection_title_after_prefix | slice: 1, 1000 | strip %}
+      {% if collection_prefix == 'm' %}
+        {% assign collection_prefix_gender = 'homem' %}
+      {% else %}
+        {% assign collection_prefix_gender = 'mulher' %}
+      {% endif %}
+    {% elsif collection_second_char == ' ' %}
+      {% assign collection_display_title = collection_title_after_prefix %}
+      {% if collection_prefix == 'm' %}
+        {% assign collection_prefix_gender = 'homem' %}
+      {% else %}
+        {% assign collection_prefix_gender = 'mulher' %}
+      {% endif %}
+    {% endif %}
+  {% endif %}
   {% assign collection_gender = request.params.gender | downcase %}
   {% if collection_gender != 'homem' and collection_gender != 'mulher' %}
     {% assign collection_gender = '' %}
@@ -27,7 +68,9 @@
       {% assign has_mulher = true %}
     {% endif %}
   {% endfor %}
-  {% if collection_gender == '' %}
+  {% if collection_prefix_gender != '' %}
+    {% assign collection_gender = collection_prefix_gender %}
+  {% elsif collection_gender == '' %}
     {% if has_homem and has_mulher == false %}
       {% assign collection_gender = 'homem' %}
     {% elsif has_mulher and has_homem == false %}
@@ -41,7 +84,7 @@
     {% elsif is_sale %}
       <span data-i18n="col_sale">Promoções Especiais</span>
     {% else %}
-      <span data-i18n="col_title_{{ collection.title | handleize }}">{{ collection.title }}</span>
+      <span data-i18n="col_title_{{ collection_display_title | handleize }}">{{ collection_display_title }}</span>
     {% endif %}
   </h1>
 
