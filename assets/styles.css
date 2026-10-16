@@ -474,15 +474,18 @@ h6,
 
 @media (max-width: 767px) {
   .hero {
-    min-height: 52vh;
-    max-height: 450px;
-    align-items: center;
+    min-height: 520px;
+    max-height: 560px;
+    align-items: flex-end;
     justify-content: center;
-    padding: 68px 16px 20px;
+    padding: 0 16px 24px;
   }
 
   .hero__media {
     left: 0;
+    top: 42px;
+    bottom: 0;
+    right: 0;
   }
 
   .hero__media::before {
@@ -497,14 +500,13 @@ h6,
     height: 100%;
     transform: none;
     object-fit: cover;
-    object-position: center 15%;
-    filter: brightness(0.7) contrast(1.08) saturate(0.92);
+    object-position: 50% 0%;
+    filter: brightness(0.74) contrast(1.08) saturate(0.92);
   }
 
   .hero__overlay {
     background:
-      linear-gradient(180deg, rgba(8, 8, 8, 0.5) 0%, rgba(8, 8, 8, 0.25) 45%, rgba(8, 8, 8, 0.88) 100%),
-      radial-gradient(ellipse at center, rgba(8, 8, 8, 0.1) 0%, rgba(8, 8, 8, 0.6) 80%);
+      linear-gradient(180deg, rgba(8, 8, 8, 0.6) 0%, rgba(8, 8, 8, 0.08) 25%, rgba(8, 8, 8, 0.45) 60%, rgba(8, 8, 8, 0.95) 100%);
   }
 
   .hero__content {
@@ -512,6 +514,7 @@ h6,
     padding: 0 12px;
     max-width: 440px;
     transform: none;
+    margin-bottom: 0;
   }
 
   .hero__eyebrow {
@@ -526,7 +529,7 @@ h6,
   }
 
   .hero__title {
-    font-size: 24px !important;
+    font-size: 23px !important;
     line-height: 1.18;
     margin-bottom: 8px;
     font-weight: 300;
