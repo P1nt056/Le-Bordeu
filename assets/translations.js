@@ -7,10 +7,11 @@ const TRANSLATIONS = {
   "nav_sale": { pt: "Promoções", en: "Sale" },
 
   // Hero
+  "hero_eyebrow": { pt: "Nova Coleção 2026", en: "New Collection 2026" },
   "hero_title": { pt: "Elegância que se veste. <br>Estilo que se <em>sente</em>.", en: "Elegance to wear. <br>Style to <em>feel</em>." },
   "hero_sub": { pt: "Descobre peças selecionadas para quem valoriza presença, conforto e sofisticação em cada detalhe.", en: "Discover curated pieces for those who value presence, comfort, and sophistication in every detail." },
   "hero_btn1": { pt: "Descobrir a Coleção", en: "Discover the Collection" },
-  "hero_btn2": { pt: "Ver Coleções", en: "View Collections" },
+  "hero_btn2": { pt: "Novidades", en: "New Arrivals" },
 
   // Collection
   "col_title_produtos": { pt: "Produtos", en: "Products" },
