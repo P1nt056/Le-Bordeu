@@ -474,18 +474,23 @@ h6,
 
 @media (max-width: 767px) {
   .hero {
-    min-height: 520px;
-    max-height: 560px;
-    align-items: flex-end;
+    min-height: 410px;
+    max-height: 430px;
+    display: flex;
+    align-items: center;
     justify-content: center;
-    padding: 0 16px 24px;
+    padding: 48px 16px 16px;
+    position: relative;
+    overflow: hidden;
   }
 
   .hero__media {
+    position: absolute;
     left: 0;
-    top: 42px;
-    bottom: 0;
     right: 0;
+    top: 36px;
+    bottom: 0;
+    z-index: 1;
   }
 
   .hero__media::before {
@@ -501,25 +506,36 @@ h6,
     transform: none;
     object-fit: cover;
     object-position: 50% 0%;
-    filter: brightness(0.74) contrast(1.08) saturate(0.92);
+    filter: brightness(0.68) contrast(1.08) saturate(0.92);
   }
 
   .hero__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
     background:
-      linear-gradient(180deg, rgba(8, 8, 8, 0.6) 0%, rgba(8, 8, 8, 0.08) 25%, rgba(8, 8, 8, 0.45) 60%, rgba(8, 8, 8, 0.95) 100%);
+      linear-gradient(180deg, rgba(8, 8, 8, 0.45) 0%, rgba(8, 8, 8, 0.1) 28%, rgba(8, 8, 8, 0.5) 65%, rgba(8, 8, 8, 0.95) 100%),
+      radial-gradient(ellipse at center 60%, rgba(8, 8, 8, 0.6) 0%, rgba(8, 8, 8, 0) 80%);
+    pointer-events: none;
   }
 
   .hero__content {
+    position: relative;
+    z-index: 10;
     text-align: center;
     padding: 0 12px;
-    max-width: 440px;
+    max-width: 420px;
     transform: none;
-    margin-bottom: 0;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 
   .hero__eyebrow {
     font-size: 9px;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     letter-spacing: 0.2em;
     gap: 6px;
   }
@@ -529,22 +545,23 @@ h6,
   }
 
   .hero__title {
-    font-size: 23px !important;
+    font-size: 22px !important;
     line-height: 1.18;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     font-weight: 300;
   }
 
   .hero__subtitle {
     font-size: 10px;
-    letter-spacing: 0.14em;
-    margin-bottom: 16px;
-    padding: 0 4px;
-    line-height: 1.5;
+    letter-spacing: 0.12em;
+    margin-bottom: 14px;
+    padding: 0 6px;
+    line-height: 1.45;
     opacity: 0.85;
   }
 
   .hero__actions {
+    display: flex;
     flex-direction: row;
     gap: 8px;
     justify-content: center;
@@ -554,16 +571,16 @@ h6,
 
   .hero__actions .btn--primary {
     min-width: 0;
-    padding: 10px 18px;
+    padding: 9px 16px;
     font-size: 10px;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.14em;
   }
 
   .hero__actions .btn--ghost {
     min-width: 0;
-    padding: 9px 16px;
+    padding: 8px 14px;
     font-size: 10px;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.14em;
     opacity: 0.85;
   }
 }
@@ -816,11 +833,11 @@ h6,
 
 @media (max-width: 767px) {
   .featured-products {
-    padding: 30px 0 45px;
+    padding: 20px 0 40px;
   }
 
   .featured-products__header {
-    margin-bottom: 20px;
+    margin-bottom: 14px;
   }
 
   .featured-products__header .section-eyebrow {
