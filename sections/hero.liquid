@@ -1,12 +1,14 @@
 <section class="hero" aria-label="Banner principal">
   <div class="hero__media" style="--hero-image: url('{{ 'hero-elegance-couple.png' | asset_url }}');">
-    <img src="{{ 'hero-elegance-couple.png' | asset_url }}" alt="Le Bordeu - elegancia editorial" loading="eager" />
+    <img src="{{ 'hero-elegance-couple.png' | asset_url }}" alt="Le Bordeu - elegancia editorial" loading="eager" fetchpriority="high" />
   </div>
   <div class="hero__content container">
-    <h1 class="hero__title" data-i18n="hero_title">Eleg&acirc;ncia que se veste. <br>Estilo que se <em>sente</em>.</h1>
-    <p class="hero__subtitle" data-i18n="hero_sub">Descobre pe&ccedil;as selecionadas para quem valoriza presen&ccedil;a, conforto e sofistica&ccedil;&atilde;o em cada detalhe.</p>
+    <span class="hero__eyebrow" data-i18n="hero_eyebrow">Nova Coleção 2026</span>
+    <h1 class="hero__title" data-i18n="hero_title">Elegância que se veste. <br><em>Estilo que se sente</em>.</h1>
+    <p class="hero__subtitle" data-i18n="hero_sub">Descobre peças selecionadas para quem valoriza presença, conforto e sofisticação em cada detalhe.</p>
     <div class="hero__actions">
       <a href="/collections/all" class="btn btn--primary" data-i18n="hero_btn1">Descobrir a Coleção</a>
+      <a href="/collections/new" class="btn btn--ghost" data-i18n="hero_btn2">Novidades</a>
     </div>
   </div>
   <div class="hero__overlay"></div>

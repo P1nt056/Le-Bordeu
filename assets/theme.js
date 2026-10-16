@@ -799,7 +799,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     let currentPage = 1;
-    const reviewsPerPage = 3;
+    const reviewsPerPage = 2;
 
     const getFlagForLang = (lang) => {
       const flags = {

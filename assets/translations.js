@@ -98,6 +98,8 @@ const TRANSLATIONS = {
 
   // Featured
   "feat_title": { pt: "Em Destaque", en: "Featured" },
+  "feat_best_sellers": { pt: "Mais Vendidos", en: "Best Sellers" },
+  "feat_eyebrow": { pt: "Destaques da Coleção", en: "Collection Highlights" },
   "feat_watches_title": { pt: "Relógios em Destaque", en: "Featured Watches" },
   "feat_dresses_title": { pt: "Vestidos Selecionados", en: "Selected Dresses" },
   "feat_buy": { pt: "Comprar", en: "Buy" },
