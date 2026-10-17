@@ -1826,6 +1826,7 @@ const DYNAMIC_TRANSLATIONS = {
 };
 
 let currentLang = localStorage.getItem('site_lang') || 'pt';
+window.currentLang = currentLang;
 
 function applyTranslations() {
   // Apply Dynamic Translations (Descriptions, Options, Size Tables) First
@@ -2193,6 +2194,7 @@ function applyTranslations() {
 
 function toggleLanguage() {
   currentLang = currentLang === 'pt' ? 'en' : 'pt';
+  window.currentLang = currentLang;
   localStorage.setItem('site_lang', currentLang);
 
   // Update toggle button text
