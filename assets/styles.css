@@ -670,73 +670,7 @@ h6,
   }
 }
 
-@media (max-width: 767px) {
-  .collections {
-    padding: 60px 0;
-  }
 
-  /* 2-column grid for collections on mobile */
-  .collections__grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-    padding: 0;
-    margin: 0;
-    overflow-x: visible;
-  }
-
-  .collections__grid::-webkit-scrollbar {
-    display: none;
-  }
-
-  .collection-card {
-    flex: none;
-    width: 100%;
-    min-width: 0;
-    max-width: 100%;
-    aspect-ratio: 3 / 4;
-    height: auto;
-    min-height: 200px;
-    border-radius: 4px;
-  }
-
-  .collection-card__meta {
-    padding: 14px 10px;
-    justify-content: flex-end;
-    align-items: flex-start;
-    background: linear-gradient(180deg, rgba(8, 8, 8, 0) 0%, rgba(8, 8, 8, 0.45) 45%, rgba(8, 8, 8, 0.92) 100%);
-  }
-
-  .collection-card__meta h3 {
-    font-size: 15px;
-    font-weight: 500;
-    margin-bottom: 4px;
-    text-align: left;
-    line-height: 1.25;
-  }
-
-  .collection-card__meta p {
-    font-size: 11px;
-    text-align: left;
-    line-height: 1.35;
-    margin-bottom: 0;
-  }
-
-  .collection-card .btn--ghost {
-    display: inline-block;
-    opacity: 0.9;
-    transform: none;
-    font-size: 9px;
-    padding: 4px 8px;
-    letter-spacing: 0.04em;
-    max-width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-top: 4px;
-    border-color: rgba(255, 255, 255, 0.35);
-  }
-}
 
 @media (max-width: 600px) {
   .featured-products__grid {
@@ -846,6 +780,74 @@ h6,
 .collection-card:hover .btn--ghost {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* ============================================
+   MOBILE COLLECTIONS GRID & CARDS (COMPACT 2-COLUMN)
+   ============================================ */
+@media (max-width: 767px) {
+  .collections {
+    padding: 36px 0;
+  }
+
+  .collections__grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow-x: visible !important;
+  }
+
+  .collections__grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .collection-card {
+    height: 145px !important;
+    min-height: 0 !important;
+    max-height: 155px !important;
+    width: 100% !important;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .collection-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .collection-card__meta {
+    position: absolute !important;
+    inset: 0 !important;
+    padding: 10px 8px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+    background: linear-gradient(180deg, rgba(8, 8, 8, 0.2) 0%, rgba(8, 8, 8, 0.65) 100%) !important;
+  }
+
+  .collection-card__meta h3 {
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    margin-bottom: 0 !important;
+    text-align: center !important;
+    letter-spacing: 0.04em !important;
+    line-height: 1.2 !important;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+    color: #fff !important;
+  }
+
+  .collection-card__meta p {
+    display: none !important;
+  }
+
+  .collection-card .btn--ghost {
+    display: none !important;
+  }
 }
 
 /* Products Card / Featured Splide */
@@ -5586,14 +5588,18 @@ details[open] .icon-accordion::after {
    ============================================ */
 @media (max-width: 767px) {
   .site-header {
-    padding: 12px 0;
+    padding: 16px 0;
+  }
+
+  .site-header.solid {
+    padding: 13px 0;
   }
 
   .site-header__inner {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
   }
 
   .site-header .logo {
@@ -5602,24 +5608,25 @@ details[open] .icon-accordion::after {
   }
 
   .site-header .logo a {
-    font-size: 18px;
+    font-size: 20px;
     letter-spacing: 0.08em;
+    font-weight: 500;
     white-space: nowrap;
   }
 
   .header-icons {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 11px;
     flex-shrink: 1;
     min-width: 0;
   }
 
   .site-header #lang-toggle-btn,
   .lang-toggle {
-    font-size: 12px;
+    font-size: 13px;
     margin: 0 !important;
-    padding: 2px 4px;
+    padding: 3px 6px;
     white-space: nowrap;
     display: inline-flex;
     align-items: center;
@@ -5628,12 +5635,12 @@ details[open] .icon-accordion::after {
 
   .site-header #lang-toggle-btn img,
   .lang-toggle img {
-    margin-right: 3px !important;
+    margin-right: 4px !important;
   }
 
   .header-icons .icon--search {
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -5642,8 +5649,8 @@ details[open] .icon-accordion::after {
 
   .header-icons .icon--account,
   .header-icons .icon--cart {
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
     display: flex !important;
     align-items: center;
     justify-content: center;
@@ -5652,8 +5659,8 @@ details[open] .icon-accordion::after {
 
   .header-icons .icon--account svg,
   .header-icons .icon--cart svg {
-    width: 14px;
-    height: 14px;
+    width: 15px;
+    height: 15px;
   }
 
   /* Logged-in Account Dropdown on Mobile */
@@ -5665,8 +5672,8 @@ details[open] .icon-accordion::after {
   }
 
   .account-toggle-btn {
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
     margin: 0 !important;
     padding: 0;
     display: flex;
@@ -5682,8 +5689,8 @@ details[open] .icon-accordion::after {
   }
 
   .account-initial {
-    width: 26px;
-    height: 26px;
+    width: 27px;
+    height: 27px;
     font-size: 12px;
     font-weight: 600;
   }
@@ -5699,52 +5706,52 @@ details[open] .icon-accordion::after {
   }
 
   .mobile-menu-btn {
-    width: 32px;
-    height: 32px;
-    font-size: 20px;
-    margin-left: 2px;
+    width: 34px;
+    height: 34px;
+    font-size: 22px;
+    margin-left: 3px;
     flex-shrink: 0;
   }
 }
 
 @media (max-width: 380px) {
   .site-header {
-    padding: 10px 0;
+    padding: 13px 0;
   }
 
   .site-header .logo a {
-    font-size: 16px;
-    letter-spacing: 0.05em;
+    font-size: 17px;
+    letter-spacing: 0.06em;
   }
 
   .header-icons {
-    gap: 4px;
+    gap: 8px;
   }
 
   .site-header #lang-toggle-btn,
   .lang-toggle {
-    font-size: 11px;
-    padding: 2px 2px;
+    font-size: 12px;
+    padding: 2px 4px;
   }
 
   .header-icons .icon--search,
   .header-icons .icon--account,
   .header-icons .icon--cart,
   .account-toggle-btn {
-    width: 26px;
-    height: 26px;
+    width: 28px;
+    height: 28px;
   }
 
   .account-initial {
-    width: 24px;
-    height: 24px;
+    width: 25px;
+    height: 25px;
     font-size: 11px;
   }
 
   .mobile-menu-btn {
-    width: 28px;
-    height: 28px;
-    font-size: 18px;
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
   }
 }
 
@@ -6089,9 +6096,28 @@ details[open] .icon-accordion::after {
    MOBILE COLLECTION PAGE IMPROVEMENTS
    ============================================ */
 @media (max-width: 767px) {
-  .collection-page,
-  .collections-list-page {
+  .collection-page {
     padding: 100px 0 60px;
+  }
+
+  .collections-list-page {
+    padding: 85px 0 40px;
+  }
+
+  .collections-list-page .section-title {
+    font-size: 24px;
+    margin-bottom: 18px;
+  }
+
+  .collections-list-page .section-title::after {
+    margin: 8px auto 0;
+    width: 32px;
+  }
+
+  .collections-filter-nav {
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    gap: 10px;
   }
 
   .collection-count {
