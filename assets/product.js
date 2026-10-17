@@ -99,6 +99,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     if (addToCartBtn) {
       addToCartBtn.addEventListener('click', (e) => {
         e.preventDefault();
+        if (addToCartBtn.disabled) return;
         const formData = new FormData(form);
         
         addToCartBtn.disabled = true;
@@ -133,23 +134,6 @@ document.addEventListener('DOMContentLoaded',()=>{
       });
     }
 
-    const buyNowBtn = form.querySelector('button[type="submit"]');
-    if (buyNowBtn) {
-      buyNowBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        let returnInput = form.querySelector('input[name="return_to"]');
-        if (!returnInput) {
-          returnInput = document.createElement('input');
-          returnInput.type = 'hidden';
-          returnInput.name = 'return_to';
-          returnInput.value = '/checkout';
-          form.appendChild(returnInput);
-        } else {
-          returnInput.value = '/checkout';
-        }
-        form.submit();
-      });
-    }
     // Variant Selector Synchronizer
     const productJsonEl = document.querySelector('[id^="ProductJson-"]');
     if (productJsonEl) {
@@ -269,19 +253,17 @@ document.addEventListener('DOMContentLoaded',()=>{
           // Check if variant is available
           const lang = getCurrentLang();
           if (matchedVariant.available) {
-            buyNowBtn.disabled = false;
-            buyNowBtn.innerText = typeof TRANSLATIONS !== 'undefined' ? TRANSLATIONS['prod_buy'][lang] : 'Comprar Agora';
-            
             if (addToCartBtn) {
               addToCartBtn.disabled = false;
+              addToCartBtn.classList.remove('btn--disabled');
+              addToCartBtn.setAttribute('data-i18n', 'prod_add');
               addToCartBtn.innerText = typeof TRANSLATIONS !== 'undefined' ? TRANSLATIONS['prod_add'][lang] : 'Adicionar ao Carrinho';
             }
           } else {
-            buyNowBtn.disabled = true;
-            buyNowBtn.innerText = typeof TRANSLATIONS !== 'undefined' ? TRANSLATIONS['prod_sold_out'][lang] : 'Esgotado';
-            
             if (addToCartBtn) {
               addToCartBtn.disabled = true;
+              addToCartBtn.classList.add('btn--disabled');
+              addToCartBtn.setAttribute('data-i18n', 'prod_sold_out');
               addToCartBtn.innerText = typeof TRANSLATIONS !== 'undefined' ? TRANSLATIONS['prod_sold_out'][lang] : 'Esgotado';
             }
           }
@@ -289,11 +271,10 @@ document.addEventListener('DOMContentLoaded',()=>{
           console.log("[Le Bordeu Debug] No variant matches these options.");
           const lang = getCurrentLang();
           // Combination not found
-          buyNowBtn.disabled = true;
-          buyNowBtn.innerText = typeof TRANSLATIONS !== 'undefined' ? TRANSLATIONS['prod_unavailable'][lang] : 'Indisponível';
-          
           if (addToCartBtn) {
             addToCartBtn.disabled = true;
+            addToCartBtn.classList.add('btn--disabled');
+            addToCartBtn.setAttribute('data-i18n', 'prod_unavailable');
             addToCartBtn.innerText = typeof TRANSLATIONS !== 'undefined' ? TRANSLATIONS['prod_unavailable'][lang] : 'Indisponível';
           }
         }

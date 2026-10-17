@@ -52,8 +52,11 @@
         {% endif %}
 
         <div class="product-actions">
-          <button type="submit" class="btn btn--primary" data-i18n="prod_buy">Comprar Agora</button>
-          <button type="button" class="btn btn--secondary" id="add-to-cart" data-i18n="prod_add">Adicionar ao Carrinho</button>
+          {% if current_variant.available %}
+            <button type="button" class="btn btn--primary" id="add-to-cart" data-i18n="prod_add">Adicionar ao Carrinho</button>
+          {% else %}
+            <button type="button" class="btn btn--primary btn--disabled" id="add-to-cart" disabled data-i18n="prod_sold_out">Esgotado</button>
+          {% endif %}
 
           <div class="product-reviews-badge" id="productReviewsBadge" role="button" tabindex="0" title="Ver avaliações" style="display: none;">
             <div class="product-reviews-badge__stars" id="productBadgeStars"></div>
