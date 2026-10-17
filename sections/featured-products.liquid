@@ -4,38 +4,39 @@
     <h2 class="section-title" data-i18n="feat_best_sellers">Mais Vendidos</h2>
   </div>
 
-  {% assign best_sellers = collections['mais-vendidos'] %}
-  {% if best_sellers == empty or best_sellers.products_count == 0 %}
-    {% assign best_sellers = collections['all'] %}
-  {% endif %}
+  {% assign handles_string = "short-sleeve-polo-shirt-for-men,s925-sterling-silver-2-carat-oval-moissanite-ring-four-prong-wedding-ring-french-style-engagement-ring,swiss-brand-waterproof-luminous-mens-watch-ultra-thin-quartz-watch,diamond-studded-octagonal-star-ear-clasp,casual-patterned-crew-neck-sweater,double-breasted-waist-belt-long-sleeved-dress-for-women,retro-motorcycle-leather-jacket-for-men-pu-leather,womens-watches-bayan-kol-saati-fashion-women-wrist-watch-luxury-ladies-watch-women-bracelet-reloj-mujer-clock-relogio-feminino" %}
+  {% assign product_handles = handles_string | split: "," %}
 
   <div class="featured-products__grid">
-    {% for product in best_sellers.products limit: 8 %}
-      <div class="product-card">
-        <a href="{{ product.url }}">
-          <div class="product-card__media">
-            {% if product.compare_at_price_max > product.price %}
-              <span class="tag tag--sale" data-i18n="prod_promo">Promo&ccedil;&atilde;o</span>
-            {% endif %}
-            <img src="{{ product.featured_image | img_url: '800x' }}" alt="{{ product.title | escape }}" loading="lazy">
-            {% if product.images.size > 1 %}
-              <img class="hover-img" src="{{ product.images[1] | img_url: '800x' }}" alt="{{ product.title | escape }}" loading="lazy">
-            {% endif %}
-          </div>
-          <div class="product-card__info">
-            <h3>{{ product.title }}</h3>
-            <div class="price">
+    {% for handle in product_handles %}
+      {% assign product = all_products[handle] %}
+      {% if product != blank and product.title != blank %}
+        <div class="product-card">
+          <a href="{{ product.url }}">
+            <div class="product-card__media">
               {% if product.compare_at_price_max > product.price %}
-                <span class="price--old">{{ product.compare_at_price_max | money }}</span>
-                <span class="price--sale">{{ product.price | money }}</span>
-              {% else %}
-                <span class="price--normal">{{ product.price | money }}</span>
+                <span class="tag tag--sale" data-i18n="prod_promo">Promo&ccedil;&atilde;o</span>
+              {% endif %}
+              <img src="{{ product.featured_image | img_url: '800x' }}" alt="{{ product.title | escape }}" loading="lazy">
+              {% if product.images.size > 1 %}
+                <img class="hover-img" src="{{ product.images[1] | img_url: '800x' }}" alt="{{ product.title | escape }}" loading="lazy">
               {% endif %}
             </div>
-          </div>
-        </a>
-        <a href="{{ product.url }}" class="btn btn--primary btn--buy" data-i18n="feat_buy">Comprar</a>
-      </div>
+            <div class="product-card__info">
+              <h3>{{ product.title }}</h3>
+              <div class="price">
+                {% if product.compare_at_price_max > product.price %}
+                  <span class="price--old">{{ product.compare_at_price_max | money }}</span>
+                  <span class="price--sale">{{ product.price | money }}</span>
+                {% else %}
+                  <span class="price--normal">{{ product.price | money }}</span>
+                {% endif %}
+              </div>
+            </div>
+          </a>
+          <a href="{{ product.url }}" class="btn btn--primary btn--buy" data-i18n="feat_buy">Comprar</a>
+        </div>
+      {% endif %}
     {% endfor %}
   </div>
 </section>

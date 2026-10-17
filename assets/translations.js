@@ -10,8 +10,8 @@ const TRANSLATIONS = {
   "hero_eyebrow": { pt: "Nova Coleção 2026", en: "New Collection 2026" },
   "hero_title": { pt: "Elegância que se veste. <br>Estilo que se <em>sente</em>.", en: "Elegance to wear. <br>Style to <em>feel</em>." },
   "hero_sub": { pt: "Descobre peças selecionadas para quem valoriza presença, conforto e sofisticação em cada detalhe.", en: "Discover curated pieces for those who value presence, comfort, and sophistication in every detail." },
-  "hero_btn1": { pt: "Descobrir a Coleção", en: "Discover the Collection" },
-  "hero_btn2": { pt: "Novidades", en: "New Arrivals" },
+  "hero_btn1": { pt: "Descobrir Coleções", en: "Discover Collections" },
+  "hero_btn2": { pt: "Ver Tudo", en: "View All" },
 
   // Collection
   "col_title_produtos": { pt: "Produtos", en: "Products" },
@@ -119,6 +119,10 @@ const TRANSLATIONS = {
   "rev_submit": { pt: "Enviar Avaliação", en: "Submit Review" },
   "rev_empty": { pt: "Ainda não existem avaliações para este produto. Seja o primeiro a avaliar!", en: "There are no reviews for this product yet. Be the first to review!" },
   "rev_opinions": { pt: "opiniões", en: "reviews" },
+  "rev_badge_review": { pt: "avaliação", en: "review" },
+  "rev_badge_reviews": { pt: "avaliações", en: "reviews" },
+  "rev_badge_recommend": { pt: "recomendam", en: "recommend" },
+  "rev_badge_first": { pt: "Seja o primeiro a avaliar", en: "Be the first to review" },
   "rev_home_title": { pt: "O que dizem os nossos clientes", en: "What our customers say" },
   "rev_home_write": { pt: "Escrever Avaliação", en: "Write Review" },
   "rev_home_placeholder": { pt: "A sua opinião...", en: "Your opinion..." },

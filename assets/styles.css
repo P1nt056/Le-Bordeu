@@ -831,6 +831,18 @@ h6,
   gap: 24px;
 }
 
+@media (min-width: 768px) {
+  /* On PC: Line 1 = 4 Men products (odd items), Line 2 = 4 Women products (even items) */
+  .featured-products__grid .product-card:nth-child(1) { order: 1; }
+  .featured-products__grid .product-card:nth-child(3) { order: 2; }
+  .featured-products__grid .product-card:nth-child(5) { order: 3; }
+  .featured-products__grid .product-card:nth-child(7) { order: 4; }
+  .featured-products__grid .product-card:nth-child(2) { order: 5; }
+  .featured-products__grid .product-card:nth-child(4) { order: 6; }
+  .featured-products__grid .product-card:nth-child(6) { order: 7; }
+  .featured-products__grid .product-card:nth-child(8) { order: 8; }
+}
+
 @media (max-width: 767px) {
   .featured-products {
     padding: 20px 0 40px;
@@ -2145,6 +2157,84 @@ h6,
   font-size: 13px;
   padding: 16px;
 }
+
+/* Product Reviews Badge under Add to Cart */
+.product-reviews-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 6px 4px;
+  margin-top: -3px;
+  cursor: pointer;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--text-cream, #f4ede4);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  user-select: none;
+}
+
+.product-reviews-badge:hover {
+  opacity: 0.85;
+}
+
+.product-reviews-badge__stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.product-reviews-badge__stars svg {
+  display: block;
+}
+
+.product-reviews-badge__rating {
+  font-weight: 700;
+  font-size: 14px;
+  color: #ffffff;
+  margin-left: 2px;
+}
+
+.product-reviews-badge__divider {
+  color: rgba(255, 255, 255, 0.25);
+  font-weight: 300;
+  margin: 0 1px;
+}
+
+.product-reviews-badge__count {
+  color: var(--text-muted, #a39e93);
+  font-size: 13px;
+}
+
+.product-reviews-badge__recommend {
+  color: var(--text-muted, #a39e93);
+  font-size: 13px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.product-reviews-badge__check {
+  color: #10b981;
+  font-weight: 700;
+}
+
+@media (max-width: 480px) {
+  .product-reviews-badge {
+    font-size: 12px;
+    gap: 6px;
+    padding: 4px 0;
+  }
+  .product-reviews-badge__rating {
+    font-size: 13px;
+  }
+  .product-reviews-badge__count,
+  .product-reviews-badge__recommend {
+    font-size: 12px;
+  }
+}
+
 
 /* Product Page Detailed Info Section Layout */
 .product-page__info-section {
@@ -5697,3 +5787,14 @@ details[open] .icon-accordion::after {
     margin-top: 40px;
   }
 }
+
+/* Ocultar banner de consentimento de cookies estritamente em desenvolvimento local (127.0.0.1 / localhost) */
+body.is-localhost #shopify-pc__banner,
+body.is-localhost .shopify-pc__banner,
+body.is-localhost #shopify-privacy-banner,
+body.is-localhost shopify-cookie-banner,
+body.is-localhost [id*="cookie-consent"],
+body.is-localhost [class*="cookie-consent"] {
+  display: none !important;
+}
+

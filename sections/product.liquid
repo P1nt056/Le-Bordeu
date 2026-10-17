@@ -59,6 +59,19 @@
         <div class="product-actions">
           <button type="submit" class="btn btn--primary" data-i18n="prod_buy">Comprar Agora</button>
           <button type="button" class="btn btn--secondary" id="add-to-cart" data-i18n="prod_add">Adicionar ao Carrinho</button>
+
+          <div class="product-reviews-badge" id="productReviewsBadge" role="button" tabindex="0" title="Ver avaliações">
+            <div class="product-reviews-badge__stars" id="productBadgeStars"></div>
+            <strong class="product-reviews-badge__rating" id="productBadgeRating"></strong>
+            <span class="product-reviews-badge__divider" id="productBadgeDivider1">|</span>
+            <span class="product-reviews-badge__count" id="productBadgeCountWrap">
+              <span id="productBadgeCount"></span> <span id="productBadgeCountLabel" data-i18n="rev_badge_reviews">avaliações</span>
+            </span>
+            <span class="product-reviews-badge__divider" id="productBadgeDivider2">|</span>
+            <span class="product-reviews-badge__recommend" id="productBadgeRecommendWrap">
+              <span class="product-reviews-badge__check">&#10003;</span> <span id="productBadgeRecommend"></span> <span data-i18n="rev_badge_recommend">recomendam</span>
+            </span>
+          </div>
         </div>
       </form>
       

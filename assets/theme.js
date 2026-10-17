@@ -1,4 +1,30 @@
 document.addEventListener('DOMContentLoaded', function () {
+  // Suppress repetitive cookie consent banner strictly in local development (127.0.0.1 / localhost)
+  if (['127.0.0.1', 'localhost'].includes(window.location.hostname)) {
+    document.body.classList.add('is-localhost');
+    const dismissLocalCookie = () => {
+      if (window.Shopify && window.Shopify.customerPrivacy && typeof window.Shopify.customerPrivacy.setTrackingConsent === 'function') {
+        try { window.Shopify.customerPrivacy.setTrackingConsent(true, () => {}); } catch (e) {}
+      }
+      document.querySelectorAll('#shopify-pc__banner, .shopify-pc__banner, #shopify-privacy-banner, shopify-cookie-banner, [id*="cookie-consent"], [class*="cookie-consent"]').forEach(el => {
+        el.style.setProperty('display', 'none', 'important');
+      });
+      document.querySelectorAll('div, section, aside').forEach(el => {
+        if (el.children.length > 0 && el.children.length < 12) {
+          const text = el.innerText || el.textContent || '';
+          if (text.includes('Cookie consent') && text.includes('Accept') && text.includes('Decline')) {
+            el.style.setProperty('display', 'none', 'important');
+          }
+        }
+      });
+    };
+    dismissLocalCookie();
+    setTimeout(dismissLocalCookie, 300);
+    setTimeout(dismissLocalCookie, 800);
+    setTimeout(dismissLocalCookie, 1500);
+    window.addEventListener('load', dismissLocalCookie);
+  }
+
   // Header: transparent -> solid on scroll
   const header = document.querySelector('.site-header');
   window.addEventListener('scroll', () => {
@@ -1080,6 +1106,32 @@ document.addEventListener('DOMContentLoaded', () => {
         // Ordear manualmente por data para evitar erro de Index do Firebase
         reviews.sort((a, b) => new Date(b.date) - new Date(a.date));
 
+        const renderBadgeStars = (rating) => {
+          let starsSvg = '';
+          for (let i = 1; i <= 5; i++) {
+            if (rating >= i - 0.25) {
+              starsSvg += '<svg class="star star--full" width="15" height="15" viewBox="0 0 24 24" fill="#F59E0B" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
+            } else if (rating >= i - 0.75) {
+              starsSvg += '<svg class="star star--half" width="15" height="15" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="halfStarGradBadge"><stop offset="50%" stop-color="#F59E0B"/><stop offset="50%" stop-color="rgba(255,255,255,0.25)"/></linearGradient></defs><path fill="url(#halfStarGradBadge)" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>';
+            } else {
+              starsSvg += '<svg class="star star--empty" width="15" height="15" viewBox="0 0 24 24" fill="rgba(255,255,255,0.25)" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
+            }
+          }
+          return starsSvg;
+        };
+
+        const pBadge = document.getElementById('productReviewsBadge');
+        const pBadgeStars = document.getElementById('productBadgeStars');
+        const pBadgeRating = document.getElementById('productBadgeRating');
+        const pBadgeCount = document.getElementById('productBadgeCount');
+        const pBadgeCountLabel = document.getElementById('productBadgeCountLabel');
+        const pBadgeDivider2 = document.getElementById('productBadgeDivider2');
+        const pBadgeRecommendWrap = document.getElementById('productBadgeRecommendWrap');
+        const pBadgeRecommend = document.getElementById('productBadgeRecommend');
+
+        const currentLang = localStorage.getItem('site_lang') || 'pt';
+
         if (reviews.length > 0) {
           let totalStars = 0;
           reviews.forEach(r => totalStars += r.stars);
@@ -1092,16 +1144,69 @@ document.addEventListener('DOMContentLoaded', () => {
           const pAvgCount = document.getElementById('productAverageRatingCount');
 
           if (pAvgWidget && pAvgValue && pAvgCount && pAvgStars) {
-            const currentLang = localStorage.getItem('site_lang') || 'pt';
             const opinsText = currentLang === 'en' ? TRANSLATIONS['rev_opinions'].en : TRANSLATIONS['rev_opinions'].pt;
             pAvgStars.innerHTML = '★'.repeat(roundedAvg) + '☆'.repeat(5 - roundedAvg);
             pAvgValue.textContent = avg;
             pAvgCount.innerHTML = `(${reviews.length} <span data-i18n="rev_opinions">${opinsText}</span>)`;
             pAvgWidget.style.display = 'flex';
           }
+
+          // Recommendation: all reviews with 4 or 5 stars count as recommended
+          const recommendedCount = reviews.filter(r => r.stars >= 4).length;
+          const recommendedPct = Math.round((recommendedCount / reviews.length) * 100);
+
+          if (pBadge && pBadgeRating && pBadgeCount) {
+            pBadgeRating.textContent = avg;
+            pBadgeCount.textContent = reviews.length;
+
+            const reviewLabelKey = reviews.length === 1 ? 'rev_badge_review' : 'rev_badge_reviews';
+            if (pBadgeCountLabel) {
+              const labelText = currentLang === 'en' ? TRANSLATIONS[reviewLabelKey].en : TRANSLATIONS[reviewLabelKey].pt;
+              pBadgeCountLabel.textContent = labelText;
+              pBadgeCountLabel.setAttribute('data-i18n', reviewLabelKey);
+            }
+
+            if (pBadgeRecommendWrap) {
+              const recKey = 'rev_badge_recommend';
+              const recText = currentLang === 'en' ? TRANSLATIONS[recKey].en : TRANSLATIONS[recKey].pt;
+              pBadgeRecommendWrap.innerHTML = `<span class="product-reviews-badge__check">&#10003;</span> <span id="productBadgeRecommend">${recommendedPct}%</span> <span data-i18n="${recKey}">${recText}</span>`;
+              pBadgeRecommendWrap.style.display = 'inline-flex';
+            }
+
+            if (pBadgeDivider2) pBadgeDivider2.style.display = 'inline';
+
+            if (pBadgeStars) {
+              pBadgeStars.innerHTML = renderBadgeStars(parseFloat(avg));
+            }
+            pBadge.style.display = 'inline-flex';
+          }
         } else {
+          // 0 reviews: realistic empty state
           const pAvgWidget = document.getElementById('productAverageRatingWidget');
           if (pAvgWidget) pAvgWidget.style.display = 'none';
+
+          if (pBadge && pBadgeRating && pBadgeCount) {
+            pBadgeRating.textContent = '0.0';
+            pBadgeCount.textContent = '0';
+            const reviewsLabel = currentLang === 'en' ? TRANSLATIONS['rev_badge_reviews'].en : TRANSLATIONS['rev_badge_reviews'].pt;
+            if (pBadgeCountLabel) {
+              pBadgeCountLabel.textContent = reviewsLabel;
+              pBadgeCountLabel.setAttribute('data-i18n', 'rev_badge_reviews');
+            }
+
+            if (pBadgeRecommendWrap) {
+              const firstText = currentLang === 'en' ? TRANSLATIONS['rev_badge_first'].en : TRANSLATIONS['rev_badge_first'].pt;
+              pBadgeRecommendWrap.innerHTML = `<span style="text-decoration: underline;" data-i18n="rev_badge_first">${firstText}</span>`;
+              pBadgeRecommendWrap.style.display = 'inline-flex';
+            }
+
+            if (pBadgeDivider2) pBadgeDivider2.style.display = 'inline';
+
+            if (pBadgeStars) {
+              pBadgeStars.innerHTML = renderBadgeStars(0);
+            }
+            pBadge.style.display = 'inline-flex';
+          }
         }
 
         renderPReviews(reviews);
@@ -1111,6 +1216,25 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     loadProductReviews();
+
+    const pBadgeEl = document.getElementById('productReviewsBadge');
+    if (pBadgeEl) {
+      pBadgeEl.addEventListener('click', () => {
+        const reviewsSection = document.getElementById('productReviews');
+        if (reviewsSection) {
+          reviewsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+        const currentCount = parseInt(document.getElementById('productBadgeCount')?.textContent || '0');
+        if (currentCount === 0) {
+          const formWrapper = document.getElementById('productReviewFormWrapper');
+          const leaveBtn = document.querySelector('#productReviews .editorial-reviews__actions button');
+          if (formWrapper) {
+            formWrapper.style.display = 'block';
+            if (leaveBtn) leaveBtn.style.display = 'none';
+          }
+        }
+      });
+    }
 
     if (pReviewForm) {
       pReviewForm.addEventListener('submit', async (e) => {
