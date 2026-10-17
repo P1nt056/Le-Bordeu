@@ -1,43 +1,101 @@
 <section class="related-products container">
   <h3 class="section-title" data-i18n="prod_recommended">Produtos recomendados</h3>
   {% assign recommended_products = recommendations.products %}
-  {% if recommended_products.size == 0 %}
-    {% assign recommended_products = collections['frontpage'].products %}
+  {% if recommended_products == blank or recommended_products.size == 0 %}
+    {% assign found_collection = false %}
+    {% for c in product.collections %}
+      {% if c.handle != 'all' and c.products_count > 1 %}
+        {% assign recommended_products = c.products %}
+        {% assign found_collection = true %}
+        {% break %}
+      {% endif %}
+    {% endfor %}
+    {% if found_collection == false or recommended_products == blank or recommended_products.size == 0 %}
+      {% assign recommended_products = collections['all'].products %}
+    {% endif %}
   {% endif %}
   <div class="splide related-splide" aria-label="Produtos recomendados" data-related-products data-product-id="{{ product.id }}" data-limit="6">
     <div class="splide__track">
       <ul class="splide__list">
-      {% for related_product in recommended_products limit:6 %}
+      {% assign count = 0 %}
+      {% for related_product in recommended_products %}
         {% unless related_product.id == product.id %}
-        <li class="splide__slide">
-          <div class="product-card">
-            <a href="{{ related_product.url }}">
-              <div class="product-card__media">
-                {% if related_product.compare_at_price_max > related_product.price %}
-                  <span class="tag tag--sale" data-i18n="prod_promo">Promoção</span>
-                {% endif %}
-                <img src="{{ related_product.featured_image | img_url: '800x' }}" alt="{{ related_product.title | escape }}" loading="lazy">
-                {% if related_product.images.size > 1 %}
-                  <img class="hover-img" src="{{ related_product.images[1] | img_url: '800x' }}" alt="{{ related_product.title | escape }}" loading="lazy">
-                {% endif %}
-              </div>
-              <div class="product-card__info">
-                <h4>{{ related_product.title }}</h4>
-                <div class="price">
+          {% assign count = count | plus: 1 %}
+          <li class="splide__slide">
+            <div class="product-card">
+              <a href="{{ related_product.url }}">
+                <div class="product-card__media">
                   {% if related_product.compare_at_price_max > related_product.price %}
-                    <span class="price--old">{{ related_product.compare_at_price_max | money }}</span>
-                    <span class="price--sale">{{ related_product.price | money }}</span>
-                  {% else %}
-                    <span class="price--normal">{{ related_product.price | money }}</span>
+                    <span class="tag tag--sale" data-i18n="prod_promo">Promoção</span>
+                  {% endif %}
+                  <img src="{{ related_product.featured_image | img_url: '800x' }}" alt="{{ related_product.title | escape }}" loading="lazy">
+                  {% if related_product.images.size > 1 %}
+                    <img class="hover-img" src="{{ related_product.images[1] | img_url: '800x' }}" alt="{{ related_product.title | escape }}" loading="lazy">
                   {% endif %}
                 </div>
-              </div>
-            </a>
-            <a href="{{ related_product.url }}" class="btn btn--primary btn--buy" data-i18n="prod_view">Ver Produto</a>
-          </div>
-        </li>
+                <div class="product-card__info">
+                  <h4>{{ related_product.title }}</h4>
+                  <div class="price">
+                    {% if related_product.compare_at_price_max > related_product.price %}
+                      <span class="price--old">{{ related_product.compare_at_price_max | money }}</span>
+                      <span class="price--sale">{{ related_product.price | money }}</span>
+                    {% else %}
+                      <span class="price--normal">{{ related_product.price | money }}</span>
+                    {% endif %}
+                  </div>
+                </div>
+              </a>
+              <a href="{{ related_product.url }}" class="btn btn--primary btn--buy" data-i18n="prod_view">Ver Produto</a>
+            </div>
+          </li>
+          {% if count >= 6 %}{% break %}{% endif %}
         {% endunless %}
       {% endfor %}
+
+      {% if count < 4 and collections['all'].products.size > 0 %}
+        {% for fallback_product in collections['all'].products %}
+          {% unless fallback_product.id == product.id %}
+            {% assign already_shown = false %}
+            {% for rp in recommended_products %}
+              {% if rp.id == fallback_product.id %}
+                {% assign already_shown = true %}
+                {% break %}
+              {% endif %}
+            {% endfor %}
+            {% unless already_shown %}
+              {% assign count = count | plus: 1 %}
+              <li class="splide__slide">
+                <div class="product-card">
+                  <a href="{{ fallback_product.url }}">
+                    <div class="product-card__media">
+                      {% if fallback_product.compare_at_price_max > fallback_product.price %}
+                        <span class="tag tag--sale" data-i18n="prod_promo">Promoção</span>
+                      {% endif %}
+                      <img src="{{ fallback_product.featured_image | img_url: '800x' }}" alt="{{ fallback_product.title | escape }}" loading="lazy">
+                      {% if fallback_product.images.size > 1 %}
+                        <img class="hover-img" src="{{ fallback_product.images[1] | img_url: '800x' }}" alt="{{ fallback_product.title | escape }}" loading="lazy">
+                      {% endif %}
+                    </div>
+                    <div class="product-card__info">
+                      <h4>{{ fallback_product.title }}</h4>
+                      <div class="price">
+                        {% if fallback_product.compare_at_price_max > fallback_product.price %}
+                          <span class="price--old">{{ fallback_product.compare_at_price_max | money }}</span>
+                          <span class="price--sale">{{ fallback_product.price | money }}</span>
+                        {% else %}
+                          <span class="price--normal">{{ fallback_product.price | money }}</span>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </a>
+                  <a href="{{ fallback_product.url }}" class="btn btn--primary btn--buy" data-i18n="prod_view">Ver Produto</a>
+                </div>
+              </li>
+              {% if count >= 6 %}{% break %}{% endif %}
+            {% endunless %}
+          {% endunless %}
+        {% endfor %}
+      {% endif %}
       </ul>
     </div>
   </div>

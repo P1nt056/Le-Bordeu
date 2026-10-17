@@ -6,11 +6,6 @@
     </div>
     <div class="product-page__details">
       <h1 class="product-title">{{ product.title }}</h1>
-      <div id="productAverageRatingWidget" style="display: none; align-items: center; gap: 5px; color: var(--color-gold); font-size: 16px; font-weight: bold; cursor: pointer; margin-bottom: 10px;" title="Ver opiniões" onclick="document.getElementById('productReviews').scrollIntoView({behavior: 'smooth'})">
-        <span id="productAverageRatingStars" style="font-size: 18px; letter-spacing: 2px;"></span>
-        <span id="productAverageRatingValue" style="margin-left: 5px;"></span>
-        <span style="font-size: 12px; font-weight: normal; color: var(--text-muted); margin-left: 5px; text-decoration: underline;" id="productAverageRatingCount"></span>
-      </div>
       <div class="product-prices">
         {% if product.compare_at_price_max > product.price %}
           <span class="price--old">{{ product.compare_at_price_max | money }}</span>
@@ -60,7 +55,7 @@
           <button type="submit" class="btn btn--primary" data-i18n="prod_buy">Comprar Agora</button>
           <button type="button" class="btn btn--secondary" id="add-to-cart" data-i18n="prod_add">Adicionar ao Carrinho</button>
 
-          <div class="product-reviews-badge" id="productReviewsBadge" role="button" tabindex="0" title="Ver avaliações">
+          <div class="product-reviews-badge" id="productReviewsBadge" role="button" tabindex="0" title="Ver avaliações" style="display: none;">
             <div class="product-reviews-badge__stars" id="productBadgeStars"></div>
             <strong class="product-reviews-badge__rating" id="productBadgeRating"></strong>
             <span class="product-reviews-badge__divider" id="productBadgeDivider1">|</span>
@@ -316,19 +311,23 @@
           <h2 style="margin: 0; font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 500; color: var(--color-gold);" data-i18n="rev_product">Avaliações do Produto</h2>
         </div>
         <div class="editorial-reviews__actions">
-          {% if customer %}
-            <button class="btn btn--secondary btn--small" onclick="document.getElementById('productReviewFormWrapper').style.display = 'block'; this.style.display='none'" data-i18n="rev_leave">Deixar uma Avaliação</button>
-          {% else %}
-            <a href="/account/login" class="btn btn--secondary btn--small" style="text-decoration: none;" data-i18n="rev_login">Iniciar Sessão para Avaliar</a>
-          {% endif %}
+          <button class="btn btn--secondary btn--small" id="btnOpenProductReviewForm" onclick="document.getElementById('productReviewFormWrapper').style.display = 'block'; this.style.display='none'" data-i18n="rev_leave">Deixar uma Avaliação</button>
         </div>
       </div>
 
       <div class="editorial-reviews__form-wrapper" id="productReviewFormWrapper" style="display: none; margin-bottom: 40px; background: rgba(255,255,255,0.02); padding: 30px; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;">
         <form id="productReviewForm" class="editorial-reviews__form">
-          <input type="hidden" id="productReviewName" value="{{ customer.first_name }} {{ customer.last_name }}">
-          <input type="hidden" id="productReviewCustomerId" value="{{ customer.id }}">
-          <p style="color: #fff; font-size: 14px; margin-bottom: 0px; opacity: 0.8;"><span data-i18n="rev_rating_as">A avaliar publicamente como:</span> <strong>{{ customer.first_name }} {{ customer.last_name }}</strong></p>
+          {% if customer %}
+            <input type="hidden" id="productReviewName" value="{{ customer.first_name }} {{ customer.last_name }}">
+            <input type="hidden" id="productReviewCustomerId" value="{{ customer.id }}">
+            <p style="color: #fff; font-size: 14px; margin-bottom: 0px; opacity: 0.8;"><span data-i18n="rev_rating_as">A avaliar publicamente como:</span> <strong>{{ customer.first_name }} {{ customer.last_name }}</strong></p>
+          {% else %}
+            <input type="hidden" id="productReviewCustomerId" value="">
+            <div style="margin-bottom: 15px;">
+              <label for="productReviewName" style="display: block; font-size: 13px; color: var(--text-cream); margin-bottom: 6px;">O seu nome:</label>
+              <input type="text" id="productReviewName" placeholder="Ex: Ana Silva" required style="width: 100%; background: transparent; border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 12px 15px; border-radius: 4px; font-family: inherit;">
+            </div>
+          {% endif %}
           <div class="editorial-reviews__stars-input" style="margin: 15px 0;">
             <input type="hidden" id="productReviewStars" value="5">
             <div class="star-rating-widget" id="productStarRatingWidget">
