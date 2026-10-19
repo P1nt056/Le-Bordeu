@@ -239,15 +239,26 @@
                   {% endif %}
                 </div>
 
-                {% if p.variants.size > 1 %}
-                  <div class="cart-rec-item__option">
-                    <select class="cart-rec-item__select" aria-label="Opções para {{ p.title | escape }}">
-                      {% for variant in p.variants %}
-                        <option value="{{ variant.id }}" {% if variant.available == false %}disabled{% endif %}>
-                          {{ variant.title }}{% if variant.available == false %} - (Esgotado){% endif %}
-                        </option>
-                      {% endfor %}
-                    </select>
+                {% if p.has_only_default_variant == false %}
+                  <div class="cart-rec-item__options" data-variants="{{ p.variants | json | escape }}">
+                    {% for option in p.options_with_values %}
+                      <div class="cart-rec-item__option-group">
+                        <label class="cart-rec-item__option-label">{{ option.name }}:</label>
+                        <select class="cart-rec-item__option-select" data-option-index="{{ forloop.index0 }}" aria-label="{{ option.name }} para {{ p.title | escape }}">
+                          {% for value in option.values %}
+                            {% assign is_selected = false %}
+                            {% if option.selected_value == value %}
+                              {% assign is_selected = true %}
+                            {% elsif option.selected_value == blank and forloop.first %}
+                              {% assign is_selected = true %}
+                            {% endif %}
+                            <option value="{{ value | escape }}" {% if is_selected %}selected{% endif %}>
+                              {{ value }}
+                            </option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                    {% endfor %}
                   </div>
                 {% endif %}
 
@@ -293,15 +304,26 @@
                 <div class="cart-rec-item__pricing">
                   <span class="cart-rec-item__price">{{ p.price | money }}</span>
                 </div>
-                {% if p.variants.size > 1 %}
-                  <div class="cart-rec-item__option">
-                    <select class="cart-rec-item__select" aria-label="Opções para {{ p.title | escape }}">
-                      {% for variant in p.variants %}
-                        <option value="{{ variant.id }}" {% if variant.available == false %}disabled{% endif %}>
-                          {{ variant.title }}{% if variant.available == false %} - (Esgotado){% endif %}
-                        </option>
-                      {% endfor %}
-                    </select>
+                {% if p.has_only_default_variant == false %}
+                  <div class="cart-rec-item__options" data-variants="{{ p.variants | json | escape }}">
+                    {% for option in p.options_with_values %}
+                      <div class="cart-rec-item__option-group">
+                        <label class="cart-rec-item__option-label">{{ option.name }}:</label>
+                        <select class="cart-rec-item__option-select" data-option-index="{{ forloop.index0 }}" aria-label="{{ option.name }} para {{ p.title | escape }}">
+                          {% for value in option.values %}
+                            {% assign is_selected = false %}
+                            {% if option.selected_value == value %}
+                              {% assign is_selected = true %}
+                            {% elsif option.selected_value == blank and forloop.first %}
+                              {% assign is_selected = true %}
+                            {% endif %}
+                            <option value="{{ value | escape }}" {% if is_selected %}selected{% endif %}>
+                              {{ value }}
+                            </option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                    {% endfor %}
                   </div>
                 {% endif %}
                 <button type="button" class="cart-rec-item__add-btn" data-variant-id="{{ p.selected_or_first_available_variant.id }}" {% unless p.available %}disabled{% endunless %}>

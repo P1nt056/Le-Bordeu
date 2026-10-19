@@ -300,7 +300,13 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function bindCartDrawerRecommendations() {
-    // Select change updates button's variant id
+    // Multi-option selects (separate Color, Size, etc.)
+    document.querySelectorAll('.cart-rec-item__option-select').forEach(select => {
+      select.removeEventListener('change', onRecOptionSelectChange);
+      select.addEventListener('change', onRecOptionSelectChange);
+    });
+
+    // Fallback single select change
     document.querySelectorAll('.cart-rec-item__select').forEach(select => {
       select.removeEventListener('change', onRecSelectChange);
       select.addEventListener('change', onRecSelectChange);
@@ -311,6 +317,68 @@ document.addEventListener('DOMContentLoaded', function () {
       btn.removeEventListener('click', onRecAddBtnClick);
       btn.addEventListener('click', onRecAddBtnClick);
     });
+  }
+
+  function onRecOptionSelectChange(e) {
+    const card = e.target.closest('.cart-rec-item');
+    if (!card) return;
+
+    const optionsWrap = card.querySelector('.cart-rec-item__options');
+    if (!optionsWrap || !optionsWrap.dataset.variants) return;
+
+    let variants = [];
+    try {
+      variants = JSON.parse(optionsWrap.dataset.variants);
+    } catch (err) {
+      console.error('Erro ao ler variantes:', err);
+      return;
+    }
+
+    const selects = card.querySelectorAll('.cart-rec-item__option-select');
+    const selectedVals = Array.from(selects).map(s => s.value);
+
+    const matchedVariant = variants.find(v => {
+      return selectedVals.every((val, idx) => {
+        const key = `option${idx + 1}`;
+        return !val || v[key] === val;
+      });
+    });
+
+    const btn = card.querySelector('.cart-rec-item__add-btn');
+    const textEl = btn && (btn.querySelector('.btn-text') || btn);
+    const priceEl = card.querySelector('.cart-rec-item__price');
+    const imgEl = card.querySelector('.cart-rec-item__image-link img');
+
+    if (matchedVariant) {
+      if (btn) {
+        btn.dataset.variantId = matchedVariant.id;
+        if (matchedVariant.available) {
+          btn.disabled = false;
+          if (textEl) textEl.textContent = '+ Adicionar';
+        } else {
+          btn.disabled = true;
+          if (textEl) textEl.textContent = 'Esgotado';
+        }
+      }
+
+      // Update image if variant has its own image
+      if (imgEl && matchedVariant.featured_image && matchedVariant.featured_image.src) {
+        imgEl.src = matchedVariant.featured_image.src;
+      }
+
+      // Update price if available
+      if (priceEl && matchedVariant.price) {
+        const numPrice = typeof matchedVariant.price === 'number' && matchedVariant.price > 1000 ? matchedVariant.price / 100 : parseFloat(matchedVariant.price);
+        if (!isNaN(numPrice) && numPrice > 0) {
+          priceEl.textContent = new Intl.NumberFormat('pt-PT', { style: 'currency', currency: 'EUR' }).format(numPrice);
+        }
+      }
+    } else {
+      if (btn) {
+        btn.disabled = true;
+        if (textEl) textEl.textContent = 'Indisponível';
+      }
+    }
   }
 
   function onRecSelectChange(e) {
