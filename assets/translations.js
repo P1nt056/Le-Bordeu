@@ -2147,10 +2147,83 @@ function applyTranslations() {
           `;
         }
       } else {
-        titleEl.textContent = titleEl.getAttribute('data-original-text');
-
-        // Ensure English translation for terms of service since original is in Portuguese
-        if (window.location.pathname.includes('terms-of-service')) {
+        // English Translations for Shopify Policies
+        if (window.location.pathname.includes('privacy-policy')) {
+          titleEl.textContent = 'Privacy Policy';
+          bodyEl.innerHTML = `
+            <p><strong>Last updated: May 30, 2026</strong></p>
+            
+            <p>Le Bordeu operates this store and website, including all information, content, features, tools, products, and related services, to provide you, the customer, with a curated shopping experience (the "Services"). Le Bordeu is powered by Shopify, which allows us to provide the Services to you. This Privacy Policy describes how we collect, use, and disclose your personal information when you visit, use, or make a purchase or other transaction using the Services, or communicate with us otherwise. If there is a conflict between our Terms of Service and this Privacy Policy, this Privacy Policy prevails regarding the collection, processing, and disclosure of your personal information.</p>
+            
+            <p>Please read this Privacy Policy carefully. By using and accessing any of the Services, you acknowledge that you have read this Privacy Policy and understand the collection, use, and disclosure of your information as described in this Privacy Policy.</p>
+            
+            <h2>Personal Information We Collect or Process</h2>
+            <p>When we use the term "personal information", we refer to information that identifies or can reasonably be associated with you or another individual. Personal information does not include information collected anonymously or that has been de-identified so that it cannot identify you or be reasonably associated with you. We may collect or process the following categories of personal information, including inferences drawn from this information, depending on how you interact with the Services, where you live, and as permitted or required by applicable law:</p>
+            <ul>
+              <li><strong>Contact details</strong> including your name, address, billing address, shipping address, phone number, and email address.</li>
+              <li><strong>Financial information</strong> including credit card, debit card, and financial account numbers, payment card information, financial account information, transaction details, payment method, payment confirmation, and other payment details.</li>
+              <li><strong>Account information</strong> including your username, password, security questions, preferences, and settings.</li>
+              <li><strong>Transaction information</strong> including items you view, add to cart, add to wishlist, or purchase, return, exchange, or cancel, and your previous transactions.</li>
+              <li><strong>Communications with us</strong> including information you include in communications with us, for example when submitting a customer support inquiry.</li>
+              <li><strong>Device information</strong> including information about your device, browser, or network connection, your IP address, and other unique identifiers.</li>
+              <li><strong>Usage information</strong> including information regarding your interaction with the Services, including how and when you interact with or browse the Services.</li>
+            </ul>
+            
+            <h2>Sources of Personal Information</h2>
+            <p>We may collect personal information from the following sources:</p>
+            <ul>
+              <li><strong>Directly from you</strong> including when you create an account, visit or use the Services, communicate with us, or otherwise provide us with your personal information;</li>
+              <li><strong>Automatically through the Services</strong> including from your device when you use our products or services or visit our websites, and through the use of cookies and similar technologies;</li>
+              <li><strong>From our service providers</strong> including when we engage them to enable certain technology and when they collect or process your personal information on our behalf;</li>
+              <li><strong>From our partners or third parties.</strong></li>
+            </ul>
+            
+            <h2>How We Use Your Personal Information</h2>
+            <p>Depending on how you interact with us or which Services you use, we may use personal information for the following purposes:</p>
+            <ul>
+              <li><strong>Provide, Tailor, and Improve the Services.</strong> We use your personal information to provide you with the Services, including to fulfill our contract with you, process your payments, fulfill your orders, remember your preferences and items you are interested in, send you notifications related to your account, process purchases, returns, exchanges, or other transactions, create, maintain, and manage your account, arrange shipping, facilitate returns and exchanges, allow you to post reviews, and create a personalized shopping experience.</li>
+              <li><strong>Marketing and Advertising.</strong> We use your personal information for marketing and promotional purposes, such as sending marketing communications via email, and displaying online advertisements for products or services on the Services or other websites, based on items you previously purchased or added to your cart and other activities on the Services.</li>
+              <li><strong>Security and Fraud Prevention.</strong> We use your personal information to authenticate your account, provide a secure experience, and detect, investigate, or take action regarding potential fraudulent or malicious activities. We recommend that you do not share your username, password, or other access details with anyone else.</li>
+              <li><strong>Communicate with You.</strong> We use your personal information to provide customer support, respond to you, deliver effective services, and maintain our business relationship with you.</li>
+              <li><strong>Legal Reasons.</strong> We use your personal information to comply with applicable law or respond to valid legal processes, and to enforce or investigate potential violations of our terms or policies.</li>
+            </ul>
+            
+            <h2>How We Disclose Personal Information</h2>
+            <p>In certain circumstances, we may disclose your personal information to third parties for legitimate purposes. Such circumstances may include:</p>
+            <ul>
+              <li>With Shopify, vendors, and other third parties who perform services on our behalf (e.g., IT management, payment processing, data analytics, customer support, cloud storage, shipping).</li>
+              <li>With business and marketing partners to provide marketing services and advertise to you.</li>
+              <li>When you direct, request, or consent to our disclosure of certain information to third parties, such as to ship you products.</li>
+              <li>With our affiliates or within our corporate group.</li>
+              <li>In connection with a business transaction, such as a merger, to comply with legal obligations, enforce terms of service, and protect our rights.</li>
+            </ul>
+            
+            <h2>Relationship with Shopify</h2>
+            <p>The Services are hosted by Shopify, which collects and processes personal information about your access and use of the Services to provide and improve the Services for you. To learn more about how Shopify uses your personal information, you can visit Shopify's Consumer Privacy Policy.</p>
+            
+            <h2>Third-Party Sites and Links</h2>
+            <p>The Services may provide links to websites or online platforms operated by third parties. If you follow links to sites not controlled by us, you should review their privacy policies. We do not guarantee and are not responsible for the privacy or security of those sites.</p>
+            
+            <h2>Children's Data</h2>
+            <p>The Services are not intended to be used by children, and we do not knowingly collect personal information about children under the age of majority in your jurisdiction.</p>
+            
+            <h2>Security and Retention of Your Information</h2>
+            <p>No security measure is perfect or impenetrable. We recommend that you do not use insecure channels to communicate sensitive information to us. The duration for which we retain your personal information depends on various factors, such as maintaining your account, providing Services, or complying with legal obligations.</p>
+            
+            <h2>Your Rights and Choices</h2>
+            <p>Depending on where you live, you may have the right to access, delete, correct, or port your personal information, as well as manage communication preferences or restrict/withdraw consent for processing. We will not discriminate against you for exercising any of these rights. We may need to verify your identity before processing your requests.</p>
+            
+            <h2>Complaints and International Transfers</h2>
+            <p>If you have complaints, please contact us using the details below. You may also have the right to lodge a complaint with your local data protection authority. Please note that we may transfer, store, and process your personal information outside of your country of residence, through recognized transfer mechanisms.</p>
+            
+            <h2>Changes to This Privacy Policy</h2>
+            <p>We may update this Privacy Policy periodically to reflect changes in our practices. We will post the revised Policy on this site and update the "Last updated" date.</p>
+            
+            <h2>Contact</h2>
+            <p>If you have any questions about our privacy practices or about this Privacy Policy, please send an email to <a href="mailto:lebordeu@gmail.com">lebordeu@gmail.com</a>. Le Bordeu operates exclusively as an online store.</p>
+          `;
+        } else if (window.location.pathname.includes('terms-of-service')) {
+          titleEl.textContent = 'Terms and Conditions';
           bodyEl.innerHTML = `
             <p>These Terms and Conditions govern the access and use of the Le Bordeu online store, as well as the purchase of products through our website.</p>
             <p>By browsing the store or making a purchase, you confirm that you have read, understood and accept these terms.</p>
@@ -2212,7 +2285,52 @@ function applyTranslations() {
             <h2>12. Changes to the terms</h2>
             <p>We may update these Terms and Conditions whenever necessary, namely due to legal, operational or commercial changes.</p>
           `;
+        } else if (window.location.pathname.includes('refund-policy')) {
+          titleEl.textContent = 'Refund and Return Policy';
+          bodyEl.innerHTML = `
+            <p>At Le Bordeu, we want to ensure every customer has a secure, simple, and transparent shopping experience. If there is any issue with your order, product, or delivery, we will review your case and find the best possible solution.</p>
+
+            <p>Refund requests are analyzed within approximately <strong>24 to 48 business hours</strong> after receiving all required information.</p>
+
+            <h2>1. What you must submit to request a refund</h2>
+            <p>To properly review your request, we may request:</p>
+
+            <p><strong>A. Photos or videos of the damaged or incorrect product</strong><br>Images must clearly show the issue.</p>
+
+            <p><strong>B. Proof of inquiry or communication</strong><br>Screenshots of emails, chat, PayPal, or other contact methods including name, date, and complaint details.</p>
+
+            <p><strong>C. Return tracking number, if applicable</strong><br>If returning the item is necessary, please provide the tracking number as proof of shipment.</p>
+
+            <h2>2. When we accept refunds or returns</h2>
+            <p>We may accept refunds, exchanges, or return requests when:</p>
+            <ul>
+              <li>The item received is damaged or defective;</li>
+              <li>The item received differs from the product purchased;</li>
+              <li>There was an error in order processing or shipping;</li>
+              <li>The carrier confirms lost parcel or major delivery issue;</li>
+              <li>The request meets the terms communicated by our support team.</li>
+            </ul>
+
+            <h2>3. Returned Item Conditions</h2>
+            <p>When an item needs to be returned, it must be unused, unwashed, odor-free, showing no signs of wear, with tags attached and, whenever possible, in its original packaging.</p>
+            <p>We reserve the right to refuse returns of items that do not meet these conditions or are returned without prior contact with our team.</p>
+
+            <h2>4. Return Shipping Costs</h2>
+            <p>Unless the return is due to our error, wrong item, or damaged product, return shipping costs are the customer's responsibility.</p>
+            <p>Once the return is approved, we will provide you with instructions for shipping.</p>
+
+            <h2>5. Refunds</h2>
+            <p>After receiving and inspecting all necessary information, we will notify you whether the refund has been approved or rejected.</p>
+            <p>If approved, the refund will be processed to the original payment method. Processing times may vary depending on your bank, card issuer, PayPal, or payment provider.</p>
+
+            <h2>6. Ineligible Items</h2>
+            <p>We do not accept returns or refunds for items showing signs of wear, washing, customer-caused damage, missing tags, missing original packaging when relevant, or requests sent outside the communicated guidelines.</p>
+
+            <h2>7. Contact</h2>
+            <p>For any inquiries regarding refunds, returns, or exchanges, please contact us at <a href="mailto:lebordeu@gmail.com">lebordeu@gmail.com</a>.</p>
+          `;
         } else {
+          titleEl.textContent = titleEl.getAttribute('data-original-text');
           bodyEl.innerHTML = bodyEl.getAttribute('data-original-html');
         }
       }
