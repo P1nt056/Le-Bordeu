@@ -2080,7 +2080,7 @@ function applyTranslations() {
             <p>Podemos atualizar esta Política de Privacidade periodicamente para refletir alterações às nossas práticas. Publicaremos a Política revista neste site e atualizaremos a data de "Última atualização".</p>
             
             <h2>Contacto</h2>
-            <p>Caso tenha alguma dúvida sobre as nossas práticas de privacidade ou sobre esta Política de Privacidade, envie um email para <a href="mailto:lebordeu@gmail.com">lebordeu@gmail.com</a> ou contacte-nos em Largo Nossa Sra. Do Bom Despacho 8, Recarei, PT-13, 4585-608, PT.</p>
+            <p>Caso tenha alguma dúvida sobre as nossas práticas de privacidade ou sobre esta Política de Privacidade, envie um email para <a href="mailto:lebordeu@gmail.com">lebordeu@gmail.com</a>. A Le Bordeu opera exclusivamente como loja online.</p>
           `;
         } else if (window.location.pathname.includes('terms-of-service')) {
           titleEl.textContent = 'Termos de Serviço';
