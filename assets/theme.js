@@ -83,9 +83,22 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener('DOMContentLoaded', function () {
   const overlay = document.getElementById('cart-drawer-overlay');
 
+  const updateDrawerState = () => {
+    const drawerInner = document.querySelector('.cart-drawer-inner');
+    const cartSection = document.getElementById('shopify-section-cart-drawer');
+    if (drawerInner && cartSection) {
+      if (drawerInner.classList.contains('has-recommendations') && drawerInner.querySelector('.cart-drawer__rec-col')) {
+        cartSection.classList.add('has-recommendations-drawer');
+      } else {
+        cartSection.classList.remove('has-recommendations-drawer');
+      }
+    }
+  };
+
   window.openCartDrawer = function () {
     document.body.classList.add('cart-drawer-open');
     overlay.classList.add('active');
+    updateDrawerState();
     if (typeof loadCartRecommendations === 'function') {
       loadCartRecommendations();
     }
@@ -105,7 +118,9 @@ document.addEventListener('DOMContentLoaded', function () {
         const newDrawer = div.querySelector('.cart-drawer-inner');
         const oldDrawer = document.querySelector('.cart-drawer-inner');
         if (newDrawer && oldDrawer) {
+          oldDrawer.className = newDrawer.className;
           oldDrawer.innerHTML = newDrawer.innerHTML;
+          updateDrawerState();
           bindCartDrawerInnerEvents();
           if (typeof loadCartRecommendations === 'function') {
             loadCartRecommendations();
@@ -384,6 +399,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Initial binding for inner elements
   bindCartDrawerInnerEvents();
+  updateDrawerState();
 });
 
 document.addEventListener('DOMContentLoaded', function () {
