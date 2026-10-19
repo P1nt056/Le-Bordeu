@@ -2006,7 +2006,7 @@ function applyTranslations() {
             <p>Não aceitamos devoluções ou reembolsos de artigos com sinais de uso, lavagem, danos causados pelo cliente, falta de etiquetas, falta de embalagem original quando relevante, ou pedidos enviados fora das condições comunicadas.</p>
 
             <h2>7. Contacto</h2>
-            <p>Para qualquer pedido relacionado com reembolsos, devoluções ou trocas, contacta-nos através de <a href="mailto:pintoreis06@gmail.com">pintoreis06@gmail.com</a>.</p>
+            <p>Para qualquer pedido relacionado com reembolsos, devoluções ou trocas, contacta-nos através de <a href="mailto:lebordeu@gmail.com">lebordeu@gmail.com</a>.</p>
           `;
         } else if (window.location.pathname.includes('privacy-policy')) {
           titleEl.textContent = 'Política de Privacidade';
@@ -2080,7 +2080,7 @@ function applyTranslations() {
             <p>Podemos atualizar esta Política de Privacidade periodicamente para refletir alterações às nossas práticas. Publicaremos a Política revista neste site e atualizaremos a data de "Última atualização".</p>
             
             <h2>Contacto</h2>
-            <p>Caso tenha alguma dúvida sobre as nossas práticas de privacidade ou sobre esta Política de Privacidade, envie um email para <a href="mailto:pintoreis06@gmail.com">pintoreis06@gmail.com</a> ou contacte-nos em Largo Nossa Sra. Do Bom Despacho 8, Recarei, PT-13, 4585-608, PT.</p>
+            <p>Caso tenha alguma dúvida sobre as nossas práticas de privacidade ou sobre esta Política de Privacidade, envie um email para <a href="mailto:lebordeu@gmail.com">lebordeu@gmail.com</a> ou contacte-nos em Largo Nossa Sra. Do Bom Despacho 8, Recarei, PT-13, 4585-608, PT.</p>
           `;
         } else if (window.location.pathname.includes('terms-of-service')) {
           titleEl.textContent = 'Termos de Serviço';
@@ -2090,7 +2090,7 @@ function applyTranslations() {
             
             <h2>1. Identificação e contacto</h2>
             <p>A Le Bordeu comercializa artigos de moda e acessórios através da sua loja online.</p>
-            <p>Para qualquer questão relacionada com encomendas, produtos, pagamentos, envios, devoluções ou estes termos, podes contactar-nos através do email: <a href="mailto:contact@lebordeu.com">contact@lebordeu.com</a></p>
+            <p>Para qualquer questão relacionada com encomendas, produtos, pagamentos, envios, devoluções ou estes termos, podes contactar-nos através do email: <a href="mailto:lebordeu@gmail.com">lebordeu@gmail.com</a></p>
             
             <h2>2. Produtos e informação apresentada</h2>
             <p>Fazemos o possível para apresentar descrições, imagens, tamanhos, cores, materiais, disponibilidade e preços de forma clara e correta.</p>
@@ -2117,7 +2117,7 @@ function applyTranslations() {
             
             <h2>6. Direito de livre resolução</h2>
             <p>Em compras à distância, o consumidor pode exercer o direito de livre resolução no prazo legal de 14 dias a contar da receção da encomenda, sem necessidade de indicar motivo, salvo exceções legalmente previstas.</p>
-            <p>Para exercer este direito, contacta-nos através de <a href="mailto:contact@lebordeu.com">contact@lebordeu.com</a> com o número da encomenda e identificação do artigo.</p>
+            <p>Para exercer este direito, contacta-nos através de <a href="mailto:lebordeu@gmail.com">lebordeu@gmail.com</a> com o número da encomenda e identificação do artigo.</p>
             <p>O artigo deve ser devolvido em bom estado, sem uso indevido, com etiquetas e embalagem original sempre que aplicável.</p>
             <p>Salvo quando a devolução resulte de erro nosso, produto incorreto ou dano imputável à Le Bordeu, os custos diretos de devolução são da responsabilidade do cliente.</p>
             
@@ -2157,7 +2157,7 @@ function applyTranslations() {
             
             <h2>1. Identification and contact</h2>
             <p>Le Bordeu sells fashion items and accessories through its online store.</p>
-            <p>For any questions related to orders, products, payments, shipping, returns or these terms, you can contact us via email: <a href="mailto:contact@lebordeu.com">contact@lebordeu.com</a></p>
+            <p>For any questions related to orders, products, payments, shipping, returns or these terms, you can contact us via email: <a href="mailto:lebordeu@gmail.com">lebordeu@gmail.com</a></p>
             
             <h2>2. Products and information presented</h2>
             <p>We do our best to present descriptions, images, sizes, colors, materials, availability and prices clearly and accurately.</p>
@@ -2184,7 +2184,7 @@ function applyTranslations() {
             
             <h2>6. Right of free resolution</h2>
             <p>In distance purchases, the consumer may exercise the right of free resolution within the legal period of 14 days from the receipt of the order, without needing to state a reason, except for legally provided exceptions.</p>
-            <p>To exercise this right, contact us at <a href="mailto:contact@lebordeu.com">contact@lebordeu.com</a> with the order number and identification of the item.</p>
+            <p>To exercise this right, contact us at <a href="mailto:lebordeu@gmail.com">lebordeu@gmail.com</a> with the order number and identification of the item.</p>
             <p>The item must be returned in good condition, without undue use, with tags and original packaging whenever applicable.</p>
             <p>Unless the return results from our error, incorrect product or damage attributable to Le Bordeu, the direct costs of return are the customer's responsibility.</p>
             
