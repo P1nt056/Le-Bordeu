@@ -140,23 +140,30 @@ document.addEventListener('DOMContentLoaded',()=>{
       const product = JSON.parse(productJsonEl.textContent);
       const optionSelectors = form.querySelectorAll('.single-option-selector');
       const variantIdInput = form.querySelector('input[name="id"]');
-      const sizeOnlyVariants = (() => {
-        const options = Array.isArray(product.options) ? product.options : [];
-        const sizeOptionIndex = options.findIndex(option => /size|tamanho/i.test(String(option)));
-
-        if (sizeOptionIndex === -1 || product.variants.length < 2) return false;
-
-        const referenceVariant = product.variants[0];
-        return product.variants.every(variant =>
-          options.every((_, index) =>
-            index === sizeOptionIndex || variant[`option${index + 1}`] === referenceVariant[`option${index + 1}`]
-          )
-        );
-      })();
-
-      if (window.LeBordeuProductGallery) {
-        window.LeBordeuProductGallery.configureVariantTerms(product.variants);
+      function cleanText(val) {
+        return String(val || '')
+          .toLowerCase()
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .replace(/[^a-z0-9]+/g, ' ')
+          .trim();
       }
+
+      const COLOR_KEYWORD_GROUPS = [
+        { name: 'blue', words: ['blue', 'azul', 'navy', 'marinho', 'cyan', 'celeste', 'bleu'] },
+        { name: 'green', words: ['green', 'verde', 'emerald', 'esmeralda', 'olive', 'oliva'] },
+        { name: 'black', words: ['black', 'preto', 'preta', 'negro', 'noir', 'dark'] },
+        { name: 'white', words: ['white', 'branco', 'branca', 'blanco', 'blanc'] },
+        { name: 'beige', words: ['beige', 'bege', 'cream', 'creme', 'khaki', 'caqui', 'champagne', 'areia', 'sand'] },
+        { name: 'gold', words: ['gold', 'dourado', 'dourada', 'oro', 'amarelo', 'yellow'] },
+        { name: 'silver', words: ['silver', 'prata', 'prateado', 'prateada', 'steel', 'aco', 'inox'] },
+        { name: 'red', words: ['red', 'vermelho', 'vermelha', 'rojo', 'rouge', 'bordeaux', 'bordeu', 'vinho'] },
+        { name: 'rose', words: ['rose', 'rosa', 'pink', 'salmao', 'salmon', 'coral'] },
+        { name: 'brown', words: ['brown', 'castanho', 'castanha', 'marrom', 'cafe', 'chocolate', 'camel'] },
+        { name: 'grey', words: ['grey', 'gray', 'cinza', 'cinzento', 'gris'] },
+        { name: 'orange', words: ['orange', 'laranja', 'naranja'] },
+        { name: 'purple', words: ['purple', 'roxo', 'roxa', 'violeta', 'lilas'] }
+      ];
 
       function getVariantImageId(variant) {
         if (!variant) return null;
@@ -184,20 +191,146 @@ document.addEventListener('DOMContentLoaded',()=>{
         return selectedOptions;
       }
 
-      function findBestVariantForImage(imageId) {
-        const targetImageId = String(imageId);
+      function findSlideIndexForVariant(variant) {
+        if (!variant || !window.LeBordeuProductGallery) return -1;
+        const slides = window.LeBordeuProductGallery.getSlides ? window.LeBordeuProductGallery.getSlides() : Array.from(document.querySelectorAll('.product-gallery-splide .splide__slide'));
+        if (!slides || slides.length === 0) return -1;
+
+        const variantIdStr = String(variant.id);
+        const imageId = getVariantImageId(variant);
+        const imageIdStr = imageId ? String(imageId) : null;
+
+        // 1. Direct image ID match from variant.featured_image
+        if (imageIdStr) {
+          const idx = slides.findIndex(s => s.dataset.imageId === imageIdStr);
+          if (idx !== -1) return idx;
+        }
+
+        // 2. data-variant-ids attribute on slide
+        const varIdIdx = slides.findIndex(s => {
+          const ids = (s.dataset.variantIds || '').split(',').map(x => x.trim()).filter(Boolean);
+          return ids.includes(variantIdStr);
+        });
+        if (varIdIdx !== -1) return varIdIdx;
+
+        // 3. Extract text from selected variant (title and options)
+        const variantText = cleanText([variant.title, variant.option1, variant.option2, variant.option3].filter(Boolean).join(' '));
+        const variantWords = variantText.split(' ').filter(w => w.length >= 3);
+
+        // Check which color groups match this variant
+        const matchedColorGroups = COLOR_KEYWORD_GROUPS.filter(group =>
+          group.words.some(word => variantWords.includes(word) || variantText.includes(word))
+        );
+
+        if (matchedColorGroups.length > 0) {
+          // Look for a slide that matches any of the color words in alt, filename, or src
+          for (const group of matchedColorGroups) {
+            for (let i = 0; i < slides.length; i++) {
+              const slide = slides[i];
+              const slideText = cleanText([
+                slide.dataset.imageAlt,
+                slide.dataset.imageFilename,
+                slide.dataset.imageSrc
+              ].filter(Boolean).join(' '));
+
+              const hasColor = group.words.some(w => {
+                const regex = new RegExp(`(^|\\s|_|-)${w}($|\\s|_|-)`, 'i');
+                return regex.test(slideText) || slideText.includes(w);
+              });
+
+              if (hasColor) {
+                return i;
+              }
+            }
+          }
+        }
+
+        // 4. Differential unique word matching
+        // Find words that are in THIS variant but NOT in other variants of the product
+        if (product && Array.isArray(product.variants) && product.variants.length > 1) {
+          const otherVariantsText = product.variants
+            .filter(v => v.id !== variant.id)
+            .map(v => cleanText([v.title, v.option1, v.option2, v.option3].filter(Boolean).join(' ')))
+            .join(' ');
+
+          const uniqueWords = variantWords.filter(w => !otherVariantsText.includes(w));
+
+          if (uniqueWords.length > 0) {
+            for (const word of uniqueWords) {
+              for (let i = 0; i < slides.length; i++) {
+                const slide = slides[i];
+                const slideText = cleanText([
+                  slide.dataset.imageAlt,
+                  slide.dataset.imageFilename,
+                  slide.dataset.imageSrc
+                ].filter(Boolean).join(' '));
+
+                if (slideText.includes(word)) {
+                  return i;
+                }
+              }
+            }
+          }
+        }
+
+        // 5. Fallback: match by variant index if image count matches or exceeds variant count
+        const variantIdx = product.variants ? product.variants.findIndex(v => v.id === variant.id) : -1;
+        if (variantIdx !== -1 && variantIdx < slides.length) {
+          return variantIdx;
+        }
+
+        return -1;
+      }
+
+      function findBestVariantForImage(imageId, slideIndex) {
+        const targetImageId = imageId ? String(imageId) : null;
         const selectedOptions = getSelectedOptions();
 
-        return product.variants
-          .filter(variant => String(getVariantImageId(variant)) === targetImageId)
-          .sort((a, b) => {
-            const aScore = Object.keys(selectedOptions).filter(optionKey => a[optionKey] === selectedOptions[optionKey]).length;
-            const bScore = Object.keys(selectedOptions).filter(optionKey => b[optionKey] === selectedOptions[optionKey]).length;
+        // 1. First check if any variant has this exact image ID
+        if (targetImageId) {
+          const directMatch = product.variants.find(variant => String(getVariantImageId(variant)) === targetImageId);
+          if (directMatch) return directMatch;
+        }
 
-            if (aScore !== bScore) return bScore - aScore;
-            if (a.available !== b.available) return a.available ? -1 : 1;
-            return 0;
-          })[0];
+        // 2. Check if slide has data-variant-ids
+        const slides = window.LeBordeuProductGallery && window.LeBordeuProductGallery.getSlides ? window.LeBordeuProductGallery.getSlides() : Array.from(document.querySelectorAll('.product-gallery-splide .splide__slide'));
+        let targetSlide = null;
+        if (typeof slideIndex === 'number' && slides[slideIndex]) {
+          targetSlide = slides[slideIndex];
+        } else if (targetImageId) {
+          targetSlide = slides.find(s => s.dataset.imageId === targetImageId);
+        }
+
+        if (targetSlide) {
+          const variantIds = (targetSlide.dataset.variantIds || '').split(',').map(x => x.trim()).filter(Boolean);
+          if (variantIds.length > 0) {
+            const variantMatch = product.variants.find(v => variantIds.includes(String(v.id)));
+            if (variantMatch) return variantMatch;
+          }
+
+          // 3. Match slide text/color to variant
+          const slideText = cleanText([
+            targetSlide.dataset.imageAlt,
+            targetSlide.dataset.imageFilename,
+            targetSlide.dataset.imageSrc
+          ].filter(Boolean).join(' '));
+
+          for (const variant of product.variants) {
+            const vText = cleanText([variant.title, variant.option1, variant.option2, variant.option3].filter(Boolean).join(' '));
+            const matchedColors = COLOR_KEYWORD_GROUPS.filter(g => g.words.some(w => vText.includes(w)));
+            const slideHasColor = matchedColors.some(g => g.words.some(w => slideText.includes(w)));
+            if (slideHasColor) {
+              return variant;
+            }
+          }
+        }
+
+        // 4. Fallback: if slideIndex matches variant index
+        if (typeof slideIndex === 'number' && product.variants && product.variants[slideIndex]) {
+          return product.variants[slideIndex];
+        }
+
+        return null;
       }
 
       function selectVariantOptions(variant) {
@@ -231,8 +364,11 @@ document.addEventListener('DOMContentLoaded',()=>{
           variantIdInput.value = matchedVariant.id;
 
           if (syncGallery && window.LeBordeuProductGallery) {
-            window.LeBordeuProductGallery.filterByVariant(matchedVariant, sizeOnlyVariants);
-            window.LeBordeuProductGallery.goToImageId(getVariantImageId(matchedVariant));
+            const targetSlideIndex = findSlideIndexForVariant(matchedVariant);
+            console.log("[Le Bordeu Debug] Target slide index for variant:", targetSlideIndex, matchedVariant);
+            if (targetSlideIndex !== -1) {
+              window.LeBordeuProductGallery.goToIndex(targetSlideIndex);
+            }
             
             // Scroll to gallery on mobile when variant is manually selected
             if (options instanceof Event && window.innerWidth < 900) {
@@ -286,7 +422,10 @@ document.addEventListener('DOMContentLoaded',()=>{
       });
 
       window.addEventListener('leBordeu:galleryImageChange', (event) => {
-        const matchedVariant = findBestVariantForImage(event.detail && event.detail.imageId);
+        const matchedVariant = findBestVariantForImage(
+          event.detail && event.detail.imageId,
+          event.detail && event.detail.slideIndex
+        );
 
         if (matchedVariant) {
           selectVariantOptions(matchedVariant);
