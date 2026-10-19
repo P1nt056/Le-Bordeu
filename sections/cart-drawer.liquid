@@ -225,7 +225,7 @@
             {% assign rec_count = rec_count | plus: 1 %}
             <div class="cart-rec-item" data-product-id="{{ p.id }}">
               <a href="{{ p.url }}" class="cart-rec-item__image-link">
-                <img src="{{ p.featured_image | img_url: '220x' }}" alt="{{ p.title | escape }}" loading="lazy">
+                <img src="{{ p.featured_image | img_url: '400x' }}" alt="{{ p.title | escape }}" loading="lazy">
               </a>
               <div class="cart-rec-item__info">
                 {% if p_badge != '' %}
@@ -285,7 +285,7 @@
             {% assign rec_count = rec_count | plus: 1 %}
             <div class="cart-rec-item" data-product-id="{{ p.id }}">
               <a href="{{ p.url }}" class="cart-rec-item__image-link">
-                <img src="{{ p.featured_image | img_url: '220x' }}" alt="{{ p.title | escape }}" loading="lazy">
+                <img src="{{ p.featured_image | img_url: '400x' }}" alt="{{ p.title | escape }}" loading="lazy">
               </a>
               <div class="cart-rec-item__info">
                 <span class="cart-rec-item__badge">Destaque</span>

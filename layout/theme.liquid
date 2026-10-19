@@ -52,8 +52,6 @@
     <script src="{{ 'product.js' | asset_url }}" defer></script>
     {{ content_for_footer }}
     <div id="cart-drawer-overlay" class="cart-drawer-overlay"></div>
-    <div id="shopify-section-cart-drawer" class="shopify-section">
-      {% section 'cart-drawer' %}
-    </div>
+    {% section 'cart-drawer' %}
   </body>
 </html>
