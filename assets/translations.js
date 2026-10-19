@@ -199,17 +199,37 @@ const TRANSLATIONS = {
 
   // Cart
   "cart_title": { pt: "O Teu Carrinho", en: "Your Cart" },
+  "cart_close": { pt: "Fechar Carrinho", en: "Close Cart" },
   "cart_empty": { pt: "O seu carrinho está vazio de momento.", en: "Your cart is currently empty." },
   "cart_continue": { pt: "Continuar a Comprar", en: "Continue Shopping" },
   "cart_remove": { pt: "Remover", en: "Remove" },
   "cart_subtotal": { pt: "Subtotal", en: "Subtotal" },
+  "cart_free_shipping_applied": { pt: "Envio gratuito aplicado nesta encomenda.", en: "Free shipping applied to this order." },
+  "cart_free_shipping_remaining_prefix": { pt: "Faltam", en: "Add" },
+  "cart_free_shipping_remaining_suffix": { pt: "para teres envio gratuito.", en: "more for free shipping." },
   "cart_tax": { pt: "Impostos e portes calculados na finalização da compra.", en: "Taxes and shipping calculated at checkout." },
   "cart_checkout": { pt: "Finalizar Compra", en: "Checkout" },
   "cart_view": { pt: "Ver Carrinho", en: "View Cart" },
   "cart_add": { pt: "Adicionar", en: "Add" },
+  "cart_btn_add": { pt: "+ Adicionar", en: "+ Add" },
+  "cart_btn_adding": { pt: "A adicionar...", en: "Adding..." },
+  "cart_btn_added": { pt: "✓ Adicionado", en: "✓ Added" },
+  "cart_sold_out": { pt: "Esgotado", en: "Sold Out" },
+  "cart_unavailable": { pt: "Indisponível", en: "Unavailable" },
   "cart_view_prod": { pt: "Ver Produto", en: "View Product" },
   "cart_update": { pt: "Atualizar Carrinho", en: "Update Cart" },
-  "cart_recommendations_title": { pt: "Completa o Teu Look", en: "Complete Your Look" }
+  "cart_recommendations_title": { pt: "Completa o Teu Look", en: "Complete Your Look" },
+  "cart_recommendations_subtitle": { pt: "Sugestões exclusivas para o teu visual", en: "Exclusive suggestions for your outfit" },
+  "pillar_top": { pt: "Parte de Cima", en: "Topwear" },
+  "pillar_bottom": { pt: "Calças & Jeans", en: "Pants & Jeans" },
+  "pillar_shoes": { pt: "Calçado & Sapatilhas", en: "Footwear & Sneakers" },
+  "pillar_watch": { pt: "Relógio", en: "Watch" },
+  "pillar_accessory": { pt: "Acessórios & Chapéus", en: "Accessories & Headwear" },
+  "pillar_featured": { pt: "Destaque", en: "Featured" },
+  "option_color": { pt: "Cor", en: "Color" },
+  "option_size": { pt: "Tamanho", en: "Size" },
+  "option_material": { pt: "Material", en: "Material" },
+  "option_style": { pt: "Estilo", en: "Style" }
 };
 
 const DYNAMIC_TRANSLATIONS = {
@@ -1836,7 +1856,8 @@ function applyTranslations() {
     document.querySelector('.product-description'),
     document.querySelector('.product-description-card__content > table'),
     ...document.querySelectorAll('.product-story__content'),
-    ...document.querySelectorAll('.cart-drawer-item__variant')
+    ...document.querySelectorAll('.cart-drawer-item__variant'),
+    ...document.querySelectorAll('.cart-rec-item__option-select option')
   ].filter(Boolean);
 
   dynamicEls.forEach(el => {
@@ -1906,6 +1927,13 @@ function applyTranslations() {
     const key = el.getAttribute('data-i18n-placeholder');
     if (TRANSLATIONS[key] && TRANSLATIONS[key][currentLang]) {
       el.setAttribute('placeholder', TRANSLATIONS[key][currentLang]);
+    }
+  });
+
+  document.querySelectorAll('[data-i18n-aria]').forEach(el => {
+    const key = el.getAttribute('data-i18n-aria');
+    if (TRANSLATIONS[key] && TRANSLATIONS[key][currentLang]) {
+      el.setAttribute('aria-label', TRANSLATIONS[key][currentLang]);
     }
   });
 

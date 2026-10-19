@@ -2,7 +2,7 @@
   <!-- LEFT COLUMN: O TEU CARRINHO -->
   <div class="cart-drawer__main-col">
     <div class="cart-drawer__header">
-      <h2 class="cart-drawer__title" data-i18n="cart_title">O Teu Carrinho <span class="cart-drawer__count-badge">({{ cart.item_count }})</span></h2>
+      <h2 class="cart-drawer__title"><span data-i18n="cart_title">O Teu Carrinho</span> <span class="cart-drawer__count-badge">({{ cart.item_count }})</span></h2>
       <button type="button" class="cart-drawer__close" aria-label="Fechar Carrinho" data-i18n-aria="cart_close">✕</button>
     </div>
 
@@ -52,10 +52,14 @@
         </div>
         {% assign free_shipping_threshold = 8999 %}
         {% if cart.total_price >= free_shipping_threshold %}
-          <p class="cart-free-shipping cart-free-shipping--drawer">Envio gratuito aplicado nesta encomenda.</p>
+          <p class="cart-free-shipping cart-free-shipping--drawer" data-i18n="cart_free_shipping_applied">Envio gratuito aplicado nesta encomenda.</p>
         {% else %}
           {% assign amount_to_free_shipping = free_shipping_threshold | minus: cart.total_price %}
-          <p class="cart-free-shipping cart-free-shipping--drawer">Faltam {{ amount_to_free_shipping | money }} para teres envio gratuito.</p>
+          <p class="cart-free-shipping cart-free-shipping--drawer">
+            <span data-i18n="cart_free_shipping_remaining_prefix">Faltam</span>
+            <span>{{ amount_to_free_shipping | money }}</span>
+            <span data-i18n="cart_free_shipping_remaining_suffix">para teres envio gratuito.</span>
+          </p>
         {% endif %}
         <p class="cart-drawer__tax-note" data-i18n="cart_tax">Impostos e portes calculados na finalização da compra.</p>
         <a href="/checkout" class="btn btn--primary cart-drawer__checkout" data-i18n="cart_checkout">Finalizar Compra</a>
@@ -136,7 +140,7 @@
       
       <div class="cart-drawer__rec-col-header">
         <h3 class="cart-drawer__recommendations-title" data-i18n="cart_recommendations_title">Completa o Teu Look</h3>
-        <p class="cart-drawer__recommendations-subtitle">Sugestões exclusivas para o teu visual</p>
+        <p class="cart-drawer__recommendations-subtitle" data-i18n="cart_recommendations_subtitle">Sugestões exclusivas para o teu visual</p>
       </div>
 
       <div class="cart-drawer__recommendations-list">
@@ -182,23 +186,29 @@
           {% assign p_is_watch = false %}
           {% assign p_is_accessory = false %}
           {% assign p_badge = '' %}
+          {% assign p_badge_key = '' %}
 
           {%- comment -%} 1. Check Top/Jacket FIRST so denim jackets aren't marked as pants {%- endcomment -%}
           {% if p_text contains 'jaqueta' or p_text contains 'jacket' or p_text contains 'casaco' or p_text contains 'blusao' or p_text contains 'blazer' or p_text contains 'bomber' or p_text contains 'sobretudo' or p_text contains 'parka' or p_text contains 'colete' or p_text contains 'camisola' or p_text contains 'sweater' or p_text contains 'polo' or p_text contains 't-shirt' or p_text contains 'tshirt' or p_text contains 'hoodie' or p_text contains 'camisa' or p_text contains 'shirt' or p_text contains 'cardigan' or p_text contains 'malha' %}
             {% assign p_is_top = true %}
             {% assign p_badge = 'Parte de Cima' %}
+            {% assign p_badge_key = 'pillar_top' %}
           {% elsif p_text contains 'jean' or p_text contains 'calca' or p_text contains 'pant' or p_text contains 'denim' or p_text contains 'calcao' or p_text contains 'short' or p_text contains 'trouser' %}
             {% assign p_is_bottom = true %}
             {% assign p_badge = 'Calças & Jeans' %}
+            {% assign p_badge_key = 'pillar_bottom' %}
           {% elsif p_text contains 'sapato' or p_text contains 'calcado' or p_text contains 'sapatilha' or p_text contains 'sneaker' or p_text contains 'shoe' or p_text contains 'boot' or p_text contains 'bota' or p_text contains 'tenis' %}
             {% assign p_is_shoes = true %}
             {% assign p_badge = 'Calçado & Sapatilhas' %}
+            {% assign p_badge_key = 'pillar_shoes' %}
           {% elsif p_text contains 'relogio' or p_text contains 'watch' %}
             {% assign p_is_watch = true %}
             {% assign p_badge = 'Relógio' %}
+            {% assign p_badge_key = 'pillar_watch' %}
           {% elsif p_text contains 'chapeu' or p_text contains 'gorro' or p_text contains 'bone' or p_text contains 'cap' or p_text contains 'hat' or p_text contains 'beanie' or p_text contains 'cinto' or p_text contains 'oculos' or p_text contains 'carteira' or p_text contains 'mala' or p_text contains 'bag' or p_text contains 'belt' or p_text contains 'bijuteria' or p_text contains 'anel' or p_text contains 'colar' or p_text contains 'pulseira' or p_text contains 'estojo' %}
             {% assign p_is_accessory = true %}
             {% assign p_badge = 'Acessórios & Chapéus' %}
+            {% assign p_badge_key = 'pillar_accessory' %}
           {% endif %}
 
           {%- comment -%} Pick complementary product {%- endcomment -%}
@@ -229,7 +239,7 @@
               </a>
               <div class="cart-rec-item__info">
                 {% if p_badge != '' %}
-                  <span class="cart-rec-item__badge">{{ p_badge }}</span>
+                  <span class="cart-rec-item__badge" data-i18n="{{ p_badge_key }}">{{ p_badge }}</span>
                 {% endif %}
                 <a href="{{ p.url }}" class="cart-rec-item__title" title="{{ p.title | escape }}">{{ p.title }}</a>
                 <div class="cart-rec-item__pricing">
@@ -242,9 +252,26 @@
                 {% if p.has_only_default_variant == false %}
                   <div class="cart-rec-item__options" data-variants="{{ p.variants | json | escape }}">
                     {% for option in p.options_with_values %}
+                      {% assign opt_name_lower = option.name | downcase %}
+                      {% if opt_name_lower == 'color' or opt_name_lower == 'colour' or opt_name_lower == 'cor' %}
+                        {% assign opt_label = 'Cor' %}
+                        {% assign opt_i18n = 'option_color' %}
+                      {% elsif opt_name_lower == 'size' or opt_name_lower == 'tamanho' %}
+                        {% assign opt_label = 'Tamanho' %}
+                        {% assign opt_i18n = 'option_size' %}
+                      {% elsif opt_name_lower == 'material' %}
+                        {% assign opt_label = 'Material' %}
+                        {% assign opt_i18n = 'option_material' %}
+                      {% elsif opt_name_lower == 'style' or opt_name_lower == 'estilo' %}
+                        {% assign opt_label = 'Estilo' %}
+                        {% assign opt_i18n = 'option_style' %}
+                      {% else %}
+                        {% assign opt_label = option.name %}
+                        {% assign opt_i18n = '' %}
+                      {% endif %}
                       <div class="cart-rec-item__option-group">
-                        <label class="cart-rec-item__option-label">{{ option.name }}:</label>
-                        <select class="cart-rec-item__option-select" data-option-index="{{ forloop.index0 }}" aria-label="{{ option.name }} para {{ p.title | escape }}">
+                        <label class="cart-rec-item__option-label" {% if opt_i18n != '' %}data-i18n="{{ opt_i18n }}"{% endif %}>{{ opt_label }}:</label>
+                        <select class="cart-rec-item__option-select" data-option-index="{{ forloop.index0 }}" aria-label="{{ opt_label }} para {{ p.title | escape }}">
                           {% for value in option.values %}
                             {% assign is_selected = false %}
                             {% if option.selected_value == value %}
@@ -267,9 +294,9 @@
                         data-variant-id="{{ p.selected_or_first_available_variant.id }}"
                         {% unless p.available %}disabled{% endunless %}>
                   {% if p.available %}
-                    <span class="btn-text">+ Adicionar</span>
+                    <span class="btn-text" data-i18n="cart_btn_add">+ Adicionar</span>
                   {% else %}
-                    <span class="btn-text">Esgotado</span>
+                    <span class="btn-text" data-i18n="cart_sold_out">Esgotado</span>
                   {% endif %}
                 </button>
               </div>
@@ -299,17 +326,37 @@
                 <img src="{{ p.featured_image | img_url: '400x' }}" alt="{{ p.title | escape }}" loading="lazy">
               </a>
               <div class="cart-rec-item__info">
-                <span class="cart-rec-item__badge">Destaque</span>
+                <span class="cart-rec-item__badge" data-i18n="pillar_featured">Destaque</span>
                 <a href="{{ p.url }}" class="cart-rec-item__title" title="{{ p.title | escape }}">{{ p.title }}</a>
                 <div class="cart-rec-item__pricing">
                   <span class="cart-rec-item__price">{{ p.price | money }}</span>
+                  {% if p.compare_at_price > p.price %}
+                    <span class="cart-rec-item__compare">{{ p.compare_at_price | money }}</span>
+                  {% endif %}
                 </div>
                 {% if p.has_only_default_variant == false %}
                   <div class="cart-rec-item__options" data-variants="{{ p.variants | json | escape }}">
                     {% for option in p.options_with_values %}
+                      {% assign opt_name_lower = option.name | downcase %}
+                      {% if opt_name_lower == 'color' or opt_name_lower == 'colour' or opt_name_lower == 'cor' %}
+                        {% assign opt_label = 'Cor' %}
+                        {% assign opt_i18n = 'option_color' %}
+                      {% elsif opt_name_lower == 'size' or opt_name_lower == 'tamanho' %}
+                        {% assign opt_label = 'Tamanho' %}
+                        {% assign opt_i18n = 'option_size' %}
+                      {% elsif opt_name_lower == 'material' %}
+                        {% assign opt_label = 'Material' %}
+                        {% assign opt_i18n = 'option_material' %}
+                      {% elsif opt_name_lower == 'style' or opt_name_lower == 'estilo' %}
+                        {% assign opt_label = 'Estilo' %}
+                        {% assign opt_i18n = 'option_style' %}
+                      {% else %}
+                        {% assign opt_label = option.name %}
+                        {% assign opt_i18n = '' %}
+                      {% endif %}
                       <div class="cart-rec-item__option-group">
-                        <label class="cart-rec-item__option-label">{{ option.name }}:</label>
-                        <select class="cart-rec-item__option-select" data-option-index="{{ forloop.index0 }}" aria-label="{{ option.name }} para {{ p.title | escape }}">
+                        <label class="cart-rec-item__option-label" {% if opt_i18n != '' %}data-i18n="{{ opt_i18n }}"{% endif %}>{{ opt_label }}:</label>
+                        <select class="cart-rec-item__option-select" data-option-index="{{ forloop.index0 }}" aria-label="{{ opt_label }} para {{ p.title | escape }}">
                           {% for value in option.values %}
                             {% assign is_selected = false %}
                             {% if option.selected_value == value %}
@@ -326,8 +373,15 @@
                     {% endfor %}
                   </div>
                 {% endif %}
-                <button type="button" class="cart-rec-item__add-btn" data-variant-id="{{ p.selected_or_first_available_variant.id }}" {% unless p.available %}disabled{% endunless %}>
-                  <span class="btn-text">+ Adicionar</span>
+                <button type="button" 
+                        class="cart-rec-item__add-btn" 
+                        data-variant-id="{{ p.selected_or_first_available_variant.id }}" 
+                        {% unless p.available %}disabled{% endunless %}>
+                  {% if p.available %}
+                    <span class="btn-text" data-i18n="cart_btn_add">+ Adicionar</span>
+                  {% else %}
+                    <span class="btn-text" data-i18n="cart_sold_out">Esgotado</span>
+                  {% endif %}
                 </button>
               </div>
             </div>

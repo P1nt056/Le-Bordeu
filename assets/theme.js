@@ -102,6 +102,9 @@ document.addEventListener('DOMContentLoaded', function () {
     if (typeof loadCartRecommendations === 'function') {
       loadCartRecommendations();
     }
+    if (typeof applyTranslations === 'function') {
+      applyTranslations();
+    }
   };
 
   window.closeCartDrawer = function () {
@@ -124,6 +127,9 @@ document.addEventListener('DOMContentLoaded', function () {
           bindCartDrawerInnerEvents();
           if (typeof loadCartRecommendations === 'function') {
             loadCartRecommendations();
+          }
+          if (typeof applyTranslations === 'function') {
+            applyTranslations();
           }
         }
       });
@@ -219,32 +225,38 @@ document.addEventListener('DOMContentLoaded', function () {
           let isAccessory = /chapeu|gorro|cinto|oculos|carteira|mala|bag|hat|belt|bijuteria|anel|colar|pulseira|estojo/i.test(pText);
 
           let badge = '';
+          let badgeKey = '';
           let shouldPick = false;
 
           if (isTop && !pickedTop) {
             shouldPick = true;
             pickedTop = true;
             badge = 'Parte de Cima';
+            badgeKey = 'pillar_top';
           } else if (isBottom && !pickedBottom) {
             shouldPick = true;
             pickedBottom = true;
             badge = 'Calças & Jeans';
+            badgeKey = 'pillar_bottom';
           } else if (isShoes && !pickedShoes) {
             shouldPick = true;
             pickedShoes = true;
-            badge = 'Calçado';
+            badge = 'Calçado & Sapatilhas';
+            badgeKey = 'pillar_shoes';
           } else if (isWatch && !pickedWatch) {
             shouldPick = true;
             pickedWatch = true;
             badge = 'Relógio';
+            badgeKey = 'pillar_watch';
           } else if (isAccessory && !pickedAccessory) {
             shouldPick = true;
             pickedAccessory = true;
-            badge = 'Acessórios';
+            badge = 'Acessórios & Chapéus';
+            badgeKey = 'pillar_accessory';
           }
 
           if (shouldPick) {
-            pickedProducts.push({ product: p, badge, defaultVariant: availableVariant });
+            pickedProducts.push({ product: p, badge, badgeKey, defaultVariant: availableVariant });
           }
         }
 
@@ -254,7 +266,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         let html = '';
-        pickedProducts.forEach(({ product, badge, defaultVariant }) => {
+        pickedProducts.forEach(({ product, badge, badgeKey, defaultVariant }) => {
           const image = (product.images && product.images[0] && product.images[0].src) || '';
           const priceVal = parseFloat(defaultVariant.price);
           const priceStr = new Intl.NumberFormat('pt-PT', { style: 'currency', currency: 'EUR' }).format(priceVal);
@@ -276,14 +288,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 <img src="${image}" alt="${product.title}" loading="lazy">
               </a>
               <div class="cart-rec-item__info">
-                ${badge ? `<span class="cart-rec-item__badge">${badge}</span>` : ''}
+                ${badge ? `<span class="cart-rec-item__badge" data-i18n="${badgeKey}">${badge}</span>` : ''}
                 <a href="/products/${product.handle}" class="cart-rec-item__title" title="${product.title}">${product.title}</a>
                 <div class="cart-rec-item__pricing">
                   <span class="cart-rec-item__price">${priceStr}</span>
                 </div>
                 ${optionsHtml}
                 <button type="button" class="cart-rec-item__add-btn" data-variant-id="${defaultVariant.id}">
-                  <span class="btn-text">+ Adicionar</span>
+                  <span class="btn-text" data-i18n="cart_btn_add">+ Adicionar</span>
                 </button>
               </div>
             </div>
@@ -292,6 +304,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         list.innerHTML = html;
         bindCartDrawerRecommendations();
+        if (typeof applyTranslations === 'function') {
+          applyTranslations();
+        }
       })
       .catch(err => {
         console.error('Erro ao carregar sugestões:', err);
@@ -349,15 +364,24 @@ document.addEventListener('DOMContentLoaded', function () {
     const priceEl = card.querySelector('.cart-rec-item__price');
     const imgEl = card.querySelector('.cart-rec-item__image-link img');
 
+    const lang = window.currentLang || localStorage.getItem('site_lang') || 'pt';
+    const t = (typeof TRANSLATIONS !== 'undefined' && TRANSLATIONS) ? TRANSLATIONS : null;
+
     if (matchedVariant) {
       if (btn) {
         btn.dataset.variantId = matchedVariant.id;
         if (matchedVariant.available) {
           btn.disabled = false;
-          if (textEl) textEl.textContent = '+ Adicionar';
+          if (textEl) {
+            textEl.setAttribute('data-i18n', 'cart_btn_add');
+            textEl.textContent = (t && t['cart_btn_add'] && t['cart_btn_add'][lang]) || '+ Adicionar';
+          }
         } else {
           btn.disabled = true;
-          if (textEl) textEl.textContent = 'Esgotado';
+          if (textEl) {
+            textEl.setAttribute('data-i18n', 'cart_sold_out');
+            textEl.textContent = (t && t['cart_sold_out'] && t['cart_sold_out'][lang]) || 'Esgotado';
+          }
         }
       }
 
@@ -376,7 +400,10 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
       if (btn) {
         btn.disabled = true;
-        if (textEl) textEl.textContent = 'Indisponível';
+        if (textEl) {
+          textEl.setAttribute('data-i18n', 'cart_unavailable');
+          textEl.textContent = (t && t['cart_unavailable'] && t['cart_unavailable'][lang]) || 'Indisponível';
+        }
       }
     }
   }
@@ -395,10 +422,15 @@ document.addEventListener('DOMContentLoaded', function () {
     const variantId = btn.dataset.variantId;
     if (!variantId || btn.disabled) return;
 
+    const lang = window.currentLang || localStorage.getItem('site_lang') || 'pt';
+    const t = (typeof TRANSLATIONS !== 'undefined' && TRANSLATIONS) ? TRANSLATIONS : null;
+    const addingText = (t && t['cart_btn_adding'] && t['cart_btn_adding'][lang]) || 'A adicionar...';
+    const addedText = (t && t['cart_btn_added'] && t['cart_btn_added'][lang]) || '✓ Adicionado';
+
     const textEl = btn.querySelector('.btn-text') || btn;
     const originalText = textEl.textContent;
     btn.disabled = true;
-    textEl.textContent = 'A adicionar...';
+    textEl.textContent = addingText;
 
     fetch('/cart/add.js', {
       method: 'POST',
@@ -411,7 +443,7 @@ document.addEventListener('DOMContentLoaded', function () {
       })
       .then(() => {
         btn.classList.add('is-added');
-        textEl.textContent = '✓ Adicionado';
+        textEl.textContent = addedText;
         setTimeout(() => {
           refreshCartDrawer();
         }, 350);
