@@ -146,109 +146,197 @@ document.addEventListener('DOMContentLoaded', function () {
     const container = document.querySelector('.cart-drawer__recommendations');
     if (!container) return;
 
-    const productId = container.dataset.productId;
-    const colorRaw = container.dataset.color || '';
-    const prodType = (container.dataset.type || '').toLowerCase();
-    const prodTags = (container.dataset.tags || '').toLowerCase();
-    if (!productId) return;
-
-    let cleanColor = colorRaw.split('/')[0].split('-')[0].trim();
-
-    let typeQuery = '';
-    const matchType = prodType + " " + prodTags;
-    if (matchType.includes('vestido') || matchType.includes('dress')) {
-      typeQuery = 'product_type:Calçado OR product_type:Malas OR product_type:Bijuteria OR product_type:Sapatos OR product_type:Relógios';
-    } else if (matchType.includes('shirt') || matchType.includes('top') || matchType.includes('camisa') || matchType.includes('casaco')) {
-      typeQuery = 'product_type:Calças OR product_type:Calções OR product_type:Calçado OR product_type:Sapatos';
-    } else if (matchType.includes('calça') || matchType.includes('jeans') || matchType.includes('bottom') || matchType.includes('short')) {
-      typeQuery = 'product_type:T-Shirts OR product_type:Camisas OR product_type:Calçado OR product_type:Sapatos';
-    } else if (matchType.includes('sapatos') || matchType.includes('calçado') || matchType.includes('shoes')) {
-      typeQuery = 'product_type:Malas OR product_type:Bijuteria OR product_type:Acessórios';
-    } else if (matchType.includes('bijuteria') || matchType.includes('relógios') || matchType.includes('jewelry')) {
-      typeQuery = 'product_type:Vestidos OR product_type:T-Shirts';
+    const list = container.querySelector('.cart-drawer__recommendations-list');
+    if (list && list.children.length > 0) {
+      // Liquid already populated the recommendations!
+      bindCartDrawerRecommendations();
+      return;
     }
 
-    // Pipeline de pesquisas:
-    // 1. Cor + Tipo
-    // 2. Só Tipo
-    // 3. Padrão do Shopify
-    let currentStep = parseInt(container.dataset.step || '1', 10);
+    // Fallback: Fetch all products and run client-side complementary look logic
+    const cartProductIds = (container.dataset.cartProductIds || '').split(',').map(s => s.trim()).filter(Boolean);
+    const hasTop = container.dataset.hasTop === 'true';
+    const hasBottom = container.dataset.hasBottom === 'true';
+    const hasShoes = container.dataset.hasShoes === 'true';
+    const hasWatch = container.dataset.hasWatch === 'true';
+    const hasAccessory = container.dataset.hasAccessory === 'true';
+    const cartGender = container.dataset.gender || 'neutral';
 
-    let fetchUrl = `/recommendations/products.json?product_id=${productId}&limit=6`;
-
-    if (currentStep === 1 && cleanColor !== '' && typeQuery !== '') {
-      fetchUrl = `/search/suggest.json?q=${encodeURIComponent(cleanColor + ' (' + typeQuery + ')')}&resources[type]=product&resources[limit]=6`;
-    } else if (currentStep <= 2 && typeQuery !== '') {
-      currentStep = 2;
-      fetchUrl = `/search/suggest.json?q=${encodeURIComponent(typeQuery)}&resources[type]=product&resources[limit]=6`;
-    } else {
-      currentStep = 3;
-    }
-
-    container.dataset.step = currentStep;
-
-    fetch(fetchUrl)
+    fetch('/collections/all/products.json?limit=50')
       .then(res => {
         if (!res.ok) throw new Error('Network error');
         return res.json();
       })
       .then(data => {
-        let products = [];
-        if (data.products) {
-          products = data.products;
-        } else if (data.resources && data.resources.results && data.resources.results.products) {
-          products = data.resources.results.products;
-          products = products.slice(0, 6);
+        if (!data || !data.products || !data.products.length) {
+          container.style.display = 'none';
+          return;
         }
 
-        const currentContainer = document.querySelector('.cart-drawer__recommendations');
-        if (!currentContainer || currentContainer.dataset.productId !== productId) return;
+        let pickedTop = hasTop;
+        let pickedBottom = hasBottom;
+        let pickedShoes = hasShoes;
+        let pickedWatch = hasWatch;
+        let pickedAccessory = hasAccessory;
+        let pickedProducts = [];
 
-        if (products.length > 0) {
-          const list = currentContainer.querySelector('.cart-drawer__recommendations-list');
-          if (list) {
-            let html = '';
-            products.forEach(product => {
-              const image = (product.featured_image && typeof product.featured_image === 'object') ? product.featured_image.url : (product.featured_image || product.image || '');
-              const priceVal = product.price !== undefined ? (typeof product.price === 'string' ? parseFloat(product.price.replace(/[^0-9.]/g, '')) : product.price / 100) : 0;
-              const priceStr = new Intl.NumberFormat('pt-PT', { style: 'currency', currency: 'EUR' }).format(priceVal);
+        for (const p of data.products) {
+          if (pickedProducts.length >= 3) break;
+          if (cartProductIds.includes(String(p.id))) continue;
 
-              const actionHtml = `<a href="${product.url}" class="cart-recommendation-item__add" data-i18n="cart_view_prod">Ver Produto</a>`;
+          // Check availability
+          const availableVariant = p.variants.find(v => v.available);
+          if (!availableVariant) continue;
 
-              html += `
-                <div class="cart-recommendation-item">
-                  <a href="${product.url}" class="cart-recommendation-item__image">
-                    <img src="${image}" alt="${product.title}">
-                  </a>
-                  <div class="cart-recommendation-item__details">
-                    <a href="${product.url}" class="cart-recommendation-item__title">${product.title}</a>
-                    <div class="cart-recommendation-item__price">${priceStr}</div>
-                    ${actionHtml}
-                  </div>
+          const pText = (p.title + ' ' + (p.product_type || '') + ' ' + (p.tags || []).join(' ')).toLowerCase();
+
+          // Gender filtering
+          if (cartGender === 'homem') {
+            if (pText.includes('mulher') || pText.includes('women') || pText.includes('vestido') || pText.includes('dress')) continue;
+          } else if (cartGender === 'mulher') {
+            if (pText.includes('homem') || pText.includes('men ') || pText.includes('masculin')) continue;
+          }
+
+          let isTop = /shirt|camisa|camisola|polo|casaco|sweater|hoodie|blazer|t-shirt|tshirt|jacket|cardigan|malha/i.test(pText);
+          let isBottom = /jean|calca|pant|denim|calcao|short|trouser/i.test(pText);
+          let isShoes = /sapato|calcado|sapatilha|sneaker|shoe|boot|bota/i.test(pText);
+          let isWatch = /relogio|watch/i.test(pText);
+          let isAccessory = /chapeu|gorro|cinto|oculos|carteira|mala|bag|hat|belt|bijuteria|anel|colar|pulseira|estojo/i.test(pText);
+
+          let badge = '';
+          let shouldPick = false;
+
+          if (isTop && !pickedTop) {
+            shouldPick = true;
+            pickedTop = true;
+            badge = 'Parte de Cima';
+          } else if (isBottom && !pickedBottom) {
+            shouldPick = true;
+            pickedBottom = true;
+            badge = 'Calças & Jeans';
+          } else if (isShoes && !pickedShoes) {
+            shouldPick = true;
+            pickedShoes = true;
+            badge = 'Calçado';
+          } else if (isWatch && !pickedWatch) {
+            shouldPick = true;
+            pickedWatch = true;
+            badge = 'Relógio';
+          } else if (isAccessory && !pickedAccessory) {
+            shouldPick = true;
+            pickedAccessory = true;
+            badge = 'Acessórios';
+          }
+
+          if (shouldPick) {
+            pickedProducts.push({ product: p, badge, defaultVariant: availableVariant });
+          }
+        }
+
+        if (pickedProducts.length === 0) {
+          container.style.display = 'none';
+          return;
+        }
+
+        let html = '';
+        pickedProducts.forEach(({ product, badge, defaultVariant }) => {
+          const image = (product.images && product.images[0] && product.images[0].src) || '';
+          const priceVal = parseFloat(defaultVariant.price);
+          const priceStr = new Intl.NumberFormat('pt-PT', { style: 'currency', currency: 'EUR' }).format(priceVal);
+
+          let optionsHtml = '';
+          if (product.variants.length > 1) {
+            optionsHtml = `
+              <div class="cart-rec-item__option">
+                <select class="cart-rec-item__select" aria-label="Opções para ${product.title}">
+                  ${product.variants.map(v => `<option value="${v.id}" ${!v.available ? 'disabled' : ''}>${v.title}${!v.available ? ' - (Esgotado)' : ''}</option>`).join('')}
+                </select>
+              </div>
+            `;
+          }
+
+          html += `
+            <div class="cart-rec-item" data-product-id="${product.id}">
+              <a href="/products/${product.handle}" class="cart-rec-item__image-link">
+                <img src="${image}" alt="${product.title}" loading="lazy">
+              </a>
+              <div class="cart-rec-item__info">
+                ${badge ? `<span class="cart-rec-item__badge">${badge}</span>` : ''}
+                <a href="/products/${product.handle}" class="cart-rec-item__title" title="${product.title}">${product.title}</a>
+                <div class="cart-rec-item__pricing">
+                  <span class="cart-rec-item__price">${priceStr}</span>
                 </div>
-              `;
-            });
+                ${optionsHtml}
+                <button type="button" class="cart-rec-item__add-btn" data-variant-id="${defaultVariant.id}">
+                  <span class="btn-text">+ Adicionar</span>
+                </button>
+              </div>
+            </div>
+          `;
+        });
 
-            list.innerHTML = html;
-
-            if (typeof applyTranslations === 'function') {
-              applyTranslations();
-            }
-          }
-        } else {
-          // Fallback para o próximo passo
-          if (currentStep < 3) {
-            currentContainer.dataset.step = currentStep + 1;
-            loadCartRecommendations();
-          } else {
-            currentContainer.style.display = 'none';
-          }
-        }
+        list.innerHTML = html;
+        bindCartDrawerRecommendations();
       })
       .catch(err => {
-        console.error('Erro ao carregar:', err);
-        const currentContainer = document.querySelector('.cart-drawer__recommendations');
-        if (currentContainer) currentContainer.style.display = 'none';
+        console.error('Erro ao carregar sugestões:', err);
+        container.style.display = 'none';
+      });
+  }
+
+  function bindCartDrawerRecommendations() {
+    // Select change updates button's variant id
+    document.querySelectorAll('.cart-rec-item__select').forEach(select => {
+      select.removeEventListener('change', onRecSelectChange);
+      select.addEventListener('change', onRecSelectChange);
+    });
+
+    // Add button adds to cart via AJAX
+    document.querySelectorAll('.cart-rec-item__add-btn').forEach(btn => {
+      btn.removeEventListener('click', onRecAddBtnClick);
+      btn.addEventListener('click', onRecAddBtnClick);
+    });
+  }
+
+  function onRecSelectChange(e) {
+    const card = e.target.closest('.cart-rec-item');
+    const btn = card && card.querySelector('.cart-rec-item__add-btn');
+    if (btn) {
+      btn.dataset.variantId = e.target.value;
+    }
+  }
+
+  function onRecAddBtnClick(e) {
+    e.preventDefault();
+    const btn = e.currentTarget;
+    const variantId = btn.dataset.variantId;
+    if (!variantId || btn.disabled) return;
+
+    const textEl = btn.querySelector('.btn-text') || btn;
+    const originalText = textEl.textContent;
+    btn.disabled = true;
+    textEl.textContent = 'A adicionar...';
+
+    fetch('/cart/add.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: variantId, quantity: 1 })
+    })
+      .then(res => {
+        if (!res.ok) throw new Error('Erro ao adicionar');
+        return res.json();
+      })
+      .then(() => {
+        btn.classList.add('is-added');
+        textEl.textContent = '✓ Adicionado';
+        setTimeout(() => {
+          refreshCartDrawer();
+        }, 350);
+      })
+      .catch(err => {
+        console.error('Erro ao adicionar item:', err);
+        btn.disabled = false;
+        textEl.textContent = originalText;
       });
   }
 
@@ -277,6 +365,9 @@ document.addEventListener('DOMContentLoaded', function () {
         updateQuantity(key, 0);
       });
     });
+
+    // Bind recommendation events
+    bindCartDrawerRecommendations();
   }
 
   // Global event bindings (only run once)

@@ -209,7 +209,7 @@ const TRANSLATIONS = {
   "cart_add": { pt: "Adicionar", en: "Add" },
   "cart_view_prod": { pt: "Ver Produto", en: "View Product" },
   "cart_update": { pt: "Atualizar Carrinho", en: "Update Cart" },
-  "cart_recommendations_title": { pt: "Produtos Sugeridos", en: "Suggested Products" }
+  "cart_recommendations_title": { pt: "Completa o Teu Look", en: "Complete Your Look" }
 };
 
 const DYNAMIC_TRANSLATIONS = {

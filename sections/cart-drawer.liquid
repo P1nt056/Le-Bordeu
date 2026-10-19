@@ -13,10 +13,10 @@
     {% else %}
       <div class="cart-drawer__items">
         {% for item in cart.items %}
-          <div class="cart-drawer-item" data-key="{{ item.key }}">
+          <div class="cart-drawer-item" data-key="{{ item.key }}" data-product-id="{{ item.product_id }}">
             <div class="cart-drawer-item__image">
               <a href="{{ item.url }}">
-                <img src="{{ item.image | img_url: '120x' }}" alt="{{ item.title | escape }}" loading="lazy">
+                <img src="{{ item.image | img_url: '140x' }}" alt="{{ item.title | escape }}" loading="lazy">
               </a>
             </div>
             
@@ -40,37 +40,221 @@
         {% endfor %}
       </div>
 
-      {% assign main_color = '' %}
-      {% for option in cart.items.first.options_with_values %}
-        {% assign downcased_name = option.name | downcase %}
-        {% if downcased_name contains 'color' or downcased_name contains 'cor' %}
-          {% assign main_color = option.value %}
+      {%- comment -%} ==================== COMPLETA O TEU LOOK ==================== {%- endcomment -%}
+      {% assign cart_product_ids = '' %}
+      {% assign cart_has_top = false %}
+      {% assign cart_has_bottom = false %}
+      {% assign cart_has_shoes = false %}
+      {% assign cart_has_watch = false %}
+      {% assign cart_has_accessory = false %}
+      {% assign cart_has_dress = false %}
+      {% assign men_score = 0 %}
+      {% assign women_score = 0 %}
+
+      {% for item in cart.items %}
+        {% assign cart_product_ids = cart_product_ids | append: item.product_id | append: ',' %}
+        {% assign item_text = item.product.title | append: ' ' | append: item.product.type | append: ' ' | append: item.product.tags | downcase %}
+        
+        {% if item_text contains 'homem' or item_text contains 'men' or item_text contains 'masculin' %}
+          {% assign men_score = men_score | plus: 1 %}
+        {% endif %}
+        {% if item_text contains 'mulher' or item_text contains 'women' or item_text contains 'feminin' %}
+          {% assign women_score = women_score | plus: 1 %}
+        {% endif %}
+
+        {% if item_text contains 'jean' or item_text contains 'calca' or item_text contains 'pant' or item_text contains 'denim' or item_text contains 'calcao' or item_text contains 'short' or item_text contains 'trouser' %}
+          {% assign cart_has_bottom = true %}
+        {% endif %}
+
+        {% if item_text contains 'shirt' or item_text contains 'camisa' or item_text contains 'camisola' or item_text contains 'polo' or item_text contains 'casaco' or item_text contains 'sweater' or item_text contains 'hoodie' or item_text contains 'blazer' or item_text contains 't-shirt' or item_text contains 'tshirt' or item_text contains 'jacket' or item_text contains 'cardigan' or item_text contains 'malha' %}
+          {% assign cart_has_top = true %}
+        {% endif %}
+
+        {% if item_text contains 'sapato' or item_text contains 'calcado' or item_text contains 'sapatilha' or item_text contains 'sneaker' or item_text contains 'shoe' or item_text contains 'boot' or item_text contains 'bota' %}
+          {% assign cart_has_shoes = true %}
+        {% endif %}
+
+        {% if item_text contains 'relogio' or item_text contains 'watch' %}
+          {% assign cart_has_watch = true %}
+        {% endif %}
+
+        {% if item_text contains 'chapeu' or item_text contains 'gorro' or item_text contains 'cinto' or item_text contains 'oculos' or item_text contains 'carteira' or item_text contains 'mala' or item_text contains 'bag' or item_text contains 'hat' or item_text contains 'belt' or item_text contains 'bijuteria' or item_text contains 'anel' or item_text contains 'colar' or item_text contains 'pulseira' %}
+          {% assign cart_has_accessory = true %}
+        {% endif %}
+
+        {% if item_text contains 'vestido' or item_text contains 'dress' %}
+          {% assign cart_has_dress = true %}
         {% endif %}
       {% endfor %}
 
-      <div class="cart-drawer__recommendations" data-product-id="{{ cart.items.first.product_id }}" data-color="{{ main_color | escape }}" data-type="{{ cart.items.first.product.type | escape }}" data-tags="{{ cart.items.first.product.tags | join: ',' | escape }}">
-        <h3 class="cart-drawer__recommendations-title" data-i18n="cart_recommendations_title">Produtos Sugeridos</h3>
-        <div class="cart-drawer__recommendations-list">
-          <!-- Recommended items will be injected here via JS -->
-        </div>
-      </div>
+      {% assign cart_gender = 'neutral' %}
+      {% if men_score > women_score %}
+        {% assign cart_gender = 'homem' %}
+      {% elsif women_score > men_score %}
+        {% assign cart_gender = 'mulher' %}
+      {% endif %}
 
-      <div class="cart-drawer__footer">
-        <div class="cart-drawer__subtotal">
-          <span data-i18n="cart_subtotal">Subtotal</span>
-          <span>{{ cart.total_price | money }}</span>
+      <div class="cart-drawer__recommendations" 
+           data-cart-product-ids="{{ cart_product_ids }}"
+           data-has-top="{{ cart_has_top }}"
+           data-has-bottom="{{ cart_has_bottom }}"
+           data-has-shoes="{{ cart_has_shoes }}"
+           data-has-watch="{{ cart_has_watch }}"
+           data-has-accessory="{{ cart_has_accessory }}"
+           data-has-dress="{{ cart_has_dress }}"
+           data-gender="{{ cart_gender }}">
+        
+        <div class="cart-drawer__recommendations-header">
+          <h3 class="cart-drawer__recommendations-title" data-i18n="cart_recommendations_title">Completa o Teu Look</h3>
+          <p class="cart-drawer__recommendations-subtitle">Sugestões selecionadas para combinar com o teu carrinho</p>
         </div>
-        {% assign free_shipping_threshold = 8999 %}
-        {% if cart.total_price >= free_shipping_threshold %}
-          <p class="cart-free-shipping cart-free-shipping--drawer">Envio gratuito aplicado nesta encomenda.</p>
-        {% else %}
-          {% assign amount_to_free_shipping = free_shipping_threshold | minus: cart.total_price %}
-          <p class="cart-free-shipping cart-free-shipping--drawer">Faltam {{ amount_to_free_shipping | money }} para teres envio gratuito.</p>
-        {% endif %}
-        <p class="cart-drawer__tax-note" data-i18n="cart_tax">Impostos e portes calculados na finalização da compra.</p>
-        <a href="/checkout" class="btn btn--primary cart-drawer__checkout" data-i18n="cart_checkout">Finalizar Compra</a>
-        <a href="/cart" class="btn btn--secondary cart-drawer__view-cart" data-i18n="cart_view">Ver Carrinho</a>
+
+        <div class="cart-drawer__recommendations-list">
+          {% assign rec_picked_top = false %}
+          {% assign rec_picked_bottom = false %}
+          {% assign rec_picked_shoes = false %}
+          {% assign rec_picked_watch = false %}
+          {% assign rec_picked_accessory = false %}
+          {% assign rec_count = 0 %}
+
+          {% for p in collections['all'].products %}
+            {% if rec_count >= 3 %}
+              {% break %}
+            {% endif %}
+
+            {% assign p_id_str = p.id | append: ',' %}
+            {% if cart_product_ids contains p_id_str or p.available == false %}
+              {% continue %}
+            {% endif %}
+
+            {% assign p_text = p.title | append: ' ' | append: p.type | append: ' ' | append: p.tags | downcase %}
+            
+            {%- comment -%} Check gender compatibility {%- endcomment -%}
+            {% assign skip_gender = false %}
+            {% if cart_gender == 'homem' %}
+              {% if p_text contains 'mulher' or p_text contains 'women' or p_text contains 'vestido' or p_text contains 'dress' %}
+                {% assign skip_gender = true %}
+              {% endif %}
+            {% elsif cart_gender == 'mulher' %}
+              {% if p_text contains 'homem' or p_text contains 'men ' or p_text contains 'masculin' %}
+                {% assign skip_gender = true %}
+              {% endif %}
+            {% endif %}
+
+            {% if skip_gender %}
+              {% continue %}
+            {% endif %}
+
+            {%- comment -%} Classify product into pillar {%- endcomment -%}
+            {% assign p_is_top = false %}
+            {% assign p_is_bottom = false %}
+            {% assign p_is_shoes = false %}
+            {% assign p_is_watch = false %}
+            {% assign p_is_accessory = false %}
+            {% assign p_badge = '' %}
+
+            {% if p_text contains 'jean' or p_text contains 'calca' or p_text contains 'pant' or p_text contains 'denim' or p_text contains 'calcao' or p_text contains 'short' or p_text contains 'trouser' %}
+              {% assign p_is_bottom = true %}
+              {% assign p_badge = 'Calças & Jeans' %}
+            {% elsif p_text contains 'shirt' or p_text contains 'camisa' or p_text contains 'camisola' or p_text contains 'polo' or p_text contains 'casaco' or p_text contains 'sweater' or p_text contains 'hoodie' or p_text contains 'blazer' or p_text contains 't-shirt' or p_text contains 'tshirt' or p_text contains 'jacket' or p_text contains 'cardigan' or p_text contains 'malha' %}
+              {% assign p_is_top = true %}
+              {% assign p_badge = 'Parte de Cima' %}
+            {% elsif p_text contains 'sapato' or p_text contains 'calcado' or p_text contains 'sapatilha' or p_text contains 'sneaker' or p_text contains 'shoe' or p_text contains 'boot' or p_text contains 'bota' %}
+              {% assign p_is_shoes = true %}
+              {% assign p_badge = 'Calçado' %}
+            {% elsif p_text contains 'relogio' or p_text contains 'watch' %}
+              {% assign p_is_watch = true %}
+              {% assign p_badge = 'Relógio' %}
+            {% elsif p_text contains 'chapeu' or p_text contains 'gorro' or p_text contains 'cinto' or p_text contains 'oculos' or p_text contains 'carteira' or p_text contains 'mala' or p_text contains 'bag' or p_text contains 'hat' or p_text contains 'belt' or p_text contains 'bijuteria' or p_text contains 'anel' or p_text contains 'colar' or p_text contains 'pulseira' or p_text contains 'estojo' %}
+              {% assign p_is_accessory = true %}
+              {% assign p_badge = 'Acessórios' %}
+            {% endif %}
+
+            {%- comment -%} Pick complementary product {%- endcomment -%}
+            {% assign should_pick = false %}
+
+            {% if p_is_top and cart_has_top == false and rec_picked_top == false %}
+              {% assign should_pick = true %}
+              {% assign rec_picked_top = true %}
+            {% elsif p_is_bottom and cart_has_bottom == false and rec_picked_bottom == false %}
+              {% assign should_pick = true %}
+              {% assign rec_picked_bottom = true %}
+            {% elsif p_is_shoes and cart_has_shoes == false and rec_picked_shoes == false %}
+              {% assign should_pick = true %}
+              {% assign rec_picked_shoes = true %}
+            {% elsif p_is_watch and cart_has_watch == false and rec_picked_watch == false %}
+              {% assign should_pick = true %}
+              {% assign rec_picked_watch = true %}
+            {% elsif p_is_accessory and cart_has_accessory == false and rec_picked_accessory == false %}
+              {% assign should_pick = true %}
+              {% assign rec_picked_accessory = true %}
+            {% endif %}
+
+            {% if should_pick %}
+              {% assign rec_count = rec_count | plus: 1 %}
+              <div class="cart-rec-item" data-product-id="{{ p.id }}">
+                <a href="{{ p.url }}" class="cart-rec-item__image-link">
+                  <img src="{{ p.featured_image | img_url: '220x' }}" alt="{{ p.title | escape }}" loading="lazy">
+                </a>
+                <div class="cart-rec-item__info">
+                  {% if p_badge != '' %}
+                    <span class="cart-rec-item__badge">{{ p_badge }}</span>
+                  {% endif %}
+                  <a href="{{ p.url }}" class="cart-rec-item__title" title="{{ p.title | escape }}">{{ p.title }}</a>
+                  <div class="cart-rec-item__pricing">
+                    <span class="cart-rec-item__price">{{ p.price | money }}</span>
+                    {% if p.compare_at_price > p.price %}
+                      <span class="cart-rec-item__compare">{{ p.compare_at_price | money }}</span>
+                    {% endif %}
+                  </div>
+
+                  {% if p.variants.size > 1 %}
+                    <div class="cart-rec-item__option">
+                      <select class="cart-rec-item__select" aria-label="Opções para {{ p.title | escape }}">
+                        {% for variant in p.variants %}
+                          <option value="{{ variant.id }}" {% if variant.available == false %}disabled{% endif %}>
+                            {{ variant.title }}{% if variant.available == false %} - (Esgotado){% endif %}
+                          </option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                  {% endif %}
+
+                  <button type="button" 
+                          class="cart-rec-item__add-btn" 
+                          data-variant-id="{{ p.selected_or_first_available_variant.id }}"
+                          {% unless p.available %}disabled{% endunless %}>
+                    {% if p.available %}
+                      <span class="btn-text">+ Adicionar</span>
+                    {% else %}
+                      <span class="btn-text">Esgotado</span>
+                    {% endif %}
+                  </button>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
       </div>
     {% endif %}
   </div>
+
+  {% if cart.item_count > 0 %}
+    <div class="cart-drawer__footer">
+      <div class="cart-drawer__subtotal">
+        <span data-i18n="cart_subtotal">Subtotal</span>
+        <span>{{ cart.total_price | money }}</span>
+      </div>
+      {% assign free_shipping_threshold = 8999 %}
+      {% if cart.total_price >= free_shipping_threshold %}
+        <p class="cart-free-shipping cart-free-shipping--drawer">Envio gratuito aplicado nesta encomenda.</p>
+      {% else %}
+        {% assign amount_to_free_shipping = free_shipping_threshold | minus: cart.total_price %}
+        <p class="cart-free-shipping cart-free-shipping--drawer">Faltam {{ amount_to_free_shipping | money }} para teres envio gratuito.</p>
+      {% endif %}
+      <p class="cart-drawer__tax-note" data-i18n="cart_tax">Impostos e portes calculados na finalização da compra.</p>
+      <a href="/checkout" class="btn btn--primary cart-drawer__checkout" data-i18n="cart_checkout">Finalizar Compra</a>
+      <a href="/cart" class="btn btn--secondary cart-drawer__view-cart" data-i18n="cart_view">Ver Carrinho</a>
+    </div>
+  {% endif %}
 </div>

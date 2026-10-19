@@ -282,67 +282,6 @@ document.addEventListener('DOMContentLoaded',()=>{
         return -1;
       }
 
-      function findBestVariantForImage(imageId, slideIndex) {
-        const targetImageId = imageId ? String(imageId) : null;
-        const selectedOptions = getSelectedOptions();
-
-        // 1. First check if any variant has this exact image ID
-        if (targetImageId) {
-          const directMatch = product.variants.find(variant => String(getVariantImageId(variant)) === targetImageId);
-          if (directMatch) return directMatch;
-        }
-
-        // 2. Check if slide has data-variant-ids
-        const slides = window.LeBordeuProductGallery && window.LeBordeuProductGallery.getSlides ? window.LeBordeuProductGallery.getSlides() : Array.from(document.querySelectorAll('.product-gallery-splide .splide__slide'));
-        let targetSlide = null;
-        if (typeof slideIndex === 'number' && slides[slideIndex]) {
-          targetSlide = slides[slideIndex];
-        } else if (targetImageId) {
-          targetSlide = slides.find(s => s.dataset.imageId === targetImageId);
-        }
-
-        if (targetSlide) {
-          const variantIds = (targetSlide.dataset.variantIds || '').split(',').map(x => x.trim()).filter(Boolean);
-          if (variantIds.length > 0) {
-            const variantMatch = product.variants.find(v => variantIds.includes(String(v.id)));
-            if (variantMatch) return variantMatch;
-          }
-
-          // 3. Match slide text/color to variant
-          const slideText = cleanText([
-            targetSlide.dataset.imageAlt,
-            targetSlide.dataset.imageFilename,
-            targetSlide.dataset.imageSrc
-          ].filter(Boolean).join(' '));
-
-          for (const variant of product.variants) {
-            const vText = cleanText([variant.title, variant.option1, variant.option2, variant.option3].filter(Boolean).join(' '));
-            const matchedColors = COLOR_KEYWORD_GROUPS.filter(g => g.words.some(w => vText.includes(w)));
-            const slideHasColor = matchedColors.some(g => g.words.some(w => slideText.includes(w)));
-            if (slideHasColor) {
-              return variant;
-            }
-          }
-        }
-
-        // 4. Fallback: if slideIndex matches variant index
-        if (typeof slideIndex === 'number' && product.variants && product.variants[slideIndex]) {
-          return product.variants[slideIndex];
-        }
-
-        return null;
-      }
-
-      function selectVariantOptions(variant) {
-        optionSelectors.forEach(select => {
-          const optionValue = variant[select.dataset.index];
-
-          if (optionValue) {
-            select.value = optionValue;
-          }
-        });
-      }
-
       function updateVariant(options = {}) {
         const syncGallery = options.syncGallery !== false;
         // Get selected options
@@ -419,18 +358,6 @@ document.addEventListener('DOMContentLoaded',()=>{
       // Add listeners
       optionSelectors.forEach(select => {
         select.addEventListener('change', updateVariant);
-      });
-
-      window.addEventListener('leBordeu:galleryImageChange', (event) => {
-        const matchedVariant = findBestVariantForImage(
-          event.detail && event.detail.imageId,
-          event.detail && event.detail.slideIndex
-        );
-
-        if (matchedVariant) {
-          selectVariantOptions(matchedVariant);
-          updateVariant({ syncGallery: false });
-        }
       });
 
       // Initialize status on load
