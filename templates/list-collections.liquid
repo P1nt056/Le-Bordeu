@@ -1,20 +1,20 @@
 <div class="collections-list-page container">
-  <h1 class="section-title" id="collectionsTitle" data-i18n="list_title">As Nossas Coleções</h1>
+  <h1 class="section-title" id="collectionsTitle" data-i18n="list_title">{% if request.locale.iso_code == 'en' %}Our Catalog{% else %}O Nosso Catálogo{% endif %}</h1>
   
   <!-- Ecrã de Seleção Inicial de Género -->
   <div class="collections-gender-selector" id="collectionsGenderSelector">
     <div class="gender-card gender-card--men" id="selectMen">
       <div class="gender-card__bg" style="background-image: url('https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?q=80&w=1200&auto=format&fit=crop');"></div>
       <div class="gender-card__content">
-        <h2 data-i18n="flt_Homem">Homem</h2>
-        <span class="btn btn--primary" data-i18n="list_explore">Explorar Coleções</span>
+        <h2 data-i18n="flt_Homem">{% if request.locale.iso_code == 'en' %}Men{% else %}Homem{% endif %}</h2>
+        <span class="btn btn--primary" data-i18n="list_explore">{% if request.locale.iso_code == 'en' %}Explore Catalog{% else %}Explorar Catálogo{% endif %}</span>
       </div>
     </div>
     <div class="gender-card gender-card--women" id="selectWomen">
       <div class="gender-card__bg" style="background-image: url('https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?q=80&w=1200&auto=format&fit=crop');"></div>
       <div class="gender-card__content">
-        <h2 data-i18n="flt_Mulher">Mulher</h2>
-        <span class="btn btn--primary" data-i18n="list_explore">Explorar Coleções</span>
+        <h2 data-i18n="flt_Mulher">{% if request.locale.iso_code == 'en' %}Women{% else %}Mulher{% endif %}</h2>
+        <span class="btn btn--primary" data-i18n="list_explore">{% if request.locale.iso_code == 'en' %}Explore Catalog{% else %}Explorar Catálogo{% endif %}</span>
       </div>
     </div>
   </div>
@@ -24,12 +24,12 @@
     <div class="collections-filter-nav">
       <button class="btn btn--secondary btn--back" id="backToGenderSelector">
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px; vertical-align: middle;"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-        <span data-i18n="list_change">Mudar Género</span>
+        <span data-i18n="list_change">{% if request.locale.iso_code == 'en' %}Change Gender{% else %}Mudar Género{% endif %}</span>
       </button>
       
       <div class="gender-tabs">
-        <button class="gender-tab" data-gender="homem" data-i18n="flt_Homem">Homem</button>
-        <button class="gender-tab" data-gender="mulher" data-i18n="flt_Mulher">Mulher</button>
+        <button class="gender-tab" data-gender="homem" data-i18n="flt_Homem">{% if request.locale.iso_code == 'en' %}Men{% else %}Homem{% endif %}</button>
+        <button class="gender-tab" data-gender="mulher" data-i18n="flt_Mulher">{% if request.locale.iso_code == 'en' %}Women{% else %}Mulher{% endif %}</button>
       </div>
     </div>
 
@@ -80,6 +80,24 @@
 
           {% assign has_homem = false %}
           {% assign has_mulher = false %}
+          {% assign handle_size = collection.handle | size %}
+          {% if handle_size >= 2 %}
+            {% assign handle_suffix_index = handle_size | minus: 2 %}
+            {% assign handle_suffix = collection.handle | slice: handle_suffix_index, 2 %}
+            {% if handle_suffix == '-m' %}
+              {% assign has_homem = true %}
+              {% assign collection_prefix_gender = 'homem' %}
+            {% elsif handle_suffix == '-f' %}
+              {% assign has_mulher = true %}
+              {% assign collection_prefix_gender = 'mulher' %}
+            {% endif %}
+          {% endif %}
+          {% assign title_lower = collection.title | downcase %}
+          {% if title_lower contains "men's" or title_lower contains "men " or title_lower contains "man " %}
+            {% assign has_homem = true %}
+          {% elsif title_lower contains "women's" or title_lower contains "women " or title_lower contains "woman " %}
+            {% assign has_mulher = true %}
+          {% endif %}
           
           {% for tag in collection.all_tags %}
             {% assign tag_downcase = tag | downcase %}

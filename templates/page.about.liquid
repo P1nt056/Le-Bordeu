@@ -6,8 +6,10 @@
       <p class="about-simple__lead" data-i18n="about_lead_1">Mais do que moda, a Le Bordeu &eacute; uma sele&ccedil;&atilde;o de pe&ccedil;as pensadas para dar presen&ccedil;a, eleg&acirc;ncia e confian&ccedil;a ao teu dia a dia.</p>
       <p data-i18n="about_p_1">Escolhemos cada produto com aten&ccedil;&atilde;o ao detalhe, ao conforto e ao impacto visual. A nossa ideia &eacute; simples: facilitar a descoberta de pe&ccedil;as bonitas, vers&aacute;teis e com acabamento cuidado.</p>
       <div class="about-simple__actions">
-        <a href="/collections" class="btn btn--primary" data-i18n="about_btn_collections">Ver cole&ccedil;&otilde;es</a>
-        <a href="/collections/all" class="btn btn--secondary" data-i18n="about_btn_products">Ver produtos</a>
+        {% assign about_root = routes.root_url %}
+        {% if about_root == '/' %}{% assign about_root = '' %}{% endif %}
+        <a href="{{ about_root }}/collections" class="btn btn--primary" data-i18n="about_btn_collections">Ver cole&ccedil;&otilde;es</a>
+        <a href="{{ about_root }}/collections/all" class="btn btn--secondary" data-i18n="about_btn_products">Ver produtos</a>
       </div>
     </div>
 

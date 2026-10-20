@@ -2,9 +2,26 @@ const TRANSLATIONS = {
   // Header
   "nav_home": { pt: "Início", en: "Home" },
   "nav_new": { pt: "Novidades", en: "New Arrivals" },
-  "nav_collections": { pt: "Coleções", en: "Collections" },
+  "nav_collections": { pt: "Catálogo", en: "Catalog" },
   "nav_all": { pt: "Ver Tudo", en: "View All" },
   "nav_sale": { pt: "Promoções", en: "Sale" },
+  "menu_view_all_men": { pt: "Ver Tudo Homem →", en: "View All Men →" },
+  "menu_view_all_women": { pt: "Ver Tudo Mulher →", en: "View All Women →" },
+  "menu_col_acessorios-m": { pt: "Acessórios", en: "Accessories" },
+  "menu_col_calcas-m": { pt: "Calças", en: "Pants" },
+  "menu_col_casaco-masculino": { pt: "Casacos", en: "Coats & Jackets" },
+  "menu_col_top-m": { pt: "Polos & T-shirts", en: "Polos & T-Shirts" },
+  "menu_col_relogios-m": { pt: "Relógios", en: "Watches" },
+  "menu_col_sapatilhas-h": { pt: "Calçado", en: "Footwear" },
+  "menu_col_sweats-masculinas": { pt: "Sweaters & Hoodies", en: "Sweaters & Hoodies" },
+  "menu_col_acessorios-f": { pt: "Acessórios", en: "Accessories" },
+  "menu_col_calcas-femininas": { pt: "Calças", en: "Pants" },
+  "menu_col_camisolas-femininas": { pt: "Camisolas", en: "Sweaters & Knits" },
+  "menu_col_casacos-femininos": { pt: "Casacos", en: "Coats" },
+  "menu_col_joias-f": { pt: "Joias & Bijuteria", en: "Jewelry" },
+  "menu_col_malas": { pt: "Malas", en: "Bags" },
+  "menu_col_relogios-f": { pt: "Relógios", en: "Watches" },
+  "menu_col_vestidos-f": { pt: "Vestidos", en: "Dresses" },
 
   // Hero
   "hero_eyebrow": { pt: "Nova Coleção 2026", en: "New Collection 2026" },
@@ -21,8 +38,8 @@ const TRANSLATIONS = {
   "col_empty": { pt: "Esta coleção não contém produtos de momento.", en: "This collection contains no products at the moment." },
   "col_home": { pt: "Voltar ao Início", en: "Return to Home" },
   "col_latest": { pt: "Os 12 produtos mais recentes da loja", en: "The 12 latest products" },
-  "col_back_men": { pt: "Voltar \u00e0s cole\u00e7\u00f5es de Homem", en: "Back to Men's Collections" },
-  "col_back_women": { pt: "Voltar \u00e0s cole\u00e7\u00f5es de Mulher", en: "Back to Women's Collections" },
+  "col_back_men": { pt: "Voltar ao catálogo de Homem", en: "Back to Men's Catalog" },
+  "col_back_women": { pt: "Voltar ao catálogo de Mulher", en: "Back to Women's Catalog" },
   "col_found": { pt: " produtos encontrados", en: " products found" },
   "col_filters": { pt: "Filtros", en: "Filters" },
   "col_clear": { pt: "Limpar filtros", en: "Clear filters" },
@@ -50,7 +67,10 @@ const TRANSLATIONS = {
   "prod_details_spec": { pt: "Especificações", en: "Specifications" },
   "prod_details_full": { pt: "Características completas", en: "Full features" },
   "opt_color": { pt: "COR", en: "COLOR" },
+  "opt_colour": { pt: "COR", en: "COLOR" },
+  "opt_cor": { pt: "COR", en: "COLOR" },
   "opt_size": { pt: "TAMANHO", en: "SIZE" },
+  "opt_tamanho": { pt: "TAMANHO", en: "SIZE" },
   "prod_recommended": { pt: "Produtos recomendados", en: "Recommended Products" },
 
   // Custom Filters Labels
@@ -77,10 +97,10 @@ const TRANSLATIONS = {
   "pagi_next": { pt: "Próximo »", en: "Next »" },
 
   // List Collections
-  "list_title": { pt: "As Nossas Coleções", en: "Our Collections" },
-  "list_title_men": { pt: "Coleções de Homem", en: "Men's Collections" },
-  "list_title_women": { pt: "Coleções de Mulher", en: "Women's Collections" },
-  "list_explore": { pt: "Explorar Coleções", en: "Explore Collections" },
+  "list_title": { pt: "O Nosso Catálogo", en: "Our Catalog" },
+  "list_title_men": { pt: "Catálogo de Homem", en: "Men's Catalog" },
+  "list_title_women": { pt: "Catálogo de Mulher", en: "Women's Catalog" },
+  "list_explore": { pt: "Explorar Catálogo", en: "Explore Catalog" },
   "list_change": { pt: "Mudar Género", en: "Change Gender" },
   "list_view": { pt: " produtos)", en: " products)" },
   "list_view_prefix": { pt: "Ver Coleção (", en: "View Collection (" },
@@ -258,6 +278,10 @@ const DYNAMIC_TRANSLATIONS = {
   // Size Guide Headers
   "SIZE": { pt: "TAMANHO", en: "SIZE" },
   "Size": { pt: "Tamanho", en: "Size" },
+  "TAMANHO": { pt: "TAMANHO", en: "SIZE" },
+  "Tamanho": { pt: "Tamanho", en: "Size" },
+  "COR": { pt: "COR", en: "COLOR" },
+  "Cor": { pt: "Cor", en: "Color" },
   "US Size": { pt: "Tamanho US", en: "US Size" },
   "Inner length": { pt: "Comprimento interior", en: "Inner length" },
   "BUST": { pt: "BUSTO", en: "BUST" },
@@ -1516,6 +1540,7 @@ const DYNAMIC_TRANSLATIONS = {
   "Combinando um decote em \"V\" profundo e elegante com alças finas de estilo camisole, este modelo destaca-se pela sua saia de corte irregular, que confere um movimento moderno e arrojado à peça. É a escolha ideal para jantares especiais, festas ou eventos onde queres ser o centro das atenções.": { pt: "Combinando um decote em \"V\" profundo e elegante com alças finas de estilo camisole, este modelo destaca-se pela sua saia de corte irregular, que confere um movimento moderno e arrojado à peça. É a escolha ideal para jantares especiais, festas ou eventos onde queres ser o centro das atenções.", en: "Combining a deep and elegant \"V\" neckline with thin camisole-style straps, this model stands out for its irregular cut skirt, which gives a modern and bold movement to the piece. It is the ideal choice for special dinners, parties or events where you want to be the center of attention." },
   "Product selling point：": { pt: "Ponto de venda do produto:", en: "Product selling point：" },
   "Size (CM)": { pt: "Tamanho (CM)", en: "Size (CM)" },
+  "Size": { pt: "Tamanho", en: "Size" },
   "108": { pt: "108", en: "108" },
   "Pattern：Solid": { pt: "Padrão: Sólido", en: "Pattern：Solid" },
   "Size(cm)": { pt: "Tamanho (cm)", en: "Size(cm)" },
@@ -1845,7 +1870,8 @@ const DYNAMIC_TRANSLATIONS = {
   "17.5": { pt: "17,5", en: "17.5" },
 };
 
-let currentLang = localStorage.getItem('site_lang') || 'pt';
+const isEnPath = window.location.pathname === '/en' || window.location.pathname.startsWith('/en/');
+let currentLang = isEnPath ? 'en' : 'pt';
 window.currentLang = currentLang;
 
 function applyTranslations() {
@@ -1855,7 +1881,6 @@ function applyTranslations() {
     ...document.querySelectorAll('.size-guide-modal__body th'),
     document.querySelector('.product-description'),
     document.querySelector('.product-description-card__content > table'),
-    ...document.querySelectorAll('.product-story__content'),
     ...document.querySelectorAll('.cart-drawer-item__variant'),
     ...document.querySelectorAll('.cart-rec-item__option-select option')
   ].filter(Boolean);
@@ -2339,22 +2364,31 @@ function applyTranslations() {
 }
 
 function toggleLanguage() {
-  currentLang = currentLang === 'pt' ? 'en' : 'pt';
-  window.currentLang = currentLang;
-  localStorage.setItem('site_lang', currentLang);
+  const isEn = window.location.pathname === '/en' || window.location.pathname.startsWith('/en/');
+  const targetLang = isEn ? 'pt' : 'en';
+  localStorage.setItem('site_lang', targetLang);
 
-  // Update toggle button text
-  const toggleBtn = document.getElementById('lang-toggle-btn');
-  if (toggleBtn) {
-    const ptFlag = '<img src="https://flagcdn.com/w20/pt.png" width="16" height="12" style="vertical-align: middle; margin-right: 4px; border-radius: 2px; display: inline-block; position: relative; top: -2px;" alt="PT">';
-    const enFlag = '<img src="https://flagcdn.com/w20/gb.png" width="16" height="12" style="vertical-align: middle; margin-right: 4px; border-radius: 2px; display: inline-block; position: relative; top: -2px;" alt="EN">';
-    toggleBtn.innerHTML = currentLang === 'pt' ? ptFlag + ' PT' : enFlag + ' EN';
+  let targetPath;
+  if (targetLang === 'en') {
+    if (window.location.pathname === '/') {
+      targetPath = '/en';
+    } else {
+      targetPath = '/en' + window.location.pathname;
+    }
+  } else {
+    targetPath = window.location.pathname.replace(/^\/en(\/|$)/, '/');
+    if (!targetPath) targetPath = '/';
   }
 
-  applyTranslations();
+  const targetUrl = targetPath + window.location.search + window.location.hash;
+  window.location.href = targetUrl;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  const isEn = window.location.pathname === '/en' || window.location.pathname.startsWith('/en/');
+  currentLang = isEn ? 'en' : 'pt';
+  window.currentLang = currentLang;
+
   // Set initial button state
   const toggleBtn = document.getElementById('lang-toggle-btn');
   if (toggleBtn) {

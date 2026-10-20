@@ -59,6 +59,24 @@
   {% endif %}
   {% assign has_homem = false %}
   {% assign has_mulher = false %}
+  {% assign handle_size = collection.handle | size %}
+  {% if handle_size >= 2 %}
+    {% assign handle_suffix_index = handle_size | minus: 2 %}
+    {% assign handle_suffix = collection.handle | slice: handle_suffix_index, 2 %}
+    {% if handle_suffix == '-m' %}
+      {% assign has_homem = true %}
+      {% assign collection_prefix_gender = 'homem' %}
+    {% elsif handle_suffix == '-f' %}
+      {% assign has_mulher = true %}
+      {% assign collection_prefix_gender = 'mulher' %}
+    {% endif %}
+  {% endif %}
+  {% assign title_lower = collection.title | downcase %}
+  {% if title_lower contains "men's" or title_lower contains "men " or title_lower contains "man " %}
+    {% assign has_homem = true %}
+  {% elsif title_lower contains "women's" or title_lower contains "women " or title_lower contains "woman " %}
+    {% assign has_mulher = true %}
+  {% endif %}
   {% for tag in collection.all_tags %}
     {% assign tag_downcase = tag | downcase %}
     {% if tag_downcase == 'homem' or tag_downcase == 'men' or tag_downcase == 'man' or tag_downcase == 'masculino' %}
@@ -91,15 +109,17 @@
   {% if collection_gender == 'homem' or collection_gender == 'mulher' %}
     {% unless collection.handle == 'all' or is_new_arrivals or is_sale %}
       <div class="collection-back-nav">
-        <a href="/collections?gender={{ collection_gender }}" class="btn btn--secondary btn--back collection-back-nav__link">
+        {% assign col_root_path = routes.root_url %}
+        {% if col_root_path == '/' %}{% assign col_root_path = '' %}{% endif %}
+        <a href="{{ col_root_path }}/collections?gender={{ collection_gender }}" class="btn btn--secondary btn--back collection-back-nav__link">
           <svg aria-hidden="true" focusable="false" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="19" y1="12" x2="5" y2="12"></line>
             <polyline points="12 19 5 12 12 5"></polyline>
           </svg>
           {% if collection_gender == 'homem' %}
-            <span data-i18n="col_back_men">Voltar &agrave;s cole&ccedil;&otilde;es de Homem</span>
+            <span data-i18n="col_back_men">{% if request.locale.iso_code == 'en' %}Back to Men's Catalog{% else %}Voltar ao catálogo de Homem{% endif %}</span>
           {% else %}
-            <span data-i18n="col_back_women">Voltar &agrave;s cole&ccedil;&otilde;es de Mulher</span>
+            <span data-i18n="col_back_women">{% if request.locale.iso_code == 'en' %}Back to Women's Catalog{% else %}Voltar ao catálogo de Mulher{% endif %}</span>
           {% endif %}
         </a>
       </div>

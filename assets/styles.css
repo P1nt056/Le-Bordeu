@@ -208,6 +208,202 @@ h6,
   width: 100%;
 }
 
+/* Catalog Mega Menu */
+.has-mega-menu {
+  position: relative;
+}
+
+.nav-catalog-wrapper {
+  display: inline-flex;
+  align-items: center;
+}
+
+.nav-catalog-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-catalog-link .dropdown-chevron {
+  transition: transform 0.25s ease;
+  opacity: 0.65;
+}
+
+.has-mega-menu:hover .nav-catalog-link .dropdown-chevron {
+  transform: rotate(180deg);
+  opacity: 1;
+  color: var(--color-gold);
+}
+
+.dropdown-chevron-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text-cream);
+  padding: 6px 8px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s, transform 0.25s ease;
+}
+
+.dropdown-chevron-btn.is-active svg {
+  transform: rotate(180deg);
+  color: var(--color-gold);
+}
+
+/* Hover bridge so cursor doesn't drop between menu and toggle */
+.has-mega-menu::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: -20px;
+  right: -20px;
+  height: 24px;
+  display: block;
+  z-index: 199;
+}
+
+.mega-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  width: 500px;
+  background: rgba(12, 12, 12, 0.98);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(197, 168, 128, 0.22);
+  border-radius: 4px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 1px rgba(197, 168, 128, 0.35);
+  padding: 26px 30px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s;
+  z-index: 200;
+}
+
+.has-mega-menu:hover .mega-menu,
+.has-mega-menu:focus-within .mega-menu {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+.mega-menu a::after {
+  display: none !important;
+}
+
+.mega-menu__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  position: relative;
+}
+
+.mega-menu__inner::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 50%;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(197, 168, 128, 0.2), transparent);
+}
+
+.mega-menu__col {
+  display: flex;
+  flex-direction: column;
+}
+
+.mega-menu__heading {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0 10px 0 !important;
+  border-bottom: 1px solid rgba(197, 168, 128, 0.25);
+  margin-bottom: 12px;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.16em !important;
+  text-transform: uppercase !important;
+  color: var(--color-gold) !important;
+  opacity: 1 !important;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.mega-menu__heading svg {
+  transition: transform 0.2s ease;
+  color: var(--color-gold);
+}
+
+.mega-menu__heading:hover {
+  color: #ffffff !important;
+}
+
+.mega-menu__heading:hover svg {
+  transform: translateX(4px);
+  color: #ffffff;
+}
+
+.mega-menu__sublist {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2px !important;
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.mega-menu__sublist li {
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.mega-menu__sublist a {
+  display: block !important;
+  padding: 6px 0 !important;
+  font-size: 12.5px !important;
+  letter-spacing: 0.06em !important;
+  text-transform: none !important;
+  color: rgba(240, 240, 235, 0.72) !important;
+  opacity: 0.85 !important;
+  transition: all 0.2s ease !important;
+}
+
+.mega-menu__sublist a:hover {
+  color: #ffffff !important;
+  opacity: 1 !important;
+  padding-left: 6px !important;
+}
+
+.mega-menu__all-item {
+  margin-top: 10px !important;
+  padding-top: 10px !important;
+  border-top: 1px dashed rgba(255, 255, 255, 0.1) !important;
+}
+
+.mega-menu__sublist a.mega-menu__view-all {
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.14em !important;
+  text-transform: uppercase !important;
+  color: var(--color-gold) !important;
+  opacity: 0.95 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  transition: all 0.2s ease !important;
+}
+
+.mega-menu__sublist a.mega-menu__view-all:hover {
+  color: #ffffff !important;
+  opacity: 1 !important;
+  padding-left: 6px !important;
+}
+
 .header-icons {
   display: flex;
   gap: 20px;
@@ -1871,6 +2067,63 @@ h6,
   .main-nav a::after {
     display: none;
   }
+
+  .nav-catalog-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .nav-catalog-wrapper .dropdown-chevron {
+    display: none;
+  }
+
+  .dropdown-chevron-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+  }
+
+  .has-mega-menu::after {
+    display: none !important;
+  }
+
+  .mega-menu {
+    position: static !important;
+    transform: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    background: rgba(255, 255, 255, 0.02) !important;
+    border: none !important;
+    border-left: 2px solid var(--color-gold) !important;
+    box-shadow: none !important;
+    padding: 10px 0 16px 14px !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    display: none;
+    transition: none !important;
+  }
+
+  .has-mega-menu.is-open .mega-menu {
+    display: block;
+  }
+
+  .mega-menu__inner {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+
+  .mega-menu__inner::after {
+    display: none !important;
+  }
+
+  .mega-menu__sublist a {
+    padding: 8px 0 !important;
+    font-size: 13px !important;
+  }
 }
 
 /* Splide Carousels Styling overrides */
@@ -2520,7 +2773,7 @@ h6,
 .product-description-card {
   margin-top: 0;
   display: grid;
-  grid-template-columns: minmax(500px, 1fr) minmax(500px, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   align-items: stretch;
   padding: 0;
   border: 1px solid var(--border-color);
@@ -2564,32 +2817,37 @@ h6,
 }
 
 .product-description-card .product-description {
-  display: grid;
-  align-content: stretch;
+  display: flex;
+  flex-direction: column;
   flex: 1;
   margin-bottom: 0;
+  color: rgba(245, 242, 235, 0.88);
+  font-size: 15px;
+  line-height: 1.7;
 }
 
 .product-description-card .product-description>* {
-  margin-bottom: 18px !important;
+  margin-bottom: 14px !important;
 }
 
 .product-description-card .product-description img,
-.product-description-card .product-description p:has(img) img,
-.product-description-card .product-description p:has(img) {
+.product-description-card .product-description p:has(img),
+.product-description-card .product-description div:has(img) {
   display: none !important;
 }
 
 .product-description-card .product-description__tables,
-.product-description-card .product-description p:has(table) {
+.product-description-card .product-description p:has(table),
+.product-description-card .product-description div:has(table),
+.product-description-card .product-description table {
   display: none !important;
 }
 
-.product-description-card .product-description p {
+.product-description-card .product-description p,
+.product-description-card .product-description li {
   position: relative;
-  display: flex;
-  align-items: center;
-  min-height: 58px;
+  display: block;
+  min-height: auto;
   padding: 12px 0 12px 22px;
   border-bottom: 1px solid rgba(197, 168, 128, 0.12);
   color: rgba(245, 242, 235, 0.88);
@@ -2597,17 +2855,25 @@ h6,
   line-height: 1.7;
 }
 
+.product-description-card .product-description ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
 .product-description-card .product-description p:empty,
-.product-description-card .product-description p:has(br:only-child) {
+.product-description-card .product-description div:empty,
+.product-description-card .product-description p:has(br:only-child),
+.product-description-card .product-description div:has(br:only-child) {
   display: none !important;
 }
 
-.product-description-card .product-description p::before {
+.product-description-card .product-description p::before,
+.product-description-card .product-description li::before {
   content: '';
   position: absolute;
   left: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 24px;
   width: 9px;
   height: 1px;
   background: var(--color-gold);

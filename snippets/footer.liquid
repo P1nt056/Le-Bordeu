@@ -1,4 +1,8 @@
 <footer class="site-footer">
+  {% assign root_path = routes.root_url %}
+  {% if root_path == '/' %}
+    {% assign root_path = '' %}
+  {% endif %}
   <div class="container footer__inner">
     <div class="footer__brand">
       <div class="logo">Le Bordeu</div>
@@ -6,11 +10,11 @@
     </div>
     <div class="footer__links">
       <ul>
-        <li><a href="/pages/about" data-i18n="ftr_about">Sobre Nós</a></li>
-        <li><a href="/pages/contact" data-i18n="ftr_contact">Contacto</a></li>
-        <li><a href="/policies/refund-policy" data-i18n="ftr_shipping">Envios e Devoluções</a></li>
-        <li><a href="/policies/privacy-policy" data-i18n="ftr_privacy">Privacidade</a></li>
-        <li><a href="/policies/terms-of-service" data-i18n="ftr_terms">Termos e Condições</a></li>
+        <li><a href="{{ root_path }}/pages/about" data-i18n="ftr_about">Sobre Nós</a></li>
+        <li><a href="{{ root_path }}/pages/contact" data-i18n="ftr_contact">Contacto</a></li>
+        <li><a href="{{ root_path }}/policies/refund-policy" data-i18n="ftr_shipping">Envios e Devoluções</a></li>
+        <li><a href="{{ root_path }}/policies/privacy-policy" data-i18n="ftr_privacy">Privacidade</a></li>
+        <li><a href="{{ root_path }}/policies/terms-of-service" data-i18n="ftr_terms">Termos e Condições</a></li>
       </ul>
     </div>
     <div class="footer__contact">

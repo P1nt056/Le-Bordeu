@@ -77,6 +77,19 @@ document.addEventListener('DOMContentLoaded', function () {
     // when link clicked
     document.querySelectorAll('#main-navigation a').forEach(a => a.addEventListener('click', () => setMenuState(false)));
   }
+
+  // Mobile Catalog Mega Menu toggle
+  const catalogChevronBtn = document.querySelector('.dropdown-chevron-btn');
+  const catalogNavItem = document.querySelector('.has-mega-menu');
+  if (catalogChevronBtn && catalogNavItem) {
+    catalogChevronBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const isOpen = catalogNavItem.classList.toggle('is-open');
+      catalogChevronBtn.classList.toggle('is-active', isOpen);
+      catalogChevronBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+  }
 });
 
 // Cart Drawer Logic

@@ -1,25 +1,157 @@
 <header class="site-header">
   <div class="site-header__inner container">
-    <div class="logo"><a href="/">Le Bordeu</a></div>
+    {% assign root_path = routes.root_url %}
+    {% if root_path == '/' %}
+      {% assign root_path = '' %}
+    {% endif %}
+    <div class="logo"><a href="{{ routes.root_url }}">Le Bordeu</a></div>
     <nav id="main-navigation" class="main-nav" role="navigation" aria-label="Menu principal">
       <button class="mobile-menu-close-btn" aria-label="Fechar menu">&#x2715;</button>
       <ul>
-        <li><a href="/" data-i18n="nav_home">Início</a></li>
+        <li><a href="{{ routes.root_url }}" data-i18n="nav_home">{% if request.locale.iso_code == 'en' %}Home{% else %}Início{% endif %}</a></li>
         <li>
           {% if collections['new'] != blank %}
-            <a href="/collections/new" data-i18n="nav_new">Novidades</a>
+            <a href="{{ root_path }}/collections/new" data-i18n="nav_new">{% if request.locale.iso_code == 'en' %}New Arrivals{% else %}Novidades{% endif %}</a>
           {% else %}
-            <a href="/collections/all?sort_by=created-descending" data-i18n="nav_new">Novidades</a>
+            <a href="{{ root_path }}/collections/all?sort_by=created-descending" data-i18n="nav_new">{% if request.locale.iso_code == 'en' %}New Arrivals{% else %}Novidades{% endif %}</a>
           {% endif %}
         </li>
-        <li><a href="/collections" data-i18n="nav_collections">Coleções</a></li>
-        <li><a href="/collections/all" data-i18n="nav_all">Ver Tudo</a></li>
-        <li><a href="/collections/promocoes" data-i18n="nav_sale">Promoções</a></li>
+        <li class="has-mega-menu">
+          <div class="nav-catalog-wrapper">
+            <a href="{{ root_path }}/collections" data-i18n="nav_collections" class="nav-catalog-link">
+              {% if request.locale.iso_code == 'en' %}Catalog{% else %}Catálogo{% endif %}
+              <svg class="dropdown-chevron" xmlns="http://www.w3.org/2000/svg" width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </a>
+            <button type="button" class="dropdown-chevron-btn" aria-label="Toggle Catalog Submenu" aria-expanded="false">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+          </div>
+
+          <div class="mega-menu" id="catalogMegaMenu">
+            <div class="mega-menu__inner">
+              <!-- Coluna Homem -->
+              <div class="mega-menu__col">
+                <a href="{{ root_path }}/collections/all/homem" class="mega-menu__heading" data-i18n="flt_Homem">
+                  <span>{% if request.locale.iso_code == 'en' %}Men{% else %}Homem{% endif %}</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </a>
+                <ul class="mega-menu__sublist">
+                  {% for collection in collections %}
+                    {% unless collection.handle == 'frontpage' or collection.handle == 'all' or collection.handle == 'promocoes' or collection.handle == 'new' %}
+                      {% assign is_men = false %}
+                      {% assign handle = collection.handle %}
+                      {% if handle contains '-m' or handle contains '-masculin' or handle contains '-h' %}
+                        {% assign is_men = true %}
+                      {% endif %}
+                      {% if is_men %}
+                        <li>
+                          <a href="{{ collection.url }}" data-i18n="menu_col_{{ collection.handle }}">
+                            {% if request.locale.iso_code == 'en' %}
+                              {% case collection.handle %}
+                                {% when 'acessorios-m' %}Accessories
+                                {% when 'calcas-m' %}Pants
+                                {% when 'casaco-masculino' %}Coats & Jackets
+                                {% when 'top-m' %}Polos & T-Shirts
+                                {% when 'relogios-m' %}Watches
+                                {% when 'sapatilhas-h' %}Footwear
+                                {% when 'sweats-masculinas' %}Sweaters & Hoodies
+                                {% else %}{{ collection.title | capitalize }}
+                              {% endcase %}
+                            {% else %}
+                              {% case collection.handle %}
+                                {% when 'acessorios-m' %}Acessórios
+                                {% when 'calcas-m' %}Calças
+                                {% when 'casaco-masculino' %}Casacos
+                                {% when 'top-m' %}Polos & T-shirts
+                                {% when 'relogios-m' %}Relógios
+                                {% when 'sapatilhas-h' %}Calçado
+                                {% when 'sweats-masculinas' %}Sweaters & Hoodies
+                                {% else %}{{ collection.title | capitalize }}
+                              {% endcase %}
+                            {% endif %}
+                          </a>
+                        </li>
+                      {% endif %}
+                    {% endunless %}
+                  {% endfor %}
+                  <li class="mega-menu__all-item">
+                    <a href="{{ root_path }}/collections/all/homem" class="mega-menu__view-all" data-i18n="menu_view_all_men">
+                      {% if request.locale.iso_code == 'en' %}View All Men{% else %}Ver Tudo Homem{% endif %} &rarr;
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Coluna Mulher -->
+              <div class="mega-menu__col">
+                <a href="{{ root_path }}/collections/all/mulher" class="mega-menu__heading" data-i18n="flt_Mulher">
+                  <span>{% if request.locale.iso_code == 'en' %}Women{% else %}Mulher{% endif %}</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </a>
+                <ul class="mega-menu__sublist">
+                  {% for collection in collections %}
+                    {% unless collection.handle == 'frontpage' or collection.handle == 'all' or collection.handle == 'promocoes' or collection.handle == 'new' %}
+                      {% assign is_women = false %}
+                      {% assign handle = collection.handle %}
+                      {% if handle contains '-f' or handle contains '-feminin' or handle == 'malas' %}
+                        {% assign is_women = true %}
+                      {% endif %}
+                      {% if is_women %}
+                        <li>
+                          <a href="{{ collection.url }}" data-i18n="menu_col_{{ collection.handle }}">
+                            {% if request.locale.iso_code == 'en' %}
+                              {% case collection.handle %}
+                                {% when 'acessorios-f' %}Accessories
+                                {% when 'calcas-femininas' %}Pants
+                                {% when 'camisolas-femininas' %}Sweaters & Knits
+                                {% when 'casacos-femininos' %}Coats
+                                {% when 'joias-f' %}Jewelry
+                                {% when 'malas' %}Bags
+                                {% when 'relogios-f' %}Watches
+                                {% when 'vestidos-f' %}Dresses
+                                {% else %}{{ collection.title | capitalize }}
+                              {% endcase %}
+                            {% else %}
+                              {% case collection.handle %}
+                                {% when 'acessorios-f' %}Acessórios
+                                {% when 'calcas-femininas' %}Calças
+                                {% when 'camisolas-femininas' %}Camisolas
+                                {% when 'casacos-femininos' %}Casacos
+                                {% when 'joias-f' %}Joias & Bijuteria
+                                {% when 'malas' %}Malas
+                                {% when 'relogios-f' %}Relógios
+                                {% when 'vestidos-f' %}Vestidos
+                                {% else %}{{ collection.title | capitalize }}
+                              {% endcase %}
+                            {% endif %}
+                          </a>
+                        </li>
+                      {% endif %}
+                    {% endunless %}
+                  {% endfor %}
+                  <li class="mega-menu__all-item">
+                    <a href="{{ root_path }}/collections/all/mulher" class="mega-menu__view-all" data-i18n="menu_view_all_women">
+                      {% if request.locale.iso_code == 'en' %}View All Women{% else %}Ver Tudo Mulher{% endif %} &rarr;
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li><a href="{{ root_path }}/collections/all" data-i18n="nav_all">{% if request.locale.iso_code == 'en' %}View All{% else %}Ver Tudo{% endif %}</a></li>
+        <li><a href="{{ root_path }}/collections/promocoes" data-i18n="nav_sale">{% if request.locale.iso_code == 'en' %}Sale{% else %}Promoções{% endif %}</a></li>
       </ul>
     </nav>
     <div class="header-icons">
-      <button id="lang-toggle-btn" class="lang-toggle" aria-label="Toggle Language">🇵🇹 PT</button>
-      <a href="/search" class="icon icon--search" aria-label="Pesquisar" role="button">
+      <button id="lang-toggle-btn" class="lang-toggle" aria-label="Toggle Language">
+        {% if request.locale.iso_code == 'en' %}
+          <img src="https://flagcdn.com/w20/gb.png" width="16" height="12" style="vertical-align: middle; margin-right: 4px; border-radius: 2px; display: inline-block; position: relative; top: -2px;" alt="EN"> EN
+        {% else %}
+          <img src="https://flagcdn.com/w20/pt.png" width="16" height="12" style="vertical-align: middle; margin-right: 4px; border-radius: 2px; display: inline-block; position: relative; top: -2px;" alt="PT"> PT
+        {% endif %}
+      </button>
+      <a href="{{ root_path }}/search" class="icon icon--search" aria-label="Pesquisar" role="button">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
       </a>
       {% if customer %}
@@ -35,17 +167,17 @@
               <span>{{ customer.email }}</span>
             </div>
             <hr>
-            <a href="/account">O meu perfil</a>
-            <a href="/account?view=orders">As minhas encomendas</a>
-            <a href="/account/logout">Terminar Sessão</a>
+            <a href="{{ root_path }}/account">O meu perfil</a>
+            <a href="{{ root_path }}/account?view=orders">As minhas encomendas</a>
+            <a href="{{ root_path }}/account/logout">Terminar Sessão</a>
           </div>
         </div>
       {% else %}
-        <a href="/account" class="icon icon--account" aria-label="Conta" role="button">
+        <a href="{{ root_path }}/account" class="icon icon--account" aria-label="Conta" role="button">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
         </a>
       {% endif %}
-      <a href="/cart" class="icon icon--cart" aria-label="Carrinho" role="button" id="cart-icon">
+      <a href="{{ root_path }}/cart" class="icon icon--cart" aria-label="Carrinho" role="button" id="cart-icon">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
         <span class="cart-count-badge {% if cart.item_count == 0 %}hidden{% endif %}">{{ cart.item_count }}</span>
       </a>

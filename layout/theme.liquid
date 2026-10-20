@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt">
+<html lang="{{ request.locale.iso_code }}">
   {% assign browser_page_title = page_title %}
   {% if request.page_type == 'collection' %}
     {% assign browser_page_title = collection.title %}
