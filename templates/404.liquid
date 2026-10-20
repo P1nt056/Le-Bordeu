@@ -1,5 +1,12 @@
 <script>
-  if (window.location.pathname === '/collections/new') {
+  if (window.location.pathname === '/en' || window.location.pathname === '/en/') {
+    localStorage.setItem('site_lang', 'en');
+    window.location.replace('/' + window.location.search + window.location.hash);
+  } else if (window.location.pathname.startsWith('/en/')) {
+    localStorage.setItem('site_lang', 'en');
+    var cleanPath = window.location.pathname.replace(/^\/en/, '') || '/';
+    window.location.replace(cleanPath + window.location.search + window.location.hash);
+  } else if (window.location.pathname === '/collections/new') {
     window.location.replace('/collections/all?sort_by=created-descending');
   } else if (
     window.location.pathname === '/pages/shipping-returns' ||

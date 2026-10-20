@@ -1852,7 +1852,7 @@ const SUPPORTED_LANGS = {
 };
 
 let savedLang = localStorage.getItem('site_lang') || 'pt';
-let currentLang = isEnPath ? 'en' : (SUPPORTED_LANGS[savedLang] && savedLang !== 'en' ? savedLang : 'pt');
+let currentLang = isEnPath ? 'en' : (SUPPORTED_LANGS[savedLang] ? savedLang : 'pt');
 window.currentLang = currentLang;
 
 function applyTranslations() {
@@ -1972,19 +1972,12 @@ function selectLanguage(targetLang) {
 
   const isEn = window.location.pathname === '/en' || window.location.pathname.startsWith('/en/');
 
-  if (targetLang === 'en') {
-    if (!isEn) {
-      let targetPath = (window.location.pathname === '/') ? '/en' : '/en' + window.location.pathname;
-      window.location.href = targetPath + window.location.search + window.location.hash;
-      return;
-    }
-  } else {
-    if (isEn) {
-      let targetPath = window.location.pathname.replace(/^\/en(\/|$)/, '/');
-      if (!targetPath) targetPath = '/';
-      window.location.href = targetPath + window.location.search + window.location.hash;
-      return;
-    }
+  // Se o utilizador estiver na rota /en (que dá 404 na Shopify), redireciona para a rota limpa
+  if (isEn) {
+    let targetPath = window.location.pathname.replace(/^\/en(\/|$)/, '/');
+    if (!targetPath) targetPath = '/';
+    window.location.href = targetPath + window.location.search + window.location.hash;
+    return;
   }
 
   currentLang = targetLang;
@@ -2023,7 +2016,7 @@ function initLanguageDropdown() {
   
   if (isEn) {
     currentLang = 'en';
-  } else if (saved && SUPPORTED_LANGS[saved] && saved !== 'en') {
+  } else if (saved && SUPPORTED_LANGS[saved]) {
     currentLang = saved;
   } else {
     currentLang = 'pt';
