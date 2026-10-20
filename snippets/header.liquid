@@ -144,13 +144,64 @@
       </ul>
     </nav>
     <div class="header-icons">
-      <button id="lang-toggle-btn" class="lang-toggle" aria-label="Toggle Language">
-        {% if request.locale.iso_code == 'en' %}
-          <img src="https://flagcdn.com/w20/gb.png" width="16" height="12" style="vertical-align: middle; margin-right: 4px; border-radius: 2px; display: inline-block; position: relative; top: -2px;" alt="EN"> EN
-        {% else %}
-          <img src="https://flagcdn.com/w20/pt.png" width="16" height="12" style="vertical-align: middle; margin-right: 4px; border-radius: 2px; display: inline-block; position: relative; top: -2px;" alt="PT"> PT
-        {% endif %}
-      </button>
+      <div class="lang-dropdown-container" id="langDropdownContainer">
+        <button type="button" class="lang-dropdown-btn" id="langDropdownBtn" aria-label="Select Language" aria-expanded="false" aria-haspopup="listbox">
+          <span class="lang-current-flag">
+            {% if request.locale.iso_code == 'en' %}
+              <img src="https://flagcdn.com/w20/gb.png" width="16" height="12" alt="EN">
+            {% else %}
+              <img src="https://flagcdn.com/w20/pt.png" width="16" height="12" alt="PT">
+            {% endif %}
+          </span>
+          <span class="lang-current-code">{% if request.locale.iso_code == 'en' %}EN{% else %}PT{% endif %}</span>
+          <svg class="lang-dropdown-arrow" xmlns="http://www.w3.org/2000/svg" width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+
+        <ul class="lang-dropdown-menu" id="langDropdownMenu" role="listbox">
+          <li class="lang-dropdown-item" data-lang="pt" role="option">
+            <button type="button" class="lang-option-btn" data-lang="pt">
+              <img src="https://flagcdn.com/w20/pt.png" width="16" height="12" alt="PT">
+              <span class="lang-name">Português</span>
+              <span class="lang-badge">PT</span>
+            </button>
+          </li>
+          <li class="lang-dropdown-item" data-lang="en" role="option">
+            <button type="button" class="lang-option-btn" data-lang="en">
+              <img src="https://flagcdn.com/w20/gb.png" width="16" height="12" alt="EN">
+              <span class="lang-name">English</span>
+              <span class="lang-badge">EN</span>
+            </button>
+          </li>
+          <li class="lang-dropdown-item" data-lang="es" role="option">
+            <button type="button" class="lang-option-btn" data-lang="es">
+              <img src="https://flagcdn.com/w20/es.png" width="16" height="12" alt="ES">
+              <span class="lang-name">Español</span>
+              <span class="lang-badge">ES</span>
+            </button>
+          </li>
+          <li class="lang-dropdown-item" data-lang="fr" role="option">
+            <button type="button" class="lang-option-btn" data-lang="fr">
+              <img src="https://flagcdn.com/w20/fr.png" width="16" height="12" alt="FR">
+              <span class="lang-name">Français</span>
+              <span class="lang-badge">FR</span>
+            </button>
+          </li>
+          <li class="lang-dropdown-item" data-lang="de" role="option">
+            <button type="button" class="lang-option-btn" data-lang="de">
+              <img src="https://flagcdn.com/w20/de.png" width="16" height="12" alt="DE">
+              <span class="lang-name">Deutsch</span>
+              <span class="lang-badge">DE</span>
+            </button>
+          </li>
+          <li class="lang-dropdown-item" data-lang="it" role="option">
+            <button type="button" class="lang-option-btn" data-lang="it">
+              <img src="https://flagcdn.com/w20/it.png" width="16" height="12" alt="IT">
+              <span class="lang-name">Italiano</span>
+              <span class="lang-badge">IT</span>
+            </button>
+          </li>
+        </ul>
+      </div>
       <a href="{{ root_path }}/search" class="icon icon--search" aria-label="Pesquisar" role="button">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
       </a>

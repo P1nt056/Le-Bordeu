@@ -1,257 +1,228 @@
 const TRANSLATIONS = {
-  // Header
-  "nav_home": { pt: "Início", en: "Home" },
-  "nav_new": { pt: "Novidades", en: "New Arrivals" },
-  "nav_collections": { pt: "Catálogo", en: "Catalog" },
-  "nav_all": { pt: "Ver Tudo", en: "View All" },
-  "nav_sale": { pt: "Promoções", en: "Sale" },
-  "menu_view_all_men": { pt: "Ver Tudo Homem →", en: "View All Men →" },
-  "menu_view_all_women": { pt: "Ver Tudo Mulher →", en: "View All Women →" },
-  "menu_col_acessorios-m": { pt: "Acessórios", en: "Accessories" },
-  "menu_col_calcas-m": { pt: "Calças", en: "Pants" },
-  "menu_col_casaco-masculino": { pt: "Casacos", en: "Coats & Jackets" },
-  "menu_col_top-m": { pt: "Polos & T-shirts", en: "Polos & T-Shirts" },
-  "menu_col_relogios-m": { pt: "Relógios", en: "Watches" },
-  "menu_col_sapatilhas-h": { pt: "Calçado", en: "Footwear" },
-  "menu_col_sweats-masculinas": { pt: "Sweaters & Hoodies", en: "Sweaters & Hoodies" },
-  "menu_col_acessorios-f": { pt: "Acessórios", en: "Accessories" },
-  "menu_col_calcas-femininas": { pt: "Calças", en: "Pants" },
-  "menu_col_camisolas-femininas": { pt: "Camisolas", en: "Sweaters & Knits" },
-  "menu_col_casacos-femininos": { pt: "Casacos", en: "Coats" },
-  "menu_col_joias-f": { pt: "Joias & Bijuteria", en: "Jewelry" },
-  "menu_col_malas": { pt: "Malas", en: "Bags" },
-  "menu_col_relogios-f": { pt: "Relógios", en: "Watches" },
-  "menu_col_vestidos-f": { pt: "Vestidos", en: "Dresses" },
-
-  // Hero
-  "hero_eyebrow": { pt: "Nova Coleção 2026", en: "New Collection 2026" },
-  "hero_title": { pt: "Elegância que se veste. <br>Estilo que se <em>sente</em>.", en: "Elegance to wear. <br>Style to <em>feel</em>." },
-  "hero_sub": { pt: "Descobre peças selecionadas para quem valoriza presença, conforto e sofisticação em cada detalhe.", en: "Discover curated pieces for those who value presence, comfort, and sophistication in every detail." },
-  "hero_btn1": { pt: "Descobrir Coleções", en: "Discover Collections" },
-  "hero_btn2": { pt: "Ver Tudo", en: "View All" },
-
-  // Collection
-  "col_title_produtos": { pt: "Produtos", en: "Products" },
-  "col_title_products": { pt: "Produtos", en: "Products" },
-  "col_new": { pt: "Novidades", en: "New Arrivals" },
-  "col_sale": { pt: "Promoções Especiais", en: "Special Sale" },
-  "col_empty": { pt: "Esta coleção não contém produtos de momento.", en: "This collection contains no products at the moment." },
-  "col_home": { pt: "Voltar ao Início", en: "Return to Home" },
-  "col_latest": { pt: "Os 12 produtos mais recentes da loja", en: "The 12 latest products" },
-  "col_back_men": { pt: "Voltar ao catálogo de Homem", en: "Back to Men's Catalog" },
-  "col_back_women": { pt: "Voltar ao catálogo de Mulher", en: "Back to Women's Catalog" },
-  "col_found": { pt: " produtos encontrados", en: " products found" },
-  "col_filters": { pt: "Filtros", en: "Filters" },
-  "col_clear": { pt: "Limpar filtros", en: "Clear filters" },
-  "col_gender": { pt: "Género", en: "Gender" },
-  "col_type": { pt: "Tipo", en: "Type" },
-  "col_cat_jewelry": { pt: "Categoria (Bijuteria)", en: "Category (Jewelry)" },
-  "col_cat_shoes": { pt: "Categoria (Calçado)", en: "Category (Footwear)" },
-
-  // Products
-  "prod_view": { pt: "Ver Produto", en: "View Product" },
-  "prod_add": { pt: "Adicionar ao Carrinho", en: "Add to Cart" },
-  "prod_buy": { pt: "Comprar Agora", en: "Buy Now" },
-  "prod_sold_out": { pt: "Esgotado", en: "Sold Out" },
-  "prod_unavailable": { pt: "Indisponível", en: "Unavailable" },
-  "prod_secure": { pt: "<span class=\"trust-messages__icon\" aria-hidden=\"true\">✓</span>Pagamento 100% seguro", en: "<span class=\"trust-messages__icon\" aria-hidden=\"true\">✓</span>100% Secure Payment" },
-  "prod_fast": { pt: "<span class=\"trust-messages__icon\" aria-hidden=\"true\">↗</span>Envio rápido", en: "<span class=\"trust-messages__icon\" aria-hidden=\"true\">↗</span>Fast Shipping" },
-  "prod_returns": { pt: "<span class=\"trust-messages__icon\" aria-hidden=\"true\">↺</span>Trocas simples", en: "<span class=\"trust-messages__icon\" aria-hidden=\"true\">↺</span>Easy Returns" },
-  "prod_desc": { pt: "Descrição", en: "Description" },
-  "prod_size": { pt: "Ver tabela de tamanhos", en: "View size guide" },
-  "prod_details_eye": { pt: "Detalhes do Produto", en: "Product Details" },
-  "prod_details_title": { pt: "Descrição do Produto", en: "Product Description" },
-  "prod_details_sub": { pt: "Construído para acompanhar o ritmo do dia a dia com presença, conforto e acabamento premium.", en: "Built to keep up with the pace of everyday life with presence, comfort, and premium finish." },
-  "prod_details_feat": { pt: "Destaque", en: "Feature" },
-  "prod_details_det": { pt: "Detalhe", en: "Detail" },
-  "prod_details_spec": { pt: "Especificações", en: "Specifications" },
-  "prod_details_full": { pt: "Características completas", en: "Full features" },
-  "opt_color": { pt: "COR", en: "COLOR" },
-  "opt_colour": { pt: "COR", en: "COLOR" },
-  "opt_cor": { pt: "COR", en: "COLOR" },
-  "opt_size": { pt: "TAMANHO", en: "SIZE" },
-  "opt_tamanho": { pt: "TAMANHO", en: "SIZE" },
-  "prod_recommended": { pt: "Produtos recomendados", en: "Recommended Products" },
-
-  // Custom Filters Labels
-  "flt_Homem": { pt: "Homem", en: "Men" },
-  "flt_Mulher": { pt: "Mulher", en: "Women" },
-  "flt_T-shirts": { pt: "T-shirts", en: "T-shirts" },
-  "flt_Macacões": { pt: "Macacões", en: "Jumpsuits" },
-  "flt_Vestidos": { pt: "Vestidos", en: "Dresses" },
-  "flt_Relógios": { pt: "Relógios", en: "Watches" },
-  "flt_Relogios": { pt: "Relógios", en: "Watches" },
-  "flt_Bijuteria": { pt: "Bijuteria", en: "Jewelry" },
-  "flt_Calçado": { pt: "Calçado", en: "Footwear" },
-  "flt_Calças": { pt: "Calças", en: "Pants" },
-  "flt_Malas": { pt: "Malas", en: "Bags" },
-  "flt_Top's": { pt: "Top's", en: "Tops" },
-  "flt_Colares": { pt: "Colares", en: "Necklaces" },
-  "flt_Brincos": { pt: "Brincos", en: "Earrings" },
-  "flt_Pulseiras": { pt: "Pulseiras", en: "Bracelets" },
-  "flt_Anéis": { pt: "Anéis", en: "Rings" },
-  "flt_Botas": { pt: "Botas", en: "Boots" },
-  "flt_Sapatos de tacão": { pt: "Sapatos de tacão", en: "High Heels" },
-  "flt_preco": { pt: "Preço", en: "Price" },
-  "pagi_prev": { pt: "« Anterior", en: "« Previous" },
-  "pagi_next": { pt: "Próximo »", en: "Next »" },
-
-  // List Collections
-  "list_title": { pt: "O Nosso Catálogo", en: "Our Catalog" },
-  "list_title_men": { pt: "Catálogo de Homem", en: "Men's Catalog" },
-  "list_title_women": { pt: "Catálogo de Mulher", en: "Women's Catalog" },
-  "list_explore": { pt: "Explorar Catálogo", en: "Explore Catalog" },
-  "list_change": { pt: "Mudar Género", en: "Change Gender" },
-  "list_view": { pt: " produtos)", en: " products)" },
-  "list_view_prefix": { pt: "Ver Coleção (", en: "View Collection (" },
-  "list_empty": { pt: "Não foram encontradas coleções para a seleção atual.", en: "No collections found for the current selection." },
-
-  // Collection List
-  "cols_title": { pt: "Explora o Essencial", en: "Explore the Essentials" },
-  "cols_new": { pt: "Nova Coleção", en: "New Collection" },
-  "cols_explore": { pt: "Explorar", en: "Explore" },
-  "cols_coats": { pt: "Casacos", en: "Coats" },
-  "cols_accs": { pt: "Acessórios", en: "Accessories" },
-  "cols_watches_desc": { pt: "Detalhes que marcam presença.", en: "Details that make a presence." },
-  "cols_dresses_desc": { pt: "Elegância para cada ocasião.", en: "Elegance for every occasion." },
-  "cols_accs_desc": { pt: "O toque final do visual.", en: "The final touch for the look." },
-  "cols_coats_desc": { pt: "Sofisticação em todas as estações.", en: "Sophistication in every season." },
-
-  // Featured
-  "feat_title": { pt: "Em Destaque", en: "Featured" },
-  "feat_best_sellers": { pt: "Mais Vendidos", en: "Best Sellers" },
-  "feat_eyebrow": { pt: "Destaques da Coleção", en: "Collection Highlights" },
-  "feat_watches_title": { pt: "Relógios em Destaque", en: "Featured Watches" },
-  "feat_dresses_title": { pt: "Vestidos Selecionados", en: "Selected Dresses" },
-  "feat_buy": { pt: "Comprar", en: "Buy" },
-
-  // Editorial
-  "edit_title": { pt: "Moda pensada para momentos especiais e para o <em>dia a dia</em>.", en: "Fashion designed for special moments and <em>everyday wear</em>." },
-  "edit_sub": { pt: "Peças escolhidas com cuidado para destacar a tua presença em qualquer ocasião. Luxo nos detalhes, conforto na essência.", en: "Carefully chosen pieces to highlight your presence on any occasion. Luxury in details, comfort in essence." },
-  "edit_quote": { pt: "\"A elegância não é sobre chamar a atenção, mas sim sobre ser lembrado.\"", en: "\"Elegance isn't about standing out, but about being remembered.\"" },
-  "edit_btn": { pt: "Descobrir a Marca", en: "Discover the Brand" },
-
-  "rev_product": { pt: "Avaliações do Produto", en: "Product Reviews" },
-  "rev_leave": { pt: "Deixar uma Avaliação", en: "Leave a Review" },
-  "rev_login": { pt: "Iniciar Sessão para Avaliar", en: "Login to Review" },
-  "rev_rating_as": { pt: "A avaliar publicamente como:", en: "Reviewing publicly as:" },
-  "rev_placeholder": { pt: "A sua opinião sobre este artigo...", en: "Your opinion about this item..." },
-  "rev_submit": { pt: "Enviar Avaliação", en: "Submit Review" },
-  "rev_empty": { pt: "Ainda não existem avaliações para este produto. Seja o primeiro a avaliar!", en: "There are no reviews for this product yet. Be the first to review!" },
-  "rev_opinions": { pt: "opiniões", en: "reviews" },
-  "rev_badge_review": { pt: "avaliação", en: "review" },
-  "rev_badge_reviews": { pt: "avaliações", en: "reviews" },
-  "rev_badge_recommend": { pt: "recomendam", en: "recommend" },
-  "rev_badge_first": { pt: "Seja o primeiro a avaliar", en: "Be the first to review" },
-  "rev_home_title": { pt: "O que dizem os nossos clientes", en: "What our customers say" },
-  "rev_home_write": { pt: "Escrever Avaliação", en: "Write Review" },
-  "rev_home_placeholder": { pt: "A sua opinião...", en: "Your opinion..." },
-  "rev_home_submit": { pt: "Enviar Review", en: "Submit Review" },
-  "trust_ship_title": { pt: "Envios seguros", en: "Secure shipping" },
-  "trust_ship_text": { pt: "Entrega rápida e acompanhamento da encomenda.", en: "Fast delivery with order tracking." },
-  "trust_pay_title": { pt: "Pagamentos protegidos", en: "Protected payments" },
-  "trust_pay_text": { pt: "Compra com segurança em todos os métodos disponíveis.", en: "Shop securely with every available payment method." },
-  "trust_support_title": { pt: "Apoio ao cliente", en: "Customer support" },
-  "trust_support_text": { pt: "Estamos disponíveis para ajudar antes e depois da compra.", en: "We are available to help before and after purchase." },
-
-  // About Page
-  "about_eyebrow_1": { pt: "Sobre nós", en: "About Us" },
-  "about_title_1": { pt: "A essência Le Bordeu", en: "The Le Bordeu essence" },
-  "about_lead_1": { pt: "Mais do que moda, a Le Bordeu é uma seleção de peças pensadas para dar presença, elegância e confiança ao teu dia a dia.", en: "More than fashion, Le Bordeu is a selection of pieces designed to give presence, elegance, and confidence to your everyday life." },
-  "about_p_1": { pt: "Escolhemos cada produto com atenção ao detalhe, ao conforto e ao impacto visual. A nossa ideia é simples: facilitar a descoberta de peças bonitas, versáteis e com acabamento cuidado.", en: "We choose each product with attention to detail, comfort, and visual impact. Our idea is simple: to facilitate the discovery of beautiful, versatile pieces with careful finishing." },
-  "about_btn_collections": { pt: "Ver coleções", en: "View Collections" },
-  "about_btn_products": { pt: "Ver produtos", en: "View Products" },
-  "about_val_1_title": { pt: "Curadoria", en: "Curation" },
-  "about_val_1_desc": { pt: "Selecionamos produtos com estilo, equilíbrio e potencial para acompanhar diferentes momentos.", en: "We select products with style, balance, and potential to accompany different moments." },
-  "about_val_2_title": { pt: "Detalhe", en: "Detail" },
-  "about_val_2_desc": { pt: "Valorizamos acabamentos, silhuetas e pequenos pormenores que tornam uma peça memorável.", en: "We value finishes, silhouettes, and small details that make a piece memorable." },
-  "about_val_3_title": { pt: "Confiança", en: "Confidence" },
-  "about_val_3_desc": { pt: "Criamos uma experiência clara, com pagamento seguro, envio rápido e trocas simples.", en: "We create a clear experience, with secure payment, fast shipping, and easy returns." },
-  "about_eyebrow_2": { pt: "A nossa promessa", en: "Our promise" },
-  "about_title_2": { pt: "Elegância sem complicar.", en: "Elegance without complication." },
-  "about_p_2": { pt: "Queremos que cada compra seja simples e bem pensada, desde o momento em que escolhes o produto até ao momento em que ele chega a tua casa.", en: "We want every purchase to be simple and well thought out, from the moment you choose the product until the moment it arrives at your home." },
-  "about_p_3": { pt: "A Le Bordeu foi criada para quem procura uma presença cuidada sem excesso: peças fáceis de usar, bonitas de ver e escolhidas com critério.", en: "Le Bordeu was created for those looking for a careful presence without excess: easy-to-wear pieces, beautiful to look at, and chosen carefully." },
-  "about_eyebrow_3": { pt: "Como escolhemos", en: "How we choose" },
-  "about_title_3": { pt: "O detalhe vem antes da montra.", en: "Detail comes before the showcase." },
-  "about_proc_1_title": { pt: "Estilo que se adapta", en: "Style that adapts" },
-  "about_proc_1_desc": { pt: "Procuramos peças que funcionem em diferentes momentos, do dia a dia a ocasiões em que queres uma presença mais marcante.", en: "We look for pieces that work in different moments, from everyday life to occasions where you want a more striking presence." },
-  "about_proc_2_title": { pt: "Acabamento cuidado", en: "Careful finishing" },
-  "about_proc_2_desc": { pt: "Damos atenção à forma, aos materiais, aos pormenores visuais e à sensação geral de cada produto.", en: "We pay attention to the shape, materials, visual details, and the overall feel of each product." },
-  "about_proc_3_title": { pt: "Compra sem complicações", en: "Hassle-free purchase" },
-  "about_proc_3_desc": { pt: "Queremos que escolher, comprar e receber seja simples, claro e seguro do primeiro clique até à entrega.", en: "We want choosing, buying, and receiving to be simple, clear, and secure from the first click to delivery." },
-  "about_eyebrow_4": { pt: "O que podes esperar", en: "What you can expect" },
-  "about_title_4": { pt: "Uma experiência pensada para te deixar tranquilo.", en: "An experience designed to give you peace of mind." },
-  "about_exp_1": { pt: "Pagamento 100% seguro", en: "100% secure payment" },
-  "about_exp_2": { pt: "Envio rápido e acompanhamento da encomenda", en: "Fast shipping and order tracking" },
-  "about_exp_3": { pt: "Trocas simples quando algo não fica como esperavas", en: "Easy returns when something isn't as expected" },
-  "about_exp_4": { pt: "Produtos escolhidos para combinar elegância e uso real", en: "Products chosen to combine elegance and real use" },
-  "about_exp_note": { pt: "Acreditamos que uma boa loja não termina na imagem bonita. Tem de ser clara, funcional e confiável em todos os passos.", en: "We believe a good store doesn't end with a beautiful image. It has to be clear, functional, and reliable at every step." },
-  "about_title_5": { pt: "Descobre peças escolhidas para elevar o teu estilo.", en: "Discover pieces chosen to elevate your style." },
-  "about_btn_explore": { pt: "Explorar produtos", en: "Explore products" },
-
-  // Footer
-  "ftr_slogan": { pt: "Estilo com presença. Luxo nos detalhes.", en: "Style with presence. Luxury in details." },
-  "ftr_about": { pt: "Sobre Nós", en: "About Us" },
-  "ftr_contact": { pt: "Contacto", en: "Contact" },
-  "ftr_shipping": { pt: "Envios e Devoluções", en: "Shipping & Returns" },
-  "ftr_privacy": { pt: "Privacidade", en: "Privacy Policy" },
-  "ftr_terms": { pt: "Termos e Condições", en: "Terms of Service" },
-  "ftr_contact_lbl": { pt: "Contacto: ", en: "Contact: " },
-  "ftr_payments": { pt: "Métodos de pagamento", en: "Payment methods" },
-  "ftr_payment_card": { pt: "Cartão de crédito ou débito", en: "Credit or debit card" },
-  "ftr_payment_mb": { pt: "Multibanco", en: "ATM Reference" },
-
-  // Contact
-  "contact_eyebrow": { pt: "Contacto", en: "Contact" },
-  "contact_title": { pt: "Fala connosco", en: "Talk to us" },
-  "contact_desc": { pt: "Estamos disponíveis para ajudar com encomendas, tamanhos, envios, devoluções e qualquer dúvida sobre a Le Bordeu.", en: "We are available to help with orders, sizes, shipping, returns, and any questions about Le Bordeu." },
-  "contact_email_title": { pt: "Email", en: "Email" },
-  "contact_email_desc_1": { pt: "Envia-nos uma mensagem para ", en: "Send us a message to " },
-  "contact_email_desc_2": { pt: ". Para pedidos sobre encomendas, inclui o número da encomenda para conseguirmos ajudar mais depressa.", en: ". For order inquiries, include your order number so we can help faster." },
-  "contact_return_title": { pt: "Pedidos de devolução ou troca", en: "Return or exchange requests" },
-  "contact_return_desc": { pt: "Antes de enviares qualquer artigo de volta, contacta-nos para confirmarmos se o pedido cumpre as condições e para te indicarmos os próximos passos.", en: "Before sending any item back, contact us to confirm if the request meets the conditions and to provide you with the next steps." },
-
-  // Newsletter
-  "news_title": { pt: "Recebe novidades, promoções exclusivas e lançamentos <em>Le Bordeu</em>.", en: "Get news, exclusive promotions, and <em>Le Bordeu</em> launches." },
-  "news_incentive": { pt: "Subscreve e recebe 10% de desconto na tua primeira compra.", en: "Subscribe and get 10% off your first purchase." },
-  "news_ph": { pt: "O teu email", en: "Your email" },
-  "news_btn": { pt: "Subscrever", en: "Subscribe" },
-
-  // Cart
-  "cart_title": { pt: "O Teu Carrinho", en: "Your Cart" },
-  "cart_close": { pt: "Fechar Carrinho", en: "Close Cart" },
-  "cart_empty": { pt: "O seu carrinho está vazio de momento.", en: "Your cart is currently empty." },
-  "cart_continue": { pt: "Continuar a Comprar", en: "Continue Shopping" },
-  "cart_remove": { pt: "Remover", en: "Remove" },
-  "cart_subtotal": { pt: "Subtotal", en: "Subtotal" },
-  "cart_free_shipping_applied": { pt: "Envio gratuito aplicado nesta encomenda.", en: "Free shipping applied to this order." },
-  "cart_free_shipping_remaining_prefix": { pt: "Faltam", en: "Add" },
-  "cart_free_shipping_remaining_suffix": { pt: "para teres envio gratuito.", en: "more for free shipping." },
-  "cart_tax": { pt: "Impostos e portes calculados na finalização da compra.", en: "Taxes and shipping calculated at checkout." },
-  "cart_checkout": { pt: "Finalizar Compra", en: "Checkout" },
-  "cart_view": { pt: "Ver Carrinho", en: "View Cart" },
-  "cart_add": { pt: "Adicionar", en: "Add" },
-  "cart_btn_add": { pt: "+ Adicionar", en: "+ Add" },
-  "cart_btn_adding": { pt: "A adicionar...", en: "Adding..." },
-  "cart_btn_added": { pt: "✓ Adicionado", en: "✓ Added" },
-  "cart_sold_out": { pt: "Esgotado", en: "Sold Out" },
-  "cart_unavailable": { pt: "Indisponível", en: "Unavailable" },
-  "cart_view_prod": { pt: "Ver Produto", en: "View Product" },
-  "cart_update": { pt: "Atualizar Carrinho", en: "Update Cart" },
-  "cart_recommendations_title": { pt: "Completa o Teu Look", en: "Complete Your Look" },
-  "cart_recommendations_subtitle": { pt: "Sugestões exclusivas para o teu visual", en: "Exclusive suggestions for your outfit" },
-  "pillar_top": { pt: "Parte de Cima", en: "Topwear" },
-  "pillar_bottom": { pt: "Calças & Jeans", en: "Pants & Jeans" },
-  "pillar_shoes": { pt: "Calçado & Sapatilhas", en: "Footwear & Sneakers" },
-  "pillar_watch": { pt: "Relógio", en: "Watch" },
-  "pillar_accessory": { pt: "Acessórios & Chapéus", en: "Accessories & Headwear" },
-  "pillar_featured": { pt: "Destaque", en: "Featured" },
-  "option_color": { pt: "Cor", en: "Color" },
-  "option_size": { pt: "Tamanho", en: "Size" },
-  "option_material": { pt: "Material", en: "Material" },
-  "option_style": { pt: "Estilo", en: "Style" }
+  "nav_home": { pt: "Início", en: "Home", es: "Inicio", fr: "Accueil", de: "Startseite", it: "Home" },
+  "nav_new": { pt: "Novidades", en: "New Arrivals", es: "Novedades", fr: "Nouveautés", de: "Neuheiten", it: "Novità" },
+  "nav_collections": { pt: "Catálogo", en: "Catalog", es: "Catálogo", fr: "Catalogue", de: "Katalog", it: "Catalogo" },
+  "nav_all": { pt: "Ver Tudo", en: "View All", es: "Ver Todo", fr: "Voir Tout", de: "Alle Anzeigen", it: "Vedi Tutto" },
+  "nav_sale": { pt: "Promoções", en: "Sale", es: "Rebajas", fr: "Promotions", de: "Angebote", it: "Saldi" },
+  "menu_view_all_men": { pt: "Ver Tudo Homem →", en: "View All Men →", es: "Ver Todo Hombre →", fr: "Voir Tout Homme →", de: "Alle für Herren →", it: "Vedi Tutto Uomo →" },
+  "menu_view_all_women": { pt: "Ver Tudo Mulher →", en: "View All Women →", es: "Ver Todo Mujer →", fr: "Voir Tout Femme →", de: "Alle für Damen →", it: "Vedi Tutto Donna →" },
+  "menu_col_acessorios-m": { pt: "Acessórios", en: "Accessories", es: "Accesorios", fr: "Accessoires", de: "Accessoires", it: "Accessori" },
+  "menu_col_calcas-m": { pt: "Calças", en: "Pants", es: "Pantalones", fr: "Pantalons", de: "Hosen", it: "Pantaloni" },
+  "menu_col_casaco-masculino": { pt: "Casacos", en: "Coats & Jackets", es: "Abrigos y Chaquetas", fr: "Manteaux & Vestes", de: "Mäntel & Jacken", it: "Cappotti e Giacche" },
+  "menu_col_top-m": { pt: "Polos & T-shirts", en: "Polos & T-Shirts", es: "Polos y Camisetas", fr: "Polos & T-shirts", de: "Polos & T-Shirts", it: "Polo e T-shirt" },
+  "menu_col_relogios-m": { pt: "Relógios", en: "Watches", es: "Relojes", fr: "Montres", de: "Uhren", it: "Orologi" },
+  "menu_col_sapatilhas-h": { pt: "Calçado", en: "Footwear", es: "Calzado", fr: "Chaussures", de: "Schuhe", it: "Calzature" },
+  "menu_col_sweats-masculinas": { pt: "Sweaters & Hoodies", en: "Sweaters & Hoodies", es: "Sudaderas", fr: "Sweats & Sweats à capuche", de: "Pullover & Hoodies", it: "Felpe con cappuccio" },
+  "menu_col_acessorios-f": { pt: "Acessórios", en: "Accessories", es: "Accesorios", fr: "Accessoires", de: "Accessoires", it: "Accessori" },
+  "menu_col_calcas-femininas": { pt: "Calças", en: "Pants", es: "Pantalones", fr: "Pantalons", de: "Hosen", it: "Pantaloni" },
+  "menu_col_camisolas-femininas": { pt: "Camisolas", en: "Sweaters & Knits", es: "Jerseys y Punto", fr: "Pulls & Mailles", de: "Pullover & Strickwaren", it: "Maglioni e Maglieria" },
+  "menu_col_casacos-femininos": { pt: "Casacos", en: "Coats", es: "Abrigos", fr: "Manteaux", de: "Mäntel", it: "Cappotti" },
+  "menu_col_joias-f": { pt: "Joias & Bijuteria", en: "Jewelry", es: "Joyería", fr: "Bijoux", de: "Schmuck", it: "Gioielli" },
+  "menu_col_malas": { pt: "Malas", en: "Bags", es: "Bolsos", fr: "Sacs", de: "Taschen", it: "Borse" },
+  "menu_col_relogios-f": { pt: "Relógios", en: "Watches", es: "Relojes", fr: "Montres", de: "Uhren", it: "Orologi" },
+  "menu_col_vestidos-f": { pt: "Vestidos", en: "Dresses", es: "Vestidos", fr: "Robes", de: "Kleider", it: "Abiti" },
+  "hero_eyebrow": { pt: "Nova Coleção 2026", en: "New Collection 2026", es: "Nueva Colección 2026", fr: "Nouvelle Collection 2026", de: "Neue Kollektion 2026", it: "Nuova Collezione 2026" },
+  "hero_title": { pt: "Elegância que se veste. <br>Estilo que se <em>sente</em>.", en: "Elegance to wear. <br>Style to <em>feel</em>.", es: "Elegancia que se viste. <br>Estilo que se <em>siente</em>.", fr: "L'élégance à porter. <br>Le style à <em>ressentir</em>.", de: "Eleganz zum Tragen. <br>Stil zum <em>Fühlen</em>.", it: "Eleganza da indossare. <br>Stile da <em>vivere</em>." },
+  "hero_sub": { pt: "Descobre peças selecionadas para quem valoriza presença, conforto e sofisticação em cada detalhe.", en: "Discover curated pieces for those who value presence, comfort, and sophistication in every detail.", es: "Descubre prendas seleccionadas para quienes valoran la presencia, el confort y la sofisticación en cada detalle.", fr: "Découvrez des pièces sélectionnées pour ceux qui apprécient l'allure, le confort et le raffinement.", de: "Entdecken Sie ausgewählte Stücke für alle, die Präsenz, Komfort und Raffinesse bis ins Detail schätzen.", it: "Scopri capi selezionati per chi apprezza presenza, comfort e raffinatezza in ogni dettaglio." },
+  "hero_btn1": { pt: "Descobrir Coleções", en: "Discover Collections", es: "Descubrir Colecciones", fr: "Découvrir les Collections", de: "Kollektionen Entdecken", it: "Scopri le Collezioni" },
+  "hero_btn2": { pt: "Ver Tudo", en: "View All", es: "Ver Todo", fr: "Voir Tout", de: "Alle Anzeigen", it: "Vedi Tutto" },
+  "col_title_produtos": { pt: "Produtos", en: "Products", es: "Productos", fr: "Produits", de: "Produkte", it: "Prodotti" },
+  "col_title_products": { pt: "Produtos", en: "Products", es: "Productos", fr: "Produits", de: "Produkte", it: "Prodotti" },
+  "col_new": { pt: "Novidades", en: "New Arrivals", es: "Novedades", fr: "Nouveautés", de: "Neuheiten", it: "Novità" },
+  "col_sale": { pt: "Promoções Especiais", en: "Special Sale", es: "Ofertas Especiales", fr: "Offres Spéciales", de: "Sonderangebote", it: "Offerte Speciali" },
+  "col_empty": { pt: "Esta coleção não contém produtos de momento.", en: "This collection contains no products at the moment.", es: "Esta colección no contiene productos por el momento.", fr: "Cette collection ne contient aucun produit pour le moment.", de: "Diese Kollektion enthält derzeit keine Produkte.", it: "Questa collezione non contiene prodotti al momento." },
+  "col_home": { pt: "Voltar ao Início", en: "Return to Home", es: "Volver al Inicio", fr: "Retour à l'Accueil", de: "Zurück zur Startseite", it: "Torna alla Home" },
+  "col_latest": { pt: "Os 12 produtos mais recentes da loja", en: "The 12 latest products", es: "Los 12 productos más recientes de la tienda", fr: "Les 12 derniers produits", de: "Die 12 neuesten Produkte", it: "I 12 prodotti più recenti" },
+  "col_back_men": { pt: "Voltar ao catálogo de Homem", en: "Back to Men's Catalog", es: "Volver al catálogo de Hombre", fr: "Retour au catalogue Homme", de: "Zurück zum Herrenkatalog", it: "Torna al catalogo Uomo" },
+  "col_back_women": { pt: "Voltar ao catálogo de Mulher", en: "Back to Women's Catalog", es: "Volver al catálogo de Mujer", fr: "Retour au catalogue Femme", de: "Zurück zum Damenkatalog", it: "Torna al catalogo Donna" },
+  "col_found": { pt: " produtos encontrados", en: " products found", es: " productos encontrados", fr: " produits trouvés", de: " Produkte gefunden", it: " prodotti trovati" },
+  "col_filters": { pt: "Filtros", en: "Filters", es: "Filtros", fr: "Filtres", de: "Filter", it: "Filtri" },
+  "col_clear": { pt: "Limpar filtros", en: "Clear filters", es: "Limpiar filtros", fr: "Effacer les filtres", de: "Filter zurücksetzen", it: "Cancella filtri" },
+  "col_gender": { pt: "Género", en: "Gender", es: "Género", fr: "Genre", de: "Geschlecht", it: "Genere" },
+  "col_type": { pt: "Tipo", en: "Type", es: "Tipo", fr: "Type", de: "Typ", it: "Tipo" },
+  "col_cat_jewelry": { pt: "Categoria (Bijuteria)", en: "Category (Jewelry)", es: "Categoría (Joyería)", fr: "Catégorie (Bijoux)", de: "Kategorie (Schmuck)", it: "Categoria (Gioielli)" },
+  "col_cat_shoes": { pt: "Categoria (Calçado)", en: "Category (Footwear)", es: "Categoría (Calzado)", fr: "Catégorie (Chaussures)", de: "Kategorie (Schuhe)", it: "Categoria (Calzature)" },
+  "prod_view": { pt: "Ver Produto", en: "View Product", es: "Ver Producto", fr: "Voir le Produit", de: "Produkt Ansehen", it: "Vedi Prodotto" },
+  "prod_add": { pt: "Adicionar ao Carrinho", en: "Add to Cart", es: "Añadir al Carrito", fr: "Ajouter au Panier", de: "In den Warenkorb", it: "Aggiungi al Carrello" },
+  "prod_buy": { pt: "Comprar Agora", en: "Buy Now", es: "Comprar Ahora", fr: "Acheter Maintenant", de: "Jetzt Kaufen", it: "Acquista Ora" },
+  "prod_sold_out": { pt: "Esgotado", en: "Sold Out", es: "Agotado", fr: "Épuisé", de: "Ausverkauft", it: "Esaurito" },
+  "prod_unavailable": { pt: "Indisponível", en: "Unavailable", es: "No disponible", fr: "Indisponible", de: "Nicht verfügbar", it: "Non disponibile" },
+  "prod_secure": { pt: "<span class=\"trust-messages__icon\" aria-hidden=\"true\">✓</span>Pagamento 100% seguro", en: "<span class=\"trust-messages__icon\" aria-hidden=\"true\">✓</span>100% Secure Payment", es: "<span class=\"trust-messages__icon\" aria-hidden=\"true\">✓</span>Pago 100% seguro", fr: "<span class=\"trust-messages__icon\" aria-hidden=\"true\">✓</span>Paiement 100% sécurisé", de: "<span class=\"trust-messages__icon\" aria-hidden=\"true\">✓</span>100% sichere Zahlung", it: "<span class=\"trust-messages__icon\" aria-hidden=\"true\">✓</span>Pagamento sicuro al 100%" },
+  "prod_fast": { pt: "<span class=\"trust-messages__icon\" aria-hidden=\"true\">↗</span>Envio rápido", en: "<span class=\"trust-messages__icon\" aria-hidden=\"true\">↗</span>Fast Shipping", es: "<span class=\"trust-messages__icon\" aria-hidden=\"true\">↗</span>Envío rápido", fr: "<span class=\"trust-messages__icon\" aria-hidden=\"true\">↗</span>Livraison rapide", de: "<span class=\"trust-messages__icon\" aria-hidden=\"true\">↗</span>Schneller Versand", it: "<span class=\"trust-messages__icon\" aria-hidden=\"true\">↗</span>Spedizione rapida" },
+  "prod_returns": { pt: "<span class=\"trust-messages__icon\" aria-hidden=\"true\">↺</span>Trocas simples", en: "<span class=\"trust-messages__icon\" aria-hidden=\"true\">↺</span>Easy Returns", es: "<span class=\"trust-messages__icon\" aria-hidden=\"true\">↺</span>Devoluciones fáciles", fr: "<span class=\"trust-messages__icon\" aria-hidden=\"true\">↺</span>Retours faciles", de: "<span class=\"trust-messages__icon\" aria-hidden=\"true\">↺</span>Einfache Rückgabe", it: "<span class=\"trust-messages__icon\" aria-hidden=\"true\">↺</span>Resi facili" },
+  "prod_desc": { pt: "Descrição", en: "Description", es: "Descripción", fr: "Description", de: "Beschreibung", it: "Descrizione" },
+  "prod_size": { pt: "Ver tabela de tamanhos", en: "View size guide", es: "Ver guía de tallas", fr: "Guide des tailles", de: "Größentabelle ansehen", it: "Guida alle taglie" },
+  "prod_details_eye": { pt: "Detalhes do Produto", en: "Product Details", es: "Detalles del Producto", fr: "Détails du Produit", de: "Produktdetails", it: "Dettagli del Prodotto" },
+  "prod_details_title": { pt: "Descrição do Produto", en: "Product Description", es: "Descripción del Producto", fr: "Description du Produit", de: "Produktbeschreibung", it: "Descrizione del Prodotto" },
+  "prod_details_sub": { pt: "Construído para acompanhar o ritmo do dia a dia com presença, conforto e acabamento premium.", en: "Built to keep up with the pace of everyday life with presence, comfort, and premium finish.", es: "Diseñado para acompañar el ritmo diario con presencia, confort y acabado premium.", fr: "Conçu pour suivre le rythme quotidien avec prestance, confort et finitions soignées.", de: "Gemacht für den Alltag mit Ausstrahlung, Komfort und erstklassiger Verarbeitung.", it: "Creato per accompagnare il ritmo quotidiano con presenza, comfort e finiture di pregio." },
+  "prod_details_feat": { pt: "Destaque", en: "Feature", es: "Destacado", fr: "Point fort", de: "Highlight", it: "In evidenza" },
+  "prod_details_det": { pt: "Detalhe", en: "Detail", es: "Detalle", fr: "Détail", de: "Detail", it: "Dettaglio" },
+  "prod_details_spec": { pt: "Especificações", en: "Specifications", es: "Especificaciones", fr: "Spécifications", de: "Spezifikationen", it: "Specifiche" },
+  "prod_details_full": { pt: "Características completas", en: "Full features", es: "Características completas", fr: "Caractéristiques complètes", de: "Vollständige Merkmale", it: "Caratteristiche complete" },
+  "opt_color": { pt: "COR", en: "COLOR", es: "COLOR", fr: "COULEUR", de: "FARBE", it: "COLORE" },
+  "opt_colour": { pt: "COR", en: "COLOR", es: "COLOR", fr: "COULEUR", de: "FARBE", it: "COLORE" },
+  "opt_cor": { pt: "COR", en: "COLOR", es: "COLOR", fr: "COULEUR", de: "FARBE", it: "COLORE" },
+  "opt_size": { pt: "TAMANHO", en: "SIZE", es: "TALLA", fr: "TAILLE", de: "GRÖSSE", it: "TAGLIA" },
+  "opt_tamanho": { pt: "TAMANHO", en: "SIZE", es: "TALLA", fr: "TAILLE", de: "GRÖSSE", it: "TAGLIA" },
+  "prod_recommended": { pt: "Produtos recomendados", en: "Recommended Products", es: "Productos recomendados", fr: "Produits recommandés", de: "Empfohlene Produkte", it: "Prodotti consigliati" },
+  "flt_Homem": { pt: "Homem", en: "Men", es: "Hombre", fr: "Homme", de: "Herren", it: "Uomo" },
+  "flt_Mulher": { pt: "Mulher", en: "Women", es: "Mujer", fr: "Femme", de: "Damen", it: "Donna" },
+  "flt_T-shirts": { pt: "T-shirts", en: "T-shirts", es: "Camisetas", fr: "T-shirts", de: "T-Shirts", it: "T-shirt" },
+  "flt_Macacões": { pt: "Macacões", en: "Jumpsuits", es: "Monos", fr: "Combinaisons", de: "Jumpsuits", it: "Tute" },
+  "flt_Vestidos": { pt: "Vestidos", en: "Dresses", es: "Vestidos", fr: "Robes", de: "Kleider", it: "Abiti" },
+  "flt_Relógios": { pt: "Relógios", en: "Watches", es: "Relojes", fr: "Montres", de: "Uhren", it: "Orologi" },
+  "flt_Relogios": { pt: "Relógios", en: "Watches", es: "Relojes", fr: "Montres", de: "Uhren", it: "Orologi" },
+  "flt_Bijuteria": { pt: "Bijuteria", en: "Jewelry", es: "Bisutería", fr: "Bijoux", de: "Schmuck", it: "Bigiotteria" },
+  "flt_Calçado": { pt: "Calçado", en: "Footwear", es: "Calzado", fr: "Chaussures", de: "Schuhe", it: "Calzature" },
+  "flt_Calças": { pt: "Calças", en: "Pants", es: "Pantalones", fr: "Pantalons", de: "Hosen", it: "Pantaloni" },
+  "flt_Malas": { pt: "Malas", en: "Bags", es: "Bolsos", fr: "Sacs", de: "Taschen", it: "Borse" },
+  "flt_Top's": { pt: "Top's", en: "Tops", es: "Tops", fr: "Hauts", de: "Tops", it: "Top" },
+  "flt_Colares": { pt: "Colares", en: "Necklaces", es: "Collares", fr: "Colliers", de: "Halsketten", it: "Collane" },
+  "flt_Brincos": { pt: "Brincos", en: "Earrings", es: "Pendientes", fr: "Boucles d'oreilles", de: "Ohrringe", it: "Orecchini" },
+  "flt_Pulseiras": { pt: "Pulseiras", en: "Bracelets", es: "Pulseras", fr: "Bracelets", de: "Armbänder", it: "Bracciali" },
+  "flt_Anéis": { pt: "Anéis", en: "Rings", es: "Anillos", fr: "Bagues", de: "Ringe", it: "Anelli" },
+  "flt_Botas": { pt: "Botas", en: "Boots", es: "Botas", fr: "Bottes", de: "Stiefel", it: "Stivali" },
+  "flt_Sapatos de tacão": { pt: "Sapatos de tacão", en: "High Heels", es: "Tacones", fr: "Talons hauts", de: "High Heels", it: "Tacchi alti" },
+  "flt_preco": { pt: "Preço", en: "Price", es: "Precio", fr: "Prix", de: "Preis", it: "Prezzo" },
+  "pagi_prev": { pt: "« Anterior", en: "« Previous", es: "« Anterior", fr: "« Précédent", de: "« Zurück", it: "« Precedente" },
+  "pagi_next": { pt: "Próximo »", en: "Next »", es: "Siguiente »", fr: "Suivant »", de: "Weiter »", it: "Successivo »" },
+  "list_title": { pt: "O Nosso Catálogo", en: "Our Catalog", es: "Nuestro Catálogo", fr: "Notre Catalogue", de: "Unser Katalog", it: "Il Nostro Catalogo" },
+  "list_title_men": { pt: "Catálogo de Homem", en: "Men's Catalog", es: "Catálogo de Hombre", fr: "Catalogue Homme", de: "Herrenkatalog", it: "Catalogo Uomo" },
+  "list_title_women": { pt: "Catálogo de Mulher", en: "Women's Catalog", es: "Catálogo de Mujer", fr: "Catalogue Femme", de: "Damenkatalog", it: "Catalogo Donna" },
+  "list_explore": { pt: "Explorar Catálogo", en: "Explore Catalog", es: "Explorar Catálogo", fr: "Explorer le Catalogue", de: "Katalog Erkunden", it: "Esplora il Catalogo" },
+  "list_change": { pt: "Mudar Género", en: "Change Gender", es: "Cambiar Género", fr: "Changer de Genre", de: "Geschlecht Wechseln", it: "Cambia Genere" },
+  "list_view": { pt: " produtos)", en: " products)", es: " productos)", fr: " produits)", de: " Produkte)", it: " prodotti)" },
+  "list_view_prefix": { pt: "Ver Coleção (", en: "View Collection (", es: "Ver Colección (", fr: "Voir la Collection (", de: "Kollektion Ansehen (", it: "Vedi Collezione (" },
+  "list_empty": { pt: "Não foram encontradas coleções para a seleção atual.", en: "No collections found for the current selection.", es: "No se encontraron colecciones para la selección actual.", fr: "Aucune collection trouvée pour la sélection actuelle.", de: "Keine Kollektionen für die aktuelle Auswahl gefunden.", it: "Nessuna collezione trovata per la selezione corrente." },
+  "cols_title": { pt: "Explora o Essencial", en: "Explore the Essentials", es: "Explora lo Esencial", fr: "Explorez l'Essentiel", de: "Entdecken Sie das Wesentliche", it: "Esplora l'Essenziale" },
+  "cols_new": { pt: "Nova Coleção", en: "New Collection", es: "Nueva Colección", fr: "Nouvelle Collection", de: "Neue Kollektion", it: "Nuova Collezione" },
+  "cols_explore": { pt: "Explorar", en: "Explore", es: "Explorar", fr: "Explorer", de: "Entdecken", it: "Esplora" },
+  "cols_coats": { pt: "Casacos", en: "Coats", es: "Abrigos", fr: "Manteaux", de: "Mäntel", it: "Cappotti" },
+  "cols_accs": { pt: "Acessórios", en: "Accessories", es: "Accesorios", fr: "Accessoires", de: "Accessoires", it: "Accessori" },
+  "cols_watches_desc": { pt: "Detalhes que marcam presença.", en: "Details that make a presence.", es: "Detalles que marcan presencia.", fr: "Des détails qui affirment votre style.", de: "Details mit starker Präsenz.", it: "Dettagli che fanno la differenza." },
+  "cols_dresses_desc": { pt: "Elegância para cada ocasião.", en: "Elegance for every occasion.", es: "Elegancia para cada ocasión.", fr: "L'élégance pour chaque occasion.", de: "Eleganz für jeden Anlass.", it: "Eleganza per ogni occasione." },
+  "cols_accs_desc": { pt: "O toque final do visual.", en: "The final touch for the look.", es: "El toque final del conjunto.", fr: "La touche finale de votre tenue.", de: "Der krönende Abschluss Ihres Looks.", it: "Il tocco finale per il tuo look." },
+  "cols_coats_desc": { pt: "Sofisticação em todas as estações.", en: "Sophistication in every season.", es: "Sofisticación en todas las estaciones.", fr: "Le raffinement en toute saison.", de: "Raffinesse zu jeder Jahreszeit.", it: "Raffinatezza in ogni stagione." },
+  "feat_title": { pt: "Em Destaque", en: "Featured", es: "Destacados", fr: "En Vedette", de: "Highlights", it: "In Evidenza" },
+  "feat_best_sellers": { pt: "Mais Vendidos", en: "Best Sellers", es: "Más Vendidos", fr: "Meilleures Ventes", de: "Bestseller", it: "I Più Venduti" },
+  "feat_eyebrow": { pt: "Destaques da Coleção", en: "Collection Highlights", es: "Destacados de la Colección", fr: "Points Forts de la Collection", de: "Kollektions-Highlights", it: "In Evidenza dalla Collezione" },
+  "feat_watches_title": { pt: "Relógios em Destaque", en: "Featured Watches", es: "Relojes Destacados", fr: "Montres à l'Honneur", de: "Ausgewählte Uhren", it: "Orologi in Evidenza" },
+  "feat_dresses_title": { pt: "Vestidos Selecionados", en: "Selected Dresses", es: "Vestidos Seleccionados", fr: "Robes Sélectionnées", de: "Ausgewählte Kleider", it: "Abiti Selezionati" },
+  "feat_buy": { pt: "Comprar", en: "Buy", es: "Comprar", fr: "Acheter", de: "Kaufen", it: "Acquista" },
+  "edit_title": { pt: "Moda pensada para momentos especiais e para o <em>dia a dia</em>.", en: "Fashion designed for special moments and <em>everyday wear</em>.", es: "Moda pensada para momentos especiales y para el <em>día a día</em>.", fr: "Une mode pensée pour les moments d'exception et le <em>quotidien</em>.", de: "Mode für besondere Momente und den <em>Alltag</em>.", it: "Moda pensata per i momenti speciali e per la <em>vita quotidiana</em>." },
+  "edit_sub": { pt: "Peças escolhidas com cuidado para destacar a tua presença em qualquer ocasião. Luxo nos detalhes, conforto na essência.", en: "Carefully chosen pieces to highlight your presence on any occasion. Luxury in details, comfort in essence.", es: "Piezas elegidas con esmero para realzar tu presencia en cualquier ocasión. Lujo en los detalles, confort en la esencia.", fr: "Des pièces soigneusement choisies pour sublimer votre présence en toute occasion. Le luxe dans les détails, le confort au cœur.", de: "Sorgfältig ausgewählte Stücke für Ihren perfekten Auftritt zu jedem Anlass. Luxus im Detail, Komfort im Kern.", it: "Capi selezionati con cura per valorizzare la tua presenza in ogni occasione. Lusso nei dettagli, comfort nell'essenza." },
+  "edit_quote": { pt: "\"A elegância não é sobre chamar a atenção, mas sim sobre ser lembrado.\"", en: "\"Elegance isn't about standing out, but about being remembered.\"", es: "\"La elegancia no consiste en llamar la atención, sino en ser recordado.\"", fr: "\"L'élégance n'est pas de se faire remarquer, mais de rester gravé dans les mémoires.\"", de: "\"Eleganz bedeutet nicht, ins Auge zu fallen, sondern im Gedächtnis zu bleiben.\"", it: "\"L'eleganza non è farsi notare, ma farsi ricordare.\"" },
+  "edit_btn": { pt: "Descobrir a Marca", en: "Discover the Brand", es: "Descubrir la Marca", fr: "Découvrir la Marque", de: "Die Marke Entdecken", it: "Scopri il Brand" },
+  "rev_product": { pt: "Avaliações do Produto", en: "Product Reviews", es: "Reseñas del Producto", fr: "Avis sur le Produit", de: "Produktbewertungen", it: "Recensioni del Prodotto" },
+  "rev_leave": { pt: "Deixar uma Avaliação", en: "Leave a Review", es: "Dejar una Reseña", fr: "Laisser un Avis", de: "Bewertung Abgeben", it: "Lascia una Recensione" },
+  "rev_login": { pt: "Iniciar Sessão para Avaliar", en: "Login to Review", es: "Iniciar Sesión para Valorar", fr: "Connectez-vous pour Évaluer", de: "Anmelden zum Bewerten", it: "Accedi per Recensire" },
+  "rev_rating_as": { pt: "A avaliar publicamente como:", en: "Reviewing publicly as:", es: "Valorando públicamente como:", fr: "Évaluation publique en tant que :", de: "Öffentlich bewerten als:", it: "Recensione pubblica come:" },
+  "rev_placeholder": { pt: "A sua opinião sobre este artigo...", en: "Your opinion about this item...", es: "Tu opinión sobre este artículo...", fr: "Votre avis sur cet article...", de: "Ihre Meinung zu diesem Artikel...", it: "La tua opinione su questo articolo..." },
+  "rev_submit": { pt: "Enviar Avaliação", en: "Submit Review", es: "Enviar Reseña", fr: "Envoyer l'Avis", de: "Bewertung Absenden", it: "Invia Recensione" },
+  "rev_empty": { pt: "Ainda não existem avaliações para este produto. Seja o primeiro a avaliar!", en: "There are no reviews for this product yet. Be the first to review!", es: "Aún no hay reseñas para este producto. ¡Sé el primero en opinar!", fr: "Aucun avis pour le moment. Soyez le premier à donner votre avis !", de: "Noch keine Bewertungen vorhanden. Seien Sie der Erste!", it: "Non ci sono ancora recensioni per questo prodotto. Sii il primo a recensire!" },
+  "rev_opinions": { pt: "opiniões", en: "reviews", es: "opiniones", fr: "avis", de: "Bewertungen", it: "opinioni" },
+  "rev_badge_review": { pt: "avaliação", en: "review", es: "reseña", fr: "avis", de: "Bewertung", it: "recensione" },
+  "rev_badge_reviews": { pt: "avaliações", en: "reviews", es: "reseñas", fr: "avis", de: "Bewertungen", it: "recensioni" },
+  "rev_badge_recommend": { pt: "recomendam", en: "recommend", es: "recomiendan", fr: "recommandent", de: "empfehlen", it: "raccomandano" },
+  "rev_badge_first": { pt: "Seja o primeiro a avaliar", en: "Be the first to review", es: "Sé el primero en valorar", fr: "Soyez le premier à évaluer", de: "Schreiben Sie die erste Bewertung", it: "Sii il primo a recensire" },
+  "rev_home_title": { pt: "O que dizem os nossos clientes", en: "What our customers say", es: "Lo que dicen nuestros clientes", fr: "Ce que disent nos clients", de: "Was unsere Kunden sagen", it: "Cosa dicono i nostri clienti" },
+  "rev_home_write": { pt: "Escrever Avaliação", en: "Write Review", es: "Escribir Reseña", fr: "Écrire un Avis", de: "Bewertung Schreiben", it: "Scrivi una Recensione" },
+  "rev_home_placeholder": { pt: "A sua opinião...", en: "Your opinion...", es: "Tu opinión...", fr: "Votre avis...", de: "Ihre Meinung...", it: "La tua opinione..." },
+  "rev_home_submit": { pt: "Enviar Review", en: "Submit Review", es: "Enviar Reseña", fr: "Envoyer l'Avis", de: "Bewertung Absenden", it: "Invia Recensione" },
+  "trust_ship_title": { pt: "Envios seguros", en: "Secure shipping", es: "Envíos seguros", fr: "Livraisons sécurisées", de: "Sicherer Versand", it: "Spedizioni sicure" },
+  "trust_ship_text": { pt: "Entrega rápida e acompanhamento da encomenda.", en: "Fast delivery with order tracking.", es: "Entrega rápida y seguimiento del pedido.", fr: "Livraison rapide avec suivi de commande.", de: "Schnelle Lieferung mit Sendungsverfolgung.", it: "Consegna rapida e tracciamento dell'ordine." },
+  "trust_pay_title": { pt: "Pagamentos protegidos", en: "Protected payments", es: "Pagos protegidos", fr: "Paiements sécurisés", de: "Geschützte Zahlungen", it: "Pagamenti protetti" },
+  "trust_pay_text": { pt: "Compra com segurança em todos os métodos disponíveis.", en: "Shop securely with every available payment method.", es: "Compra con seguridad con todos los métodos disponibles.", fr: "Achetez en toute sérénité avec tous les modes disponibles.", de: "Kaufen Sie sicher mit allen verfügbaren Methoden.", it: "Acquista in sicurezza con tutti i metodi disponibili." },
+  "trust_support_title": { pt: "Apoio ao cliente", en: "Customer support", es: "Atención al cliente", fr: "Service client", de: "Kundenservice", it: "Servizio clienti" },
+  "trust_support_text": { pt: "Estamos disponíveis para ajudar antes e depois da compra.", en: "We are available to help before and after purchase.", es: "Estamos disponibles para ayudarte antes y después de tu compra.", fr: "Nous sommes disponibles pour vous aider avant et après votre achat.", de: "Wir sind vor und nach dem Kauf jederzeit für Sie da.", it: "Siamo a tua disposizione prima e dopo l'acquisto." },
+  "about_eyebrow_1": { pt: "Sobre nós", en: "About Us", es: "Sobre nosotros", fr: "À propos de nous", de: "Über uns", it: "Chi siamo" },
+  "about_title_1": { pt: "A essência Le Bordeu", en: "The Le Bordeu essence", es: "La esencia Le Bordeu", fr: "L'essence Le Bordeu", de: "Die Essenz von Le Bordeu", it: "L'essenza Le Bordeu" },
+  "about_lead_1": { pt: "Mais do que moda, a Le Bordeu é uma seleção de peças pensadas para dar presença, elegância e confiança ao teu dia a dia.", en: "More than fashion, Le Bordeu is a selection of pieces designed to give presence, elegance, and confidence to your everyday life.", es: "Más que moda, Le Bordeu es una selección pensada para aportar presencia, elegancia y confianza a tu día a día.", fr: "Plus que de la mode, Le Bordeu est une sélection conçue pour offrir prestance, élégance et confiance à votre quotidien.", de: "Mehr als Mode: Le Bordeu ist eine erlesene Auswahl für Präsenz, Eleganz und Selbstvertrauen im Alltag.", it: "Più che moda, Le Bordeu è una selezione pensata per donare presenza, eleganza e sicurezza al tuo quotidiano." },
+  "about_p_1": { pt: "Escolhemos cada produto com atenção ao detalhe, ao conforto e ao impacto visual. A nossa ideia é simples: facilitar a descoberta de peças bonitas, versáteis e com acabamento cuidado.", en: "We choose each product with attention to detail, comfort, and visual impact. Our idea is simple: to facilitate the discovery of beautiful, versatile pieces with careful finishing.", es: "Elegimos cada producto con atención al detalle, al confort y al impacto visual. Nuestra idea es simple: facilitar el descubrimiento de prendas hermosas, versátiles y con acabado impecable.", fr: "Nous choisissons chaque produit avec soin pour son détail, son confort et son allure. Notre idée : vous faire découvrir des pièces élégantes et polyvalentes.", de: "Wir wählen jedes Stück mit Blick auf Detail, Tragekomfort und Ausstrahlung aus. Unser Ziel: Schöne, vielseitige und hochwertige Stücke erlebbar zu machen.", it: "Scegliamo ogni prodotto con attenzione al dettaglio, al comfort e all'impatto visivo. La nostra idea: facilitare la scoperta di capi raffinati, versatili e curati." },
+  "about_btn_collections": { pt: "Ver coleções", en: "View Collections", es: "Ver colecciones", fr: "Voir les collections", de: "Kollektionen ansehen", it: "Vedi collezioni" },
+  "about_btn_products": { pt: "Ver produtos", en: "View Products", es: "Ver productos", fr: "Voir les produits", de: "Produkte ansehen", it: "Vedi prodotti" },
+  "about_val_1_title": { pt: "Curadoria", en: "Curation", es: "Curaduría", fr: "Sélection", de: "Kuratierung", it: "Curatela" },
+  "about_val_1_desc": { pt: "Selecionamos produtos com estilo, equilíbrio e potencial para acompanhar diferentes momentos.", en: "We select products with style, balance, and potential to accompany different moments.", es: "Seleccionamos productos con estilo, equilibrio y versatilidad para acompañarte en cualquier momento.", fr: "Nous sélectionnons des produits au style équilibré, prêts à sublimer chaque instant.", de: "Wir wählen Produkte mit Stil, Balance und Vielseitigkeit für jeden Moment aus.", it: "Selezioniamo prodotti con stile, equilibrio e versatilità per accompagnare ogni momento." },
+  "about_val_2_title": { pt: "Detalhe", en: "Detail", es: "Detalle", fr: "Détail", de: "Detail", it: "Dettaglio" },
+  "about_val_2_desc": { pt: "Valorizamos acabamentos, silhuetas e pequenos pormenores que tornam uma peça memorável.", en: "We value finishes, silhouettes, and small details that make a piece memorable.", es: "Valoramos acabados, siluetas y pequeños detalles que hacen memorable una prenda.", fr: "Nous valorisons les finitions, les silhouettes et les nuances qui rendent une pièce inoubliable.", de: "Wir schätzen Verarbeitungen, Schnitte und feine Nuancen, die jedes Stück besonders machen.", it: "Diamo valore a finiture, silhouette e piccoli dettagli che rendono un capo indimenticabile." },
+  "about_val_3_title": { pt: "Confiança", en: "Confidence", es: "Confianza", fr: "Confiance", de: "Vertrauen", it: "Fiducia" },
+  "about_val_3_desc": { pt: "Criamos uma experiência clara, com pagamento seguro, envio rápido e trocas simples.", en: "We create a clear experience, with secure payment, fast shipping, and easy returns.", es: "Creamos una experiencia clara, con pago seguro, envío rápido y devoluciones sencillas.", fr: "Nous offrons une expérience fluide, avec paiement sécurisé, livraison rapide et retours simples.", de: "Ein klares Einkaufserlebnis mit sicherer Bezahlung, schnellem Versand und einfacher Rückgabe.", it: "Offriamo un'esperienza trasparente, con pagamento sicuro, spedizione rapida e resi semplici." },
+  "about_eyebrow_2": { pt: "A nossa promessa", en: "Our promise", es: "Nuestra promesa", fr: "Notre promesse", de: "Unser Versprechen", it: "La nostra promessa" },
+  "about_title_2": { pt: "Elegância sem complicar.", en: "Elegance without complication.", es: "Elegancia sin complicaciones.", fr: "L'élégance en toute simplicité.", de: "Eleganz ohne Kompromisse.", it: "Eleganza senza complicazioni." },
+  "about_p_2": { pt: "Queremos que cada compra seja simples e bem pensada, desde o momento em que escolhes o produto até ao momento em que ele chega a tua casa.", en: "We want every purchase to be simple and well thought out, from the moment you choose the product until the moment it arrives at your home.", es: "Queremos que cada compra sea sencilla y acertada, desde que eliges la prenda hasta que llega a tu hogar.", fr: "Chaque achat doit être fluide et inspirant, du premier regard jusqu'à la réception chez vous.", de: "Jeder Einkauf soll einfach und durchdacht sein – von der Auswahl bis zur Haustür.", it: "Vogliamo che ogni acquisto sia semplice e curato, dalla scelta del capo fino al suo arrivo a casa tua." },
+  "about_p_3": { pt: "A Le Bordeu foi criada para quem procura uma presença cuidada sem excesso: peças fáceis de usar, bonitas de ver e escolhidas com critério.", en: "Le Bordeu was created for those looking for a careful presence without excess: easy-to-wear pieces, beautiful to look at, and chosen carefully.", es: "Le Bordeu nació para quienes buscan una presencia cuidada sin excesos: prendas cómodas, atractivas y seleccionadas con criterio.", fr: "Le Bordeu s'adresse à ceux qui recherchent une élégance sobre et raffinée : des pièces agréables, esthétiques et choisies avec rigueur.", de: "Le Bordeu entstand für Menschen, die dezente Eleganz schätzen: tragbar, ansprechend und sorgfältig ausgewählt.", it: "Le Bordeu nasce per chi cerca una presenza curata senza eccessi: capi facili da indossare, belli da vedere e scelti con gusto." },
+  "about_eyebrow_3": { pt: "Como escolhemos", en: "How we choose", es: "Cómo elegimos", fr: "Notre méthode", de: "Unsere Auswahl", it: "Come scegliamo" },
+  "about_title_3": { pt: "O detalhe vem antes da montra.", en: "Detail comes before the showcase.", es: "El detalle antes del escaparate.", fr: "L'exigence avant l'exposition.", de: "Das Detail zählt zuerst.", it: "Il dettaglio viene prima di tutto." },
+  "about_proc_1_title": { pt: "Estilo que se adapta", en: "Style that adapts", es: "Estilo que se adapta", fr: "Un style qui s'adapte", de: "Stil, der sich anpasst", it: "Stile che si adatta" },
+  "about_proc_1_desc": { pt: "Procuramos peças que funcionem em diferentes momentos, do dia a dia a ocasiões em que queres uma presença mais marcante.", en: "We look for pieces that work in different moments, from everyday life to occasions where you want a more striking presence.", es: "Buscamos prendas que funcionen en diferentes momentos, del día a día a ocasiones en las que deseas destacar.", fr: "Des créations polyvalentes qui vous accompagnent du quotidien aux grandes occasions.", de: "Stücke, die vom Alltag bis zu besonderen Anlässen perfekt harmonieren.", it: "Capi versatili ideali per ogni momento, dal quotidiano agli eventi speciali." },
+  "about_proc_2_title": { pt: "Acabamento cuidado", en: "Careful finishing", es: "Acabado impecable", fr: "Finitions soignées", de: "Sorgfältige Verarbeitung", it: "Finiture impeccabili" },
+  "about_proc_2_desc": { pt: "Damos atenção à forma, aos materiais, aos pormenores visuais e à sensação geral de cada produto.", en: "We pay attention to the shape, materials, visual details, and the overall feel of each product.", es: "Prestamos atención a la silueta, materiales, detalles visuales y la sensación general de cada producto.", fr: "Attention portée aux coupes, aux matières et au toucher de chaque création.", de: "Volle Aufmerksamkeit für Passform, Materialien und Haptik jedes Artikels.", it: "Attenzione a forme, tessuti, dettagli visivi e piacevolezza al tatto." },
+  "about_proc_3_title": { pt: "Compra sem complicações", en: "Hassle-free purchase", es: "Compra sin complicaciones", fr: "Achat en toute sérénité", de: "Unkomplizierter Einkauf", it: "Acquisto senza pensieri" },
+  "about_proc_3_desc": { pt: "Queremos que escolher, comprar e receber seja simples, claro e seguro do primeiro clique até à entrega.", en: "We want choosing, buying, and receiving to be simple, clear, and secure from the first click to delivery.", es: "Queremos que elegir, comprar y recibir sea sencillo, claro y seguro desde el primer clic hasta la entrega.", fr: "De la commande à la livraison, une expérience fluide, transparente et rassurante.", de: "Auswählen, bestellen und empfangen: einfach, transparent und sicher.", it: "Vogliamo che scegliere, acquistare e ricevere sia semplice, chiaro e sicuro." },
+  "about_eyebrow_4": { pt: "O que podes esperar", en: "What you can expect", es: "Lo que puedes esperar", fr: "Ce qui vous attend", de: "Was Sie erwartet", it: "Cosa puoi aspettarti" },
+  "about_title_4": { pt: "Uma experiência pensada para te deixar tranquilo.", en: "An experience designed to give you peace of mind.", es: "Una experiencia pensada para tu tranquilidad.", fr: "Une expérience conçue pour votre sérénité.", de: "Ein Einkaufserlebnis für Ihr gutes Gefühl.", it: "Un'esperienza pensata per la tua serenità." },
+  "about_exp_1": { pt: "Pagamento 100% seguro", en: "100% secure payment", es: "Pago 100% seguro", fr: "Paiement 100% sécurisé", de: "100% sichere Bezahlung", it: "Pagamento 100% sicuro" },
+  "about_exp_2": { pt: "Envio rápido e acompanhamento da encomenda", en: "Fast shipping and order tracking", es: "Envío rápido con seguimiento del pedido", fr: "Livraison rapide et suivi de commande", de: "Schneller Versand mit Sendungsverfolgung", it: "Spedizione rapida e tracciamento dell'ordine" },
+  "about_exp_3": { pt: "Trocas simples quando algo não fica como esperavas", en: "Easy returns when something isn't as expected", es: "Devoluciones sencillas si algo no es como esperabas", fr: "Retours faciles si quelque chose ne convient pas", de: "Einfache Rückgabe, falls etwas nicht passt", it: "Resi facili se qualcosa non è come desideravi" },
+  "about_exp_4": { pt: "Produtos escolhidos para combinar elegância e uso real", en: "Products chosen to combine elegance and real use", es: "Productos seleccionados para unir elegancia y uso real", fr: "Des produits alliant élégance et confort réel", de: "Produkte, die Eleganz und Alltagstauglichkeit vereinen", it: "Prodotti selezionati per unire eleganza e praticità" },
+  "about_exp_note": { pt: "Acreditamos que uma boa loja não termina na imagem bonita. Tem de ser clara, funcional e confiável em todos os passos.", en: "We believe a good store doesn't end with a beautiful image. It has to be clear, functional, and reliable at every step.", es: "Creemos que una buena tienda no termina en una bonita imagen. Debe ser clara, funcional y de confianza en cada paso.", fr: "Une belle boutique ne se résume pas à de belles images : elle doit être irréprochable et fiable à chaque étape.", de: "Ein erstklassiger Shop überzeugt nicht nur visuell, sondern durch Zuverlässigkeit in jedem Schritt.", it: "Crediamo che un buon negozio non finisca con una bella immagine. Deve essere trasparente e affidabile in ogni passo." },
+  "about_title_5": { pt: "Descobre peças escolhidas para elevar o teu estilo.", en: "Discover pieces chosen to elevate your style.", es: "Descubre prendas elegidas para elevar tu estilo.", fr: "Découvrez des pièces choisies pour sublimer votre allure.", de: "Entdecken Sie Stücke, die Ihren Stil bereichern.", it: "Scopri capi selezionati per valorizzare il tuo stile." },
+  "about_btn_explore": { pt: "Explorar produtos", en: "Explore products", es: "Explorar productos", fr: "Explorer les produits", de: "Produkte entdecken", it: "Esplora i prodotti" },
+  "ftr_slogan": { pt: "Estilo com presença. Luxo nos detalhes.", en: "Style with presence. Luxury in details.", es: "Estilo con presencia. Lujo en los detalles.", fr: "Le style avec prestance. Le luxe dans les détails.", de: "Stil mit Präsenz. Luxus im Detail.", it: "Stile con presenza. Lusso nei dettagli." },
+  "ftr_about": { pt: "Sobre Nós", en: "About Us", es: "Sobre Nosotros", fr: "À Propos", de: "Über Uns", it: "Chi Siamo" },
+  "ftr_contact": { pt: "Contacto", en: "Contact", es: "Contacto", fr: "Contact", de: "Kontakt", it: "Contatto" },
+  "ftr_shipping": { pt: "Envios e Devoluções", en: "Shipping & Returns", es: "Envíos y Devoluciones", fr: "Livraisons & Retours", de: "Versand & Rückgabe", it: "Spedizioni e Resi" },
+  "ftr_privacy": { pt: "Privacidade", en: "Privacy Policy", es: "Privacidad", fr: "Confidentialité", de: "Datenschutz", it: "Privacy" },
+  "ftr_terms": { pt: "Termos e Condições", en: "Terms of Service", es: "Términos y Condiciones", fr: "Conditions Générales", de: "AGB", it: "Termini e Condizioni" },
+  "ftr_contact_lbl": { pt: "Contacto: ", en: "Contact: ", es: "Contacto: ", fr: "Contact : ", de: "Kontakt: ", it: "Contatto: " },
+  "ftr_payments": { pt: "Métodos de pagamento", en: "Payment methods", es: "Métodos de pago", fr: "Modes de paiement", de: "Zahlungsarten", it: "Metodi di pagamento" },
+  "ftr_payment_card": { pt: "Cartão de crédito ou débito", en: "Credit or debit card", es: "Tarjeta de crédito o débito", fr: "Carte de crédit ou de débit", de: "Kredit- oder Debitkarte", it: "Carta di credito o debito" },
+  "ftr_payment_mb": { pt: "Multibanco", en: "ATM Reference", es: "Multibanco", fr: "Multibanco", de: "Multibanco", it: "Multibanco" },
+  "contact_eyebrow": { pt: "Contacto", en: "Contact", es: "Contacto", fr: "Contact", de: "Kontakt", it: "Contatto" },
+  "contact_title": { pt: "Fala connosco", en: "Talk to us", es: "Habla con nosotros", fr: "Contactez-nous", de: "Kontaktieren Sie uns", it: "Contattaci" },
+  "contact_desc": { pt: "Estamos disponíveis para ajudar com encomendas, tamanhos, envios, devoluções e qualquer dúvida sobre a Le Bordeu.", en: "We are available to help with orders, sizes, shipping, returns, and any questions about Le Bordeu.", es: "Estamos disponibles para ayudarte con pedidos, tallas, envíos, devoluciones y cualquier duda sobre Le Bordeu.", fr: "Nous sommes disponibles pour vous aider avec vos commandes, tailles, livraisons, retours et toute question sur Le Bordeu.", de: "Wir stehen Ihnen bei Fragen zu Bestellungen, Größen, Versand, Rücksendungen und zu Le Bordeu jederzeit gern zur Verfügung.", it: "Siamo disponibili per aiutarti con ordini, taglie, spedizioni, resi e qualsiasi domanda su Le Bordeu." },
+  "contact_email_title": { pt: "Email", en: "Email", es: "Email", fr: "E-mail", de: "E-Mail", it: "Email" },
+  "contact_email_desc_1": { pt: "Envia-nos uma mensagem para ", en: "Send us a message to ", es: "Envíanos un mensaje a ", fr: "Envoyez-nous un message à ", de: "Senden Sie uns eine Nachricht an ", it: "Inviaci un messaggio a " },
+  "contact_email_desc_2": { pt: ". Para pedidos sobre encomendas, inclui o número da encomenda para conseguirmos ajudar mais depressa.", en: ". For order inquiries, include your order number so we can help faster.", es: ". Para consultas sobre pedidos, incluye el número de pedido para ayudarte con mayor rapidez.", fr: ". Pour les questions relatives aux commandes, incluez votre numéro de commande pour un traitement plus rapide.", de: ". Bei Fragen zu Bestellungen geben Sie bitte Ihre Bestellnummer an, damit wir schneller helfen können.", it: ". Per richieste relative agli ordini, includi il numero d'ordine per permetterci di aiutarti più rapidamente." },
+  "contact_return_title": { pt: "Pedidos de devolução ou troca", en: "Return or exchange requests", es: "Solicitudes de cambio o devolución", fr: "Demandes de retour ou d'échange", de: "Rückgabe- oder Umtauschanfragen", it: "Richieste di reso o cambio" },
+  "contact_return_desc": { pt: "Antes de enviares qualquer artigo de volta, contacta-nos para confirmarmos se o pedido cumpre as condições e para te indicarmos os próximos passos.", en: "Before sending any item back, contact us to confirm if the request meets the conditions and to provide you with the next steps.", es: "Antes de devolver cualquier artículo, contáctanos para confirmar que la solicitud cumple las condiciones y orientarte en los siguientes pasos.", fr: "Avant de renvoyer un article, contactez-nous pour vérifier les conditions et suivre la procédure.", de: "Bitte kontaktieren Sie uns vor der Rücksendung, um die Bedingungen abzustimmen und die nächsten Schritte zu erfahren.", it: "Prima di rispedire qualsiasi articolo, contattaci per verificare le condizioni e procedere con i passaggi successivi." },
+  "news_title": { pt: "Recebe novidades, promoções exclusivas e lançamentos <em>Le Bordeu</em>.", en: "Get news, exclusive promotions, and <em>Le Bordeu</em> launches.", es: "Recibe novedades, promociones exclusivas y lanzamientos de <em>Le Bordeu</em>.", fr: "Recevez les nouveautés, promotions exclusives et lancements <em>Le Bordeu</em>.", de: "Erhalten Sie Neuigkeiten, exklusive Angebote und Neuerscheinungen von <em>Le Bordeu</em>.", it: "Ricevi novità, promozioni esclusive e lanci <em>Le Bordeu</em>." },
+  "news_incentive": { pt: "Subscreve e recebe 10% de desconto na tua primeira compra.", en: "Subscribe and get 10% off your first purchase.", es: "Suscríbete y recibe un 10% de descuento en tu primera compra.", fr: "Inscrivez-vous et bénéficiez de 10% de réduction sur votre premier achat.", de: "Abonnieren Sie unseren Newsletter und erhalten Sie 10% Rabatt auf Ihren ersten Einkauf.", it: "Iscriviti e ricevi il 10% di sconto sul tuo primo acquisto." },
+  "news_ph": { pt: "O teu email", en: "Your email", es: "Tu correo electrónico", fr: "Votre e-mail", de: "Ihre E-Mail-Adresse", it: "La tua email" },
+  "news_btn": { pt: "Subscrever", en: "Subscribe", es: "Suscribirse", fr: "S'inscrire", de: "Abonnieren", it: "Iscriviti" },
+  "cart_title": { pt: "O Teu Carrinho", en: "Your Cart", es: "Tu Carrito", fr: "Votre Panier", de: "Ihr Warenkorb", it: "Il Tuo Carrello" },
+  "cart_close": { pt: "Fechar Carrinho", en: "Close Cart", es: "Cerrar Carrito", fr: "Fermer le Panier", de: "Warenkorb Schließen", it: "Chiudi Carrello" },
+  "cart_empty": { pt: "O seu carrinho está vazio de momento.", en: "Your cart is currently empty.", es: "Tu carrito está vacío actualmente.", fr: "Votre panier est actuellement vide.", de: "Ihr Warenkorb ist derzeit leer.", it: "Il tuo carrello è attualmente vuoto." },
+  "cart_continue": { pt: "Continuar a Comprar", en: "Continue Shopping", es: "Continuar Comprando", fr: "Continuer mes Achats", de: "Weiter Einkaufen", it: "Continua lo Shopping" },
+  "cart_remove": { pt: "Remover", en: "Remove", es: "Eliminar", fr: "Supprimer", de: "Entfernen", it: "Rimuovi" },
+  "cart_subtotal": { pt: "Subtotal", en: "Subtotal", es: "Subtotal", fr: "Sous-total", de: "Zwischensumme", it: "Subtotale" },
+  "cart_free_shipping_applied": { pt: "Envio gratuito aplicado nesta encomenda.", en: "Free shipping applied to this order.", es: "Envío gratis aplicado en este pedido.", fr: "Livraison gratuite appliquée sur cette commande.", de: "Kostenloser Versand für diese Bestellung angewendet.", it: "Spedizione gratuita applicata a questo ordine." },
+  "cart_free_shipping_remaining_prefix": { pt: "Faltam", en: "Add", es: "Faltan", fr: "Ajoutez", de: "Noch", it: "Mancano" },
+  "cart_free_shipping_remaining_suffix": { pt: "para teres envio gratuito.", en: "more for free shipping.", es: "para obtener envío gratis.", fr: "pour bénéficier de la livraison gratuite.", de: "für kostenlosen Versand.", it: "per la spedizione gratuita." },
+  "cart_tax": { pt: "Impostos e portes calculados na finalização da compra.", en: "Taxes and shipping calculated at checkout.", es: "Impuestos y envío calculados al finalizar la compra.", fr: "Taxes et frais de port calculés lors du paiement.", de: "Steuern und Versandkosten werden an der Kasse berechnet.", it: "Imposte e spese di spedizione calcolate al checkout." },
+  "cart_checkout": { pt: "Finalizar Compra", en: "Checkout", es: "Finalizar Compra", fr: "Commander", de: "Zur Kasse", it: "Procedi al Checkout" },
+  "cart_view": { pt: "Ver Carrinho", en: "View Cart", es: "Ver Carrito", fr: "Voir le Panier", de: "Warenkorb Ansehen", it: "Vedi Carrello" },
+  "cart_add": { pt: "Adicionar", en: "Add", es: "Añadir", fr: "Ajouter", de: "Hinzufügen", it: "Aggiungi" },
+  "cart_btn_add": { pt: "+ Adicionar", en: "+ Add", es: "+ Añadir", fr: "+ Ajouter", de: "+ Hinzufügen", it: "+ Aggiungi" },
+  "cart_btn_adding": { pt: "A adicionar...", en: "Adding...", es: "Añadiendo...", fr: "Ajout en cours...", de: "Wird hinzugefügt...", it: "Aggiunta in corso..." },
+  "cart_btn_added": { pt: "✓ Adicionado", en: "✓ Added", es: "✓ Añadido", fr: "✓ Ajouté", de: "✓ Hinzugefügt", it: "✓ Aggiunto" },
+  "cart_sold_out": { pt: "Esgotado", en: "Sold Out", es: "Agotado", fr: "Épuisé", de: "Ausverkauft", it: "Esaurito" },
+  "cart_unavailable": { pt: "Indisponível", en: "Unavailable", es: "No disponible", fr: "Indisponible", de: "Nicht verfügbar", it: "Non disponibile" },
+  "cart_view_prod": { pt: "Ver Produto", en: "View Product", es: "Ver Producto", fr: "Voir le Produit", de: "Produkt Ansehen", it: "Vedi Prodotto" },
+  "cart_update": { pt: "Atualizar Carrinho", en: "Update Cart", es: "Actualizar Carrito", fr: "Mettre à jour le Panier", de: "Warenkorb Aktualisieren", it: "Aggiorna Carrello" },
+  "cart_recommendations_title": { pt: "Completa o Teu Look", en: "Complete Your Look", es: "Completa Tu Look", fr: "Complétez Votre Look", de: "Vervollständigen Sie Ihren Look", it: "Completa il Tuo Look" },
+  "cart_recommendations_subtitle": { pt: "Sugestões exclusivas para o teu visual", en: "Exclusive suggestions for your outfit", es: "Sugerencias exclusivas para tu conjunto", fr: "Suggestions exclusives pour votre tenue", de: "Exklusive Empfehlungen für Ihr Outfit", it: "Suggerimenti esclusivi per il tuo outfit" },
+  "pillar_top": { pt: "Parte de Cima", en: "Topwear", es: "Parte de Arriba", fr: "Hauts", de: "Oberteile", it: "Parte Superiore" },
+  "pillar_bottom": { pt: "Calças & Jeans", en: "Pants & Jeans", es: "Pantalones y Jeans", fr: "Pantalons & Jeans", de: "Hosen & Jeans", it: "Pantaloni & Jeans" },
+  "pillar_shoes": { pt: "Calçado & Sapatilhas", en: "Footwear & Sneakers", es: "Calzado y Zapatillas", fr: "Chaussures & Baskets", de: "Schuhe & Sneaker", it: "Calzature & Sneakers" },
+  "pillar_watch": { pt: "Relógio", en: "Watch", es: "Reloj", fr: "Montre", de: "Uhr", it: "Orologio" },
+  "pillar_accessory": { pt: "Acessórios & Chapéus", en: "Accessories & Headwear", es: "Accesorios y Gorras", fr: "Accessoires & Chapeaux", de: "Accessoires & Kopfbedeckungen", it: "Accessori & Cappelli" },
+  "pillar_featured": { pt: "Destaque", en: "Featured", es: "Destacado", fr: "En Vedette", de: "Highlight", it: "In Evidenza" },
+  "option_color": { pt: "Cor", en: "Color", es: "Color", fr: "Couleur", de: "Farbe", it: "Colore" },
+  "option_size": { pt: "Tamanho", en: "Size", es: "Talla", fr: "Taille", de: "Größe", it: "Taglia" },
+  "option_material": { pt: "Material", en: "Material", es: "Material", fr: "Matière", de: "Material", it: "Materiale" },
+  "option_style": { pt: "Estilo", en: "Style", es: "Estilo", fr: "Style", de: "Stil", it: "Stile" },
 };
-
 const DYNAMIC_TRANSLATIONS = {
   // Colors
   "White": { pt: "Branco", en: "White" },
@@ -1871,7 +1842,17 @@ const DYNAMIC_TRANSLATIONS = {
 };
 
 const isEnPath = window.location.pathname === '/en' || window.location.pathname.startsWith('/en/');
-let currentLang = isEnPath ? 'en' : 'pt';
+const SUPPORTED_LANGS = {
+  pt: { name: 'Português', flag: 'https://flagcdn.com/w20/pt.png', code: 'PT' },
+  en: { name: 'English', flag: 'https://flagcdn.com/w20/gb.png', code: 'EN' },
+  es: { name: 'Español', flag: 'https://flagcdn.com/w20/es.png', code: 'ES' },
+  fr: { name: 'Français', flag: 'https://flagcdn.com/w20/fr.png', code: 'FR' },
+  de: { name: 'Deutsch', flag: 'https://flagcdn.com/w20/de.png', code: 'DE' },
+  it: { name: 'Italiano', flag: 'https://flagcdn.com/w20/it.png', code: 'IT' }
+};
+
+let savedLang = localStorage.getItem('site_lang') || 'pt';
+let currentLang = isEnPath ? 'en' : (SUPPORTED_LANGS[savedLang] && savedLang !== 'en' ? savedLang : 'pt');
 window.currentLang = currentLang;
 
 function applyTranslations() {
@@ -1898,13 +1879,11 @@ function applyTranslations() {
     const textNodes = [];
     let node;
     while (node = walker.nextNode()) {
-      // Ignore empty or whitespace-only nodes
       if (node.nodeValue.trim() !== '') {
         textNodes.push(node);
       }
     }
 
-    // Sort keys by length descending to prevent partial match replacement
     const sortedKeys = Object.keys(DYNAMIC_TRANSLATIONS).sort((a, b) => b.length - a.length);
 
     textNodes.forEach(textNode => {
@@ -1912,7 +1891,11 @@ function applyTranslations() {
       let changed = false;
 
       sortedKeys.forEach(originalKey => {
-        const translatedVal = DYNAMIC_TRANSLATIONS[originalKey][currentLang];
+        const entry = DYNAMIC_TRANSLATIONS[originalKey];
+        const translatedVal = (typeof entry === 'object' && entry !== null)
+          ? (entry[currentLang] || entry['en'] || entry['pt'])
+          : entry;
+
         if (translatedVal && translatedVal !== originalKey) {
           if (text.includes(originalKey)) {
             text = text.split(originalKey).join(translatedVal);
@@ -1930,19 +1913,19 @@ function applyTranslations() {
   // Then apply Static Translations
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
-    if (TRANSLATIONS[key] && TRANSLATIONS[key][currentLang]) {
-
-      // If the translation itself contains HTML, just use innerHTML
-      if (TRANSLATIONS[key][currentLang].includes('<')) {
-        el.innerHTML = TRANSLATIONS[key][currentLang];
-      } else {
-        // Check if the original element had an SVG or span we need to preserve
-        // But only if the translation string does NOT have it.
-        if (el.innerHTML.includes('<svg')) {
-          const icon = el.innerHTML.match(/<svg[^>]*>.*?<\/svg>/g);
-          el.innerHTML = TRANSLATIONS[key][currentLang] + (icon ? icon.join('') : '');
+    if (TRANSLATIONS[key]) {
+      const transObj = TRANSLATIONS[key];
+      const translatedVal = transObj[currentLang] || transObj['en'] || transObj['pt'];
+      if (translatedVal) {
+        if (translatedVal.includes('<')) {
+          el.innerHTML = translatedVal;
         } else {
-          el.textContent = TRANSLATIONS[key][currentLang];
+          if (el.innerHTML.includes('<svg')) {
+            const icon = el.innerHTML.match(/<svg[^>]*>.*?<\/svg>/g);
+            el.innerHTML = translatedVal + (icon ? icon.join('') : '');
+          } else {
+            el.textContent = translatedVal;
+          }
         }
       }
     }
@@ -1950,15 +1933,19 @@ function applyTranslations() {
 
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
     const key = el.getAttribute('data-i18n-placeholder');
-    if (TRANSLATIONS[key] && TRANSLATIONS[key][currentLang]) {
-      el.setAttribute('placeholder', TRANSLATIONS[key][currentLang]);
+    if (TRANSLATIONS[key]) {
+      const transObj = TRANSLATIONS[key];
+      const translatedVal = transObj[currentLang] || transObj['en'] || transObj['pt'];
+      if (translatedVal) el.setAttribute('placeholder', translatedVal);
     }
   });
 
   document.querySelectorAll('[data-i18n-aria]').forEach(el => {
     const key = el.getAttribute('data-i18n-aria');
-    if (TRANSLATIONS[key] && TRANSLATIONS[key][currentLang]) {
-      el.setAttribute('aria-label', TRANSLATIONS[key][currentLang]);
+    if (TRANSLATIONS[key]) {
+      const transObj = TRANSLATIONS[key];
+      const translatedVal = transObj[currentLang] || transObj['en'] || transObj['pt'];
+      if (translatedVal) el.setAttribute('aria-label', translatedVal);
     }
   });
 
@@ -1968,435 +1955,118 @@ function applyTranslations() {
   document.querySelectorAll('[data-i18n-count]').forEach(countEl => {
     const num = countEl.getAttribute('data-i18n-count');
     const key = countEl.getAttribute('data-i18n');
-    if (key === 'col_found') {
-      countEl.textContent = num + TRANSLATIONS['col_found'][currentLang];
-    } else if (key === 'list_view') {
-      countEl.textContent = TRANSLATIONS['list_view_prefix'][currentLang] + num + TRANSLATIONS['list_view'][currentLang];
+    if (key === 'col_found' && TRANSLATIONS['col_found']) {
+      const suffix = TRANSLATIONS['col_found'][currentLang] || TRANSLATIONS['col_found']['en'] || TRANSLATIONS['col_found']['pt'];
+      countEl.textContent = num + suffix;
+    } else if (key === 'list_view' && TRANSLATIONS['list_view'] && TRANSLATIONS['list_view_prefix']) {
+      const prefix = TRANSLATIONS['list_view_prefix'][currentLang] || TRANSLATIONS['list_view_prefix']['en'] || TRANSLATIONS['list_view_prefix']['pt'];
+      const suffix = TRANSLATIONS['list_view'][currentLang] || TRANSLATIONS['list_view']['en'] || TRANSLATIONS['list_view']['pt'];
+      countEl.textContent = prefix + num + suffix;
+    }
+  });
+}
+
+function selectLanguage(targetLang) {
+  if (!SUPPORTED_LANGS[targetLang]) return;
+  localStorage.setItem('site_lang', targetLang);
+
+  const isEn = window.location.pathname === '/en' || window.location.pathname.startsWith('/en/');
+
+  if (targetLang === 'en') {
+    if (!isEn) {
+      let targetPath = (window.location.pathname === '/') ? '/en' : '/en' + window.location.pathname;
+      window.location.href = targetPath + window.location.search + window.location.hash;
+      return;
+    }
+  } else {
+    if (isEn) {
+      let targetPath = window.location.pathname.replace(/^\/en(\/|$)/, '/');
+      if (!targetPath) targetPath = '/';
+      window.location.href = targetPath + window.location.search + window.location.hash;
+      return;
+    }
+  }
+
+  currentLang = targetLang;
+  window.currentLang = targetLang;
+  updateLanguageUI(targetLang);
+  applyTranslations();
+}
+
+function updateLanguageUI(lang) {
+  const conf = SUPPORTED_LANGS[lang] || SUPPORTED_LANGS.pt;
+  
+  const flagEl = document.querySelector('.lang-current-flag');
+  const codeEl = document.querySelector('.lang-current-code');
+  if (flagEl) flagEl.innerHTML = `<img src="${conf.flag}" width="16" height="12" alt="${conf.code}">`;
+  if (codeEl) codeEl.textContent = conf.code;
+
+  document.querySelectorAll('.lang-dropdown-item').forEach(item => {
+    if (item.getAttribute('data-lang') === lang) {
+      item.classList.add('is-active');
+    } else {
+      item.classList.remove('is-active');
     }
   });
 
-  // Shopify Policies Custom Translation Override
-  if (window.location.pathname.includes('/policies/')) {
-    const titleEl = document.querySelector('.shopify-policy__title h1');
-    const bodyEl = document.querySelector('.shopify-policy__body .rte') || document.querySelector('.shopify-policy__body');
-
-    if (titleEl && bodyEl) {
-      if (!titleEl.hasAttribute('data-original-text')) {
-        titleEl.setAttribute('data-original-text', titleEl.textContent);
-      }
-      if (!bodyEl.hasAttribute('data-original-html')) {
-        bodyEl.setAttribute('data-original-html', bodyEl.innerHTML);
-      }
-
-      if (currentLang === 'pt') {
-        if (window.location.pathname.includes('refund-policy')) {
-          titleEl.textContent = 'Política de Reembolso e Devolução';
-          bodyEl.innerHTML = `
-            <p>Na Le Bordeu, queremos garantir que cada cliente tenha uma experiência de compra segura, simples e transparente. Caso exista algum problema com a tua encomenda, produto ou entrega, iremos analisar o caso e procurar a melhor solução possível.</p>
-
-            <p>Os pedidos de reembolso são analisados num prazo aproximado de <strong>24 a 48 horas úteis</strong> após recebermos todas as informações necessárias.</p>
-
-            <h2>1. O que deves enviar para pedir um reembolso</h2>
-            <p>Para que possamos analisar corretamente o teu pedido, poderemos solicitar:</p>
-
-            <p><strong>A. Fotografias ou vídeos do produto danificado ou incorreto</strong><br>As imagens devem mostrar claramente o problema apresentado.</p>
-
-            <p><strong>B. Comprovativo da reclamação ou contacto</strong><br>Poderá ser necessário enviar capturas de ecrã da conversa por e-mail, chat, PayPal ou outro meio de contacto, incluindo nome, data e conteúdo da reclamação.</p>
-
-            <p><strong>C. Número de seguimento da devolução, se aplicável</strong><br>Caso seja necessário devolver o artigo, deverás enviar o número de rastreamento como prova de envio.</p>
-
-            <h2>2. Quando aceitamos reembolsos ou devoluções</h2>
-            <p>Poderemos aceitar pedidos de reembolso, troca ou devolução quando:</p>
-            <ul>
-              <li>O artigo recebido estiver danificado ou defeituoso;</li>
-              <li>O artigo recebido for diferente do produto comprado;</li>
-              <li>Existir um erro de envio ou processamento da encomenda;</li>
-              <li>A transportadora confirmar extravio ou problema grave na entrega;</li>
-              <li>O pedido cumprir as condições comunicadas pela nossa equipa de apoio.</li>
-            </ul>
-
-            <h2>3. Condições dos artigos devolvidos</h2>
-            <p>Quando for necessário devolver um artigo, este deve estar sem uso, sem lavagem, sem odores, sem marcas de utilização, com etiquetas e, sempre que possível, na embalagem original.</p>
-            <p>Podemos recusar devoluções de artigos que não cumpram estas condições ou que sejam enviados sem contacto prévio com a nossa equipa.</p>
-
-            <h2>4. Custos de devolução</h2>
-            <p>Salvo quando o problema resulte de erro nosso, artigo incorreto ou artigo danificado, os custos de envio da devolução são da responsabilidade do cliente.</p>
-            <p>Quando a devolução for aprovada, enviaremos as instruções necessárias para o envio.</p>
-
-            <h2>5. Reembolsos</h2>
-            <p>Depois de recebermos e analisarmos todas as informações necessárias, iremos comunicar se o reembolso foi aprovado ou recusado.</p>
-            <p>Se aprovado, o reembolso será processado através do método de pagamento original. O prazo de receção pode variar conforme o banco, entidade emissora do cartão, PayPal ou outro prestador de pagamento.</p>
-
-            <h2>6. Artigos não elegíveis</h2>
-            <p>Não aceitamos devoluções ou reembolsos de artigos com sinais de uso, lavagem, danos causados pelo cliente, falta de etiquetas, falta de embalagem original quando relevante, ou pedidos enviados fora das condições comunicadas.</p>
-
-            <h2>7. Contacto</h2>
-            <p>Para qualquer pedido relacionado com reembolsos, devoluções ou trocas, contacta-nos através de <a href="mailto:lebordeu@gmail.com">lebordeu@gmail.com</a>.</p>
-          `;
-        } else if (window.location.pathname.includes('privacy-policy')) {
-          titleEl.textContent = 'Política de Privacidade';
-          bodyEl.innerHTML = `
-            <p><strong>Última atualização: 30 de Maio de 2026</strong></p>
-            
-            <p>A Le Bordeu opera esta loja e site, incluindo todas as informações, conteúdos, funcionalidades, ferramentas, produtos e serviços relacionados, de forma a fornecer a si, o cliente, uma experiência de compra curada (os "Serviços"). A Le Bordeu é desenvolvida pela Shopify, que nos permite fornecer-lhe os Serviços. Esta Política de Privacidade descreve como recolhemos, utilizamos e divulgamos as suas informações pessoais quando visita, utiliza ou faz uma compra ou outra transação utilizando os Serviços ou comunica connosco de outra forma. Se houver um conflito entre os nossos Termos de Serviço e esta Política de Privacidade, esta Política de Privacidade prevalece no que diz respeito à recolha, processamento e divulgação das suas informações pessoais.</p>
-            
-            <p>Por favor, leia esta Política de Privacidade cuidadosamente. Ao utilizar e aceder a qualquer um dos Serviços, reconhece que leu esta Política de Privacidade e compreende a recolha, utilização e divulgação das suas informações, conforme descrito nesta Política de Privacidade.</p>
-            
-            <h2>Informações Pessoais que Recolhemos ou Processamos</h2>
-            <p>Quando utilizamos o termo "informações pessoais", referimo-nos a informações que identificam ou podem ser razoavelmente associadas a si ou a outra pessoa. As informações pessoais não incluem informações recolhidas anonimamente ou que foram desidentificadas, de modo a não poderem identificá-lo ou serem razoavelmente associadas a si. Podemos recolher ou processar as seguintes categorias de informações pessoais, incluindo deduções retiradas destas informações pessoais, dependendo da forma como interage com os Serviços, onde vive, e conforme permitido ou exigido pela lei aplicável:</p>
-            <ul>
-              <li><strong>Detalhes de contacto</strong> incluindo o seu nome, morada, morada de faturação, morada de envio, número de telefone e endereço de email.</li>
-              <li><strong>Informações financeiras</strong> incluindo cartão de crédito, cartão de débito e números de conta financeira, informações do cartão de pagamento, informações da conta financeira, detalhes da transação, forma de pagamento, confirmação de pagamento e outros detalhes de pagamento.</li>
-              <li><strong>Informações da conta</strong> incluindo o seu nome de utilizador, palavra-passe, perguntas de segurança, preferências e definições.</li>
-              <li><strong>Informações de transação</strong> incluindo os artigos que vê, coloca no carrinho, adiciona à lista de desejos ou compra, devolve, troca ou cancela, e as suas transações anteriores.</li>
-              <li><strong>Comunicações connosco</strong> incluindo as informações que inclui nas comunicações connosco, por exemplo, ao enviar uma questão de apoio ao cliente.</li>
-              <li><strong>Informações do dispositivo</strong> incluindo informações sobre o seu dispositivo, navegador ou ligação de rede, o seu endereço IP e outros identificadores únicos.</li>
-              <li><strong>Informações de utilização</strong> incluindo informações relativas à sua interação com os Serviços, incluindo como e quando interage ou navega nos Serviços.</li>
-            </ul>
-            
-            <h2>Fontes de Informações Pessoais</h2>
-            <p>Podemos recolher informações pessoais das seguintes fontes:</p>
-            <ul>
-              <li><strong>Diretamente de si</strong> incluindo quando cria uma conta, visita ou utiliza os Serviços, comunica connosco, ou de outra forma nos fornece as suas informações pessoais;</li>
-              <li><strong>Automaticamente através dos Serviços</strong> incluindo a partir do seu dispositivo quando utiliza os nossos produtos ou serviços ou visita os nossos sites, e através da utilização de cookies e tecnologias semelhantes;</li>
-              <li><strong>Dos nossos prestadores de serviços</strong> incluindo quando os contratamos para ativar determinada tecnologia e quando eles recolhem ou processam as suas informações pessoais em nosso nome;</li>
-              <li><strong>De nossos parceiros ou terceiros.</strong></li>
-            </ul>
-            
-            <h2>Como Utilizamos as Suas Informações Pessoais</h2>
-            <p>Dependendo da forma como interage connosco ou de quais Serviços utiliza, podemos utilizar informações pessoais para os seguintes fins:</p>
-            <ul>
-              <li><strong>Fornecer, Adaptar e Melhorar os Serviços.</strong> Utilizamos as suas informações pessoais para lhe fornecer os Serviços, incluindo para cumprir o nosso contrato consigo, processar os seus pagamentos, satisfazer as suas encomendas, lembrar as suas preferências e artigos em que está interessado, enviar-lhe notificações relacionadas com a sua conta, processar compras, devoluções, trocas ou outras transações, criar, manter e gerir a sua conta, organizar envios, facilitar quaisquer devoluções e trocas, permitir que publique avaliações e criar uma experiência de compra personalizada.</li>
-              <li><strong>Marketing e Publicidade.</strong> Utilizamos as suas informações pessoais para fins de marketing e promocionais, como o envio de comunicações de marketing por email, e para lhe mostrar anúncios online de produtos ou serviços nos Serviços ou noutros sites, com base em artigos que comprou anteriormente ou adicionou ao seu carrinho e outras atividades nos Serviços.</li>
-              <li><strong>Segurança e Prevenção de Fraudes.</strong> Utilizamos as suas informações pessoais para autenticar a sua conta, fornecer uma experiência segura, detetar, investigar ou tomar medidas em relação a possíveis atividades fraudulentas ou maliciosas. Recomendamos que não partilhe o seu nome de utilizador, palavra-passe ou outros detalhes de acesso com mais ninguém.</li>
-              <li><strong>Comunicar Consigo.</strong> Utilizamos as suas informações pessoais para lhe fornecer apoio ao cliente, responder-lhe, fornecer-lhe serviços eficazes e manter a nossa relação comercial consigo.</li>
-              <li><strong>Razões Legais.</strong> Utilizamos as suas informações pessoais para cumprir a lei aplicável ou responder a processos legais válidos, e para aplicar ou investigar potenciais violações dos nossos termos ou políticas.</li>
-            </ul>
-            
-            <h2>Como Divulgamos as Informações Pessoais</h2>
-            <p>Em certas circunstâncias, podemos divulgar as suas informações pessoais a terceiros para fins legítimos. Tais circunstâncias podem incluir:</p>
-            <ul>
-              <li>Com a Shopify, fornecedores e outros terceiros que prestam serviços em nosso nome (por exemplo, gestão de TI, processamento de pagamentos, análise de dados, apoio ao cliente, armazenamento na cloud, envio).</li>
-              <li>Com parceiros comerciais e de marketing para fornecer serviços de marketing e anunciar para si.</li>
-              <li>Quando indica, solicita ou consente a nossa divulgação de determinadas informações a terceiros, como para lhe enviar produtos.</li>
-              <li>Com os nossos afiliados ou dentro do nosso grupo corporativo.</li>
-              <li>No âmbito de uma transação comercial, como uma fusão, para cumprir quaisquer obrigações legais, aplicar os termos de serviço, e proteger os nossos direitos.</li>
-            </ul>
-            
-            <h2>Relação com a Shopify</h2>
-            <p>Os Serviços são alojados pela Shopify, que recolhe e processa informações pessoais sobre o seu acesso e utilização dos Serviços, a fim de fornecer e melhorar os Serviços para si. Para saber mais sobre como a Shopify utiliza as suas informações pessoais, pode visitar a Política de Privacidade do Consumidor da Shopify.</p>
-            
-            <h2>Sites e Links de Terceiros</h2>
-            <p>Os Serviços podem fornecer links para sites ou plataformas online operadas por terceiros. Se seguir links para sites não controlados por nós, deve rever as suas políticas de privacidade. Não garantimos e não somos responsáveis pela privacidade ou segurança desses sites.</p>
-            
-            <h2>Dados de Crianças</h2>
-            <p>Os Serviços não se destinam a ser utilizados por crianças e não recolhemos intencionalmente informações pessoais sobre crianças com idade inferior à da maioridade na sua jurisdição.</p>
-            
-            <h2>Segurança e Retenção das Suas Informações</h2>
-            <p>Nenhuma medida de segurança é perfeita ou impenetrável. Recomendamos que não utilize canais não seguros para nos comunicar informações sensíveis. O tempo que retemos as suas informações pessoais depende de diferentes fatores, como manter a sua conta, fornecer Serviços ou cumprir obrigações legais.</p>
-            
-            <h2>Os Seus Direitos e Escolhas</h2>
-            <p>Dependendo de onde vive, poderá ter o direito de aceder, eliminar, corrigir ou portar as suas informações pessoais, bem como gerir preferências de comunicação ou restringir/retirar o consentimento para o processamento. Não o discriminaremos por exercer qualquer um destes direitos. Podemos ter de verificar a sua identidade antes de processarmos os seus pedidos.</p>
-            
-            <h2>Reclamações e Transferências Internacionais</h2>
-            <p>Se tiver reclamações, contacte-nos através dos detalhes abaixo. Pode também ter o direito de apresentar a sua reclamação à autoridade local de proteção de dados. Tenha em atenção que podemos transferir, armazenar e processar as suas informações pessoais fora do país onde reside, através de mecanismos de transferência reconhecidos.</p>
-            
-            <h2>Alterações a Esta Política de Privacidade</h2>
-            <p>Podemos atualizar esta Política de Privacidade periodicamente para refletir alterações às nossas práticas. Publicaremos a Política revista neste site e atualizaremos a data de "Última atualização".</p>
-            
-            <h2>Contacto</h2>
-            <p>Caso tenha alguma dúvida sobre as nossas práticas de privacidade ou sobre esta Política de Privacidade, envie um email para <a href="mailto:lebordeu@gmail.com">lebordeu@gmail.com</a>. A Le Bordeu opera exclusivamente como loja online.</p>
-          `;
-        } else if (window.location.pathname.includes('terms-of-service')) {
-          titleEl.textContent = 'Termos de Serviço';
-          bodyEl.innerHTML = `
-            <p>Estes Termos e Condições regulam o acesso e utilização da loja online Le Bordeu, bem como a compra de produtos através do nosso website.</p>
-            <p>Ao navegar na loja ou realizar uma compra, confirmas que leste, compreendeste e aceitas estes termos.</p>
-            
-            <h2>1. Identificação e contacto</h2>
-            <p>A Le Bordeu comercializa artigos de moda e acessórios através da sua loja online.</p>
-            <p>Para qualquer questão relacionada com encomendas, produtos, pagamentos, envios, devoluções ou estes termos, podes contactar-nos através do email: <a href="mailto:lebordeu@gmail.com">lebordeu@gmail.com</a></p>
-            
-            <h2>2. Produtos e informação apresentada</h2>
-            <p>Fazemos o possível para apresentar descrições, imagens, tamanhos, cores, materiais, disponibilidade e preços de forma clara e correta.</p>
-            <p>Podem existir pequenas diferenças entre as imagens apresentadas e o produto recebido, nomeadamente devido à iluminação, configurações do ecrã ou produção do artigo.</p>
-            <p>A disponibilidade dos produtos pode alterar-se sem aviso prévio. Caso um produto comprado deixe de estar disponível, entraremos em contacto para propor uma alternativa, troca, cancelamento ou reembolso.</p>
-            
-            <h2>3. Preços e pagamentos</h2>
-            <p>Os preços apresentados na loja estão indicados na moeda exibida no checkout.</p>
-            <p>Custos de envio, quando aplicáveis, são apresentados antes da confirmação da encomenda.</p>
-            <p>A encomenda apenas é processada após confirmação do pagamento.</p>
-            <p>Reservamo-nos o direito de corrigir erros evidentes de preço, descrição, disponibilidade ou informação técnica antes do envio da encomenda.</p>
-            <p>Os pagamentos são processados por fornecedores de pagamento seguros. A Le Bordeu não armazena dados completos de cartão bancário.</p>
-            
-            <h2>4. Encomendas</h2>
-            <p>Ao finalizar uma compra, confirmas que os dados fornecidos são verdadeiros, completos e atualizados.</p>
-            <p>Não nos responsabilizamos por atrasos ou falhas de entrega causados por dados incorretos ou incompletos fornecidos pelo cliente.</p>
-            <p>Depois da confirmação da encomenda, receberás informação por email.</p>
-            <p>Podemos cancelar uma encomenda quando exista impossibilidade de fornecimento, suspeita de fraude, erro evidente ou incumprimento destes termos.</p>
-            
-            <h2>5. Envios e entrega</h2>
-            <p>As encomendas são enviadas para a morada indicada no checkout.</p>
-            <p>Os prazos de entrega dependem do destino, disponibilidade do produto, transportadora e eventuais fatores externos.</p>
-            <p>Quando a informação de acompanhamento estiver disponível, poderá ser enviada por email.</p>
-            
-            <h2>6. Direito de livre resolução</h2>
-            <p>Em compras à distância, o consumidor pode exercer o direito de livre resolução no prazo legal de 14 dias a contar da receção da encomenda, sem necessidade de indicar motivo, salvo exceções legalmente previstas.</p>
-            <p>Para exercer este direito, contacta-nos através de <a href="mailto:lebordeu@gmail.com">lebordeu@gmail.com</a> com o número da encomenda e identificação do artigo.</p>
-            <p>O artigo deve ser devolvido em bom estado, sem uso indevido, com etiquetas e embalagem original sempre que aplicável.</p>
-            <p>Salvo quando a devolução resulte de erro nosso, produto incorreto ou dano imputável à Le Bordeu, os custos diretos de devolução são da responsabilidade do cliente.</p>
-            
-            <h2>7. Trocas, devoluções e reembolsos</h2>
-            <p>Após receção e verificação do artigo devolvido, o reembolso será processado através do meio de pagamento utilizado na compra, salvo acordo em contrário.</p>
-            <p>Podemos recusar devoluções de artigos com sinais de utilização indevida, lavagem, danos, falta de etiquetas, falta de embalagem original quando relevante ou incumprimento das instruções comunicadas ao cliente.</p>
-            
-            <h2>8. Garantia e conformidade</h2>
-            <p>Os produtos vendidos ao consumidor beneficiam dos direitos legais aplicáveis em matéria de garantia e conformidade.</p>
-            <p>Caso recebas um artigo danificado, incorreto ou com defeito, contacta-nos o mais rapidamente possível com o número da encomenda, descrição da situação e fotografias.</p>
-            <p>A garantia legal não cobre danos resultantes de uso indevido, desgaste normal, acidente, lavagem incorreta, alterações feitas pelo cliente ou incumprimento das instruções de cuidado do produto.</p>
-            
-            <h2>9. Uso da loja</h2>
-            <p>Não podes usar a loja para fins ilegais, fraudulentos, abusivos ou que prejudiquem a segurança, funcionamento, reputação ou experiência de outros utilizadores.</p>
-            <p>Reservamo-nos o direito de limitar ou cancelar encomendas quando exista suspeita de fraude, utilização abusiva, dados falsos ou violação destes termos.</p>
-            
-            <h2>10. Propriedade intelectual</h2>
-            <p>A marca, design, textos, fotografias, imagens, estrutura da loja e demais conteúdos pertencem à Le Bordeu ou aos respetivos titulares.</p>
-            <p>Estes conteúdos não podem ser copiados, reproduzidos, distribuídos ou usados para fins comerciais sem autorização prévia.</p>
-            
-            <h2>11. Dados pessoais</h2>
-            <p>O tratamento de dados pessoais é descrito na nossa Política de Privacidade.</p>
-            <p>Ao usar a loja, reconheces que os teus dados podem ser tratados para processar encomendas, prestar apoio ao cliente, cumprir obrigações legais e melhorar a experiência de compra.</p>
-            
-            <h2>12. Alterações aos termos</h2>
-            <p>Podemos atualizar estes Termos e Condições sempre que necessário, nomeadamente por alterações legais, operacionais ou comerciais.</p>
-          `;
-        }
-      } else {
-        // English Translations for Shopify Policies
-        if (window.location.pathname.includes('privacy-policy')) {
-          titleEl.textContent = 'Privacy Policy';
-          bodyEl.innerHTML = `
-            <p><strong>Last updated: May 30, 2026</strong></p>
-            
-            <p>Le Bordeu operates this store and website, including all information, content, features, tools, products, and related services, to provide you, the customer, with a curated shopping experience (the "Services"). Le Bordeu is powered by Shopify, which allows us to provide the Services to you. This Privacy Policy describes how we collect, use, and disclose your personal information when you visit, use, or make a purchase or other transaction using the Services, or communicate with us otherwise. If there is a conflict between our Terms of Service and this Privacy Policy, this Privacy Policy prevails regarding the collection, processing, and disclosure of your personal information.</p>
-            
-            <p>Please read this Privacy Policy carefully. By using and accessing any of the Services, you acknowledge that you have read this Privacy Policy and understand the collection, use, and disclosure of your information as described in this Privacy Policy.</p>
-            
-            <h2>Personal Information We Collect or Process</h2>
-            <p>When we use the term "personal information", we refer to information that identifies or can reasonably be associated with you or another individual. Personal information does not include information collected anonymously or that has been de-identified so that it cannot identify you or be reasonably associated with you. We may collect or process the following categories of personal information, including inferences drawn from this information, depending on how you interact with the Services, where you live, and as permitted or required by applicable law:</p>
-            <ul>
-              <li><strong>Contact details</strong> including your name, address, billing address, shipping address, phone number, and email address.</li>
-              <li><strong>Financial information</strong> including credit card, debit card, and financial account numbers, payment card information, financial account information, transaction details, payment method, payment confirmation, and other payment details.</li>
-              <li><strong>Account information</strong> including your username, password, security questions, preferences, and settings.</li>
-              <li><strong>Transaction information</strong> including items you view, add to cart, add to wishlist, or purchase, return, exchange, or cancel, and your previous transactions.</li>
-              <li><strong>Communications with us</strong> including information you include in communications with us, for example when submitting a customer support inquiry.</li>
-              <li><strong>Device information</strong> including information about your device, browser, or network connection, your IP address, and other unique identifiers.</li>
-              <li><strong>Usage information</strong> including information regarding your interaction with the Services, including how and when you interact with or browse the Services.</li>
-            </ul>
-            
-            <h2>Sources of Personal Information</h2>
-            <p>We may collect personal information from the following sources:</p>
-            <ul>
-              <li><strong>Directly from you</strong> including when you create an account, visit or use the Services, communicate with us, or otherwise provide us with your personal information;</li>
-              <li><strong>Automatically through the Services</strong> including from your device when you use our products or services or visit our websites, and through the use of cookies and similar technologies;</li>
-              <li><strong>From our service providers</strong> including when we engage them to enable certain technology and when they collect or process your personal information on our behalf;</li>
-              <li><strong>From our partners or third parties.</strong></li>
-            </ul>
-            
-            <h2>How We Use Your Personal Information</h2>
-            <p>Depending on how you interact with us or which Services you use, we may use personal information for the following purposes:</p>
-            <ul>
-              <li><strong>Provide, Tailor, and Improve the Services.</strong> We use your personal information to provide you with the Services, including to fulfill our contract with you, process your payments, fulfill your orders, remember your preferences and items you are interested in, send you notifications related to your account, process purchases, returns, exchanges, or other transactions, create, maintain, and manage your account, arrange shipping, facilitate returns and exchanges, allow you to post reviews, and create a personalized shopping experience.</li>
-              <li><strong>Marketing and Advertising.</strong> We use your personal information for marketing and promotional purposes, such as sending marketing communications via email, and displaying online advertisements for products or services on the Services or other websites, based on items you previously purchased or added to your cart and other activities on the Services.</li>
-              <li><strong>Security and Fraud Prevention.</strong> We use your personal information to authenticate your account, provide a secure experience, and detect, investigate, or take action regarding potential fraudulent or malicious activities. We recommend that you do not share your username, password, or other access details with anyone else.</li>
-              <li><strong>Communicate with You.</strong> We use your personal information to provide customer support, respond to you, deliver effective services, and maintain our business relationship with you.</li>
-              <li><strong>Legal Reasons.</strong> We use your personal information to comply with applicable law or respond to valid legal processes, and to enforce or investigate potential violations of our terms or policies.</li>
-            </ul>
-            
-            <h2>How We Disclose Personal Information</h2>
-            <p>In certain circumstances, we may disclose your personal information to third parties for legitimate purposes. Such circumstances may include:</p>
-            <ul>
-              <li>With Shopify, vendors, and other third parties who perform services on our behalf (e.g., IT management, payment processing, data analytics, customer support, cloud storage, shipping).</li>
-              <li>With business and marketing partners to provide marketing services and advertise to you.</li>
-              <li>When you direct, request, or consent to our disclosure of certain information to third parties, such as to ship you products.</li>
-              <li>With our affiliates or within our corporate group.</li>
-              <li>In connection with a business transaction, such as a merger, to comply with legal obligations, enforce terms of service, and protect our rights.</li>
-            </ul>
-            
-            <h2>Relationship with Shopify</h2>
-            <p>The Services are hosted by Shopify, which collects and processes personal information about your access and use of the Services to provide and improve the Services for you. To learn more about how Shopify uses your personal information, you can visit Shopify's Consumer Privacy Policy.</p>
-            
-            <h2>Third-Party Sites and Links</h2>
-            <p>The Services may provide links to websites or online platforms operated by third parties. If you follow links to sites not controlled by us, you should review their privacy policies. We do not guarantee and are not responsible for the privacy or security of those sites.</p>
-            
-            <h2>Children's Data</h2>
-            <p>The Services are not intended to be used by children, and we do not knowingly collect personal information about children under the age of majority in your jurisdiction.</p>
-            
-            <h2>Security and Retention of Your Information</h2>
-            <p>No security measure is perfect or impenetrable. We recommend that you do not use insecure channels to communicate sensitive information to us. The duration for which we retain your personal information depends on various factors, such as maintaining your account, providing Services, or complying with legal obligations.</p>
-            
-            <h2>Your Rights and Choices</h2>
-            <p>Depending on where you live, you may have the right to access, delete, correct, or port your personal information, as well as manage communication preferences or restrict/withdraw consent for processing. We will not discriminate against you for exercising any of these rights. We may need to verify your identity before processing your requests.</p>
-            
-            <h2>Complaints and International Transfers</h2>
-            <p>If you have complaints, please contact us using the details below. You may also have the right to lodge a complaint with your local data protection authority. Please note that we may transfer, store, and process your personal information outside of your country of residence, through recognized transfer mechanisms.</p>
-            
-            <h2>Changes to This Privacy Policy</h2>
-            <p>We may update this Privacy Policy periodically to reflect changes in our practices. We will post the revised Policy on this site and update the "Last updated" date.</p>
-            
-            <h2>Contact</h2>
-            <p>If you have any questions about our privacy practices or about this Privacy Policy, please send an email to <a href="mailto:lebordeu@gmail.com">lebordeu@gmail.com</a>. Le Bordeu operates exclusively as an online store.</p>
-          `;
-        } else if (window.location.pathname.includes('terms-of-service')) {
-          titleEl.textContent = 'Terms and Conditions';
-          bodyEl.innerHTML = `
-            <p>These Terms and Conditions govern the access and use of the Le Bordeu online store, as well as the purchase of products through our website.</p>
-            <p>By browsing the store or making a purchase, you confirm that you have read, understood and accept these terms.</p>
-            
-            <h2>1. Identification and contact</h2>
-            <p>Le Bordeu sells fashion items and accessories through its online store.</p>
-            <p>For any questions related to orders, products, payments, shipping, returns or these terms, you can contact us via email: <a href="mailto:lebordeu@gmail.com">lebordeu@gmail.com</a></p>
-            
-            <h2>2. Products and information presented</h2>
-            <p>We do our best to present descriptions, images, sizes, colors, materials, availability and prices clearly and accurately.</p>
-            <p>There may be slight differences between the images shown and the product received, namely due to lighting, screen settings or production of the item.</p>
-            <p>Product availability may change without prior notice. If a purchased product becomes unavailable, we will contact you to propose an alternative, exchange, cancellation or refund.</p>
-            
-            <h2>3. Prices and payments</h2>
-            <p>The prices shown in the store are indicated in the currency displayed at checkout.</p>
-            <p>Shipping costs, when applicable, are displayed before order confirmation.</p>
-            <p>The order is only processed after payment confirmation.</p>
-            <p>We reserve the right to correct obvious errors in price, description, availability or technical information before shipping the order.</p>
-            <p>Payments are processed by secure payment providers. Le Bordeu does not store complete bank card data.</p>
-            
-            <h2>4. Orders</h2>
-            <p>When completing a purchase, you confirm that the data provided is true, complete and updated.</p>
-            <p>We are not responsible for delays or delivery failures caused by incorrect or incomplete data provided by the customer.</p>
-            <p>After order confirmation, you will receive information by email.</p>
-            <p>We may cancel an order when there is impossibility of supply, suspicion of fraud, obvious error or breach of these terms.</p>
-            
-            <h2>5. Shipping and delivery</h2>
-            <p>Orders are shipped to the address indicated at checkout.</p>
-            <p>Delivery times depend on the destination, product availability, carrier and possible external factors.</p>
-            <p>When tracking information is available, it may be sent by email.</p>
-            
-            <h2>6. Right of free resolution</h2>
-            <p>In distance purchases, the consumer may exercise the right of free resolution within the legal period of 14 days from the receipt of the order, without needing to state a reason, except for legally provided exceptions.</p>
-            <p>To exercise this right, contact us at <a href="mailto:lebordeu@gmail.com">lebordeu@gmail.com</a> with the order number and identification of the item.</p>
-            <p>The item must be returned in good condition, without undue use, with tags and original packaging whenever applicable.</p>
-            <p>Unless the return results from our error, incorrect product or damage attributable to Le Bordeu, the direct costs of return are the customer's responsibility.</p>
-            
-            <h2>7. Exchanges, returns and refunds</h2>
-            <p>After receiving and verifying the returned item, the refund will be processed through the payment method used in the purchase, unless otherwise agreed.</p>
-            <p>We may refuse returns of items with signs of undue use, washing, damage, missing tags, missing original packaging when relevant or failure to comply with the instructions communicated to the customer.</p>
-            
-            <h2>8. Warranty and compliance</h2>
-            <p>Products sold to the consumer benefit from the legal rights applicable in terms of warranty and compliance.</p>
-            <p>If you receive a damaged, incorrect or defective item, contact us as soon as possible with the order number, description of the situation and photographs.</p>
-            <p>The legal warranty does not cover damages resulting from undue use, normal wear, accident, incorrect washing, alterations made by the customer or failure to comply with the product's care instructions.</p>
-            
-            <h2>9. Use of the store</h2>
-            <p>You may not use the store for illegal, fraudulent, abusive purposes or that harm the security, operation, reputation or experience of other users.</p>
-            <p>We reserve the right to limit or cancel orders when there is suspicion of fraud, abusive use, false data or violation of these terms.</p>
-            
-            <h2>10. Intellectual property</h2>
-            <p>The brand, design, texts, photographs, images, store structure and other contents belong to Le Bordeu or their respective owners.</p>
-            <p>These contents may not be copied, reproduced, distributed or used for commercial purposes without prior authorization.</p>
-            
-            <h2>11. Personal data</h2>
-            <p>The processing of personal data is described in our Privacy Policy.</p>
-            <p>By using the store, you acknowledge that your data may be processed to process orders, provide customer support, fulfill legal obligations and improve the shopping experience.</p>
-            
-            <h2>12. Changes to the terms</h2>
-            <p>We may update these Terms and Conditions whenever necessary, namely due to legal, operational or commercial changes.</p>
-          `;
-        } else if (window.location.pathname.includes('refund-policy')) {
-          titleEl.textContent = 'Refund and Return Policy';
-          bodyEl.innerHTML = `
-            <p>At Le Bordeu, we want to ensure every customer has a secure, simple, and transparent shopping experience. If there is any issue with your order, product, or delivery, we will review your case and find the best possible solution.</p>
-
-            <p>Refund requests are analyzed within approximately <strong>24 to 48 business hours</strong> after receiving all required information.</p>
-
-            <h2>1. What you must submit to request a refund</h2>
-            <p>To properly review your request, we may request:</p>
-
-            <p><strong>A. Photos or videos of the damaged or incorrect product</strong><br>Images must clearly show the issue.</p>
-
-            <p><strong>B. Proof of inquiry or communication</strong><br>Screenshots of emails, chat, PayPal, or other contact methods including name, date, and complaint details.</p>
-
-            <p><strong>C. Return tracking number, if applicable</strong><br>If returning the item is necessary, please provide the tracking number as proof of shipment.</p>
-
-            <h2>2. When we accept refunds or returns</h2>
-            <p>We may accept refunds, exchanges, or return requests when:</p>
-            <ul>
-              <li>The item received is damaged or defective;</li>
-              <li>The item received differs from the product purchased;</li>
-              <li>There was an error in order processing or shipping;</li>
-              <li>The carrier confirms lost parcel or major delivery issue;</li>
-              <li>The request meets the terms communicated by our support team.</li>
-            </ul>
-
-            <h2>3. Returned Item Conditions</h2>
-            <p>When an item needs to be returned, it must be unused, unwashed, odor-free, showing no signs of wear, with tags attached and, whenever possible, in its original packaging.</p>
-            <p>We reserve the right to refuse returns of items that do not meet these conditions or are returned without prior contact with our team.</p>
-
-            <h2>4. Return Shipping Costs</h2>
-            <p>Unless the return is due to our error, wrong item, or damaged product, return shipping costs are the customer's responsibility.</p>
-            <p>Once the return is approved, we will provide you with instructions for shipping.</p>
-
-            <h2>5. Refunds</h2>
-            <p>After receiving and inspecting all necessary information, we will notify you whether the refund has been approved or rejected.</p>
-            <p>If approved, the refund will be processed to the original payment method. Processing times may vary depending on your bank, card issuer, PayPal, or payment provider.</p>
-
-            <h2>6. Ineligible Items</h2>
-            <p>We do not accept returns or refunds for items showing signs of wear, washing, customer-caused damage, missing tags, missing original packaging when relevant, or requests sent outside the communicated guidelines.</p>
-
-            <h2>7. Contact</h2>
-            <p>For any inquiries regarding refunds, returns, or exchanges, please contact us at <a href="mailto:lebordeu@gmail.com">lebordeu@gmail.com</a>.</p>
-          `;
-        } else {
-          titleEl.textContent = titleEl.getAttribute('data-original-text');
-          bodyEl.innerHTML = bodyEl.getAttribute('data-original-html');
-        }
-      }
-    }
+  const container = document.getElementById('langDropdownContainer');
+  if (container) {
+    container.classList.remove('is-open');
+    const btn = document.getElementById('langDropdownBtn');
+    if (btn) btn.setAttribute('aria-expanded', 'false');
   }
 }
 
-function toggleLanguage() {
+function initLanguageDropdown() {
   const isEn = window.location.pathname === '/en' || window.location.pathname.startsWith('/en/');
-  const targetLang = isEn ? 'pt' : 'en';
-  localStorage.setItem('site_lang', targetLang);
-
-  let targetPath;
-  if (targetLang === 'en') {
-    if (window.location.pathname === '/') {
-      targetPath = '/en';
-    } else {
-      targetPath = '/en' + window.location.pathname;
-    }
+  let saved = localStorage.getItem('site_lang') || 'pt';
+  
+  if (isEn) {
+    currentLang = 'en';
+  } else if (saved && SUPPORTED_LANGS[saved] && saved !== 'en') {
+    currentLang = saved;
   } else {
-    targetPath = window.location.pathname.replace(/^\/en(\/|$)/, '/');
-    if (!targetPath) targetPath = '/';
+    currentLang = 'pt';
   }
+  window.currentLang = currentLang;
 
-  const targetUrl = targetPath + window.location.search + window.location.hash;
-  window.location.href = targetUrl;
+  updateLanguageUI(currentLang);
+
+  const container = document.getElementById('langDropdownContainer');
+  const btn = document.getElementById('langDropdownBtn');
+  
+  if (btn && container) {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = container.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    document.querySelectorAll('.lang-option-btn').forEach(optBtn => {
+      optBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const lang = optBtn.getAttribute('data-lang');
+        selectLanguage(lang);
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!container.contains(e.target)) {
+        container.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && container.classList.contains('is-open')) {
+        container.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const isEn = window.location.pathname === '/en' || window.location.pathname.startsWith('/en/');
-  currentLang = isEn ? 'en' : 'pt';
-  window.currentLang = currentLang;
-
-  // Set initial button state
-  const toggleBtn = document.getElementById('lang-toggle-btn');
-  if (toggleBtn) {
-    const ptFlag = '<img src="https://flagcdn.com/w20/pt.png" width="16" height="12" style="vertical-align: middle; margin-right: 4px; border-radius: 2px; display: inline-block; position: relative; top: -2px;" alt="PT">';
-    const enFlag = '<img src="https://flagcdn.com/w20/gb.png" width="16" height="12" style="vertical-align: middle; margin-right: 4px; border-radius: 2px; display: inline-block; position: relative; top: -2px;" alt="EN">';
-    toggleBtn.innerHTML = currentLang === 'pt' ? ptFlag + ' PT' : enFlag + ' EN';
-    toggleBtn.addEventListener('click', toggleLanguage);
-  }
-
+  initLanguageDropdown();
   applyTranslations();
 });
