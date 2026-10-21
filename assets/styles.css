@@ -1437,7 +1437,7 @@ h6,
 .product-card__media img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
   filter: brightness(0.92) contrast(1.03) saturate(0.92);
   transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
@@ -2394,7 +2394,7 @@ h6,
 
 .product-page__gallery {
   min-width: 0;
-  max-width: 400px;
+  max-width: 450px;
   margin: 0 auto;
   width: 100%;
 }
@@ -2402,15 +2402,17 @@ h6,
 .product-gallery-splide {
   border: 1px solid var(--border-color);
   background-color: var(--bg-dark-secondary);
-  aspect-ratio: 3/4;
+  aspect-ratio: 1 / 1;
+  border-radius: 6px;
+  overflow: hidden;
 }
 
 .product-gallery-splide .splide__arrow--prev {
-  left: -50px;
+  left: 14px;
 }
 
 .product-gallery-splide .splide__arrow--next {
-  right: -50px;
+  right: 14px;
 }
 
 @media (max-width: 991px) {
@@ -2433,14 +2435,19 @@ h6,
 .gallery__image {
   width: 100%;
   height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .gallery__image img {
   width: 100%;
   height: 100%;
   display: block;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
   cursor: zoom-in;
+  transition: transform 0.4s ease;
 }
 
 .product-gallery-thumbnails {
@@ -2454,6 +2461,8 @@ h6,
   cursor: pointer;
   width: 100%;
   height: 100%;
+  border-radius: 4px;
+  overflow: hidden;
   transition: var(--transition);
 }
 
@@ -2468,7 +2477,8 @@ h6,
 .product-gallery-thumbnails img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
   display: block;
 }
 
@@ -2850,7 +2860,8 @@ h6,
   height: 100%;
   min-height: 440px;
   display: block;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
   filter: brightness(0.82) contrast(1.08);
   transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
 }
@@ -2968,7 +2979,8 @@ h6,
   height: 100%;
   min-height: 560px;
   display: block;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
   filter: brightness(0.86) contrast(1.06);
   transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
 }
@@ -3505,7 +3517,8 @@ select:focus {
 .cart-item__media img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
 }
 
 .cart-item__details {
