@@ -13443,7 +13443,7 @@ function applyTranslations() {
     if (pageHandle && typeof PRODUCT_DATA_TRANSLATIONS !== 'undefined' && PRODUCT_DATA_TRANSLATIONS[pageHandle]?.title) {
       const t = PRODUCT_DATA_TRANSLATIONS[pageHandle].title[lang] || PRODUCT_DATA_TRANSLATIONS[pageHandle].title['pt'];
       if (t) {
-        document.title = t + ' – Le Bordeu';
+        document.title = 'Le Bordeu';
       }
     }
   }
