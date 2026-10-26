@@ -23,7 +23,7 @@
               </div>
               
               <div class="cart-drawer-item__details">
-                <a href="{{ item.url }}" class="cart-drawer-item__title">{{ item.product.title }}</a>
+                <a href="{{ item.url }}" class="cart-drawer-item__title" data-product-title data-product-handle="{{ item.product.handle }}">{{ item.product.title }}</a>
                 {% unless item.product.has_only_default_variant %}
                   <p class="cart-drawer-item__variant">{{ item.variant.title }}</p>
                 {% endunless %}
@@ -241,7 +241,7 @@
                 {% if p_badge != '' %}
                   <span class="cart-rec-item__badge" data-i18n="{{ p_badge_key }}">{{ p_badge }}</span>
                 {% endif %}
-                <a href="{{ p.url }}" class="cart-rec-item__title" title="{{ p.title | escape }}">{{ p.title }}</a>
+                <a href="{{ p.url }}" class="cart-rec-item__title" data-product-title data-product-handle="{{ p.handle }}" title="{{ p.title | escape }}">{{ p.title }}</a>
                 <div class="cart-rec-item__pricing">
                   <span class="cart-rec-item__price">{{ p.price | money }}</span>
                   {% if p.compare_at_price > p.price %}
@@ -327,7 +327,7 @@
               </a>
               <div class="cart-rec-item__info">
                 <span class="cart-rec-item__badge" data-i18n="pillar_featured">Destaque</span>
-                <a href="{{ p.url }}" class="cart-rec-item__title" title="{{ p.title | escape }}">{{ p.title }}</a>
+                <a href="{{ p.url }}" class="cart-rec-item__title" data-product-title data-product-handle="{{ p.handle }}" title="{{ p.title | escape }}">{{ p.title }}</a>
                 <div class="cart-rec-item__pricing">
                   <span class="cart-rec-item__price">{{ p.price | money }}</span>
                   {% if p.compare_at_price > p.price %}

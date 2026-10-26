@@ -20,8 +20,11 @@
               <!-- Product Card -->
               <div class="product-card">
                 <a href="{{ item.url }}">
-                  <div class="product-card__media">
+                  <div class="product-card__media{% if item.images.size > 1 %} has-hover-image{% endif %}">
                     <img src="{{ item.featured_image | img_url: '800x' }}" alt="{{ item.title }}" loading="lazy">
+                    {% if item.images.size > 1 %}
+                      <img class="hover-img" src="{{ item.images[1] | img_url: '800x' }}" alt="{{ item.title }}" loading="lazy">
+                    {% endif %}
                   </div>
                   <div class="product-card__info">
                     <h3>{{ item.title }}</h3>

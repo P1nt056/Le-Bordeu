@@ -1,11 +1,11 @@
-<section class="product-page container">
+<section class="product-page container" data-product-handle="{{ product.handle }}">
   {% assign current_variant = product.selected_or_first_available_variant %}
   <div class="product-page__grid">
     <div class="product-page__gallery">
       {% include 'product-gallery' %}
     </div>
     <div class="product-page__details">
-      <h1 class="product-title">{{ product.title }}</h1>
+      <h1 class="product-title" data-product-title data-product-handle="{{ product.handle }}">{{ product.title }}</h1>
       <div class="product-prices">
         {% if product.compare_at_price_max > product.price %}
           <span class="price--old">{{ product.compare_at_price_max | money }}</span>
@@ -275,7 +275,7 @@
                     {% if story_title_top != blank %}
                       <h3>{{ story_title_top }}</h3>
                     {% endif %}
-                    <p>{{ story_text_top }}</p>
+                    <p data-product-story="top" data-product-handle="{{ product.handle }}">{{ story_text_top }}</p>
                   </div>
                 </article>
               {% endif %}
@@ -296,7 +296,7 @@
                     {% if story_title_bottom != blank %}
                       <h3>{{ story_title_bottom }}</h3>
                     {% endif %}
-                    <p>{{ story_text_bottom }}</p>
+                    <p data-product-story="bottom" data-product-handle="{{ product.handle }}">{{ story_text_bottom }}</p>
                   </div>
                 </article>
               {% endif %}
@@ -317,7 +317,7 @@
                 <div class="product-description-card__content">
                   <span class="product-story__kicker" data-i18n="prod_details_spec">Especificações</span>
                   <h3 data-i18n="prod_details_title">Descrição do Produto</h3>
-                  <div class="product-description">
+                  <div class="product-description" data-product-description data-product-handle="{{ product.handle }}">
                     {{ description_body }}
                   </div>
                 </div>

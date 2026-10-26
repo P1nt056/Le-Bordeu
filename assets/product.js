@@ -4,17 +4,35 @@ document.addEventListener('DOMContentLoaded',()=>{
   const relatedCarouselOptions = {
     perPage: 4,
     gap: '16px',
-    breakpoints: { 1200: { perPage:3 }, 900: { perPage:2 }, 480: { perPage:1 } },
-    pagination:false,
-    arrows:true,
+    breakpoints: { 1200: { perPage: 3 }, 900: { perPage: 2 }, 480: { perPage: 1 } },
+    pagination: false,
+    arrows: true,
     lazyLoad: 'nearby',
-    keyboard: 'global',
-    accessibility: true
+    keyboard: 'global'
   };
 
   function mountCarousel(el) {
-    if (window.Splide && el && !el.classList.contains('is-initialized')) {
-      new Splide(el, relatedCarouselOptions).mount();
+    if (!el || !window.Splide) return;
+
+    if (el.splideInstance) {
+      try {
+        el.splideInstance.destroy(true);
+      } catch (e) {}
+      el.splideInstance = null;
+    } else if (el.classList.contains('is-initialized')) {
+      return;
+    }
+
+    const track = el.querySelector('.splide__track');
+    const list = el.querySelector('.splide__list');
+    if (!track || !list || list.children.length === 0) return;
+
+    try {
+      const splide = new Splide(el, relatedCarouselOptions);
+      splide.mount();
+      el.splideInstance = splide;
+    } catch (e) {
+      console.warn('[Le Bordeu] Carousel mount skipped:', e);
     }
   }
 
@@ -34,22 +52,37 @@ document.addEventListener('DOMContentLoaded',()=>{
         const newSection = doc.querySelector('.related-products');
         const newCarousel = newSection && newSection.querySelector('[data-related-products]');
 
-        if (newSection && newCarousel && newCarousel.querySelector('.splide__slide')) {
-          section.replaceWith(newSection);
-          mountCarousel(newCarousel);
-          if (typeof applyTranslations === 'function') {
-            applyTranslations();
+        if (newSection && newCarousel && newCarousel.querySelectorAll('.splide__slide').length > 0) {
+          if (related.splideInstance) {
+            try { related.splideInstance.destroy(true); } catch (e) {}
           }
+          section.replaceWith(newSection);
+
+          requestAnimationFrame(() => {
+            const liveCarousel = document.querySelector('.related-products [data-related-products]');
+            if (liveCarousel) {
+              mountCarousel(liveCarousel);
+            }
+            if (typeof applyTranslations === 'function') {
+              applyTranslations();
+            }
+          });
         }
       })
       .catch(error => console.error('Erro a carregar recomendações:', error));
   }
 
-  // Initialize Splide carousels if available
-  if(window.Splide){
-    document.querySelectorAll('.splide:not(.product-gallery-splide):not(.product-gallery-thumbnails)').forEach((el)=>{
-      mountCarousel(el);
-    });
+  function initAllCarousels() {
+    if (window.Splide) {
+      document.querySelectorAll('.splide:not(.product-gallery-splide):not(.product-gallery-thumbnails)').forEach(el => {
+        mountCarousel(el);
+      });
+    }
+  }
+
+  initAllCarousels();
+  if (!window.Splide) {
+    window.addEventListener('load', initAllCarousels);
   }
 
   loadProductRecommendations();

@@ -11,9 +11,9 @@
     {% for handle in product_handles %}
       {% assign product = all_products[handle] %}
       {% if product != blank and product.title != blank %}
-        <div class="product-card">
+        <div class="product-card" data-product-handle="{{ product.handle }}">
           <a href="{{ product.url }}">
-            <div class="product-card__media">
+            <div class="product-card__media{% if product.images.size > 1 %} has-hover-image{% endif %}">
               {% if product.compare_at_price_max > product.price %}
                 <span class="tag tag--sale" data-i18n="prod_promo">Promo&ccedil;&atilde;o</span>
               {% endif %}
@@ -23,7 +23,7 @@
               {% endif %}
             </div>
             <div class="product-card__info">
-              <h3>{{ product.title }}</h3>
+              <h3 data-product-title>{{ product.title }}</h3>
               <div class="price">
                 {% if product.compare_at_price_max > product.price %}
                   <span class="price--old">{{ product.compare_at_price_max | money }}</span>

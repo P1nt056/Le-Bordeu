@@ -525,51 +525,77 @@ document.addEventListener('DOMContentLoaded', function () {
     let thumbSplide = null;
 
     function mountGallery() {
-      mainSplide = new Splide(mainGallery, {
-        type: 'fade',
-        rewind: true,
-        pagination: false,
-        arrows: true,
-      });
-
-      if (thumbGallery) {
-        thumbSplide = new Splide(thumbGallery, {
-          fixedWidth: 88,
-          fixedHeight: 88,
-          gap: 15,
-          rewind: true,
-          pagination: false,
-          isNavigation: true,
-          arrows: false,
-          focus: 'center',
-          breakpoints: {
-            600: {
-              fixedWidth: 60,
-              fixedHeight: 60,
-            }
+      try {
+        if (!window.Splide || !mainGallery) {
+          if (mainGallery) {
+            mainGallery.classList.add('is-initialized');
+            const first = mainGallery.querySelector('.splide__slide');
+            if (first) first.classList.add('is-active');
           }
-        });
-        mainSplide.sync(thumbSplide);
-        mainSplide.mount();
-        thumbSplide.mount();
-      } else {
-        mainSplide.mount();
-      }
-
-      mainSplide.on('moved', function (newIndex) {
-        if (isProgrammaticMove) {
-          isProgrammaticMove = false;
           return;
         }
 
-        const slides = mainGallery.querySelectorAll('.splide__slide');
-        const slide = slides[newIndex];
-        const imageId = slide && slide.dataset.imageId;
+        const mainTrack = mainGallery.querySelector('.splide__track');
+        const mainList = mainGallery.querySelector('.splide__list');
+        if (!mainTrack || !mainList) return;
 
-        window.dispatchEvent(new CustomEvent('leBordeu:galleryImageChange', {
-          detail: { imageId, slideIndex: newIndex }
-        }));
-      });
+        mainSplide = new Splide(mainGallery, {
+          type: 'fade',
+          rewind: true,
+          pagination: false,
+          arrows: true,
+        });
+
+        const hasThumbTrack = thumbGallery && thumbGallery.querySelector('.splide__track') && thumbGallery.querySelector('.splide__list');
+        const hasThumbSlides = thumbGallery && thumbGallery.querySelectorAll('.splide__slide').length > 0;
+
+        if (hasThumbTrack && hasThumbSlides) {
+          thumbSplide = new Splide(thumbGallery, {
+            fixedWidth: 88,
+            fixedHeight: 88,
+            gap: 15,
+            rewind: true,
+            pagination: false,
+            isNavigation: true,
+            arrows: false,
+            focus: 'center',
+            breakpoints: {
+              600: {
+                fixedWidth: 60,
+                fixedHeight: 60,
+              }
+            }
+          });
+          // Thumbnails must be mounted before syncing so its elements exist
+          thumbSplide.mount();
+          mainSplide.sync(thumbSplide);
+          mainSplide.mount();
+        } else {
+          mainSplide.mount();
+        }
+
+        mainSplide.on('moved', function (newIndex) {
+          if (isProgrammaticMove) {
+            isProgrammaticMove = false;
+            return;
+          }
+
+          const slides = mainGallery.querySelectorAll('.splide__slide');
+          const slide = slides[newIndex];
+          const imageId = slide && slide.dataset.imageId;
+
+          window.dispatchEvent(new CustomEvent('leBordeu:galleryImageChange', {
+            detail: { imageId, slideIndex: newIndex }
+          }));
+        });
+      } catch (err) {
+        console.warn('[Le Bordeu] Erro ao inicializar Splide da galeria:', err);
+        if (mainGallery) {
+          mainGallery.classList.add('is-initialized');
+          const first = mainGallery.querySelector('.splide__slide');
+          if (first) first.classList.add('is-active');
+        }
+      }
     }
 
     mountGallery();
@@ -582,28 +608,30 @@ document.addEventListener('DOMContentLoaded', function () {
         return Array.from(mainGallery.querySelectorAll('.splide__slide'));
       },
       goToIndex(index) {
-        if (index < 0 || !mainSplide) return false;
+        if (index < 0) return false;
         const slides = Array.from(mainGallery.querySelectorAll('.splide__slide'));
         if (index >= slides.length) return false;
-        if (index === mainSplide.index) return true;
-
-        isProgrammaticMove = true;
-        mainSplide.go(index);
+        if (mainSplide) {
+          if (index === mainSplide.index) return true;
+          isProgrammaticMove = true;
+          mainSplide.go(index);
+        } else {
+          slides.forEach((s, i) => {
+            s.classList.toggle('is-active', i === index);
+            s.style.opacity = (i === index) ? '1' : '0';
+          });
+        }
         return true;
       },
       goToImageId(imageId) {
-        if (!imageId || !mainSplide) return false;
+        if (!imageId) return false;
 
         const targetId = String(imageId);
         const slides = Array.from(mainGallery.querySelectorAll('.splide__slide'));
         const slideIndex = slides.findIndex(slide => slide.dataset.imageId === targetId);
 
         if (slideIndex === -1) return false;
-        if (slideIndex === mainSplide.index) return true;
-
-        isProgrammaticMove = true;
-        mainSplide.go(slideIndex);
-        return true;
+        return this.goToIndex(slideIndex);
       },
       configureVariantTerms() {},
       filterByVariant(variant) {

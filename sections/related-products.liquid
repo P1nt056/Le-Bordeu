@@ -22,9 +22,9 @@
         {% unless related_product.id == product.id %}
           {% assign count = count | plus: 1 %}
           <li class="splide__slide">
-            <div class="product-card">
+            <div class="product-card" data-product-handle="{{ related_product.handle }}">
               <a href="{{ related_product.url }}">
-                <div class="product-card__media">
+                <div class="product-card__media{% if related_product.images.size > 1 %} has-hover-image{% endif %}">
                   {% if related_product.compare_at_price_max > related_product.price %}
                     <span class="tag tag--sale" data-i18n="prod_promo">Promoção</span>
                   {% endif %}
@@ -34,7 +34,7 @@
                   {% endif %}
                 </div>
                 <div class="product-card__info">
-                  <h4>{{ related_product.title }}</h4>
+                  <h4 data-product-title>{{ related_product.title }}</h4>
                   <div class="price">
                     {% if related_product.compare_at_price_max > related_product.price %}
                       <span class="price--old">{{ related_product.compare_at_price_max | money }}</span>
@@ -65,9 +65,9 @@
             {% unless already_shown %}
               {% assign count = count | plus: 1 %}
               <li class="splide__slide">
-                <div class="product-card">
+                <div class="product-card" data-product-handle="{{ fallback_product.handle }}">
                   <a href="{{ fallback_product.url }}">
-                    <div class="product-card__media">
+                    <div class="product-card__media{% if fallback_product.images.size > 1 %} has-hover-image{% endif %}">
                       {% if fallback_product.compare_at_price_max > fallback_product.price %}
                         <span class="tag tag--sale" data-i18n="prod_promo">Promoção</span>
                       {% endif %}
@@ -77,7 +77,7 @@
                       {% endif %}
                     </div>
                     <div class="product-card__info">
-                      <h4>{{ fallback_product.title }}</h4>
+                      <h4 data-product-title>{{ fallback_product.title }}</h4>
                       <div class="price">
                         {% if fallback_product.compare_at_price_max > fallback_product.price %}
                           <span class="price--old">{{ fallback_product.compare_at_price_max | money }}</span>
